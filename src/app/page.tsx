@@ -167,7 +167,7 @@ export default function Home() {
           <Link href="/" className="flex items-center gap-2 font-title font-bold text-lg tracking-tight hover:opacity-80 transition-opacity">
             <span className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-md px-2 py-0.5 rounded-lg text-sm font-semibold">AJ</span>
             <span>Aditya<span className="text-blue-500">.</span>Jain</span>
-          </Link>
+          </a>
           
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-[var(--muted)]">
             <a href="#about" className="hover:text-[var(--fg)] transition-colors">About</a>
@@ -251,14 +251,14 @@ export default function Home() {
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-4 pt-6">
-              <Link href="/js" className="group px-6 py-3.5 text-sm font-bold text-white bg-slate-900 rounded-full hover:bg-slate-800 transition-all flex items-center gap-2 shadow-xl hover:shadow-2xl hover:-translate-y-1">
+              <a href="https://jumpstreet.tech" target="_blank" rel="noopener noreferrer" className="group px-6 py-3.5 text-sm font-bold text-white bg-slate-900 rounded-full hover:bg-slate-800 transition-all flex items-center gap-2 shadow-xl hover:shadow-2xl hover:-translate-y-1">
                 <span>JumpStreet Portal</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
+              </a>
               <Link href="/charity-quiz" className="group px-6 py-3.5 text-sm font-bold text-white bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full hover:from-emerald-400 hover:to-teal-500 transition-all flex items-center gap-2 shadow-xl hover:shadow-2xl hover:-translate-y-1">
                 <span className="text-lg">🎮</span>
                 <span>Play Charity Quiz</span>
-              </Link>
+              </a>
               <a href="#about" className="px-6 py-3.5 text-sm font-bold text-slate-700 bg-white/60 border border-black/10 rounded-full hover:bg-white transition-all shadow-sm hover:shadow-md backdrop-blur-xl">
                 View Portfolio
               </a>
