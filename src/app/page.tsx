@@ -167,7 +167,7 @@ export default function Home() {
           <Link href="/" className="flex items-center gap-2 font-title font-bold text-lg tracking-tight hover:opacity-80 transition-opacity">
             <span className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-md px-2 py-0.5 rounded-lg text-sm font-semibold">AJ</span>
             <span>Aditya<span className="text-blue-500">.</span>Jain</span>
-          </a>
+          </Link>
           
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-[var(--muted)]">
             <a href="#about" className="hover:text-[var(--fg)] transition-colors">About</a>
