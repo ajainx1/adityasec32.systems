@@ -216,7 +216,7 @@ export default function Home() {
         </div>
       </div>
 
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 space-y-24 relative z-10">
+      <main id="main-content" className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 space-y-24 relative z-10">
         
         {/* HERO SECTION */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center min-h-[calc(100vh-12rem)]">
@@ -266,7 +266,7 @@ export default function Home() {
           </div>
 
           {/* Sleek macOS Terminal Card */}
-          <div className="lg:col-span-6 w-full">
+          <div className="lg:col-span-6 w-full" aria-label="Interactive Terminal Portfolio Navigation">
             <TiltWrapper className="w-full h-[450px] rounded-[24px] border border-white/40 bg-white/60 backdrop-blur-2xl overflow-hidden flex flex-col shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-all hover:shadow-[0_30px_60px_rgba(0,0,0,0.15)]">
               {/* macOS Window Controls */}
               <div className="bg-white/50 px-5 py-3.5 border-b border-black/5 flex items-center justify-between backdrop-blur-md">

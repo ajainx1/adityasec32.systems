@@ -19,8 +19,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Aditya Jain — SME Cybersecurity Engineer & Purple Teaming",
-  description: "Portfolio of Aditya Jain — 4+ years enterprise SecOps, EDR/SIEM SME, Purple Teaming, Threat Hunting, and Incident Response.",
+  title: "Aditya Jain | Cybersecurity Engineer & Purple Teamer",
+  description: "4+ years enterprise SecOps, SentinelOne/EDR SME, Wazuh SIEM, Purple Teaming, Threat Hunting, and Incident Response.",
   manifest: "/manifest.json",
   metadataBase: new URL("https://adityasec32.systems"),
   alternates: {
@@ -31,8 +31,22 @@ export const metadata: Metadata = {
     description: "4+ years enterprise SecOps, SentinelOne/EDR SME, Wazuh SIEM, Purple Teaming, and Threat Hunting.",
     url: "https://adityasec32.systems",
     siteName: "AdityaSec Systems",
+    images: [
+      {
+        url: "/icon.png",
+        width: 1200,
+        height: 630,
+        alt: "Aditya Jain Cybersecurity Engineer",
+      },
+    ],
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Aditya Jain | Cybersecurity Engineer & Purple Teamer",
+    description: "4+ years enterprise SecOps, SentinelOne/EDR SME, Wazuh SIEM, Purple Teaming, and Threat Hunting.",
+    images: ["/icon.png"],
   },
   other: {
     'google-adsense-account': 'ca-pub-6072468142870937',
@@ -56,6 +70,15 @@ export default function RootLayout({
     "name": "Aditya Jain",
     "jobTitle": "SME Cybersecurity Engineer",
     "url": "https://adityasec32.systems",
+    "knowsAbout": [
+      "Cybersecurity",
+      "SecOps",
+      "SentinelOne EDR",
+      "Wazuh SIEM",
+      "Purple Teaming",
+      "Threat Hunting",
+      "Incident Response"
+    ],
     "sameAs": [
       "https://cyberkarma.me",
       "https://jumpstreet.tech"
@@ -65,10 +88,26 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
+        <meta name="theme-color" content="#0f172a" />
         <meta name="google-adsense-account" content="ca-pub-6072468142870937" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/icon.png" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+        <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
+        <meta httpEquiv="X-Frame-Options" content="SAMEORIGIN" />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+        <Script
+          id="sw-register"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `if ('serviceWorker' in navigator) { window.addEventListener('load', function() { navigator.serviceWorker.register('/sw.js').catch(function(err){}); }); }`
+          }}
         />
         <Script
           id="adsbygoogle-init"
@@ -80,6 +119,14 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${outfit.variable} ${mono.variable} antialiased bg-[var(--bg)] text-[var(--fg)]`}
       >
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-cyan-500 focus:text-slate-950 font-bold rounded-lg shadow-lg font-mono">
+          Skip to main content
+        </a>
+        <noscript>
+          <div className="p-6 bg-slate-900 text-cyan-400 text-center font-mono text-sm border-b border-cyan-500/30">
+            <strong>Aditya Jain SecOps Portfolio requires JavaScript.</strong> 4+ years Enterprise SecOps, EDR/SIEM SME, Purple Teaming & Threat Hunting.
+          </div>
+        </noscript>
         <Background3D />
         <div aria-hidden="true" className="h-1 w-full bg-gradient-to-r from-[#ff9933] via-white to-[#128807]"></div>
         {children}
