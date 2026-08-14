@@ -19,24 +19,41 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Aditya Jain | Cybersecurity Engineer & Purple Teamer",
-  description: "4+ years enterprise SecOps, SentinelOne/EDR SME, Wazuh SIEM, Purple Teaming, Threat Hunting, and Incident Response.",
+  title: "Aditya Jain — Cybersecurity Engineer & Purple Teamer",
+  description: "Network Security & NGFW Architecture (Palo Alto · Check Point · Fortinet) · VAPT · SIEM/EDR · DFIR — securing 750+ government endpoints & Critical National Infrastructure.",
+  keywords: [
+    "Aditya Jain",
+    "Cybersecurity Engineer",
+    "Purple Teamer",
+    "SecOps",
+    "Threat Hunting",
+    "SentinelOne",
+    "Wazuh SIEM",
+    "Check Point NGFW",
+    "Fortinet FortiGate",
+    "Palo Alto",
+    "DFIR",
+    "VAPT",
+    "Active Directory Security",
+    "NIST CSF",
+    "CERT-In"
+  ],
   manifest: "/manifest.json",
   metadataBase: new URL("https://adityasec32.systems"),
   alternates: {
     canonical: "https://adityasec32.systems",
   },
   openGraph: {
-    title: "Aditya Jain — SME Cybersecurity Engineer",
-    description: "4+ years enterprise SecOps, SentinelOne/EDR SME, Wazuh SIEM, Purple Teaming, and Threat Hunting.",
+    title: "Aditya Jain — Cybersecurity Engineer & Purple Teamer",
+    description: "Network Security & NGFW Architecture (Palo Alto · Check Point · Fortinet) · VAPT · SIEM/EDR · DFIR — securing 750+ government endpoints & Critical National Infrastructure.",
     url: "https://adityasec32.systems",
     siteName: "AdityaSec Systems",
     images: [
       {
-        url: "/icon.png",
+        url: "/og_image.png",
         width: 1200,
         height: 630,
-        alt: "Aditya Jain Cybersecurity Engineer",
+        alt: "Aditya Jain — Cybersecurity Engineer & Purple Teamer",
       },
     ],
     locale: "en_US",
@@ -44,13 +61,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Aditya Jain | Cybersecurity Engineer & Purple Teamer",
-    description: "4+ years enterprise SecOps, SentinelOne/EDR SME, Wazuh SIEM, Purple Teaming, and Threat Hunting.",
-    images: ["/icon.png"],
+    title: "Aditya Jain — Cybersecurity Engineer & Purple Teamer",
+    description: "Network Security & NGFW Architecture (Palo Alto · Check Point · Fortinet) · VAPT · SIEM/EDR · DFIR — securing 750+ government endpoints & Critical National Infrastructure.",
+    images: ["/og_image.png"],
   },
   other: {
     'google-adsense-account': 'ca-pub-6072468142870937',
-    'theme-color': '#0f172a',
+    'theme-color': '#020617',
   },
   appleWebApp: {
     capable: true,
@@ -68,27 +85,32 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Aditya Jain",
-    "jobTitle": "SME Cybersecurity Engineer",
+    "jobTitle": "Cybersecurity Engineer & Purple Teamer",
     "url": "https://adityasec32.systems",
     "knowsAbout": [
       "Cybersecurity",
-      "SecOps",
-      "SentinelOne EDR",
-      "Wazuh SIEM",
+      "Network Security",
       "Purple Teaming",
       "Threat Hunting",
-      "Incident Response"
+      "SentinelOne EDR",
+      "Wazuh SIEM",
+      "Check Point NGFW",
+      "Fortinet FortiGate",
+      "Active Directory Security",
+      "Incident Response",
+      "DFIR"
     ],
     "sameAs": [
       "https://cyberkarma.me",
-      "https://jumpstreet.tech"
+      "https://github.com/ajainx1",
+      "https://www.linkedin.com/in/adityajainx1/"
     ]
   };
 
   return (
     <html lang="en" className="dark">
       <head>
-        <meta name="theme-color" content="#0f172a" />
+        <meta name="theme-color" content="#020617" />
         <meta name="google-adsense-account" content="ca-pub-6072468142870937" />
         <link rel="apple-touch-icon" sizes="180x180" href="/icon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -117,13 +139,13 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${outfit.variable} ${mono.variable} antialiased bg-[var(--bg)] text-[var(--fg)]`}
+        className={`${inter.variable} ${outfit.variable} ${mono.variable} antialiased bg-slate-950 text-slate-100`}
       >
-        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-cyan-500 focus:text-slate-950 font-bold rounded-lg shadow-lg font-mono">
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-emerald-500 focus:text-slate-950 font-bold rounded-lg shadow-lg font-mono">
           Skip to main content
         </a>
         <noscript>
-          <div className="p-6 bg-slate-900 text-cyan-400 text-center font-mono text-sm border-b border-cyan-500/30">
+          <div className="p-6 bg-slate-900 text-emerald-400 text-center font-mono text-sm border-b border-emerald-500/30">
             <strong>Aditya Jain SecOps Portfolio requires JavaScript.</strong> 4+ years Enterprise SecOps, EDR/SIEM SME, Purple Teaming & Threat Hunting.
           </div>
         </noscript>
