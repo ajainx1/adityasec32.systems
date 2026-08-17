@@ -123,7 +123,7 @@ export default function CharityQuizClient() {
   
   const [category, setCategory] = useState<CategoryKey | 'custom-ai'>('cybersecurity');
   const [difficulty, setDifficulty] = useState<Difficulty>('beginner');
-  const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
+  const [currentQuestion, setCurrentQuestion] = useState<Question | null>(quizData.cybersecurity.questions[0]);
   const [recipient, setRecipient] = useState('human');
   const [showAstro, setShowAstro] = useState(false);
   const [showHint, setShowHint] = useState(false);
@@ -753,7 +753,6 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
       addToast('Copied share link & opening WhatsApp!', 'success');
     }
   };
-
   // Share AI Custom Quiz Accomplishment (Viral Booster)
   const handleShareAIResult = () => {
     const text = `🧠 I just scored ${aiCorrectCount}/5 in a custom AI-generated quiz on "${aiTopic}" on Cyber FreeRice, donating ${aiCorrectCount * 10} grains of rice! Try any topic here:`;
@@ -812,36 +811,56 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
       </div>
 
       {/* Header */}
-      <header className={`sticky top-0 z-50 px-4 sm:px-6 py-4 flex items-center justify-between transition-all duration-300 ${isDark ? 'bg-black/20 border-b border-white/10' : 'bg-white/30 border-b border-white/40'} backdrop-blur-2xl shadow-sm`}>
-        <Link href="/" className="flex items-center gap-2 text-sm font-medium hover:opacity-70 transition-opacity">
-          <ArrowLeft size={16} /> Dashboard
-        </Link>
-        
-        <div className="flex items-center gap-2 font-semibold text-lg tracking-tight">
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 text-white flex items-center justify-center text-sm shadow-md">C</div>
-          <span>Charity Quiz</span>
+      <header className={`sticky top-0 z-50 px-4 sm:px-8 py-3.5 flex items-center justify-between transition-all duration-300 ${isDark ? 'bg-slate-950/85 border-b border-emerald-500/20' : 'bg-white/90 border-b border-emerald-200'} backdrop-blur-2xl shadow-lg`}>
+        <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 text-slate-950 flex items-center justify-center font-black text-base shadow-md shadow-emerald-500/30 group-hover:scale-105 transition-transform">
+              🐾
+            </div>
+            <div className="flex flex-col">
+              <span className="font-title font-black text-base sm:text-lg tracking-tight bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">
+                CyberKarma
+              </span>
+              <span className="text-[9px] font-mono font-bold text-emerald-500/80 -mt-1">
+                cyberkarma.me
+              </span>
+            </div>
+          </Link>
+          <a
+            href="https://adityasec32.systems"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:inline-flex items-center gap-1 text-[11px] font-mono font-bold px-2.5 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-all ml-2"
+          >
+            <span>🛡️ AdityaSec</span>
+          </a>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 text-xs font-mono font-bold px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+            <span>🌾</span>
+            <span>{score} Grains</span>
+          </div>
+
           {dailyStreak > 0 && (
-            <div className="hidden sm:flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full bg-white/20 border border-white/30 backdrop-blur-md shadow-sm">
-              🔥 {dailyStreak}
+            <div className="hidden sm:flex items-center gap-1 text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400">
+              🔥 {dailyStreak}d
             </div>
           )}
 
-          <button onClick={toggleTheme} className="p-2 rounded-full bg-white/20 border border-white/30 backdrop-blur-md hover:bg-white/30 transition-all shadow-sm">
-            {isDark ? <Sun size={16} /> : <Moon size={16} />}
+          <button onClick={toggleTheme} className="p-2 rounded-xl bg-slate-800/60 border border-slate-700/60 hover:bg-slate-700/80 transition-all text-slate-300" aria-label="Toggle Theme">
+            {isDark ? <Sun size={15} /> : <Moon size={15} />}
           </button>
 
           {user ? (
-            <div className="flex items-center gap-3 px-3 py-1.5 rounded-full bg-white/20 border border-white/30 backdrop-blur-md shadow-sm">
-              <img src={user.avatar} alt="User" className="w-6 h-6 rounded-full shadow-sm" />
-              <span className="text-xs font-semibold hidden sm:block">{user.name}</span>
-              <button onClick={handleLogout} className="text-rose-500 hover:text-rose-400"><LogOut size={14} /></button>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-800/60 border border-slate-700 text-xs font-mono">
+              <img src={user.avatar} alt="User" className="w-5 h-5 rounded-full" />
+              <span className="hidden sm:inline font-bold text-slate-200">{user.name}</span>
+              <button onClick={handleLogout} className="text-rose-400 hover:text-rose-300 ml-1" aria-label="Logout"><LogOut size={13} /></button>
             </div>
           ) : (
-            <button onClick={() => setShowEmailModal(true)} className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold bg-white text-slate-800 hover:bg-gray-50 transition-all shadow-md">
-              <User size={16} /> Sign In
+            <button onClick={() => setShowEmailModal(true)} className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/20">
+              <User size={13} /> Sign In
             </button>
           )}
         </div>
