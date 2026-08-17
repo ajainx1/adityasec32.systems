@@ -6,31 +6,42 @@ export default function Global3DBackground() {
   const [vantaEffect, setVantaEffect] = useState<any>(null);
 
   useEffect(() => {
-    // 1. Add Three.js script to document body if not present
-    let threeScript = document.querySelector('script[src*="three.min.js"]') as HTMLScriptElement;
-    if (!threeScript) {
-      threeScript = document.createElement("script");
-      threeScript.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js";
-      threeScript.async = true;
-      document.body.appendChild(threeScript);
-    }
+    let activeEffect: any = null;
+    let isCancelled = false;
 
-    const initVanta = () => {
-      // 2. Add Vanta.net script to document body if not present
-      let vantaScript = document.querySelector('script[src*="vanta.net.min.js"]') as HTMLScriptElement;
-      if (!vantaScript) {
-        vantaScript = document.createElement("script");
-        vantaScript.src = "https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js";
-        vantaScript.async = true;
-        document.body.appendChild(vantaScript);
+    const loadScript = (src: string): Promise<void> => {
+      return new Promise((resolve) => {
+        const existing = document.querySelector(`script[src="${src}"]`) as HTMLScriptElement;
+        if (existing) {
+          resolve();
+          return;
+        }
+        const script = document.createElement("script");
+        script.src = src;
+        script.async = true;
+        script.onload = () => resolve();
+        script.onerror = () => resolve(); // continue even on error
+        document.head.appendChild(script);
+      });
+    };
+
+    const startVanta = async () => {
+      // 1. Ensure Three.js is loaded
+      if (!(window as any).THREE) {
+        await loadScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js");
       }
+      // 2. Ensure Vanta.NET is loaded
+      if (!(window as any).VANTA?.NET) {
+        await loadScript("https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js");
+      }
+
+      if (isCancelled) return;
 
       const tryInit = () => {
         const VANTA = (window as any).VANTA;
-        if (VANTA && VANTA.NET && vantaRef.current) {
-          const isLight = document.body.classList.contains("light-mode") || document.body.classList.contains("theme-light");
+        if (VANTA && VANTA.NET && vantaRef.current && !activeEffect) {
           try {
-            const effect = VANTA.NET({
+            activeEffect = VANTA.NET({
               el: vantaRef.current,
               mouseControls: true,
               touchControls: true,
@@ -39,78 +50,43 @@ export default function Global3DBackground() {
               minWidth: 200.0,
               scale: 1.0,
               scaleMobile: 1.0,
-              color: isLight ? 0x0f4c81 : 0x38bdf8,
-              backgroundColor: isLight ? 0xf8fafc : 0x0b0f19,
-              points: 15.0,
-              maxDistance: 24.0,
+              color: 0x10b981,
+              backgroundColor: 0x020617,
+              points: 12.0,
+              maxDistance: 22.0,
               spacing: 18.0,
               showDots: true,
             });
-            setVantaEffect(effect);
+            setVantaEffect(activeEffect);
           } catch (err) {
-            console.error("Vanta initialization error:", err);
+            console.warn("Vanta 3D WebGL background init:", err);
           }
-        } else {
-          // Retry in case loading takes a brief moment
-          setTimeout(tryInit, 100);
         }
       };
 
-      if (threeScript.onload) {
-        // Scripts are ready or already loading
-        tryInit();
-      } else {
-        vantaScript.onload = tryInit;
-      }
+      tryInit();
+      // Safety retry after brief paint delay
+      setTimeout(tryInit, 250);
     };
 
-    if (window.hasOwnProperty("THREE")) {
-      initVanta();
-    } else {
-      threeScript.onload = initVanta;
-    }
+    startVanta();
 
     return () => {
-      if (vantaEffect) {
+      isCancelled = true;
+      if (activeEffect) {
         try {
-          vantaEffect.destroy();
-        } catch (e) {
-          // ignore destroy errors on unmount
-        }
+          activeEffect.destroy();
+        } catch (e) {}
       }
     };
   }, []);
 
-  // Sync Vanta theme configuration when light/dark mode changes on body class list
-  useEffect(() => {
-    if (vantaEffect) {
-      const updateVantaTheme = () => {
-        const isLight = document.body.classList.contains("light-mode") || document.body.classList.contains("theme-light");
-        try {
-          vantaEffect.setOptions({
-            color: isLight ? 0x0f4c81 : 0x38bdf8,
-            backgroundColor: isLight ? 0xf8fafc : 0x0b0f19,
-          });
-        } catch (e) {
-          // Vanta effect might be destroyed or in transition
-        }
-      };
-
-      const observer = new MutationObserver(updateVantaTheme);
-      observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-
-      // Trigger initial sync
-      updateVantaTheme();
-
-      return () => observer.disconnect();
-    }
-  }, [vantaEffect]);
-
   return (
     <div
       ref={vantaRef}
-      className="fixed inset-0 -z-10 w-screen h-screen transition-opacity duration-700"
-      style={{ pointerEvents: "none" }}
+      id="global-3d-bg"
+      className="fixed inset-0 pointer-events-none z-0 opacity-40 transition-opacity duration-1000"
+      style={{ width: "100vw", height: "100vh" }}
     />
   );
 }

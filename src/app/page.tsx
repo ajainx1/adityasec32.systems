@@ -240,10 +240,10 @@ export default function Home() {
       
       {/* Background Cyber Mesh with Motion Reduction Respect */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-[#020617]" />
-        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full blur-[140px] opacity-20 bg-emerald-700" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[55vw] h-[55vw] rounded-full blur-[150px] opacity-15 bg-cyan-700" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(16,185,129,0.06),rgba(255,255,255,0))]" />
+        <div className="absolute inset-0 bg-[#020617]/75 backdrop-blur-[1px]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full blur-[140px] opacity-15 bg-emerald-700 pointer-events-none" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[55vw] h-[55vw] rounded-full blur-[150px] opacity-10 bg-cyan-700 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(16,185,129,0.04),rgba(255,255,255,0))]" />
       </div>
 
       {/* CISO / Recruiter Sanitization Trust Banner */}
