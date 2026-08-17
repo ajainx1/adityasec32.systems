@@ -40,6 +40,79 @@ const levelTitles = [
 export default function CharityQuizClient() {
   // State
   const [score, setScore] = useState(0);
+
+  // Web Audio Synthesizer & Audio Toggle
+  const [isAudioMuted, setIsAudioMuted] = useState(false);
+  const [showLuckyCrateModal, setShowLuckyCrateModal] = useState(false);
+  const [luckyReward, setLuckyReward] = useState<{ text: string; grains: number } | null>(null);
+
+  const playChimeSound = (streakCount: number) => {
+    if (isAudioMuted || typeof window === 'undefined') return;
+    try {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const baseFreqs = [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50, 1174.66, 1318.51];
+      const noteIndex = Math.min(streakCount, baseFreqs.length - 1);
+      const freq = baseFreqs[noteIndex];
+
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.5, ctx.currentTime + 0.12);
+      gain.gain.setValueAtTime(0.18, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.35);
+    } catch (e) {}
+  };
+
+  const playIncorrectBuzz = () => {
+    if (isAudioMuted || typeof window === 'undefined') return;
+    try {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(150, ctx.currentTime);
+      gain.gain.setValueAtTime(0.12, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.25);
+    } catch (e) {}
+  };
+
+  const handleOpenLuckyCrate = () => {
+    const todayStr = new Date().toISOString().split('T')[0];
+    const lastClaim = localStorage.getItem('charityQuizLastCrateClaim') || '';
+    if (lastClaim === todayStr) {
+      addToast('🎁 You already opened your Daily Karma Crate today! Come back tomorrow for more free grains.', 'info');
+      return;
+    }
+
+    const rewards = [
+      { text: '🎉 MEGA KARMA JACKPOT! +250 Grains Donated!', grains: 250 },
+      { text: '🛡️ STREAK SHIELD + +100 Grains Donated!', grains: 100 },
+      { text: '⚡ 2X KARMIC SURGE + +150 Grains Donated!', grains: 150 },
+      { text: '🌟 DIVINE COMPASSION BLESSING! +500 Grains Donated!', grains: 500 }
+    ];
+
+    const chosen = rewards[Math.floor(Math.random() * rewards.length)];
+    setLuckyReward(chosen);
+    saveScore(score + chosen.grains);
+    localStorage.setItem('charityQuizLastCrateClaim', todayStr);
+    setShowLuckyCrateModal(true);
+    addToast(`🎁 Claimed Daily Karma Crate: +${chosen.grains} grains!`, 'success');
+  };
+
   const [streak, setStreak] = useState(0);
   
   // Daily Streak & Shields State
@@ -48,7 +121,7 @@ export default function CharityQuizClient() {
   const [lastPlayedDate, setLastPlayedDate] = useState('');
   const [dailyPlanetBonus, setDailyPlanetBonus] = useState({ name: '', targetRecipient: '', message: '' });
   
-  const [category, setCategory] = useState<CategoryKey | 'custom-ai'>('animals');
+  const [category, setCategory] = useState<CategoryKey | 'custom-ai'>('cybersecurity');
   const [difficulty, setDifficulty] = useState<Difficulty>('beginner');
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
   const [recipient, setRecipient] = useState('human');
@@ -800,6 +873,58 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
             to feed <strong className={isDark ? 'text-rose-300 font-bold' : 'text-rose-700 font-extrabold'}>rescue animals</strong> and <strong className={isDark ? 'text-amber-300 font-bold' : 'text-amber-700 font-extrabold'}>vulnerable families</strong> globally. Your knowledge creates real-world miracles.
           </p>
 
+          
+        {/* Real-World Stray Animal Meal Impact HUD */}
+        <div className={`w-full p-6 rounded-3xl border backdrop-blur-2xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 transition-all ${isDark ? 'bg-gradient-to-r from-emerald-950/40 via-slate-900/60 to-rose-950/40 border-emerald-500/20' : 'bg-gradient-to-r from-emerald-50/90 via-white/90 to-rose-50/90 border-emerald-200'}`}>
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 text-slate-950 flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/20 flex-shrink-0 animate-bounce">
+              🐕
+            </div>
+            <div>
+              <div className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400">
+                Live Animal Feeding Impact • Patna Division
+              </div>
+              <h3 className="text-xl sm:text-2xl font-black font-title text-white">
+                {`${Math.floor(score / 50)} Warm Street Meals Funded`}
+              </h3>
+              <p className="text-xs text-slate-300">
+                {`Every 50 grains of rice unlocks 1 full bowl of nutritious food for rescue dogs in Patna.`}
+              </p>
+            </div>
+          </div>
+
+          <div className="w-full md:w-72 flex flex-col gap-2">
+            <div className="flex justify-between text-xs font-mono font-bold">
+              <span className="text-slate-300">Next Street Meal:</span>
+              <span className="text-emerald-400">{`${score % 50} / 50 Grains` }</span>
+            </div>
+            <div className="w-full h-3.5 bg-black/40 rounded-full overflow-hidden border border-white/10 p-0.5">
+              <div 
+                className="h-full bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 rounded-full transition-all duration-500 shadow-[0_0_12px_rgba(16,185,129,0.5)]"
+                style={{ width: `${Math.min(100, Math.round(((score % 50) / 50) * 100))}%` }}
+              />
+            </div>
+            <div className="flex justify-between items-center pt-1">
+              <button 
+                onClick={handleOpenLuckyCrate}
+                className="text-[11px] font-mono font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1.5 underline"
+              >
+                🎁 Open Daily Karma Crate
+              </button>
+              <button 
+                onClick={handleShare}
+                className="text-[11px] font-mono font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1"
+              >
+                <Share2 size={12} /> Share Impact
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* High-CTR AdSense Sponsor Banner */}
+        <AdSenseBanner isDark={isDark} adSlot="1234567890" />
+
+
           {/* Highlight Badges */}
           <div className="flex flex-wrap justify-center gap-3 text-xs font-mono font-bold uppercase tracking-wider">
             <span className={`px-4 py-1.5 rounded-full shadow-sm flex items-center gap-1.5 border ${isDark ? 'bg-rose-500/10 border-rose-500/20 text-rose-300' : 'bg-rose-100 border-rose-200 text-rose-800'}`}>
@@ -1186,6 +1311,37 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
           </div>
         </div>
       </main>
+
+      {/* Daily Lucky Karma Crate Modal */}
+      <AnimatePresence>
+        {showLuckyCrateModal && luckyReward && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+            <motion.div 
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              className="bg-slate-900 border border-amber-500/30 p-8 rounded-3xl max-w-md w-full text-center space-y-4 shadow-2xl relative overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-amber-400 via-rose-500 to-emerald-400" />
+              <div className="text-6xl animate-bounce">🎁</div>
+              <h3 className="text-2xl font-black font-title text-white">Daily Karma Crate Unlocked!</h3>
+              <p className="text-sm font-mono text-amber-300 font-bold leading-relaxed">
+                {luckyReward.text}
+              </p>
+              <p className="text-xs text-slate-300">
+                Your bonus grains have been added to the Patna Street Animal Rescue Feeding Pool!
+              </p>
+              <button
+                onClick={() => setShowLuckyCrateModal(false)}
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-400 to-rose-500 text-slate-950 font-black text-sm uppercase tracking-wider shadow-lg hover:brightness-110 transition-all"
+              >
+                Claim &amp; Keep Playing 🚀
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
 
       {/* AI Quiz Settings Modal */}
       <AnimatePresence>
