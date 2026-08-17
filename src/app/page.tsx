@@ -265,11 +265,16 @@ export default function Home() {
           {/* Exactly Five Nav Links */}
           <nav className="hidden md:flex items-center gap-8 text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
             <a href="#home" className="hover:text-emerald-400 transition-colors">Home</a>
-            <a href="#projects" className="hover:text-emerald-400 transition-colors flex items-center gap-1.5">
-              Projects
-              <span className="relative flex h-1.5 w-1.5">
+            <a 
+              href="#projects" 
+              className="relative group px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:text-white hover:bg-emerald-500/25 hover:border-emerald-400 transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.25)]"
+              title="Explore Planetary Defense Grid & Case Studies"
+            >
+              <Globe className="w-3.5 h-3.5 text-emerald-400 group-hover:rotate-180 transition-transform duration-700" />
+              <span className="tracking-widest">Projects &bull; Orbit</span>
+              <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
               </span>
             </a>
             <a href="#writeups" className="hover:text-emerald-400 transition-colors">Write-Ups</a>
@@ -338,13 +343,14 @@ export default function Home() {
               {/* 1. Download Resume (Cyber Tactical Scramble) */}
               <CyberResumeButton variant="hero" showChecksum={true} />
 
-              {/* 2. View Case Studies (Outline) */}
+              {/* 2. View Case Studies (Cosmic Orbital Defense Grid CTA) */}
               <a 
                 href="#projects"
-                className="px-6 py-3.5 rounded-xl text-xs font-mono font-bold bg-slate-900/80 border border-emerald-500/30 text-emerald-300 hover:bg-slate-800 hover:border-emerald-500/60 transition-all flex items-center gap-2 hover:-translate-y-0.5 min-h-[44px]"
+                className="group relative px-6 py-3.5 rounded-xl text-xs font-mono font-bold bg-slate-900/90 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-950/50 hover:border-emerald-400 hover:text-white transition-all flex items-center gap-2.5 hover:-translate-y-0.5 min-h-[44px] shadow-xl shadow-emerald-950/40"
               >
-                <span>View Case Studies</span>
-                <ArrowRight className="w-4 h-4" />
+                <Globe className="w-4 h-4 text-emerald-400 group-hover:rotate-45 transition-transform" />
+                <span>🛰️ View Orbital Defense Grid &amp; Projects</span>
+                <ArrowRight className="w-4 h-4 text-emerald-400 group-hover:translate-x-1 transition-transform" />
               </a>
 
               {/* 3. Contact (Ghost) */}
@@ -433,189 +439,305 @@ export default function Home() {
           </div>
         </section>
 
-        {/* TIER 2 & 3: KEY PROJECTS & CASE STUDIES */}
-        <section id="projects" className="space-y-8 pt-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="space-y-1">
-              <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
-                <Layers className="w-3.5 h-3.5" />
-                <span>01 // Enterprise Case Studies &amp; Verified Systems</span>
+        {/* TIER 2 & 3: KEY PROJECTS & CASE STUDIES — TOP-ANGLE UNIVERSE DEFENSE GRID */}
+        <section id="projects" className="space-y-10 pt-8">
+          
+          {/* Top-Angle Orbital Command Banner */}
+          <div className="p-6 sm:p-8 rounded-[28px] bg-gradient-to-br from-slate-950 via-slate-900/95 to-emerald-950/40 border border-emerald-500/30 backdrop-blur-2xl shadow-2xl relative overflow-hidden space-y-6">
+            {/* Ambient Nebula Glow */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-xs font-mono font-bold text-emerald-300">
+                  <Globe className="w-3.5 h-3.5 text-emerald-400 animate-spin-slow" />
+                  <span>TOP-ANGLE ORBITAL RADAR // ALL-SYSTEMS UNIVERSE MATRIX</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-black font-title text-white tracking-tight">
+                  Critical National Infrastructure &amp; Engineering Grid
+                </h2>
+                <p className="text-sm text-slate-300 max-w-2xl leading-relaxed">
+                  An omniscient, top-down orbital vantage point connecting 6 synchronized state defense portals, sub-second telemetry nodes, and algorithmic ecosystems.
+                </p>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-bold font-title text-white">
-                Government &amp; Enterprise Project Case Studies
-              </h2>
+
+              {/* 4 Macroscopic Telemetry Pillars */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-emerald-500/25 text-center shadow-lg shadow-emerald-950/30">
+                  <div className="text-xl font-mono font-black text-emerald-400">38 / 38</div>
+                  <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mt-0.5">DHQ Loopbacks</div>
+                </div>
+                <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-cyan-500/25 text-center shadow-lg shadow-cyan-950/30">
+                  <div className="text-xl font-mono font-black text-cyan-400">293</div>
+                  <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mt-0.5">Monitored IPs</div>
+                </div>
+                <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-blue-500/25 text-center shadow-lg shadow-blue-950/30">
+                  <div className="text-xl font-mono font-black text-blue-400">0.01%</div>
+                  <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mt-0.5">Firewall Drop</div>
+                </div>
+                <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-indigo-500/25 text-center shadow-lg shadow-indigo-950/30">
+                  <div className="text-xl font-mono font-black text-indigo-400">60%</div>
+                  <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mt-0.5">Audit Time Cut</div>
+                </div>
+              </div>
             </div>
-            <Link 
-              href="/projects" 
-              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
-            >
-              <span>Explore All Project Blueprints</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* 6 Planetary Defense Grid Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
-            {/* Project 1: CDAC/CERT-In Compliance Automation Engine */}
+            {/* Node 01: CDAC/CERT-In Compliance Automation Engine */}
             <TiltWrapper tiltDeg={3}>
-              <div className="h-full p-8 rounded-[24px] bg-slate-900/60 border border-emerald-500/15 hover:border-emerald-500/40 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group">
-                <div className="space-y-4">
+              <div className="h-full p-7 rounded-[24px] bg-slate-900/70 border border-emerald-500/20 hover:border-emerald-500/50 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group hover:shadow-xl hover:shadow-emerald-950/40">
+                <div className="space-y-3.5">
                   <div className="flex items-center justify-between">
-                    <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
-                      Government Case Study (Sanitized)
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                      Case Study (Sanitized)
                     </span>
-                    <span className="text-[11px] font-mono text-slate-400 font-bold">NIST CSF // 750+ NODES</span>
+                    <span className="text-[10px] font-mono text-slate-400 font-bold">ORBIT: NIST-CSF-01</span>
                   </div>
 
-                  <h3 className="text-2xl font-bold font-title text-white group-hover:text-emerald-400 transition-colors">
-                    CDAC / CERT-In Compliance Automation Engine
+                  <h3 className="text-xl font-bold font-title text-white group-hover:text-emerald-400 transition-colors">
+                    CDAC / CERT-In Compliance Engine
                   </h3>
 
-                  <p className="text-sm text-slate-300 leading-relaxed">
+                  <p className="text-xs text-slate-300 leading-relaxed">
                     <strong>Impact:</strong> Cut quarterly audit cycles by 60% across 750+ government endpoints using PowerShell &amp; Python orchestration mapped to NIST CSF &amp; CERT-In baselines.
                   </p>
 
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {["PowerShell", "Python", "KACE UEM", "NIST CSF", "CERT-In Baseline"].map((t, i) => (
-                      <span key={i} className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-slate-950 border border-slate-800 text-emerald-400/80">
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {["PowerShell", "Python", "KACE UEM", "NIST CSF", "CERT-In"].map((t, i) => (
+                      <span key={i} className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-slate-950 border border-slate-800 text-emerald-400/80">
                         #{t}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+                <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
                   <button
                     onClick={() => setCaseStudyModal(true)}
-                    className="inline-flex items-center gap-2 text-xs font-mono font-bold text-emerald-400 hover:text-emerald-300"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-400 hover:text-emerald-300"
                   >
                     <BookOpen className="w-3.5 h-3.5" />
-                    <span>Read Architecture Case Study</span>
+                    <span>Case Study Modal</span>
                   </button>
-                  <span className="text-[11px] font-mono text-slate-400">Sanitized Overview</span>
+                  <span className="text-[10px] font-mono text-slate-400">Sanitized</span>
                 </div>
               </div>
             </TiltWrapper>
 
-            {/* Project 2: Government NOC Admin & Telemetry Portal */}
+            {/* Node 02: Government NOC Admin & Telemetry Portal */}
             <TiltWrapper tiltDeg={3}>
-              <div className="h-full p-8 rounded-[24px] bg-slate-900/60 border border-cyan-500/15 hover:border-cyan-500/40 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group">
-                <div className="space-y-4">
+              <div className="h-full p-7 rounded-[24px] bg-slate-900/70 border border-cyan-500/20 hover:border-cyan-500/50 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group hover:shadow-xl hover:shadow-cyan-950/40">
+                <div className="space-y-3.5">
                   <div className="flex items-center justify-between">
-                    <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
-                      Demo Available
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
+                      Live Sandbox
                     </span>
-                    <span className="text-[11px] font-mono text-slate-400 font-bold">38 DISTRICT CORES</span>
+                    <span className="text-[10px] font-mono text-slate-400 font-bold">ORBIT: 38-DHQ-CORE</span>
                   </div>
 
-                  <h3 className="text-2xl font-bold font-title text-white group-hover:text-cyan-400 transition-colors">
-                    Government NOC Admin &amp; Telemetry Portal
+                  <h3 className="text-xl font-bold font-title text-white group-hover:text-cyan-400 transition-colors">
+                    State NOC Admin &amp; Telemetry
                   </h3>
 
-                  <p className="text-sm text-slate-300 leading-relaxed">
-                    <strong>Impact:</strong> Centralized 38 district link health monitors with local on-premise Ollama RAG chatbot assistance, TACACS+ credential resets, and district audit sheet distribution.
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    <strong>Impact:</strong> Centralized 38 district link health monitors with local on-premise Ollama RAG chatbot assistance, TACACS+ credential resets, and district audit sheets.
                   </p>
 
-                  <div className="flex flex-wrap gap-2 pt-2">
+                  <div className="flex flex-wrap gap-1.5 pt-1">
                     {["Next.js", "Ollama LLM", "PHP API", "Three.js", "RAG"].map((t, i) => (
-                      <span key={i} className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-slate-950 border border-slate-800 text-cyan-400/80">
+                      <span key={i} className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-slate-950 border border-slate-800 text-cyan-400/80">
                         #{t}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+                <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
                   <a
                     href="/noc/"
-                    className="inline-flex items-center gap-2 text-xs font-mono font-bold text-cyan-400 hover:text-cyan-300"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-cyan-400 hover:text-cyan-300"
                   >
-                    <span>Watch Demo &bull; Explore Portal</span>
+                    <span>Launch Portal</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
-                  <span className="text-[11px] font-mono text-slate-400">Live Demo Sandbox</span>
+                  <span className="text-[10px] font-mono text-slate-400">Live Demo</span>
                 </div>
               </div>
             </TiltWrapper>
 
-            {/* Project 3: Real-Time Network Alert Dashboard */}
+            {/* Node 03: Real-Time Network Alert Dashboard */}
             <TiltWrapper tiltDeg={3}>
-              <div className="h-full p-8 rounded-[24px] bg-slate-900/60 border border-blue-500/15 hover:border-blue-500/40 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group">
-                <div className="space-y-4">
+              <div className="h-full p-7 rounded-[24px] bg-slate-900/70 border border-blue-500/20 hover:border-blue-500/50 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group hover:shadow-xl hover:shadow-blue-950/40">
+                <div className="space-y-3.5">
                   <div className="flex items-center justify-between">
-                    <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-blue-500/10 border border-blue-500/20 text-blue-400">
-                      Demo Available
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-blue-500/10 border border-blue-500/20 text-blue-400">
+                      Live Telemetry
                     </span>
-                    <span className="text-[11px] font-mono text-slate-400 font-bold">SUB-SECOND TELEMETRY</span>
+                    <span className="text-[10px] font-mono text-slate-400 font-bold">ORBIT: 293-NODES</span>
                   </div>
 
-                  <h3 className="text-2xl font-bold font-title text-white group-hover:text-blue-400 transition-colors">
-                    Real-Time Network Alert Dashboard
+                  <h3 className="text-xl font-bold font-title text-white group-hover:text-blue-400 transition-colors">
+                    Real-Time Alert &amp; Speech Grid
                   </h3>
 
-                  <p className="text-sm text-slate-300 leading-relaxed">
-                    <strong>Impact:</strong> Automated ping outage detection engine for core switches with Indian English Web Speech voice alerts, noise filtering, and sparkline latency telemetry.
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    <strong>Impact:</strong> Automated ping outage detection for 293 core nodes with Indian English Web Speech voice alerts, noise filtering, and sparkline latency telemetry.
                   </p>
 
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {["JavaScript", "Chart.js", "Web Speech API", "CSS Glassmorphism"].map((t, i) => (
-                      <span key={i} className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-slate-950 border border-slate-800 text-blue-400/80">
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {["JavaScript", "Chart.js", "Web Speech API", "Glassmorphic"].map((t, i) => (
+                      <span key={i} className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-slate-950 border border-slate-800 text-blue-400/80">
                         #{t}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+                <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
                   <a
                     href="/alert/"
-                    className="inline-flex items-center gap-2 text-xs font-mono font-bold text-blue-400 hover:text-blue-300"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-blue-400 hover:text-blue-300"
                   >
-                    <span>Watch Demo &bull; Launch Dashboard</span>
+                    <span>Launch Alerts</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
-                  <span className="text-[11px] font-mono text-slate-400">TTS Audio Engine</span>
+                  <span className="text-[10px] font-mono text-slate-400">Voice Synthesis</span>
                 </div>
               </div>
             </TiltWrapper>
 
-            {/* Project 4: State NOC Diagnostics & Speed Engine */}
+            {/* Node 04: State NOC Diagnostics & Speed Engine */}
             <TiltWrapper tiltDeg={3}>
-              <div className="h-full p-8 rounded-[24px] bg-slate-900/60 border border-indigo-500/15 hover:border-indigo-500/40 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group">
-                <div className="space-y-4">
+              <div className="h-full p-7 rounded-[24px] bg-slate-900/70 border border-indigo-500/20 hover:border-indigo-500/50 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group hover:shadow-xl hover:shadow-indigo-950/40">
+                <div className="space-y-3.5">
                   <div className="flex items-center justify-between">
-                    <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
-                      Demo Available
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
+                      Throughput QoS
                     </span>
-                    <span className="text-[11px] font-mono text-slate-400 font-bold">THROUGHPUT ENGINE</span>
+                    <span className="text-[10px] font-mono text-slate-400 font-bold">ORBIT: SPEED-INJECT</span>
                   </div>
 
-                  <h3 className="text-2xl font-bold font-title text-white group-hover:text-indigo-400 transition-colors">
-                    State NOC Diagnostics &amp; Bandwidth Engine
+                  <h3 className="text-xl font-bold font-title text-white group-hover:text-indigo-400 transition-colors">
+                    State NOC Speed &amp; Bandwidth
                   </h3>
 
-                  <p className="text-sm text-slate-300 leading-relaxed">
-                    <strong>Impact:</strong> Multi-threaded TCP/HTTP bandwidth diagnostic utility measuring latency, jitter, upload/download throughput, and video conferencing 1080p Ultra-HD readiness scores.
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    <strong>Impact:</strong> Multi-threaded TCP/HTTP bandwidth diagnostic utility measuring latency, jitter, throughput, and 1080p Ultra-HD video conferencing readiness scores.
                   </p>
 
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {["JavaScript", "Vanta.js", "Performance API", "Network Diagnostics"].map((t, i) => (
-                      <span key={i} className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-slate-950 border border-slate-800 text-indigo-400/80">
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {["Performance API", "Vanta.js", "TCP Sockets", "Speed Test"].map((t, i) => (
+                      <span key={i} className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-slate-950 border border-slate-800 text-indigo-400/80">
                         #{t}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+                <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
                   <a
                     href="/speed/"
-                    className="inline-flex items-center gap-2 text-xs font-mono font-bold text-indigo-400 hover:text-indigo-300"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-indigo-400 hover:text-indigo-300"
                   >
-                    <span>Run Speed Diagnostics</span>
+                    <span>Run Speed Test</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
-                  <span className="text-[11px] font-mono text-slate-400">Live Injector</span>
+                  <span className="text-[10px] font-mono text-slate-400">Bandwidth Test</span>
+                </div>
+              </div>
+            </TiltWrapper>
+
+            {/* Node 05: 38-District Video Conference (VC) Studio Monitor */}
+            <TiltWrapper tiltDeg={3}>
+              <div className="h-full p-7 rounded-[24px] bg-slate-900/70 border border-teal-500/20 hover:border-teal-500/50 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group hover:shadow-xl hover:shadow-teal-950/40">
+                <div className="space-y-3.5">
+                  <div className="flex items-center justify-between">
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-teal-500/10 border border-teal-500/20 text-teal-400">
+                      Broadcast Ready
+                    </span>
+                    <span className="text-[10px] font-mono text-slate-400 font-bold">ORBIT: 38-VC-STUDIOS</span>
+                  </div>
+
+                  <h3 className="text-xl font-bold font-title text-white group-hover:text-teal-400 transition-colors">
+                    38-District VC Studio Codec Monitor
+                  </h3>
+
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    <strong>Impact:</strong> 38-District Panasonic KX-VC1300 real-time telemetry (Jitter, Packet Loss, Latency) monitoring 1080p high-definition broadcast readiness.
+                  </p>
+
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {["Panasonic Codecs", "QoS Analysis", "Jitter Buffers", "HD 1080p"].map((t, i) => (
+                      <span key={i} className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-slate-950 border border-slate-800 text-teal-400/80">
+                        #{t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
+                  <a
+                    href="/vc/"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-teal-400 hover:text-teal-300"
+                  >
+                    <span>Launch VC Portal</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                  <span className="text-[10px] font-mono text-slate-400">38 Studios</span>
+                </div>
+              </div>
+            </TiltWrapper>
+
+            {/* Node 06: CyberKarma & JumpStreet Dual Impact Ecosystems */}
+            <TiltWrapper tiltDeg={3}>
+              <div className="h-full p-7 rounded-[24px] bg-slate-900/70 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group hover:shadow-xl hover:shadow-purple-950/40">
+                <div className="space-y-3.5">
+                  <div className="flex items-center justify-between">
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-purple-500/10 border border-purple-500/20 text-purple-400">
+                      Karma &amp; Quant
+                    </span>
+                    <span className="text-[10px] font-mono text-slate-400 font-bold">ORBIT: SOCIAL-ALGO</span>
+                  </div>
+
+                  <h3 className="text-xl font-bold font-title text-white group-hover:text-purple-400 transition-colors">
+                    CyberKarma &amp; JumpStreet Engines
+                  </h3>
+
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    <strong>Impact:</strong> Decentralized ethical charity quiz engine funding real animal rescue meals in Patna + quantitative algorithmic trading platform (Orca6).
+                  </p>
+
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {["Next.js", "Web3/Charity", "Algorithmic Quant", "TypeScript"].map((t, i) => (
+                      <span key={i} className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-slate-950 border border-slate-800 text-purple-400/80">
+                        #{t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
+                  <a
+                    href="https://cyberkarma.me"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-purple-400 hover:text-purple-300"
+                  >
+                    <span>cyberkarma.me</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                  <a
+                    href="https://jumpstreet.tech"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[10px] font-mono text-cyan-400 hover:underline"
+                  >
+                    jumpstreet.tech &rarr;
+                  </a>
                 </div>
               </div>
             </TiltWrapper>
