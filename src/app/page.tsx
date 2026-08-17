@@ -930,51 +930,84 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Side 1: Cyber Free Rice */}
-            <div className="p-6 rounded-2xl bg-slate-900/40 border border-slate-800 flex flex-col justify-between space-y-4">
-              <div className="space-y-2">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">Social Impact</span>
-                <h3 className="text-lg font-bold text-white">Cyber Free Rice Initiative</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  Gamified security education quiz where correct purple team &amp; threat hunting answers generate simulated rice donations for charity.
-                </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Side 1: CyberKarma */}
+            <TiltWrapper tiltDeg={3}>
+              <div className="p-8 rounded-[24px] bg-slate-900/60 border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl h-full group hover:shadow-xl hover:shadow-amber-950/30">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-amber-500/10 text-amber-400 border border-amber-500/25">
+                      Social Impact &bull; Animal Daanam
+                    </span>
+                    <span className="text-[11px] font-mono text-slate-400 font-bold">cyberkarma.me</span>
+                  </div>
+                  <h3 className="text-xl font-bold font-title text-white group-hover:text-amber-400 transition-colors">
+                    CyberKarma &mdash; Free Rice Security Engine
+                  </h3>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Gamified cybersecurity education initiative where purple team, threat hunting, and security quiz answers generate ethical revenue to fund real stray animal feeding drives in Patna.
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {["Next.js", "Free Rice Model", "Gamified Learning", "Ethical Ads", "Direct Charity"].map((t, i) => (
+                      <span key={i} className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-slate-950 border border-slate-800 text-amber-400/80">
+                        #{t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+                  <a 
+                    href="https://cyberkarma.me" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="inline-flex items-center gap-2 text-xs font-mono font-bold text-amber-400 hover:text-amber-300"
+                  >
+                    <span>Visit cyberkarma.me</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                  <span className="text-[10px] font-mono text-slate-400">Live Charity Portal</span>
+                </div>
               </div>
-              <Link href="/charity-quiz" className="text-xs font-mono font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1.5">
-                <span>Play Charity Quiz</span>
-                <ExternalLink className="w-3 h-3" />
-              </Link>
-            </div>
+            </TiltWrapper>
 
             {/* Side 2: JumpStreet */}
-            <div className="p-6 rounded-2xl bg-slate-900/40 border border-slate-800 flex flex-col justify-between space-y-4">
-              <div className="space-y-2">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20">Quantitative</span>
-                <h3 className="text-lg font-bold text-white">JumpStreet Quant Bot</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  Statistical arbitrage algorithmic engine for real-time market data analysis and automated risk execution.
-                </p>
+            <TiltWrapper tiltDeg={3}>
+              <div className="p-8 rounded-[24px] bg-slate-900/60 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl h-full group hover:shadow-xl hover:shadow-purple-950/30">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-purple-500/10 text-purple-400 border border-purple-500/25">
+                      Quantitative &bull; High Frequency
+                    </span>
+                    <span className="text-[11px] font-mono text-slate-400 font-bold">jumpstreet.tech</span>
+                  </div>
+                  <h3 className="text-xl font-bold font-title text-white group-hover:text-purple-400 transition-colors">
+                    JumpStreet Quant Platform (Orca6)
+                  </h3>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Statistical arbitrage quantitative trading architecture with real-time market data streaming, automated risk parameter execution, and embedded high-speed Orca6 VT100 terminal.
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {["TypeScript", "Algorithmic Arbitrage", "Orca6 Engine", "WebSocket Streaming", "Risk Controls"].map((t, i) => (
+                      <span key={i} className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-slate-950 border border-slate-800 text-purple-400/80">
+                        #{t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+                  <a 
+                    href="https://jumpstreet.tech" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="inline-flex items-center gap-2 text-xs font-mono font-bold text-purple-400 hover:text-purple-300"
+                  >
+                    <span>Visit jumpstreet.tech</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                  <span className="text-[10px] font-mono text-slate-400">Live Trading Bot</span>
+                </div>
               </div>
-              <a href="https://jumpstreet.tech" target="_blank" rel="noopener noreferrer" className="text-xs font-mono font-bold text-purple-400 hover:text-purple-300 flex items-center gap-1.5">
-                <span>Visit Project</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
-
-            {/* Side 3: Orca6 Terminal */}
-            <div className="p-6 rounded-2xl bg-slate-900/40 border border-slate-800 flex flex-col justify-between space-y-4">
-              <div className="space-y-2">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Tooling</span>
-                <h3 className="text-lg font-bold text-white">Orca6 Web Terminal</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  In-browser virtual shell emulator supporting custom security commands, file piping, and VT100 styling.
-                </p>
-              </div>
-              <Link href="/js" className="text-xs font-mono font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5">
-                <span>Open Terminal</span>
-                <ExternalLink className="w-3 h-3" />
-              </Link>
-            </div>
+            </TiltWrapper>
           </div>
         </section>
 
