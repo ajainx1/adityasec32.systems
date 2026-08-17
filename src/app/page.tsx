@@ -37,6 +37,7 @@ const COMMANDS = {
     "  whoami      - Display professional profile summary",
     "  skills      - List core technical competencies & NGFW stacks",
     "  exp         - View verified enterprise employment history",
+    "  education   - View academic degrees & MBA (Cybersecurity)",
     "  certs       - View active & targeted certifications",
     "  contact     - Display direct contact channels & relocation status",
     "  clear       - Clear terminal output"
@@ -45,50 +46,64 @@ const COMMANDS = {
     "aditya@secops:~$ cat whoami.json",
     "{",
     "  \"name\": \"Aditya Jain\",",
-    "  \"title\": \"Cybersecurity Engineer & Purple Teamer\",",
-    "  \"specialization\": \"NGFW Architecture, VAPT, SIEM/EDR, DFIR\",",
+    "  \"title\": \"Cybersecurity Engineer | Network Security & NGFW Architecture\",",
+    "  \"specialization\": \"Palo Alto/Check Point/Fortinet NGFW, VAPT, SIEM/EDR, DFIR\",",
     "  \"experience\": \"4+ Years Enterprise SecOps & CNI Defense\",",
-    "  \"current\": \"Security Administrator @ National Informatics Centre (NIC/MeitY)\",",
+    "  \"current\": \"Security Administrator & NGFW Architect @ Ebix / NIC (MeitY)\",",
     "  \"impact\": \"750+ Endpoints Secured · 60% Audit Effort Saved · +35% True-Positives\",",
-    "  \"relocation\": \"Open to relocation: India · UAE · Singapore · UK · EU\"",
+    "  \"education\": \"MBA (Cybersecurity) in progress · B.Tech CSE (Manipal)\",",
+    "  \"phone\": \"+91 74005 88896\",",
+    "  \"email\": \"adityasec32@gmail.com / contact@adityasec32.systems\",",
+    "  \"relocation\": \"Preferred: Delhi NCR / Noida · Open: Blr/Hyd/Pune/Mum/Jaipur · UAE · SG · UK · Germany · EU · US\"",
     "}"
   ],
   skills: [
     "aditya@secops:~$ list-competencies --verbose",
-    "• Firewalls/NGFW : Check Point NGFW, Fortinet FortiGate, Palo Alto, Sophos, Cisco AnyConnect, OSPF/BGP",
-    "• SIEM / EDR     : Wazuh SIEM, Blu Sapphire, SentinelOne, Trend Micro Deep Security, Kaspersky EDR",
-    "• Offensive/VAPT : Metasploit, Nmap, Burp Suite Pro, BloodHound, Impacket, Mimikatz, Kerberoasting",
-    "• Scripting      : Python, PowerShell, Bash, Git, REST APIs",
-    "• Compliance     : NIST CSF, CERT-In Baseline, ISO 27001, OWASP Top 10, RAM Dump Forensics"
+    "• Network Security & NGFW : Palo Alto (Panorama, App-ID, Threat Prev), Check Point, Fortinet, Default-Deny, ZTNA, OSPF, TACACS+/RADIUS, Wireshark",
+    "• Offensive & VAPT        : Web & Infra VAPT, OWASP Top 10, Active Directory Exploitation (BloodHound, Kerberoasting, DCSync, Impacket, Mimikatz, Rubeus, Hashcat, NetExec, Burp Suite Pro, Nmap)",
+    "• SIEM / EDR & Hunting    : Wazuh, Splunk, SentinelOne, Trend Micro Deep Security, Microsoft Sentinel, Kaspersky EDR, Snort, MITRE ATT&CK",
+    "• Compliance & Cloud      : CERT-In Guidelines, CDAC Standards, NIST CSF, ISO 27001, AWS/Azure Fundamentals, Python, Bash, PowerShell, Git, RAM Dump Analysis"
   ],
   exp: [
     "aditya@secops:~$ get-history",
-    "• Ebix Technologies / NIC (Security Administrator) - Feb 2024 to Present",
-    "  - Secured 750+ endpoints with SentinelOne & Deep Security; automated 120+ checks",
-    "• RRG Engineering / Nuclear Fuel Complex (SOC Threat Hunter) - Dec 2022 to Jul 2023",
-    "  - 24x7 CNI nuclear SOC monitoring; engineered custom detection rules (+35% true-positives)",
-    "• E2E Networks (SOC Analyst - IDS) - Aug 2022 to Oct 2022",
-    "  - Authored Wazuh & Snort signatures for perimeter traffic telemetry"
+    "• Ebix Technologies / Client: NIC (MeitY) (Security Admin & NGFW Architect) - Feb 2024 to Present",
+    "  - Default-deny Palo Alto/Check Point clusters; managed SentinelOne/Deep Security/Wazuh across 750+ endpoints; automated 120+ CERT-In checks (60% audit cut)",
+    "• Independent Security Researcher (Offensive Security & AD Exploitation) - Aug 2023 to Jan 2024",
+    "  - Advanced AD exploitation labs (HTB, VulnLab multi-forest, Kerberoasting, DCSync, DC compromise)",
+    "• RRG Engineering / Client: DAE Nuclear Fuel Complex (SOC Analyst - Threat Hunter) - Dec 2022 to Jul 2023",
+    "  - 24x7 CNI nuclear SOC threat hunting; Blu Sapphire SIEM / Splunk; +35% true-positive detection boost",
+    "• E2E Networks Limited (SOC Analyst - IDS & Signatures) - Aug 2022 to Oct 2022",
+    "  - Authored Snort & Wazuh signatures; automated AbuseIPDB perimeter IP blocklisting",
+    "• Teleperformance (Technical Support Executive - Microsoft Enterprise) - Dec 2021 to May 2022",
+    "  - Tier-2 Microsoft enterprise support with strict SLA compliance"
+  ],
+  education: [
+    "aditya@secops:~$ get-education",
+    "• Chitkara University (Punjab, India) - MBA in Cybersecurity (In Progress, Exp: Jul 2027)",
+    "• Manipal University Jaipur (Rajasthan, India) - B.Tech in Computer Science & Engineering (2019 - 2022)",
+    "• Hindu College of Engineering (Haryana, India) - Diploma in Computer Science & Engineering (2013 - 2018)"
   ],
   certs: [
     "aditya@secops:~$ list-certs",
-    "[Active & Verified]",
-    "• Fortinet Certified Associate in Cybersecurity (FCA)",
-    "• EC-Council SOC Analyst - In the Trenches: SOC",
-    "• Red Hat Certified System Administrator (RHCSA)",
-    "• BasisTech Autopsy Basics (Digital Forensics)",
-    "[In Progress / Targeted]",
+    "[Earned & Verified]",
+    "• Fortinet Certified Associate (FCA) in Cybersecurity (Jan 2026)",
+    "• EC-Council: In the Trenches - SOC",
+    "[In Progress & Targeted]",
     "• eJPT (Junior Penetration Tester) - Target: Q4 2026",
     "• CEH v13 (Certified Ethical Hacker) - Target: 2026",
     "• CISSP (Information Systems Security) - Target: Q3 2027",
-    "• MBA in Information Technology (Postgraduate - In Progress)"
+    "• OSCP (Offensive Security Certified Professional) - Target: 2027+",
+    "• MBA in Cybersecurity (Chitkara University - In Progress)"
   ],
   contact: [
     "aditya@secops:~$ show-contact",
-    "• Email     : contact@adityasec32.systems",
-    "• LinkedIn  : https://www.linkedin.com/in/adityajainx1/",
+    "• Phone     : +91 74005 88896",
+    "• Email     : adityasec32@gmail.com / contact@adityasec32.systems",
+    "• LinkedIn  : https://www.linkedin.com/in/ajainx1",
     "• GitHub    : https://github.com/ajainx1",
-    "• Relocation: Open to India, UAE, Singapore, UK, EU"
+    "• Portfolio : https://adityasec32.systems",
+    "• Location  : Patna, India (On-site: NIC, MeitY) | Preferred: Delhi NCR / Noida",
+    "• Relocation: Open to India (Blr/Hyd/Pune/Mum/Jaipur), UAE, Singapore, UK, Germany (EU Blue Card), EU, US"
   ]
 };
 
@@ -761,12 +776,12 @@ export default function Home() {
             {[
               { title: "Fortinet Certified Associate (FCA)", org: "Fortinet", status: "Verified / Active", color: "border-red-500/25 text-red-400 bg-red-950/20" },
               { title: "In the Trenches: SOC Analyst", org: "EC-Council", status: "Verified / Active", color: "border-emerald-500/25 text-emerald-400 bg-emerald-950/20" },
-              { title: "Red Hat Certified Admin (RHCSA)", org: "Red Hat", status: "Certified", color: "border-amber-500/25 text-amber-400 bg-amber-950/20" },
-              { title: "Autopsy Basics Digital Forensics", org: "BasisTech", status: "Certified", color: "border-cyan-500/25 text-cyan-400 bg-cyan-950/20" },
+              { title: "OSCP (Offensive Security)", org: "OffSec", status: "Target: 2027+", color: "border-rose-500/25 text-rose-400 bg-rose-950/20" },
+              { title: "Active Directory Labs", org: "HTB & VulnLab", status: "Multi-Forest AD Mastery", color: "border-amber-500/25 text-amber-400 bg-amber-950/20" },
               { title: "eJPT (Junior Penetration Tester)", org: "eLearnSecurity", status: "Target: Q4 2026", color: "border-purple-500/25 text-purple-400 bg-purple-950/20" },
               { title: "Certified Ethical Hacker (CEH v13)", org: "EC-Council", status: "Target: 2026", color: "border-blue-500/25 text-blue-400 bg-blue-950/20" },
               { title: "CISSP (Information Systems Security)", org: "ISC2", status: "Target: Q3 2027", color: "border-indigo-500/25 text-indigo-400 bg-indigo-950/20" },
-              { title: "MBA Information Technology", org: "Postgraduate", status: "In Progress", color: "border-emerald-500/25 text-emerald-300 bg-emerald-950/20" }
+              { title: "MBA in Cybersecurity", org: "Chitkara University", status: "In Progress (Exp 2027)", color: "border-emerald-500/25 text-emerald-300 bg-emerald-950/20" }
             ].map((cert, idx) => (
               <div key={idx} className={`p-4 rounded-2xl border ${cert.color} backdrop-blur-xl flex flex-col justify-between space-y-2`}>
                 <div>
@@ -781,6 +796,65 @@ export default function Home() {
           </div>
         </section>
 
+        
+        {/* SECTION: ACADEMIC EDUCATION */}
+        <section className="space-y-6">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>Academic Degrees &amp; Higher Education</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold font-title text-white">
+              Education &amp; Cybersecurity Qualifications
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 rounded-[24px] bg-slate-900/60 border border-emerald-500/20 backdrop-blur-xl flex flex-col justify-between space-y-4">
+              <div className="space-y-2">
+                <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-full text-xs font-bold font-mono border border-emerald-500/20">Expected Jul 2027</span>
+                <h3 className="text-lg font-bold font-title text-white">MBA in Cybersecurity</h3>
+                <div className="text-xs text-slate-400 font-semibold">Chitkara University &bull; Punjab, India</div>
+                <p className="text-xs text-slate-300 leading-relaxed pt-1">
+                  Postgraduate studies specializing in enterprise cybersecurity risk governance, compliance frameworks, and defensive/offensive alignment.
+                </p>
+              </div>
+              <div className="text-[11px] font-mono text-emerald-400 font-bold border-t border-slate-800 pt-3">
+                In Progress (Active Coursework)
+              </div>
+            </div>
+
+            <div className="p-6 rounded-[24px] bg-slate-900/60 border border-cyan-500/20 backdrop-blur-xl flex flex-col justify-between space-y-4">
+              <div className="space-y-2">
+                <span className="px-3 py-1 bg-cyan-500/10 text-cyan-400 rounded-full text-xs font-bold font-mono border border-cyan-500/20">2019 &mdash; 2022</span>
+                <h3 className="text-lg font-bold font-title text-white">B.Tech &mdash; Computer Science &amp; Engineering</h3>
+                <div className="text-xs text-slate-400 font-semibold">Manipal University Jaipur &bull; Rajasthan, India</div>
+                <p className="text-xs text-slate-300 leading-relaxed pt-1">
+                  Undergraduate degree in CSE with extensive coursework in Network Security, Operating Systems, Cryptography, and Distributed Systems.
+                </p>
+              </div>
+              <div className="text-[11px] font-mono text-cyan-400 font-bold border-t border-slate-800 pt-3">
+                Completed &bull; B.Tech CSE
+              </div>
+            </div>
+
+            <div className="p-6 rounded-[24px] bg-slate-900/60 border border-blue-500/20 backdrop-blur-xl flex flex-col justify-between space-y-4">
+              <div className="space-y-2">
+                <span className="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-bold font-mono border border-blue-500/20">2013 &mdash; 2018</span>
+                <h3 className="text-lg font-bold font-title text-white">Diploma &mdash; Computer Science &amp; Engineering</h3>
+                <div className="text-xs text-slate-400 font-semibold">Hindu College of Engineering &bull; Haryana, India</div>
+                <p className="text-xs text-slate-300 leading-relaxed pt-1">
+                  Core engineering diploma covering computer networking, system administration, C/C++ programming, and digital electronics.
+                </p>
+              </div>
+              <div className="text-[11px] font-mono text-blue-400 font-bold border-t border-slate-800 pt-3">
+                Completed &bull; Diploma CSE
+              </div>
+            </div>
+          </div>
+        </section>
+
+
         {/* SECTION 3: EMPLOYMENT TIMELINE */}
         <section className="space-y-8">
           <div className="space-y-1">
@@ -794,51 +868,63 @@ export default function Home() {
           </div>
 
           <div className="space-y-6">
-            {[
+                        {[
               {
                 period: "Feb 2024 — Present",
-                role: "Security Administrator",
-                company: "Ebix Technologies Ltd (Deployed at National Informatics Centre - NIC / MeitY)",
+                role: "Security Administrator & NGFW Architect",
+                company: "Ebix Technologies Ltd (Client: National Informatics Centre - NIC, MeitY Govt. of India)",
                 location: "Patna, Bihar, India",
-                tags: ["750+ Endpoints", "SentinelOne", "Deep Security", "Check Point NGFW", "60% Effort Saved"],
+                tags: ["750+ Endpoints", "Palo Alto", "Check Point", "SentinelOne", "Deep Security", "60% Audit Cut"],
                 bullets: [
-                  "Enterprise EDR Deployment: Managed SentinelOne and Trend Micro Deep Security across 750+ regional government endpoints, tuning threat detection policies.",
-                  "Compliance Automation: Engineered PowerShell and Python frameworks executing 120+ regulatory checks (NIST/ISO 27001) across 750+ endpoints, compressing audit turnaround from 14 days to 4 hours.",
-                  "Incident Response & CERT-In Triage: Primary responder for CERT-In advisories; executed host forensics, RAM dump analyses, and patched OWASP Top 10 vulnerabilities.",
-                  "Perimeter Hardening: Configured default-deny rule policies on Check Point NGFW, deployed USB access controls, and audited public IP exposure."
+                  "NGFW & Network Hardening: Architect and enforce default-deny policies across Palo Alto and Check Point NGFW clusters; audit public IP exposure and secure Linux rack servers across the Bihar State Data Centre (SDC).",
+                  "Enterprise EDR/SIEM Deployment: Manage SentinelOne, Trend Micro Deep Security, and Wazuh/Splunk deployments across 750+ regional government endpoints; tune correlation rules against emerging attack vectors, reducing false-positive fatigue by 30%.",
+                  "Incident Response & Compliance: Serve as primary CERT-In incident responder; automate compliance reporting (120+ CDAC/CERT-In checks via KACE UEM), cutting manual audit effort by 60%.",
+                  "VAPT & AD Security: Lead coordination with NIC-CERT to remediate critical web vulnerabilities (authoring PoC exploits) and conduct Active Directory attack-path analysis to secure district-level nodes.",
+                  "Security Training: Deliver specialized training on NGFW, EDR, and CERT-In compliance to 60+ district-level Facility Management System (FMS) teams."
+                ]
+              },
+              {
+                period: "Aug 2023 — Jan 2024",
+                role: "Independent Security Researcher",
+                company: "Offensive Security & Active Directory Exploitation Focus",
+                location: "Remote",
+                tags: ["Active Directory", "Hack The Box", "VulnLab", "Kerberoasting", "DCSync", "PrivEsc"],
+                bullets: [
+                  "Executed advanced Active Directory exploitation labs (Hack The Box, VulnLab multi-forest environments), mastering Kerberoasting, DCSync, and Domain Controller compromise techniques.",
+                  "Pursued MBA (Cybersecurity) coursework and aligned certification trajectories (eJPT, CEH) to bridge defensive architecture with offensive red-team methodologies."
                 ]
               },
               {
                 period: "Dec 2022 — Jul 2023",
                 role: "SOC Analyst — Threat Hunter",
-                company: "RRG Engineering Technologies (Contracted to Nuclear Fuel Complex - NFC / DAE)",
+                company: "RRG Engineering Technologies (Client: Nuclear Fuel Complex - NFC / DAE Govt. of India)",
                 location: "Kota, Rajasthan, India",
-                tags: ["24x7 CNI SOC", "Blu Sapphire SIEM", "+35% Detection Boost", "Kaspersky EDR"],
+                tags: ["24x7 CNI SOC", "Blu Sapphire SIEM", "Splunk", "+35% Detection Boost", "Malware TTPs"],
                 bullets: [
-                  "CNI Nuclear SOC Monitoring: 24x7 threat hunting and incident triage in a critical nuclear infrastructure SOC monitoring telemetry via Blu Sapphire SIEM.",
-                  "Sandbox Malware Re-Engineering: Reproduced adversary exploit signatures in isolated labs; analyzed malware behavior with Kaspersky EDR to reverse-engineer TTPs.",
-                  "Correlation Rule Tuning: Engineered SIEM correlation rules, delivering a 35% improvement in true-positive detection rates while eliminating alert fatigue."
+                  "CNI SOC Operations: Operated as SME for threat hunting in a 24/7 Critical National Infrastructure SOC, monitoring enterprise telemetry via Blu Sapphire SIEM and Splunk.",
+                  "Detection Engineering: Engineered and tuned SIEM correlation rules and EDR policies, achieving a 35% improvement in true-positive detection rates.",
+                  "Malware Analysis: Performed behavioral malware analysis and sandbox payload reproduction to reverse-engineer TTPs and update detection signatures."
                 ]
               },
               {
                 period: "Aug 2022 — Oct 2022",
-                role: "SOC Analyst — IDS & Signature Engineering",
+                role: "SOC Analyst — IDS & Signature Development",
                 company: "E2E Networks Limited",
                 location: "Vellore, Tamil Nadu, India",
-                tags: ["Snort IDS", "Wazuh SIEM", "AbuseIPDB Feed"],
+                tags: ["Snort IDS", "Wazuh SIEM", "AbuseIPDB Feed", "Perimeter Defense"],
                 bullets: [
-                  "IDS Engineering: Authored custom Snort and Wazuh IDS signatures to capture novel attack patterns.",
-                  "Threat Intelligence: Automated AbuseIPDB feed ingestion to enforce perimeter firewall IP blocklisting."
+                  "Authored and deployed custom Snort and Wazuh IDS signatures, improving detection coverage against novel attack patterns in a 24/7 SOC environment.",
+                  "Automated AbuseIPDB feed ingestion for real-time perimeter IP blocklisting, significantly reducing inbound malicious traffic and routing anomalies."
                 ]
               },
               {
                 period: "Dec 2021 — May 2022",
-                role: "Technical Support Executive",
+                role: "Technical Support Executive (Microsoft Enterprise)",
                 company: "Teleperformance",
                 location: "Jaipur, Rajasthan, India",
-                tags: ["Enterprise Support", "Microsoft Suite", "SLA Compliance"],
+                tags: ["Tier-2 Enterprise Support", "Microsoft 365", "SLA Compliance"],
                 bullets: [
-                  "Provided Tier-2 Microsoft enterprise support via the Rave ticketing platform with strict SLA compliance."
+                  "Delivered Tier-2 Microsoft enterprise product support, maintaining strict SLA compliance and contributing to internal knowledge base documentation."
                 ]
               }
             ].map((exp, idx) => (
@@ -1023,18 +1109,18 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="p-8 rounded-[24px] bg-slate-900/60 border border-emerald-500/15 backdrop-blur-xl space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+                    <div className="p-8 rounded-[24px] bg-slate-900/60 border border-emerald-500/15 backdrop-blur-xl space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
             <p>
-              <strong>Security Administrator at National Informatics Centre (NIC / MeitY)</strong>, securing 750+ government endpoints and enterprise network infrastructure with SentinelOne, Deep Security, Check Point NGFW, and automated compliance frameworks.
+              <strong>Cybersecurity Engineer &amp; NGFW Architect at Ebix Technologies (Client: NIC, MeitY Govt. of India)</strong>, architecting default-deny NGFW estates (Palo Alto, Check Point, Fortinet) and managing SentinelOne, Deep Security, and Wazuh deployments across 750+ regional government endpoints.
             </p>
             <p>
-              <strong>Prior 24x7 CNI SOC Threat Hunter at Nuclear Fuel Complex (NFC / DAE)</strong>, conducting proactive threat hunts, reverse-engineering malware TTPs, and engineering SIEM correlation rules to boost true-positive rates by 35%.
+              <strong>Primary CERT-In Incident Responder</strong> with hands-on proficiency in Active Directory attack-path analysis (Kerberoasting, DCSync, Delegation Abuse), web &amp; infrastructure VAPT, and digital forensics.
             </p>
             <p>
-              Currently pursuing an <strong>MBA in Information Technology</strong>, bridging high-stakes defensive cyber engineering with strategic risk governance, compliance auditing, and incident response readiness.
+              <strong>Prior 24x7 CNI SOC Threat Hunter at Nuclear Fuel Complex (DAE)</strong>, conducting proactive threat hunts, reverse-engineering malware payloads, and tuning SIEM correlation rules to boost true-positive rates by 35%.
             </p>
             <p>
-              Active purple teaming practitioner holding <strong>Fortinet FCA, EC-Council SOC, RHCSA, BasisTech Forensics</strong>, with target completion for <strong>eJPT, CEH v13, and CISSP</strong>.
+              Pursuing an <strong>MBA in Cybersecurity (Chitkara University)</strong>, B.Tech CSE (Manipal University Jaipur), holding <strong>Fortinet FCA</strong> and <strong>EC-Council SOC</strong>, with target completion for <strong>eJPT, CEH v13, CISSP, and OSCP</strong>.
             </p>
           </div>
         </section>
@@ -1065,7 +1151,7 @@ export default function Home() {
               >
                 <Mail className="w-6 h-6 text-emerald-400 group-hover:scale-110 transition-transform" />
                 <div className="text-xs font-mono font-bold text-white">Direct Email</div>
-                <div className="text-[11px] font-mono text-slate-400">contact@adityasec32.systems</div>
+                <div className="text-[11px] font-mono text-slate-400">adityasec32@gmail.com</div>
               </a>
 
               <a

@@ -65,7 +65,7 @@ const COMMANDS = {
   certs: [
     "aditya@secops:~$ list-certs",
     "[Completed]",
-    "• Fortinet Certified Associate in Cybersecurity (FCAC)",
+    "• Fortinet Certified Associate (FCA) in Cybersecurity",
     "• Red Hat Certified System Administrator (RHCSA)",
     "• In the Trenches: SOC - EC-Council",
     "• Autopsy Basics (Digital Forensics) - BasisTech",
@@ -607,7 +607,7 @@ export default function Home() {
               <h3 className="text-xl font-title font-bold text-slate-800 flex items-center gap-3"><Award className="w-6 h-6 text-blue-600" /> Completed Credentials</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
-                  "Fortinet Certified Associate in Cybersecurity (FCAC)",
+                  "Fortinet Certified Associate (FCA) in Cybersecurity",
                   "Red Hat Certified System Administrator (RHCSA)",
                   "In the Trenches: SOC - EC-Council",
                   "Autopsy Basics (Digital Forensics) - BasisTech",
