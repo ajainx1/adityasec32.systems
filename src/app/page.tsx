@@ -29,6 +29,8 @@ import {
 import Link from "next/link";
 import TiltWrapper from "@/components/3d/TiltWrapper";
 import CyberResumeButton from "@/components/CyberResumeButton";
+import CharityQuizClient from "@/components/charity/CharityQuizClient";
+import { ToastProvider } from "@/components/js/ToastContext";
 
 // Interactive Terminal Data
 const COMMANDS = {
@@ -195,6 +197,19 @@ const WRITE_UPS: WriteUp[] = [
 ];
 
 export default function Home() {
+  const [isCyberKarma, setIsCyberKarma] = useState(false);
+  const [isCheckingDomain, setIsCheckingDomain] = useState(true);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const host = window.location.hostname.toLowerCase();
+      if (host.includes("cyberkarma") || host.includes("freerice")) {
+        setIsCyberKarma(true);
+      }
+      setIsCheckingDomain(false);
+    }
+  }, []);
+
   const [terminalHistory, setTerminalHistory] = useState<string[]>([
     "aditya@secops:~# secure session initialized...",
     "SEC_CORE: ACTIVE | 750+ ENDPOINTS HARDENED",
@@ -213,6 +228,14 @@ export default function Home() {
   useEffect(() => {
     terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [terminalHistory]);
+
+  if (isCyberKarma) {
+    return (
+      <ToastProvider>
+        <CharityQuizClient />
+      </ToastProvider>
+    );
+  }
 
   const handleCommandSubmit = (e: React.FormEvent) => {
     e.preventDefault();
