@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import TiltWrapper from "@/components/3d/TiltWrapper";
+import CyberResumeButton from "@/components/CyberResumeButton";
 
 // Interactive Terminal Data
 const COMMANDS = {
@@ -278,14 +279,7 @@ export default function Home() {
 
           {/* Right Permanent Resume CTA */}
           <div className="flex items-center gap-3">
-            <a 
-              href="/resume.pdf" 
-              download 
-              className="px-4 sm:px-5 py-2 text-xs font-bold font-mono rounded-full bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition-all flex items-center gap-2 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 min-h-[44px]"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Resume (PDF)</span>
-            </a>
+            <CyberResumeButton variant="nav" />
 
             {/* Mobile Hamburger Button */}
             <button
@@ -341,15 +335,8 @@ export default function Home() {
 
             {/* Exact CTA Hierarchy Order */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
-              {/* 1. Download Resume (Solid Green) */}
-              <a 
-                href="/resume.pdf" 
-                download
-                className="px-6 py-3.5 rounded-xl text-xs font-mono font-bold bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition-all flex items-center gap-2 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:-translate-y-0.5 min-h-[44px]"
-              >
-                <Download className="w-4 h-4" />
-                <span>⬇ Download Resume</span>
-              </a>
+              {/* 1. Download Resume (Cyber Tactical Scramble) */}
+              <CyberResumeButton variant="hero" showChecksum={true} />
 
               {/* 2. View Case Studies (Outline) */}
               <a 
@@ -976,14 +963,7 @@ export default function Home() {
 
             {/* Repeat Download Resume at Bottom of Page (Never make recruiters scroll back up) */}
             <div className="text-center pt-6 border-t border-slate-800">
-              <a
-                href="/resume.pdf"
-                download
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-emerald-500 text-slate-950 font-mono font-bold text-xs hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-500/25 min-h-[44px]"
-              >
-                <Download className="w-4 h-4" />
-                <span>⬇ Download Executive CV (PDF)</span>
-              </a>
+              <CyberResumeButton variant="bottom" />
             </div>
 
             {/* PGP & Security Disclosure Signals */}
