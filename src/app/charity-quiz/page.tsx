@@ -20,11 +20,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Cyber Free Rice 🐾 — Play Trivia, Feed Real Stray Animals',
     description: 'Every correct answer generates free rice grains and funds warm street animal meals in Patna. Level up, build streaks, and play to make a real-world difference!',
-    url: 'https://adityasec32.systems/charity-quiz',
+    url: 'https://cyberkarma.me',
     siteName: 'Cyber Free Rice & CyberKarma',
     images: [
       {
-        url: 'https://adityasec32.systems/og_image.png',
+        url: 'https://cyberkarma.me/og_image.png',
         width: 1200,
         height: 630,
         alt: 'Cyber Free Rice — Gamified Trivia to Feed Animals',
@@ -37,10 +37,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Cyber Free Rice 🐾 — Play Trivia, Feed Real Stray Animals',
     description: 'Answer cybersecurity & trivia questions to donate real bowls of food to street animals. 100% Free & Impactful.',
-    images: ['https://adityasec32.systems/og_image.png'],
+    images: ['https://cyberkarma.me/og_image.png'],
   },
   alternates: {
-    canonical: 'https://adityasec32.systems/charity-quiz',
+    canonical: 'https://cyberkarma.me',
   },
   manifest: '/manifest-quiz.json',
 };
@@ -59,11 +59,11 @@ const jsonLdGame = {
     "@type": "QuantitativeValue",
     "value": 1
   },
-  "url": "https://adityasec32.systems/charity-quiz",
+  "url": "https://cyberkarma.me",
   "author": {
     "@type": "Person",
     "name": "Aditya Jain",
-    "url": "https://adityasec32.systems"
+    "url": "https://cyberkarma.me"
   }
 };
 

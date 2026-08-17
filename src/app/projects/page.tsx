@@ -27,6 +27,7 @@ interface Project {
   desc: string;
   longDesc?: string;
   metrics?: string[];
+  image?: string;
   tags: string[];
   link?: string;
   ctaText: string;
@@ -117,7 +118,7 @@ const ALL_PROJECTS: Project[] = [
     ctaText: "Explore VC Directory"
   },
   {
-    id: "cyber-free-rice",
+    id: "cyber-free-rice", image: "/cyberkarma_banner.jpg",
     title: "Cyber Free Rice Initiative",
     category: "Interactive",
     badge: "Social Impact / Live",
@@ -274,6 +275,15 @@ export default function ProjectsPage() {
               <div className="h-full p-7 rounded-[24px] bg-slate-900/50 border border-emerald-500/10 hover:border-emerald-500/30 hover:bg-slate-900/80 transition-all duration-300 backdrop-blur-xl flex flex-col justify-between space-y-6 group">
                 
                 <div className="space-y-4">
+                  {project.image && (
+                    <div className="w-full h-44 rounded-xl overflow-hidden border border-emerald-500/20 bg-slate-950">
+                      <img 
+                        src={project.image} 
+                        alt={project.title} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                      />
+                    </div>
+                  )}
                   {/* Top Badge & Category */}
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className={`px-3 py-1 rounded-full text-[11px] font-mono font-bold border ${project.badgeColor}`}>

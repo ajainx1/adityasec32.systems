@@ -743,7 +743,7 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
 
   const handleShare = () => {
     const text = `🌾 I just generated ${score} grains of karmic impact on Cyber Free Rice! Test your cybersecurity knowledge & feed global causes:`;
-    const shareUrl = "https://adityasec32.systems/charity-quiz";
+    const shareUrl = "https://cyberkarma.me";
     if (navigator.share) {
       navigator.share({ title: 'Cyber Free Rice', text, url: shareUrl }).catch(console.error);
     } else {
@@ -857,6 +857,17 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
           className={`w-full p-8 sm:p-10 rounded-[32px] text-center overflow-hidden relative shadow-[0_12px_40px_rgba(0,0,0,0.15)] backdrop-blur-3xl border transition-all ${isDark ? 'bg-gradient-to-b from-rose-950/40 via-black/40 to-slate-950/60 border-rose-500/20' : 'bg-gradient-to-b from-rose-50/80 via-white/90 to-amber-50/80 border-rose-200'}`}
         >
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-32 bg-rose-500/10 blur-3xl rounded-full pointer-events-none" />
+
+          
+          {/* Official CyberKarma Banner Graphic */}
+          <div className="w-full max-w-2xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-emerald-500/20 mb-6 group">
+            <img 
+              src="/cyberkarma_banner.jpg" 
+              alt="CyberKarma: Play Free Quizzes, Feed Street Dogs" 
+              className="w-full h-auto object-cover group-hover:scale-102 transition-transform duration-500"
+            />
+          </div>
+
 
           {/* Emotional Headline */}
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight mb-4 font-title leading-tight">
