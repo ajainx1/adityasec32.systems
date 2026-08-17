@@ -122,3 +122,21 @@
 .animate-cursor-blink {
   animation: blink-cursor 1s infinite;
 }
+
+
+
+/* Universal Mobile Smooth Scrolling & Touch Targets */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 14px;
+  }
+  button, a {
+    min-height: 38px;
+    touch-action: manipulation;
+  }
+}
