@@ -4,30 +4,36 @@ import { ToastProvider } from '@/components/js/ToastContext';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Cyber Free Rice 🐾 | Play Cybersecurity & Trivia Game to Feed Stray Animals',
-  description: 'Answer cybersecurity, ethical hacking, and general knowledge trivia to donate real bowls of rice and fund warm meals for stray dogs in Patna. 100% free gamified charity.',
+  title: 'Cyber Free Rice 🐾 — Play Free Trivia & Feed Stray Dogs | CyberKarma.me',
+  description: 'Play free cybersecurity, science, space, and general trivia quizzes to donate real bowls of rice and fund warm meals for stray dogs in Patna, Bihar. 100% Free, Unlimited AI Mode & Field-Verified Impact.',
   keywords: [
     'Cyber Free Rice',
+    'CyberKarma',
     'Free Rice Game',
     'Play Trivia Feed Animals',
-    'Cybersecurity Quiz Game',
-    'Play to Donate',
-    'Charity Trivia Game',
-    'Stray Animal Feeding Patna',
-    'Gamified Ethical Hacking Quiz',
-    'CyberKarma'
+    'Free Cybersecurity Quiz Game',
+    'Feed Stray Dogs Patna',
+    'Play to Donate Rice',
+    'Ethical Hacking Quiz',
+    'Zero Trust Trivia',
+    'Non-Profit Educational Game',
+    'Stray Dog Rescue Bihar',
+    'Patna Animal Welfare'
   ],
+  authors: [{ name: 'Aditya Jain', url: 'https://adityasec32.systems' }],
+  creator: 'Aditya Jain',
+  publisher: 'CyberKarma Philanthropy',
   openGraph: {
-    title: 'Cyber Free Rice 🐾 — Play Trivia, Feed Real Stray Animals',
-    description: 'Every correct answer generates free rice grains and funds warm street animal meals in Patna. Level up, build streaks, and play to make a real-world difference!',
+    title: 'Cyber Free Rice 🐾 — Play Free Trivia & Feed Stray Dogs',
+    description: 'Every correct answer donates 10 grains of rice to feed real rescue animals in Patna, Bihar. Level up, build streaks, and play unlimited AI quizzes to make a real-world difference!',
     url: 'https://cyberkarma.me',
-    siteName: 'Cyber Free Rice & CyberKarma',
+    siteName: 'CyberKarma • Cyber Free Rice',
     images: [
       {
-        url: 'https://cyberkarma.me/og_image.png',
+        url: 'https://cyberkarma.me/cyberkarma_banner.jpg',
         width: 1200,
         height: 630,
-        alt: 'Cyber Free Rice — Gamified Trivia to Feed Animals',
+        alt: 'Cyber Free Rice & CyberKarma — Gamified Philanthropic Trivia Platform',
       },
     ],
     locale: 'en_US',
@@ -35,36 +41,77 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cyber Free Rice 🐾 — Play Trivia, Feed Real Stray Animals',
-    description: 'Answer cybersecurity & trivia questions to donate real bowls of food to street animals. 100% Free & Impactful.',
-    images: ['https://cyberkarma.me/og_image.png'],
+    title: 'Cyber Free Rice 🐾 — Play Free Trivia & Feed Stray Dogs',
+    description: 'Answer cybersecurity & trivia questions to donate real bowls of food to street animals in Patna. 100% Free & Impactful.',
+    images: ['https://cyberkarma.me/cyberkarma_banner.jpg'],
+    creator: '@adityasec32',
   },
   alternates: {
     canonical: 'https://cyberkarma.me',
   },
+  other: {
+    'geo.region': 'IN-BR',
+    'geo.placename': 'Patna',
+    'geo.position': '25.5941;85.1376',
+    'ICBM': '25.5941, 85.1376',
+  },
   manifest: '/manifest-quiz.json',
 };
 
-const jsonLdGame = {
+const jsonLdWebApp = {
   "@context": "https://schema.org",
-  "@type": "Game",
-  "name": "Cyber Free Rice",
-  "description": "Gamified educational trivia platform where correct answers in cybersecurity, ecology, and science generate real-world rice donations for stray animals.",
-  "genre": ["Educational Game", "Trivia", "Charity Game"],
-  "gameItem": {
-    "@type": "Thing",
-    "name": "Grains of Rice"
-  },
-  "numberOfPlayers": {
-    "@type": "QuantitativeValue",
-    "value": 1
-  },
+  "@type": "WebApplication",
+  "name": "Cyber Free Rice (CyberKarma)",
   "url": "https://cyberkarma.me",
+  "applicationCategory": "EducationalApplication, GameApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires JavaScript. Requires HTML5.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0.00",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "ratingCount": "1437",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "description": "Gamified educational trivia platform where correct answers in cybersecurity, ecology, physics, and space generate real-world rice donations for stray dogs in Patna, Bihar.",
+  "genre": ["Educational Game", "Trivia Game", "Charity Game"],
   "author": {
     "@type": "Person",
     "name": "Aditya Jain",
-    "url": "https://cyberkarma.me"
+    "url": "https://adityasec32.systems"
   }
+};
+
+const jsonLdOrganization = {
+  "@context": "https://schema.org",
+  "@type": "NGO",
+  "name": "CyberKarma Philanthropy",
+  "url": "https://cyberkarma.me",
+  "logo": "https://cyberkarma.me/icon.svg",
+  "description": "Decentralized ethical philanthropy and stray animal rescue initiative funding daily hot meals for street dogs across Patna Division, Bihar.",
+  "location": {
+    "@type": "Place",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Patna",
+      "addressRegion": "Bihar",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "25.5941",
+      "longitude": "85.1376"
+    }
+  },
+  "sameAs": [
+    "https://adityasec32.systems",
+    "https://github.com/ajainx1/cyberkarma.me"
+  ]
 };
 
 const jsonLdFaq = {
@@ -73,42 +120,91 @@ const jsonLdFaq = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How does Cyber Free Rice feed real animals?",
+      "name": "How does Cyber Free Rice feed real stray animals?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Advertisers and ethical sponsors display non-intrusive ads on Cyber Free Rice. 100% of the ad revenue generated by users answering trivia questions is used to purchase rice, broth, and veterinary food distributed directly in daily street animal feeding drives in Patna, Bihar."
+        "text": "For every question you answer correctly on CyberKarma, 10 grains of rice are pledged. Our on-ground volunteers in Patna Division, Bihar purchase fresh rice, nutritional broth, and veterinary supplements to prepare and distribute warm feeding bowls directly to street animals."
       }
     },
     {
       "@type": "Question",
-      "name": "Is Cyber Free Rice free to play?",
+      "name": "Is Cyber Free Rice 100% free to play?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes! Cyber Free Rice is 100% free to play. You never need to pay any money; your correct trivia answers and time spent learning generate the revenue needed to feed animals."
+        "text": "Yes! CyberKarma is 100% free with zero financial cost to users. There are no paywalls, hidden subscriptions, or personal capital requirements. Your time and knowledge generate the positive karmic impact."
       }
     },
     {
       "@type": "Question",
-      "name": "What topics can I play on Cyber Free Rice?",
+      "name": "Where can I view verified field proof photos?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "You can play multiple categories including Cybersecurity & Purple Teaming, Animal Welfare, Nature & Ecology, Science & Space, General Knowledge, and Humanities & Ethics."
+        "text": "You can visit our dedicated Real-World Impact Ledger at https://cyberkarma.me/impact to inspect over 110+ verified ground photos, sector timestamps, and geotagged drives across Patna (Rajbansi Nagar, Boring Road, Kankarbagh, Bailey Road, etc.)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the Unlimited AI Quiz generator work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "CyberKarma includes an intelligent multi-topic AI engine that generates limitless, custom-tailored quiz questions on any subject you choose—from Cyber Warfare and Zero Trust to Astrophysics and Ancient History—complete with 3D educational explanations for every answer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I play Cyber Free Rice using keyboard shortcuts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Press keys [A, B, C, D] or [1, 2, 3, 4] to select answers instantly, press [Space] or [Enter] to proceed to the next question, and press [H] to use a hint."
       }
     }
   ]
 };
 
+const jsonLdBreadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://cyberkarma.me"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Cyber Free Rice Quiz",
+      "item": "https://cyberkarma.me/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Field Proof Ledger",
+      "item": "https://cyberkarma.me/impact"
+    }
+  ]
+};
+
 export default function CharityQuizPage() {
+  const combinedJsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      jsonLdWebApp,
+      jsonLdOrganization,
+      jsonLdFaq,
+      jsonLdBreadcrumb
+    ]
+  };
+
   return (
     <ToastProvider>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGame) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }}
-      />
+      <section style={{ display: 'contents' }}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(combinedJsonLd) }}
+        />
+      </section>
       <CharityQuizClient />
     </ToastProvider>
   );

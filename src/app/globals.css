@@ -18,25 +18,25 @@
 
 @layer base {
   :root {
-    /* NOC Light Theme (Default) */
+    /* Light Theme (Default / Clean Pearl) */
     --bg: #f8fafc;
     --bg2: #ffffff;
     --card: #ffffff;
     --card2: #f1f5f9;
     --fg: #0f172a;
-    --primary: #0f4c81; /* Royal Blue primary */
-    --primary-dim: rgba(15, 76, 129, 0.1);
-    --primary-glow: rgba(15, 76, 129, 0.25);
-    --amber: #f97316; /* Saffron accent */
-    --amber-dim: rgba(249, 115, 22, 0.12);
-    --blue: #38bdf8;
-    --red: #ef4444;
-    --border: rgba(15, 76, 129, 0.15);
-    --border2: rgba(15, 76, 129, 0.28);
+    --primary: #059669; /* Emerald 600 */
+    --primary-dim: rgba(5, 150, 105, 0.1);
+    --primary-glow: rgba(5, 150, 105, 0.25);
+    --amber: #d97706;
+    --amber-dim: rgba(217, 119, 6, 0.12);
+    --blue: #0284c7;
+    --red: #dc2626;
+    --border: rgba(15, 23, 42, 0.12);
+    --border2: rgba(15, 23, 42, 0.22);
     --muted: #475569;
   }
 
-  body.dark-mode, .dark {
+  body.dark-mode, .dark, :root:not(.light-mode) {
     --bg: #0b0f19;
     --bg2: #161e2f;
     --card: #161e2f;
@@ -47,19 +47,29 @@
     --primary-glow: rgba(56, 189, 248, 0.25);
     --border: rgba(56, 189, 248, 0.15);
     --border2: rgba(56, 189, 248, 0.28);
-    --muted: #cbd5e1; /* slate-300 for better WCAG contrast */
+    --muted: #cbd5e1; /* slate-300 for WCAG AAA contrast */
   }
 
   body {
     background-color: var(--bg);
     color: var(--fg);
     font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
   :focus-visible {
-    outline: 2px solid #38bdf8;
+    outline: 2px solid #10b981;
     outline-offset: 2px;
   }
+}
+
+/* Core Web Vitals - CLS & Render Performance */
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
 }
 
 @keyframes pulse-glow-primary {
@@ -114,7 +124,7 @@
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Blinking Cursor for Terminal icon */
+/* Blinking Cursor */
 @keyframes blink-cursor {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
@@ -122,8 +132,6 @@
 .animate-cursor-blink {
   animation: blink-cursor 1s infinite;
 }
-
-
 
 /* Universal Mobile Smooth Scrolling & Touch Targets */
 html {
@@ -135,8 +143,18 @@ html {
   body {
     font-size: 14px;
   }
-  button, a {
-    min-height: 38px;
+  button, a, input, select {
+    min-height: 44px;
     touch-action: manipulation;
+  }
+}
+
+/* Respect User Accessibility Preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

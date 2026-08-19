@@ -131,8 +131,8 @@ const ALL_PROJECTS: Project[] = [
       "Zero-tracking privacy compliance"
     ],
     tags: ["Next.js", "Framer Motion", "Tailwind CSS", "Gamification"],
-    link: "/charity-quiz",
-    ctaText: "Play Security Quiz"
+    link: "https://cyberkarma.me",
+    ctaText: "Play on CyberKarma"
   },
   {
     id: "jumpstreet-bot",

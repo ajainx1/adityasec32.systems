@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+﻿document.addEventListener("DOMContentLoaded", () => {
     // DOM Elements Cache
     const shqGrid = document.getElementById("hosts-grid-shq");
     const dhqGrid = document.getElementById("hosts-grid-dhq");
@@ -375,14 +375,14 @@ document.addEventListener("DOMContentLoaded", () => {
         
         if (voiceAlertsEnabled) {
             speakAlert('Voice alerts activated. You will now hear real-time link status announcements.');
-            showToast('🔊 Voice Alerts Enabled', 'success');
+            showToast('ð Voice Alerts Enabled', 'success');
         } else {
             window.speechSynthesis.cancel();
             speechQueue.length = 0;
             speechQueueSet.clear();
             currentSpeechText = '';
             isSpeaking = false;
-            showToast('🔇 Voice Alerts Disabled', 'info');
+            showToast('ð Voice Alerts Disabled', 'info');
         }
     });
 
@@ -393,7 +393,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem('voiceGender', 'female');
         updateGenderUI();
         speakAlert('Female voice selected.');
-        showToast('♀ Female Voice Selected', 'info');
+        showToast('â Female Voice Selected', 'info');
     });
 
     voiceBtnMale.addEventListener('click', () => {
@@ -402,7 +402,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem('voiceGender', 'male');
         updateGenderUI();
         speakAlert('Male voice selected.');
-        showToast('♂ Male Voice Selected', 'info');
+        showToast('â Male Voice Selected', 'info');
     });
 
     // Speed toggle click handler
@@ -414,7 +414,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem('voiceSpeed', selectedSpeed);
         updateSpeedUI();
         speakAlert(`Speed set to ${selectedSpeed}x`);
-        showToast(`⚡ Voice Speed: ${selectedSpeed}x`, 'info');
+        showToast(`â¡ Voice Speed: ${selectedSpeed}x`, 'info');
     });
 
     let currentSpeechText = '';
@@ -823,14 +823,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (h.status === "UP" && h.temp !== undefined && h.temp !== null && h.temp !== "N/A") {
                     let tempNum = parseFloat(h.temp);
                     if (!isNaN(tempNum)) {
-                        if ((h.category || "") === "UPS") upsTemps.push(`${tempNum}°C`);
-                        if ((h.category || "") === "PAC") pacTemps.push(`${tempNum}°C`);
+                        if ((h.category || "") === "UPS") upsTemps.push(`${tempNum}Â°C`);
+                        if ((h.category || "") === "PAC") pacTemps.push(`${tempNum}Â°C`);
                     }
                 }
                 if (h.battery_status !== undefined && h.battery_status !== null) {
                     let label = "";
-                    if (h.ip === "10.X.X.0") label = "<span style='color:var(--text-muted); font-weight: 600; font-size: 10px; display: inline-block; width: 55px;'>Legrand</span>";
-                    else if (h.ip === "10.X.X.0") label = "<span style='color:var(--text-muted); font-weight: 600; font-size: 10px; display: inline-block; width: 55px;'>Delta</span>";
+                    if (h.ip === "10.133.15.42") label = "<span style='color:var(--text-muted); font-weight: 600; font-size: 10px; display: inline-block; width: 55px;'>Legrand</span>";
+                    else if (h.ip === "10.133.15.45") label = "<span style='color:var(--text-muted); font-weight: 600; font-size: 10px; display: inline-block; width: 55px;'>Delta</span>";
                     
                     let batText = label + (h.battery_status == 2 ? "<span style='color:var(--color-up);'>Normal</span>" : 
                                   h.battery_status == 3 ? "<span style='color:var(--color-warning);'>Low</span>" : 
@@ -843,7 +843,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             let camTempStr = "";
             hosts.forEach(h => {
-                if (h.ip === "10.X.X.0" && h.temp !== undefined) {
+                if (h.ip === "10.133.15.18" && h.temp !== undefined) {
                     camTempStr = h.temp;
                 }
             });
@@ -910,8 +910,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const sideLabel = document.getElementById("side-ticker-label");
 
         if (downHosts.length > 0) {
-            const outageStr = downHosts.map(h => `${h.description} (${h.ip})`).join("  •  ");
-            tickerContent.innerHTML = `<span style="color: #f43f5e; font-weight: 700;">🚨 CRITICAL OUTAGE ALERT:</span> ${outageStr}  •  Please check affected devices and verify connectivity immediately.`;
+            const outageStr = downHosts.map(h => `${h.description} (${h.ip})`).join("  â¢  ");
+            tickerContent.innerHTML = `<span style="color: #f43f5e; font-weight: 700;">ð¨ CRITICAL OUTAGE ALERT:</span> ${outageStr}  â¢  Please check affected devices and verify connectivity immediately.`;
             tickerBadge.style.backgroundColor = "#e11d48";
             tickerBadge.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Outage Alerts`;
             tickerBannerBar.style.display = "flex";
@@ -933,7 +933,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `).join('');
         } else {
-            tickerContent.innerHTML = `<span style="color: #10b981; font-weight: 700;">🟢 ALL SYSTEMS OPERATIONAL:</span> Monitoring 117 Bihar NOC network nodes in real-time. No active outages detected.`;
+            tickerContent.innerHTML = `<span style="color: #10b981; font-weight: 700;">ð¢ ALL SYSTEMS OPERATIONAL:</span> Monitoring 117 Bihar NOC network nodes in real-time. No active outages detected.`;
             tickerBadge.style.backgroundColor = "var(--accent-saffron)";
             tickerBadge.innerHTML = `<i class="fas fa-bullhorn"></i> Advisory Alerts`;
             tickerBannerBar.style.display = "none";
@@ -1025,24 +1025,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 const isOnBattery = (host.on_battery === true || host.on_battery === 1 || host.on_battery === "true");
                 let statusText = "UNKNOWN";
-                let statusDot = "⚫";
+                let statusDot = "â«";
                 let statusColor = "var(--text-muted)";
                 
                 if (isOnBattery) {
                     statusText = "ON BATTERY";
-                    statusDot = "🔴";
+                    statusDot = "ð´";
                     statusColor = "#ff3366";
                 } else if (host.battery_status == 2) {
                     statusText = "UPS STATUS OK";
-                    statusDot = "🟢";
+                    statusDot = "ð¢";
                     statusColor = "#10b981";
                 } else if (host.battery_status == 3) {
                     statusText = "BATTERY LOW";
-                    statusDot = "🟡";
+                    statusDot = "ð¡";
                     statusColor = "#fbbf24";
                 } else if (host.battery_status == 4) {
                     statusText = "BATTERY DEPLETED";
-                    statusDot = "🔴";
+                    statusDot = "ð´";
                     statusColor = "#ef4444";
                 }
                 
@@ -1602,156 +1602,91 @@ document.addEventListener("DOMContentLoaded", () => {
         return `<span style="color: #e2e8f0;">${line}</span>`;
     }
 
-    // Global In-Memory Telemetry Fallback Cache
-    let cachedMonitorData = null;
-    let fallbackCycleCount = 0;
-
-    async function getFallbackMonitorData() {
-        if (!cachedMonitorData) {
-            try {
-                const res = await fetch("monitor_data.json?v=" + Date.now());
-                if (res.ok) {
-                    cachedMonitorData = await res.json();
-                }
-            } catch (e) {
-                console.warn("Could not fetch monitor_data.json, checking backup", e);
-            }
-        }
-        
-        if (!cachedMonitorData || !cachedMonitorData.hosts) {
-            return null;
-        }
-
-        fallbackCycleCount++;
-        const now = new Date();
-        const timeStr = now.toTimeString().split(" ")[0];
-        
-        // Clone dataset so we don't alter original file structure
-        const clone = JSON.parse(JSON.stringify(cachedMonitorData));
-        clone.timestamp = timeStr;
-        
-        // Realistic dynamic telemetry jitter for live feel
-        clone.hosts.forEach((h, idx) => {
-            if (h.status === "UP") {
-                // Apply slight jitter (1ms - 8ms)
-                const jitter = (idx % 5 === (fallbackCycleCount % 5)) ? Math.floor(Math.random() * 4) + 1 : (h.latency || 1);
-                h.latency = jitter;
-            }
-        });
-
-        const total = clone.hosts.length;
-        const upCount = clone.hosts.filter(h => h.status === "UP").length;
-        const downCount = total - upCount;
-        const ratio = Math.round((upCount / total) * 100) + "%";
-
-        clone.stats = {
-            total: total,
-            up: upCount,
-            down: downCount,
-            uptime_ratio: ratio
-        };
-
-        clone.active_viewers = {
-            count: 4,
-            ips: ["10.X.X.0 (NOC Lead)", "10.X.X.0 (SIO Console)", "10.X.X.0 (Server)"]
-        };
-
-        if (!clone.logs || clone.logs.length === 0) {
-            clone.logs = [
-                `[${timeStr}] INFO: Real-time ICMP sweep active across ${total} state nodes (${upCount} UP, ${downCount} DOWN).`,
-                `[${timeStr}] INFO: 38 District Headquarters BGP loopback peers verified.`,
-                `[${timeStr}] INFO: NKN Core Gigabit Gateway telemetry: 100% throughput operational.`
-            ];
-        }
-
-        return clone;
-    }
-
-    function processStatusData(data) {
-        lastCheckedTime.textContent = `Last Checked: ${data.timestamp}`;
-        const _showErr = (fn, e) => { console.error(fn, e); };
-        try { updateStats(data.stats, data.hosts); } catch(e) { _showErr("updateStats", e); }
-        try { updateOutagesPanels(data.hosts); } catch(e) { _showErr("updateOutagesPanels", e); }
-        try { detectStateTransitions(data.hosts); } catch(e) { _showErr("detectStateTransitions", e); }
-        try { renderHostsGrid(data.hosts); } catch(e) { _showErr("renderHostsGrid", e); }
-        try { renderLogs(data.logs, data.whatsapp_logs); } catch(e) { _showErr("renderLogs", e); }
-        try { updateChart(data.stats_history); } catch(e) { _showErr("updateChart", e); }
-        
-        const activeViewersCount = document.getElementById("active-viewers-count");
-        const activeViewersIps = document.getElementById("active-viewers-ips");
-        
-        if (data.active_viewers !== undefined) {
-            const count = data.active_viewers.count !== undefined ? data.active_viewers.count : data.active_viewers;
-            if (activeViewersCount) activeViewersCount.textContent = count;
-            if (activeViewersIps && data.active_viewers.ips && data.active_viewers.ips.length > 0) {
-                activeViewersIps.innerHTML = data.active_viewers.ips.map(ip => `<div class="active-connection-item"><i class="fas fa-plug"></i> ${ip}</div>`).join("");
-                activeViewersIps.style.display = "flex";
-            } else if (activeViewersIps) {
-                activeViewersIps.style.display = "none";
-            }
-        }
-
-        if (data.config) {
-            const sender = data.config.twilio_sender || "+14155238886";
-            const joinMsg = data.config.twilio_join_msg || "join at-cath";
-            const qrImg = document.getElementById("enrollment-qr-img");
-            const msgText = document.getElementById("enrollment-msg-text");
-            const phoneText = document.getElementById("enrollment-phone-text");
-            if (msgText) msgText.textContent = joinMsg;
-            if (phoneText) phoneText.textContent = sender;
-            if (qrImg) qrImg.src = "static/twilio_enroll_qr.png";
-        }
-        
-        if (isFirstLoad) {
-            isFirstLoad = false;
-            if (window.searchQuery) {
-                const matches = data.hosts.filter(h => 
-                    h.ip === window.searchQuery || 
-                    (h.description && h.description.toLowerCase().includes(window.searchQuery.toLowerCase()))
-                );
-                if (matches.length === 1) {
-                    openHostModal(matches[0].ip);
-                }
-            }
-        }
-    }
-
-    // Fetch Dashboard API Status with Static Telemetry Fallback
+    // Fetch Dashboard API Status
     function fetchStatus() {
         const cb = new Date().getTime();
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 1800);
-
-        fetch("api.php?endpoint=status&tab_id=" + tabId + "&cb=" + cb, { signal: controller.signal })
+        fetch("api.php?endpoint=status&tab_id=" + tabId + "&cb=" + cb)
             .then(res => {
-                clearTimeout(timeoutId);
                 if (!res.ok) throw new Error(`HTTP error ${res.status}`);
                 return res.json();
             })
             .then(data => {
-                if (data && data.status === "success") {
-                    processStatusData(data);
-                } else {
-                    throw new Error("Invalid API payload");
-                }
-            })
-            .catch(async () => {
-                clearTimeout(timeoutId);
-                const fallbackData = await getFallbackMonitorData();
-                if (fallbackData) {
-                    processStatusData(fallbackData);
-                    const statusBadge = document.getElementById("service-status");
-                    if (statusBadge) {
-                        statusBadge.innerHTML = '<span style="background-color: #10b981" class="host-indicator"></span><span>NOC LIVE MONITORING (293 NODES)</span>';
-                        statusBadge.className = "status-badge active-state";
-                        statusBadge.style.color = "#10b981";
-                        statusBadge.style.borderColor = "rgba(16, 185, 129, 0.3)";
+                if (data.status === "success") {
+                    lastCheckedTime.textContent = `Last Checked: ${data.timestamp}`;
+                    const _showErr = (fn, e) => { document.title = fn + ': ' + e.message; console.error(fn, e); };
+                    try { updateStats(data.stats, data.hosts); } catch(e) { _showErr("updateStats", e); }
+                    try { updateOutagesPanels(data.hosts); } catch(e) { _showErr("updateOutagesPanels", e); }
+                    try { detectStateTransitions(data.hosts); } catch(e) { _showErr("detectStateTransitions", e); }
+                    try { renderHostsGrid(data.hosts); } catch(e) { _showErr("renderHostsGrid", e); }
+                    try { renderLogs(data.logs, data.whatsapp_logs); } catch(e) { _showErr("renderLogs", e); }
+                    try { updateChart(data.stats_history); } catch(e) { _showErr("updateChart", e); }
+                    
+                    // Update active viewers counter dynamically
+                    const activeViewersCount = document.getElementById("active-viewers-count");
+                    const activeViewersIps = document.getElementById("active-viewers-ips");
+                    
+                    if (data.active_viewers !== undefined) {
+                        // Handle new array payload or legacy integer fallback
+                        const count = data.active_viewers.count !== undefined ? data.active_viewers.count : data.active_viewers;
+                        
+                        if (activeViewersCount) {
+                            activeViewersCount.textContent = count;
+                        }
+                        
+                        if (activeViewersIps && data.active_viewers.ips && data.active_viewers.ips.length > 0) {
+                            activeViewersIps.innerHTML = data.active_viewers.ips.map(ip => `<div class="active-connection-item"><i class="fas fa-plug"></i> ${ip}</div>`).join("");
+                            activeViewersIps.style.display = "flex";
+                        } else if (activeViewersIps) {
+                            activeViewersIps.style.display = "none";
+                        }
+                    }
+
+                    // Update WhatsApp Twilio Sign-up details dynamically
+                    if (data.config) {
+                        const sender = data.config.twilio_sender || "+14155238886";
+                        const joinMsg = data.config.twilio_join_msg || "join at-cath";
+                        
+                        const qrImg = document.getElementById("enrollment-qr-img");
+                        const msgText = document.getElementById("enrollment-msg-text");
+                        const phoneText = document.getElementById("enrollment-phone-text");
+                        
+                        if (msgText) msgText.textContent = joinMsg;
+                        if (phoneText) phoneText.textContent = sender;
+                        
+                        if (qrImg) {
+                            const localQrUrl = "static/twilio_enroll_qr.png";
+                            if (qrImg.getAttribute('src') !== localQrUrl) {
+                                qrImg.src = localQrUrl;
+                            }
+                        }
+                    }
+                    
+                    // Auto-open modal on first load if search matches exactly one host
+                    if (isFirstLoad) {
+                        isFirstLoad = false;
+                        if (searchQuery) {
+                            const matches = data.hosts.filter(h => 
+                                h.ip === searchQuery || 
+                                h.description.toLowerCase().includes(searchQuery.toLowerCase())
+                            );
+                            if (matches.length === 1) {
+                                openHostModal(matches[0].ip);
+                            }
+                        }
                     }
                 }
+            })
+            .catch(err => {
+                console.error("Fetch API error:", err);
+                const statusBadge = document.getElementById("service-status");
+                statusBadge.innerHTML = '<span style="background-color: var(--color-down)" class="host-indicator"></span><span>NOC DISCONNECTED</span>';
+                statusBadge.className = "status-badge active-state";
+                statusBadge.style.color = "var(--color-down)";
+                statusBadge.style.borderColor = "rgba(244, 63, 94, 0.25)";
             });
     }
 
-    // Modal Actions: Ping Now (Resilient)
+    // Modal Actions: Ping Now
     modalBtnPing.addEventListener("click", () => {
         if (!activeHostIp) return;
         
@@ -1759,94 +1694,62 @@ document.addEventListener("DOMContentLoaded", () => {
         const origText = modalBtnPing.innerHTML;
         modalBtnPing.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Pinging...`;
         
-        const host = allHostsData.find(h => h.ip === activeHostIp);
-        const desc = host ? host.description : "Host";
-
         fetch("api.php?endpoint=hosts/ping", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ ip: activeHostIp })
         })
-        .then(res => {
-            if (!res.ok) throw new Error("API not available");
-            return res.json();
-        })
+        .then(res => res.json())
         .then(data => {
             if (data.status === "success") {
                 showToast(`Ping completed for ${activeHostIp}: ${data.device_status} (${data.latency ? data.latency + 'ms' : '< 1ms'})`, "success");
+                // Force state update immediately in modal
                 openHostModal(activeHostIp);
             } else {
                 showToast(`Ping failed: ${data.message}`, "error");
             }
         })
-        .catch(() => {
-            setTimeout(() => {
-                const isOnline = host ? (host.status === "UP") : true;
-                const rtt = Math.floor(Math.random() * 4) + 1;
-                
-                if (isOnline) {
-                    const pingOutput = `Pinging ${activeHostIp} with 32 bytes of data:\nReply from ${activeHostIp}: bytes=32 time=${rtt}ms TTL=64\nReply from ${activeHostIp}: bytes=32 time=${rtt+1}ms TTL=64\nReply from ${activeHostIp}: bytes=32 time=${rtt}ms TTL=64\nReply from ${activeHostIp}: bytes=32 time=${rtt}ms TTL=64\n\nPing statistics for ${activeHostIp}:\n    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),\nApproximate round trip times in milli-seconds:\n    Minimum = ${rtt}ms, Maximum = ${rtt+1}ms, Average = ${rtt}ms\n`;
-                    if (host) {
-                        host.last_stdout = pingOutput;
-                        host.latency = rtt;
-                    }
-                    modalConsoleStdout.textContent = pingOutput;
-                    showToast(`Ping successful for ${desc} (${activeHostIp}): 0% packet loss (${rtt}ms)`, "success");
-                } else {
-                    const pingOutput = `Pinging ${activeHostIp} with 32 bytes of data:\nRequest timed out.\nRequest timed out.\nRequest timed out.\nRequest timed out.\n\nPing statistics for ${activeHostIp}:\n    Packets: Sent = 4, Received = 0, Lost = 4 (100% loss)\n`;
-                    if (host) host.last_stdout = pingOutput;
-                    modalConsoleStdout.textContent = pingOutput;
-                    showToast(`Ping timeout for ${desc} (${activeHostIp}): Host unreachable`, "error");
-                }
-                openHostModal(activeHostIp);
-            }, 300);
+        .catch(err => {
+            console.error(err);
+            showToast("Server error during ping execution.", "error");
         })
         .finally(() => {
-            setTimeout(() => {
-                modalBtnPing.disabled = false;
-                modalBtnPing.innerHTML = origText;
-            }, 300);
+            modalBtnPing.disabled = false;
+            modalBtnPing.innerHTML = origText;
         });
     });
 
-    // Modal Actions: Mute Alerts (Resilient)
+    // Modal Actions: Mute Alerts
     modalBtnMute.addEventListener("click", () => {
         if (!activeHostIp) return;
         
         modalBtnMute.disabled = true;
-        const host = allHostsData.find(h => h.ip === activeHostIp);
         
         fetch("api.php?endpoint=hosts/mute", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ ip: activeHostIp })
         })
-        .then(res => {
-            if (!res.ok) throw new Error("API not available");
-            return res.json();
-        })
+        .then(res => res.json())
         .then(data => {
             if (data.status === "success") {
                 const mutedText = data.muted ? "MUTED" : "UNMUTED";
                 showToast(`Alert notifications ${mutedText} for ${activeHostIp}.`, data.muted ? "warning" : "success");
                 openHostModal(activeHostIp);
+            } else {
+                showToast(`Failed to mute device: ${data.message}`, "error");
             }
         })
-        .catch(() => {
-            if (host) {
-                host.muted = !host.muted;
-                const mutedText = host.muted ? "MUTED" : "UNMUTED";
-                showToast(`Alert notifications ${mutedText} for ${activeHostIp}.`, host.muted ? "warning" : "success");
-                renderHostsGrid(allHostsData);
-                openHostModal(activeHostIp);
-            }
+        .catch(err => {
+            console.error(err);
+            showToast("Server error during mute execution.", "error");
         })
         .finally(() => {
             modalBtnMute.disabled = false;
         });
     });
 
-    // Modal Actions: Trace Route Path (Resilient)
+    // Modal Actions: Trace Route Path
     modalBtnTracert.addEventListener("click", () => {
         if (!activeHostIp) return;
         
@@ -1854,16 +1757,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const origText = modalBtnTracert.innerHTML;
         modalBtnTracert.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Tracing...`;
         
-        modalConsoleStdout.textContent = `Tracing network route path to ${activeHostIp} (Max 15 hops, ICMP echo)...\nAnalyzing latency hops...\n\n`;
-
-        const host = allHostsData.find(h => h.ip === activeHostIp);
-        const desc = host ? host.description : "District Node";
-
+        modalConsoleStdout.textContent = `Tracing network route path to ${activeHostIp} (Max 10 hops, no DNS reverse lookup)...\nThis may take up to 10 seconds. Please wait...\n\n`;
+        
         fetch(`api.php?endpoint=diagnostics/tracert&ip=${activeHostIp}`)
-        .then(res => {
-            if (!res.ok) throw new Error("API not available");
-            return res.json();
-        })
+        .then(res => res.json())
         .then(data => {
             if (data.status === "success") {
                 modalConsoleStdout.textContent += data.stdout;
@@ -1873,23 +1770,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 showToast(`Diagnostics failed: ${data.message}`, "error");
             }
         })
-        .catch(() => {
-            setTimeout(() => {
-                const hop1 = "<1 ms";
-                const hop2 = (Math.floor(Math.random() * 2) + 1) + " ms";
-                const hop3 = (Math.floor(Math.random() * 4) + 2) + " ms";
-                
-                const traceOutput = `Tracing route to ${activeHostIp} [${desc}]\nover a maximum of 15 hops:\n\n  1    ${hop1}    ${hop1}    ${hop1}  10.X.X.0 [NIC Bihar Core Layer-3 Gateway]\n  2    ${hop2}    ${hop2}    ${hop2}  10.X.X.0 [State HQ Aggregation Switch]\n  3    ${hop3}    ${hop3}    ${hop3}  ${activeHostIp} [${desc}]\n\nTrace complete. 0% packet loss along route path.`;
-                modalConsoleStdout.textContent = traceOutput;
-                showToast(`Traceroute path analysis complete for ${activeHostIp}.`, "success");
-            }, 400);
+        .catch(err => {
+            console.error(err);
+            modalConsoleStdout.textContent += "Connection timeout error during route analysis.";
+            showToast("Server connection error during traceroute.", "error");
         })
         .finally(() => {
-            setTimeout(() => {
-                modalBtnTracert.disabled = false;
-                modalBtnTracert.innerHTML = origText;
-                modalConsoleStdout.scrollTop = modalConsoleStdout.scrollHeight;
-            }, 400);
+            modalBtnTracert.disabled = false;
+            modalBtnTracert.innerHTML = origText;
+            modalConsoleStdout.scrollTop = modalConsoleStdout.scrollHeight;
         });
     });
 

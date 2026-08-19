@@ -547,7 +547,7 @@ export default function Home() {
                 desc: "Interactive education platform featuring a stunning macOS-inspired UI. User quiz scores are simulated to feed directly into food charity initiatives (FreeRice concept).",
                 tags: ["Next.js", "Framer Motion", "Supabase", "Tailwind CSS"],
                 badge: "Community",
-                link: "/charity-quiz",
+                link: "https://cyberkarma.me",
                 color: "bg-emerald-50 text-emerald-700 border-emerald-200"
               }
             ].map((project, idx) => (

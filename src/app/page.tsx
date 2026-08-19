@@ -196,19 +196,27 @@ const WRITE_UPS: WriteUp[] = [
   }
 ];
 
+const isCyberKarmaMode = process.env.NEXT_PUBLIC_SITE_MODE === "cyberkarma";
+
 export default function Home() {
-  const [isCyberKarma, setIsCyberKarma] = useState(false);
-  const [isCheckingDomain, setIsCheckingDomain] = useState(true);
+  const [isCyberKarmaHost, setIsCyberKarmaHost] = useState(isCyberKarmaMode);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const host = window.location.hostname.toLowerCase();
       if (host.includes("cyberkarma") || host.includes("freerice")) {
-        setIsCyberKarma(true);
+        setIsCyberKarmaHost(true);
       }
-      setIsCheckingDomain(false);
     }
   }, []);
+
+  if (isCyberKarmaMode || isCyberKarmaHost) {
+    return (
+      <ToastProvider>
+        <CharityQuizClient />
+      </ToastProvider>
+    );
+  }
 
   const [terminalHistory, setTerminalHistory] = useState<string[]>([
     "aditya@secops:~# secure session initialized...",
@@ -228,14 +236,6 @@ export default function Home() {
   useEffect(() => {
     terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [terminalHistory]);
-
-  if (isCyberKarma) {
-    return (
-      <ToastProvider>
-        <CharityQuizClient />
-      </ToastProvider>
-    );
-  }
 
   const handleCommandSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -318,6 +318,14 @@ export default function Home() {
             <a href="#writeups" className="hover:text-emerald-400 transition-colors">Write-Ups</a>
             <a href="#about" className="hover:text-emerald-400 transition-colors">About</a>
             <a href="#contact" className="hover:text-emerald-400 transition-colors">Contact</a>
+            
+            <Link
+              href="/charity-quiz"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 hover:text-white hover:bg-rose-500/25 transition-all text-xs font-mono font-bold"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+              <span>🐾 Free Rice (हिं/EN)</span>
+            </Link>
           </nav>
 
           {/* Right Permanent Resume CTA */}
@@ -343,6 +351,7 @@ export default function Home() {
             <a href="#writeups" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Write-Ups</a>
             <a href="#about" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">About</a>
             <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Contact</a>
+            <Link href="/charity-quiz" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-rose-400 font-bold">🐾 Free Rice Quiz (हिं/EN)</Link>
           </div>
         )}
       </header>
@@ -1075,7 +1084,9 @@ export default function Home() {
                   </div>
                   <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
                     <a 
-                      href="/charity-quiz" 
+                      href="https://cyberkarma.me" 
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-xs font-mono font-bold text-emerald-400 hover:text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 px-3 py-1.5 rounded-xl border border-emerald-500/30 transition-all"
                     >
                       <span>Play &amp; Feed Animals</span>

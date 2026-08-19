@@ -1,4 +1,4 @@
-// --- Floating AI Chatbot Widget Logic ---
+﻿// --- Floating AI Chatbot Widget Logic ---
         const MODEL_NAME = "qwen2.5:1.5b";
         let chatbotMessages, chatbotInput;
         let contactsDatabase = [];
@@ -199,18 +199,18 @@
                         const data = await response.json();
                         let responseText = "";
                         if (data.status === "online") {
-                            responseText = `🟢 **${data.name}** is **ONLINE**.\n\n* **Host:** \`${data.host}:${data.port}\`\n* **Response RTT:** \`${data.rtt_ms} ms\`\n* **Status:** Connection test successful, TCP socket active.`;
+                            responseText = `ð¢ **${data.name}** is **ONLINE**.\n\n* **Host:** \`${data.host}:${data.port}\`\n* **Response RTT:** \`${data.rtt_ms} ms\`\n* **Status:** Connection test successful, TCP socket active.`;
                         } else {
-                            responseText = `🔴 **${data.name}** is **OFFLINE**.\n\n* **Host:** \`${data.host}:${data.port}\`\n* **Error:** \`${data.message || 'Connection refused'}\`\n* **Status:** Connection failed. Check network routing.`;
+                            responseText = `ð´ **${data.name}** is **OFFLINE**.\n\n* **Host:** \`${data.host}:${data.port}\`\n* **Error:** \`${data.message || 'Connection refused'}\`\n* **Status:** Connection failed. Check network routing.`;
                         }
                         appendBotMessage(responseText);
                     } else {
-                        appendBotMessage(`⚠️ Unable to fetch live status. The backend status verification tool returned an error code ${response.status}.`);
+                        appendBotMessage(`â ï¸ Unable to fetch live status. The backend status verification tool returned an error code ${response.status}.`);
                     }
                 } catch (error) {
                     console.error("Error pinging status:", error);
                     typingIndicator.remove();
-                    appendBotMessage("⚠️ Network error occurred while contacting the live status verification script.");
+                    appendBotMessage("â ï¸ Network error occurred while contacting the live status verification script.");
                 }
                 return; // Skip LLM call
             }
@@ -278,7 +278,7 @@
                         messages: [
                             {
                                 role: 'system',
-                                content: 'You are the Bihar State NOC AI assistant. Be helpful, concise and direct. Answer questions about Bihar State NOC, support contacts, service statuses (Bihar NOC Patna: 99.98%, NKN Core: 100%, District links: 99.95%), upload limits (max 500MB). Engineers can change their TACACS/TACS password at the portal link: https://taspass.nic.in:8443/mydevicesportal/PortalSetup.action?portal=29c6c87d-92c1-48d7-80f4-d49d36e5a1eb and access the FMS Billing & Attendance System at: http://10.X.X.0:8080/FMS-attendance/index.php. Address: Soochna Bhawan Campus, Patna. Phone: 0612-2547964. This chatbot was founded by Aditya Jain, Security Administrator. If asked about Aditya Jain (including queries like "how is aditya jain" or who he is), do not refuse; provide his profile as the Security Administrator and founder of this bot, and state that his correct contact number is +919897577007 and email is seca1.shq.br@nic.in.' + dynamicContext
+                                content: 'You are the Bihar State NOC AI assistant. Be helpful, concise and direct. Answer questions about Bihar State NOC, support contacts, service statuses (Bihar NOC Patna: 99.98%, NKN Core: 100%, District links: 99.95%), upload limits (max 500MB). Engineers can change their TACACS/TACS password at the portal link: https://taspass.nic.in:8443/mydevicesportal/PortalSetup.action?portal=29c6c87d-92c1-48d7-80f4-d49d36e5a1eb and access the FMS Billing & Attendance System at: http://10.133.0.51:8080/FMS-attendance/index.php. Address: Soochna Bhawan Campus, Patna. Phone: 0612-2547964. This chatbot was founded by Aditya Jain, Security Administrator. If asked about Aditya Jain (including queries like "how is aditya jain" or who he is), do not refuse; provide his profile as the Security Administrator and founder of this bot, and state that his correct contact number is +919897577007 and email is seca1.shq.br@nic.in.' + dynamicContext
                             },
                             ...chatHistory,
                             { role: 'user', content: text }
@@ -354,28 +354,9 @@
                     chatHistory = chatHistory.slice(chatHistory.length - 8); // Keep last 4 turns
                 }
             } catch (error) {
-                console.warn("Backend chat API offline, invoking client-side NOC Intelligence Assistant:", error);
+                console.error(error);
                 typingIndicator.remove();
-                
-                const q = text.toLowerCase();
-                let reply = "";
-                
-                if (q.includes("aditya") || q.includes("founder") || q.includes("who made") || q.includes("who built")) {
-                    reply = `👤 **Aditya Jain** is the **Security Administrator** at National Informatics Centre (NIC/MeitY) and the engineer who designed this NOC Telemetry and Alert system.\n\n* **Designation:** Security Administrator & Purple Teamer\n* **Infrastructure:** 750+ Endpoints, Check Point NGFW, Wazuh SIEM, SentinelOne\n* **Official Contact:** seca1.shq.br@nic.in\n* **Portfolio:** [adityasec32.systems](https://adityasec32.systems/)`;
-                } else if (q.includes("tacacs") || q.includes("taspass") || q.includes("password") || q.includes("reset")) {
-                    reply = `🔐 **TACACS+ Password Reset Portal**\n\nDistrict and State engineers can update their switch/router TACACS credentials directly at:\n🔗 [NIC TASPASS Device Portal](https://taspass.nic.in:8443/mydevicesportal/PortalSetup.action?portal=29c6c87d-92c1-48d7-80f4-d49d36e5a1eb)\n\n*Note: Ensure you are connected via NKN Core or VPN.*`;
-                } else if (q.includes("fms") || q.includes("attendance") || q.includes("billing")) {
-                    reply = `📋 **FMS Attendance & Billing System**\n\nAccess the internal engineer attendance portal:\n🔗 [FMS Attendance System](http://10.X.X.0:8080/FMS-attendance/index.php)`;
-                } else if (matchedContacts.length > 0) {
-                    reply = `📞 **NIC Engineering Directory Matches:**\n\n` + 
-                        matchedContacts.map(c => `* **${c.name}** (${c.role || 'Staff'})\n  📍 Location: ${c.location || 'Patna'}\n  📱 Mobile: \`${c.mobile || 'N/A'}\`\n  ✉️ Email: \`${c.email || 'N/A'}\``).join("\n\n");
-                } else if (q.includes("status") || q.includes("uptime") || q.includes("outage")) {
-                    reply = `🟢 **Bihar State NOC Telemetry Overview:**\n\n* **State HQ Core:** 100% Online\n* **38 District Gateways:** Active BGP Peering\n* **NKN State Core:** Gigabit Low-Latency Route (1.2ms)\n* **Monitored Nodes:** 293 total state network endpoints`;
-                } else {
-                    reply = `🤖 **Bihar State NOC AI Telemetry Assistant**\n\nI can assist you with:\n* 🔍 **District Contact Lookup:** e.g., *"Contact for Purnea"* or *"Muzaffarpur DIO"*\n* 🔐 **TACACS Credentials:** *"How to change TASPASS password"*\n* 📊 **Network Status:** *"Check Patna Core status"*\n* 👤 **System Architect:** *"Who is Aditya Jain"*`;
-                }
-                
-                appendBotMessage(reply);
+                appendBotMessage("Error: Unable to connect to the assistant server. Please ensure Ollama is running and CORS is allowed.");
             }
         }
 
@@ -729,13 +710,13 @@
 
             card.innerHTML = `
                 <!-- Decorative absolute emojis popping out of card -->
-                <div style="position: absolute; left: -35px; top: 10%; font-size: 2.8rem; transform: rotate(-15deg); animation: float-balloon 3s infinite alternate ease-in-out; pointer-events: none; z-index: 10;">🎈</div>
-                <div style="position: absolute; right: -35px; bottom: 20%; font-size: 2.8rem; transform: rotate(15deg); animation: float-balloon 3s infinite alternate-reverse ease-in-out; pointer-events: none; z-index: 10;">🎁</div>
-                <div style="position: absolute; left: -30px; bottom: 12%; font-size: 2.2rem; transform: rotate(-10deg); animation: float-balloon 4s infinite alternate ease-in-out; pointer-events: none; z-index: 10;">🥳</div>
-                <div style="position: absolute; right: -30px; top: 15%; font-size: 2.2rem; transform: rotate(10deg); animation: float-balloon 4s infinite alternate-reverse ease-in-out; pointer-events: none; z-index: 10;">🎉</div>
+                <div style="position: absolute; left: -35px; top: 10%; font-size: 2.8rem; transform: rotate(-15deg); animation: float-balloon 3s infinite alternate ease-in-out; pointer-events: none; z-index: 10;">ð</div>
+                <div style="position: absolute; right: -35px; bottom: 20%; font-size: 2.8rem; transform: rotate(15deg); animation: float-balloon 3s infinite alternate-reverse ease-in-out; pointer-events: none; z-index: 10;">ð</div>
+                <div style="position: absolute; left: -30px; bottom: 12%; font-size: 2.2rem; transform: rotate(-10deg); animation: float-balloon 4s infinite alternate ease-in-out; pointer-events: none; z-index: 10;">ð¥³</div>
+                <div style="position: absolute; right: -30px; top: 15%; font-size: 2.2rem; transform: rotate(10deg); animation: float-balloon 4s infinite alternate-reverse ease-in-out; pointer-events: none; z-index: 10;">ð</div>
                 
                 <div style="margin-bottom: 20px; position: relative; z-index: 2;">
-                    <span style="font-size: 3.8rem; animation: float-trophy 2s infinite alternate ease-in-out; display: inline-block; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));">🏆</span>
+                    <span style="font-size: 3.8rem; animation: float-trophy 2s infinite alternate ease-in-out; display: inline-block; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));">ð</span>
                 </div>
                 <h2 class="neon-text-glow" style="position: relative; z-index: 2;">Milestone Visitor!</h2>
                 <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 25px; line-height: 1.6; position: relative; z-index: 2;">
@@ -793,7 +774,7 @@
                 '#8b5cf6'  // Purple
             ];
 
-            const emojiList = ['🎉', '✨', '🥳', '🏆', '💥', '🎈', '🌟', '👏', '👑'];
+            const emojiList = ['ð', 'â¨', 'ð¥³', 'ð', 'ð¥', 'ð', 'ð', 'ð', 'ð'];
 
             class Rocket {
                 constructor() {

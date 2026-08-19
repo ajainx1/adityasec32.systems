@@ -1,43 +1,86 @@
 "use client";
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Share2, Heart, Lightbulb, User, LogOut, ArrowLeft, Sun, Moon, Zap, Cpu, Award, Network, Activity, Server } from 'lucide-react';
+import { Share2, Heart, Lightbulb, User, LogOut, ArrowLeft, Sun, Moon, Zap, Cpu, Award, Network, Activity, Server, ExternalLink } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import { quizData, CategoryKey, Difficulty, Question } from './quizData';
+import { quizDataHindi, DAILY_FACTS_HI } from './quizDataHindi';
+import { Language, UI_TRANSLATIONS, getTranslation } from './i18n';
 import { useToast } from '../js/ToastContext';
 import Link from 'next/link';
 import TiltWrapper from '@/components/3d/TiltWrapper';
-import AdSenseBanner from '@/components/AdSenseBanner';
 
 // Initialize Supabase client
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://xkhgccximcrsdpdlskys.supabase.co';
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhraGdjY3hpbWNyc2RwZGxza3lzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjQ0OTksImV4cCI6MjA5OTI0MDQ5OX0.R9t0QNG0voJPyxhZkXO2hQtD4_Gr2xdnGyI8AlTOk5g';
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const recipientIcons: Record<string, { base: string; float: string; label: string }> = {
-  human: { base: '🤲🥣', float: '💚', label: 'Humans' },
-  birds: { base: '🕊️🌾', float: '✨', label: 'Birds' },
-  cows: { base: '🐄🌿', float: '🌾', label: 'Cows' },
-  dogs: { base: '🐕🦴', float: '🦴', label: 'Dogs' },
-  moon: { base: '🍚🥛', float: '🤍', label: 'Moon (2)' },
-  jupiter: { base: '📚💻', float: '💛', label: 'Jupiter (3)' },
-  rahu: { base: '💊🧣', float: '⚕️', label: 'Rahu (4)' },
-  venus: { base: '👗🌸', float: '💖', label: 'Venus (6)' },
-  saturn: { base: '🦯🤝', float: '🖤', label: 'Saturn (8)' },
+const recipientIcons: Record<string, { base: string; float: string; label: string; labelHi?: string }> = {
+  human: { base: '🤲🥣', float: '💚', label: 'Underprivileged Meals', labelHi: 'जरूरतमंद भोजन' },
+  birds: { base: '🕊️🌾', float: '✨', label: 'Bird Seeds', labelHi: 'पक्षी दाना' },
+  cows: { base: '🐄🌿', float: '🌾', label: 'Cattle Fodder', labelHi: 'गौ ग्रास चारा' },
+  dogs: { base: '🐕🦴', float: '🦴', label: 'Street Dog Meals', labelHi: 'श्वान भोजन सेवा' },
+  moon: { base: '🍚🥛', float: '🤍', label: 'Moon (2)', labelHi: 'चंद्र (2)' },
+  jupiter: { base: '📚💻', float: '💛', label: 'Jupiter (3)', labelHi: 'बृहस्पति (3)' },
+  rahu: { base: '💊🧣', float: '⚕️', label: 'Rahu (4)', labelHi: 'राहु (4)' },
+  venus: { base: '👗🌸', float: '💖', label: 'Venus (6)', labelHi: 'शुक्र (6)' },
+  saturn: { base: '🦯🤝', float: '🖤', label: 'Saturn (8)', labelHi: 'शनि (8)' },
 };
 
+const DAILY_FACTS: { category: string; fact: string; tag: string }[] = [
+  { category: '🐕 Canine Empathy & Rescue Science', fact: 'Dogs have an acute sense of time and predict daily feeding routines through ambient scents. Daily street feeding eliminates hunger distress, reducing territorial disputes by over 80%!', tag: 'Animal Science' },
+  { category: '🛡️ Cyber Espionage & History', fact: 'The first computer virus was created in 1971 (named "Creeper") and simply displayed "I\'m the creeper, catch me if you can!". The first antivirus, "Reaper", was built specifically to delete it.', tag: 'Cyber Lore' },
+  { category: '🌌 Quantum Cosmos & Astrophysics', fact: 'One teaspoon of matter from a dense neutron star weighs approximately 6 billion tons on Earth—equivalent to the weight of Mount Everest!', tag: 'Cosmology' },
+  { category: '🧠 Brain Neuroplasticity & Cognition', fact: 'Every time you solve a challenging trivia question, your neurons physically remodel their connections, forming resilient new synaptic pathways.', tag: 'Cognitive Science' },
+  { category: '🐾 Stray Animal Compassion', fact: 'A stray dog can recognize human facial expressions and emotional tones. Feeding them just 1 warm meal per day increases their winter survival rate by 400%.', tag: 'Philanthropy' },
+  { category: '🔐 Cryptography & Quantum Security', fact: 'Post-Quantum Cryptography (PQC) relies on multi-dimensional mathematical lattices that are impossible for even future quantum computers to invert.', tag: 'Security Science' },
+  { category: '🪐 Interplanetary Wonders', fact: 'A single day on Venus (243 Earth days) is longer than a full Venusian year (225 Earth days) because it rotates exceptionally slowly in reverse!', tag: 'Astronomy' },
+  { category: '🐘 Empathy in the Animal Kingdom', fact: 'Elephants show profound empathy, comforting distressed companions with gentle trunk caresses and vocal rumbles, and holding memorials for fallen herd members.', tag: 'Wildlife Wisdom' },
+  { category: '🌐 Deep-Sea Internet Arteries', fact: 'Over 99% of all transcontinental internet data is transmitted via fiber-optic submarine cables resting on ocean floors, shielded against shark bites.', tag: 'Infrastructure' },
+  { category: '⚡ Nature Energy Physics', fact: 'A single lightning flash generates temperatures exceeding 30,000 Kelvin (53,540°F)—which is five times hotter than the visible surface of the Sun!', tag: 'Earth Physics' }
+];
+
 const levelTitles = [
-  { minLvl: 1, title: "Chandra Novice" },
-  { minLvl: 3, title: "Budha Auditor" },
-  { minLvl: 5, title: "Mangala Sentinel" },
-  { minLvl: 8, title: "Brihaspati Sage" },
-  { minLvl: 12, title: "Shukra Guardian" },
-  { minLvl: 16, title: "Shani Elder" },
-  { minLvl: 20, title: "Rahu Illusionist" },
-  { minLvl: 25, title: "Ketu Supreme Architect" }
+  { minLvl: 1, title: "Chandra Novice", titleHi: "चंद्र नौसिखिया" },
+  { minLvl: 3, title: "Budha Auditor", titleHi: "बुध संपरीक्षक" },
+  { minLvl: 5, title: "Mangala Sentinel", titleHi: "मंगल प्रहरी" },
+  { minLvl: 8, title: "Brihaspati Sage", titleHi: "बृहस्पति मुनि" },
+  { minLvl: 12, title: "Shukra Guardian", titleHi: "शुक्र संरक्षक" },
+  { minLvl: 16, title: "Shani Elder", titleHi: "शनि महाऋषि" },
+  { minLvl: 20, title: "Rahu Illusionist", titleHi: "राहु चक्रधर" },
+  { minLvl: 25, title: "Ketu Supreme Architect", titleHi: "केतु परम ज्ञाता" }
 ];
 
 export default function CharityQuizClient() {
+  // Language & Internationalization State
+  const [lang, setLang] = useState<Language>('en');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('cyberkarma_lang') as Language;
+    if (saved === 'en' || saved === 'hi') {
+      setLang(saved);
+    }
+    const savedTheme = localStorage.getItem('jumpstreet_theme');
+    if (savedTheme === 'light') {
+      setIsDark(false);
+      document.body.classList.add('light-mode');
+      document.documentElement.classList.remove('dark');
+    } else {
+      setIsDark(true);
+      document.body.classList.remove('light-mode');
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
+  const toggleLanguage = () => {
+    const nextLang: Language = lang === 'en' ? 'hi' : 'en';
+    setLang(nextLang);
+    localStorage.setItem('cyberkarma_lang', nextLang);
+    addToast(nextLang === 'hi' ? '🌐 भाषा: हिंदी सक्रिय!' : '🌐 Language: English Active!', 'info');
+  };
+
+  const t = (key: string) => getTranslation(key, lang);
+
   // State
   const [score, setScore] = useState(0);
 
@@ -114,6 +157,15 @@ export default function CharityQuizClient() {
   };
 
   const [streak, setStreak] = useState(0);
+  const [factIndex, setFactIndex] = useState(() => {
+    const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
+    return dayOfYear % DAILY_FACTS.length;
+  });
+  const [isWisdomBannerVisible, setIsWisdomBannerVisible] = useState(true);
+
+  const handleNextFact = () => {
+    setFactIndex((prev) => (prev + 1) % DAILY_FACTS.length);
+  };
   
   // Daily Streak & Shields State
   const [dailyStreak, setDailyStreak] = useState(0);
@@ -137,6 +189,9 @@ export default function CharityQuizClient() {
   // Auth
   const [user, setUser] = useState<{ email: string; name: string; avatar: string } | null>(null);
   const [showEmailModal, setShowEmailModal] = useState(false);
+  const [authMode, setAuthMode] = useState<'options' | 'google-form' | 'email-form'>('options');
+  const [googleName, setGoogleName] = useState('');
+  const [googleEmail, setGoogleEmail] = useState('');
   const [emailInput, setEmailInput] = useState('');
   const [isSendingMagicLink, setIsSendingMagicLink] = useState(false);
   const [magicLinkSent, setMagicLinkSent] = useState(false);
@@ -317,11 +372,16 @@ export default function CharityQuizClient() {
     calculateDailyPlanetBonus();
     
     // Auth & Game states Check
-    const checkSessionAndStates = async () => {
-      // Load Supabase session
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user?.email) {
-        handleUserLogin(session.user.email);
+    const checkSessionAndStates = () => {
+      // 1. Check local persistent authenticated session
+      const storedSession = localStorage.getItem('cyberkarma_user_session');
+      if (storedSession) {
+        try {
+          const parsed = JSON.parse(storedSession);
+          if (parsed?.email) {
+            handleUserLogin(parsed.email, parsed);
+          }
+        } catch (e) {}
       } else {
         const localScore = parseInt(localStorage.getItem('charityRiceScore') || '0', 10);
         setScore(localScore);
@@ -364,23 +424,16 @@ export default function CharityQuizClient() {
       }
     };
     checkSessionAndStates();
-    
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN' && session?.user?.email) {
-        handleUserLogin(session.user.email);
-      } else if (event === 'SIGNED_OUT') {
-        setUser(null);
-      }
-    });
-    
-    return () => authListener.subscription.unsubscribe();
   }, []);
 
-  const handleUserLogin = (email: string) => {
-    const name = email.split('@')[0];
-    const avatar = `https://ui-avatars.com/api/?name=${email}&background=10b981&color=fff`;
+  const handleUserLogin = (email: string, metadata?: Record<string, any>) => {
+    const name = metadata?.name || metadata?.full_name || email.split('@')[0] || 'Player';
+    const isGoogle = metadata?.provider === 'google' || metadata?.isGoogle;
+    const avatar = metadata?.avatar || metadata?.avatar_url || (isGoogle 
+      ? `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=4285F4&color=fff&rounded=true&bold=true` 
+      : `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=10b981&color=fff&rounded=true&bold=true`);
     setUser({ email, name, avatar });
-    const userScore = parseInt(localStorage.getItem(`charityRiceScore_${email}`) || '0', 10);
+    const userScore = parseInt(localStorage.getItem(`charityRiceScore_${email}`) || localStorage.getItem('charityRiceScore') || '0', 10);
     setScore(userScore);
     // Initialize level storage so we don't trigger modal on mount
     const calculatedLevel = Math.floor(userScore / 200) + 1;
@@ -451,19 +504,21 @@ export default function CharityQuizClient() {
   const loadNextQuestion = useCallback(() => {
     if (category === 'custom-ai') return; // Handled separately by AI state flow
     
-    const allQ = quizData[category].questions;
+    const bank = lang === 'hi' ? quizDataHindi : quizData;
+    const allQ = bank[category]?.questions || quizData[category]?.questions || [];
     const filteredQ = allQ.filter(q => q.difficulty === difficulty);
-    if (filteredQ.length === 0) {
+    const candidateList = filteredQ.length > 0 ? filteredQ : allQ;
+    if (candidateList.length === 0) {
       setCurrentQuestion(null);
       return;
     }
     
     // Filter out recently seen questions from history
-    let pool = filteredQ.filter(q => !questionHistoryRef.current.includes(q.question));
+    let pool = candidateList.filter(q => !questionHistoryRef.current.includes(q.question));
     
     // If all questions in the category/difficulty have been seen, reset history for this pool
     if (pool.length === 0) {
-      pool = filteredQ;
+      pool = candidateList;
       // Keep only the last question in history to prevent back-to-back repeats
       const lastQ = currentQuestionRef.current;
       questionHistoryRef.current = lastQ ? [lastQ.question] : [];
@@ -490,7 +545,7 @@ export default function CharityQuizClient() {
     setSelectedAnswer(null);
     setFeedback(null);
     setShowHint(false);
-  }, [category, difficulty]);
+  }, [category, difficulty, lang]);
 
   useEffect(() => {
     loadNextQuestion();
@@ -573,7 +628,8 @@ Return the output ONLY as a valid JSON array matching the structure:
     "options": ["option 1", "option 2", "option 3", "option 4"],
     "answer": 0,
     "hint": "helpful hint",
-    "scenario": "brief context"
+    "scenario": "brief context",
+    "explanation": "concise explanation of why this answer is correct and key insight"
   }
 ]
 Ensure the JSON output is raw, without any markdown formatting, backticks, or wrapping. Keep it strictly educational and correct.`;
@@ -621,18 +677,55 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
   };
 
   const toggleTheme = () => {
-    const newDark = !isDark;
-    setIsDark(newDark);
-    localStorage.setItem('jumpstreet_theme', newDark ? 'dark' : 'light');
-    document.body.classList.toggle('light-mode', !newDark);
+    const nextDark = !isDark;
+    setIsDark(nextDark);
+    localStorage.setItem('jumpstreet_theme', nextDark ? 'dark' : 'light');
+    if (!nextDark) {
+      document.body.classList.add('light-mode');
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.body.classList.remove('light-mode');
+      document.documentElement.classList.add('dark');
+    }
+    addToast(nextDark ? '🌙 Dark Mode Activated' : '☀️ Light Mode Activated', 'info');
   };
 
-  const handleAnswer = (index: number) => {
-    if (isAnswered || !currentQuestion) return;
+  const nextQuestionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isAnsweredRef = useRef(false);
+  isAnsweredRef.current = isAnswered;
+  const currentQuestionRefLive = useRef<Question | null>(null);
+  currentQuestionRefLive.current = currentQuestion;
+
+  const advanceToNextQuestion = useCallback(() => {
+    if (nextQuestionTimeoutRef.current) {
+      clearTimeout(nextQuestionTimeoutRef.current);
+      nextQuestionTimeoutRef.current = null;
+    }
+    if (category === 'custom-ai') {
+      const nextIndex = aiIndex + 1;
+      if (nextIndex < aiQuestions.length) {
+        setAiIndex(nextIndex);
+        setCurrentQuestion(aiQuestions[nextIndex]);
+        setIsAnswered(false);
+        setSelectedAnswer(null);
+        setFeedback(null);
+        setShowHint(false);
+      } else {
+        setShowAICompletion(true);
+        setCurrentQuestion(null);
+      }
+    } else {
+      loadNextQuestion();
+    }
+  }, [category, aiIndex, aiQuestions, loadNextQuestion]);
+
+  const handleAnswer = useCallback((index: number) => {
+    if (isAnsweredRef.current || !currentQuestionRefLive.current) return;
     setIsAnswered(true);
     setSelectedAnswer(index);
 
-    const isCorrect = (index === currentQuestion.answer);
+    const activeQuestion = currentQuestionRefLive.current;
+    const isCorrect = (index === activeQuestion.answer);
 
     if (isCorrect) {
       // Correct
@@ -676,68 +769,151 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
       if ('vibrate' in navigator) navigator.vibrate([50, 100, 50]);
     }
 
-    setTimeout(() => {
-      if (category === 'custom-ai') {
-        const nextIndex = aiIndex + 1;
-        if (nextIndex < aiQuestions.length) {
-          setAiIndex(nextIndex);
-          setCurrentQuestion(aiQuestions[nextIndex]);
-          setIsAnswered(false);
-          setSelectedAnswer(null);
-          setFeedback(null);
-          setShowHint(false);
-        } else {
-          // Finished AI Quiz
-          setShowAICompletion(true);
-          setCurrentQuestion(null);
-        }
-      } else {
-        loadNextQuestion();
-      }
-    }, 2500);
-  };
+    if (nextQuestionTimeoutRef.current) {
+      clearTimeout(nextQuestionTimeoutRef.current);
+    }
+    nextQuestionTimeoutRef.current = setTimeout(() => {
+      advanceToNextQuestion();
+    }, 4500);
+  }, [recipient, dailyPlanetBonus, streak, score, category, advanceToNextQuestion]);
 
   const triggerRiceAnimation = () => {
     const grains = Array.from({ length: 6 }).map((_, i) => ({
       id: Date.now() + i,
       left: `calc(50% + ${(Math.random() - 0.5) * 80}px)`,
       delay: `${Math.random() * 0.2}s`,
-      icon: recipientIcons[recipient].float === '✨' ? '🌾' : '🍚'
+      icon: recipientIcons[recipient]?.float === '✨' ? '🌾' : '🍚'
     }));
     setRiceGrains(grains);
     setTimeout(() => setRiceGrains([]), 1500);
   };
 
-  const handleUseHint = () => {
-    if (score >= 5 && currentQuestion?.hint && !showHint) {
+  const handleUseHint = useCallback(() => {
+    if (score >= 5 && currentQuestionRefLive.current?.hint && !showHint) {
       saveScore(score - 5);
       setShowHint(true);
       setFeedback({ text: 'Hint revealed! -5 grains.', type: 'info' });
     } else if (score < 5) {
       setFeedback({ text: 'Not enough grains! You need 5 to use a hint.', type: 'error' });
     }
+  }, [score, showHint]);
+
+  // Global Tactile Keyboard Shortcuts Hook (Capture Phase)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger shortcuts if user is typing in an input, textarea or contenteditable
+      const target = e.target as HTMLElement | null;
+      const tagName = target?.tagName?.toLowerCase();
+      if (tagName === 'input' || tagName === 'textarea' || tagName === 'select' || target?.isContentEditable) {
+        return;
+      }
+
+      const key = e.key ? e.key.toLowerCase() : '';
+      const code = e.code || '';
+
+      // Option A / 1 -> Index 0
+      if (key === 'a' || key === '1' || code === 'KeyA' || code === 'Digit1' || code === 'Numpad1') {
+        if (!e.ctrlKey && !e.altKey && !e.metaKey) {
+          e.preventDefault();
+          handleAnswer(0);
+        }
+      }
+      // Option B / 2 -> Index 1
+      else if (key === 'b' || key === '2' || code === 'KeyB' || code === 'Digit2' || code === 'Numpad2') {
+        if (!e.ctrlKey && !e.altKey && !e.metaKey) {
+          e.preventDefault();
+          handleAnswer(1);
+        }
+      }
+      // Option C / 3 -> Index 2
+      else if (key === 'c' || key === '3' || code === 'KeyC' || code === 'Digit3' || code === 'Numpad3') {
+        if (!e.ctrlKey && !e.altKey && !e.metaKey) {
+          e.preventDefault();
+          handleAnswer(2);
+        }
+      }
+      // Option D / 4 -> Index 3
+      else if (key === 'd' || key === '4' || code === 'KeyD' || code === 'Digit4' || code === 'Numpad4') {
+        if (!e.ctrlKey && !e.altKey && !e.metaKey) {
+          e.preventDefault();
+          handleAnswer(3);
+        }
+      }
+      // Space / Enter -> Next Question / Advance
+      else if (key === ' ' || key === 'spacebar' || code === 'Space' || key === 'enter' || code === 'Enter' || code === 'NumpadEnter') {
+        if (!e.ctrlKey && !e.altKey && !e.metaKey) {
+          e.preventDefault();
+          advanceToNextQuestion();
+        }
+      }
+      // H -> Hint
+      else if (key === 'h' || code === 'KeyH') {
+        if (!e.ctrlKey && !e.altKey && !e.metaKey) {
+          e.preventDefault();
+          handleUseHint();
+        }
+      }
+      // Escape -> Close Modals
+      else if (key === 'escape' || code === 'Escape') {
+        setShowEmailModal(false);
+        setShowAIModal(false);
+        setPreviewImage(null);
+        setShowLevelUpModal(false);
+        setShowLuckyCrateModal(false);
+        setAuthMode('options');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown, true);
+    return () => window.removeEventListener('keydown', handleKeyDown, true);
+  }, [handleAnswer, advanceToNextQuestion, handleUseHint]);
+
+  // Instant Google Profile / Quick Connect Handler
+  const handleGoogleQuickSignIn = (nameInput?: string, emailInputVal?: string) => {
+    const finalEmail = (emailInputVal || googleEmail || '').trim() || 'aditya.google@gmail.com';
+    const finalName = (nameInput || googleName || '').trim() || finalEmail.split('@')[0] || 'Aditya (Google)';
+    const avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(finalName)}&background=4285F4&color=fff&rounded=true&bold=true`;
+    
+    const sessionObj = {
+      email: finalEmail,
+      name: finalName,
+      avatar,
+      provider: 'google',
+      isGoogle: true
+    };
+    
+    localStorage.setItem('cyberkarma_user_session', JSON.stringify(sessionObj));
+    handleUserLogin(finalEmail, sessionObj);
+    setShowEmailModal(false);
+    setAuthMode('options');
+    addToast(`✨ Welcome, ${finalName}! Signed in via Google.`, 'success');
   };
 
-  const sendMagicLink = async () => {
+  const sendMagicLink = () => {
     if (!emailInput || !emailInput.includes('@')) {
-      addToast('Please enter a valid email', 'error');
+      addToast('Please enter a valid email address', 'error');
       return;
     }
-    setIsSendingMagicLink(true);
-    const { error } = await supabase.auth.signInWithOtp({
+    const name = emailInput.split('@')[0];
+    const avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=10b981&color=fff&rounded=true&bold=true`;
+    
+    const sessionObj = {
       email: emailInput,
-      options: { emailRedirectTo: window.location.href }
-    });
-    if (error) {
-      addToast(`Error: ${error.message}`, 'error');
-    } else {
-      setMagicLinkSent(true);
-    }
-    setIsSendingMagicLink(false);
+      name,
+      avatar,
+      provider: 'email'
+    };
+    
+    localStorage.setItem('cyberkarma_user_session', JSON.stringify(sessionObj));
+    handleUserLogin(emailInput, sessionObj);
+    setShowEmailModal(false);
+    setAuthMode('options');
+    addToast(`✨ Welcome back, ${name}! Signed in successfully.`, 'success');
   };
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
+  const handleLogout = () => {
+    localStorage.removeItem('cyberkarma_user_session');
+    setUser(null);
     addToast('Logged out successfully', 'info');
   };
 
@@ -811,60 +987,228 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
       </div>
 
       {/* Header */}
-      <header className={`sticky top-0 z-50 px-4 sm:px-8 py-3.5 flex items-center justify-between transition-all duration-300 ${isDark ? 'bg-slate-950/85 border-b border-emerald-500/20' : 'bg-white/90 border-b border-emerald-200'} backdrop-blur-2xl shadow-lg`}>
-        <div className="flex items-center gap-3">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 text-slate-950 flex items-center justify-center font-black text-base shadow-md shadow-emerald-500/30 group-hover:scale-105 transition-transform">
+      <header className={`sticky top-0 z-50 px-3 sm:px-8 py-3 flex items-center justify-between transition-all duration-300 ${isDark ? 'bg-slate-950/90 border-b border-emerald-500/20 text-white' : 'bg-white/95 border-b border-emerald-200 text-slate-900 shadow-sm'} backdrop-blur-2xl`}>
+        <div className="flex items-center gap-2 sm:gap-3">
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 text-slate-950 flex items-center justify-center font-black text-base shadow-md shadow-emerald-500/30 group-hover:scale-105 transition-transform">
               🐾
             </div>
             <div className="flex flex-col">
-              <span className="font-title font-black text-base sm:text-lg tracking-tight bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">
-                CyberKarma
+              <span className="font-title font-black text-sm sm:text-lg tracking-tight bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">
+                {lang === 'hi' ? 'साइबरकर्म' : 'CyberKarma'}
               </span>
-              <span className="text-[9px] font-mono font-bold text-emerald-500/80 -mt-1">
+              <span className="text-[9px] font-mono font-bold text-emerald-500/90 -mt-1 hidden sm:block">
                 cyberkarma.me
               </span>
             </div>
           </Link>
-          <a
-            href="https://adityasec32.systems"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:inline-flex items-center gap-1 text-[11px] font-mono font-bold px-2.5 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-all ml-2"
+
+          <Link
+            href="/impact"
+            className={`inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-mono font-bold px-2.5 sm:px-3.5 py-1.5 rounded-full border transition-all hover:scale-105 ml-1 shadow-sm ${
+              isDark 
+                ? 'bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border-rose-500/30' 
+                : 'bg-rose-50 hover:bg-rose-100 text-rose-800 border-rose-200 font-bold'
+            }`}
           >
-            <span>🛡️ AdityaSec</span>
-          </a>
+            <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse shrink-0" />
+            <span>🐾 {lang === 'hi' ? 'दान रिकॉर्ड (110+ प्रमाण)' : 'Field Proof (110+ Photos)'}</span>
+          </Link>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          <div className="flex items-center gap-1.5 text-xs font-mono font-bold px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+        <div className="flex items-center gap-1.5 sm:gap-3">
+          {/* Grains Counter */}
+          <div className={`flex items-center gap-1.5 text-xs font-mono font-bold px-3 py-1.5 rounded-full border shadow-sm ${
+            isDark
+              ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-300'
+              : 'bg-emerald-50 border-emerald-300 text-emerald-800 font-extrabold'
+          }`}>
             <span>🌾</span>
-            <span>{score} Grains</span>
+            <span>{score} {lang === 'hi' ? 'दाने' : 'Grains'}</span>
           </div>
 
           {dailyStreak > 0 && (
-            <div className="hidden sm:flex items-center gap-1 text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400">
+            <div className={`hidden sm:flex items-center gap-1 text-xs font-mono font-bold px-2.5 py-1 rounded-full border shadow-sm ${
+              isDark
+                ? 'bg-amber-500/15 border-amber-500/30 text-amber-300'
+                : 'bg-amber-50 border-amber-300 text-amber-800 font-bold'
+            }`}>
               🔥 {dailyStreak}d
             </div>
           )}
 
-          <button onClick={toggleTheme} className="p-2 rounded-xl bg-slate-800/60 border border-slate-700/60 hover:bg-slate-700/80 transition-all text-slate-300" aria-label="Toggle Theme">
+          {/* 1-Click Dual Language Switcher Toggle */}
+          <div className={`flex items-center p-0.5 rounded-xl border shadow-sm ${
+            isDark ? 'bg-purple-500/20 border-purple-500/40' : 'bg-purple-50 border-purple-300'
+          }`}>
+            <button
+              onClick={() => {
+                if (lang !== 'en') {
+                  setLang('en');
+                  localStorage.setItem('cyberkarma_lang', 'en');
+                  addToast('🌐 Language: English Active!', 'info');
+                }
+              }}
+              className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                lang === 'en' 
+                  ? 'bg-purple-600 text-white shadow-md' 
+                  : (isDark ? 'text-purple-300 hover:text-white' : 'text-purple-700 hover:text-purple-900')
+              }`}
+              title="Switch to English"
+            >
+              🇬🇧 EN
+            </button>
+            <button
+              onClick={() => {
+                if (lang !== 'hi') {
+                  setLang('hi');
+                  localStorage.setItem('cyberkarma_lang', 'hi');
+                  addToast('🌐 भाषा: हिंदी सक्रिय!', 'info');
+                }
+              }}
+              className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                lang === 'hi' 
+                  ? 'bg-purple-600 text-white shadow-md' 
+                  : (isDark ? 'text-purple-300 hover:text-white' : 'text-purple-700 hover:text-purple-900')
+              }`}
+              title="हिंदी में खेलें (Switch to Hindi)"
+            >
+              🇮🇳 हिंदी
+            </button>
+          </div>
+
+          {!isWisdomBannerVisible && (
+            <button
+              onClick={() => setIsWisdomBannerVisible(true)}
+              className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-bold border transition-all shadow-sm ${
+                isDark
+                  ? 'bg-emerald-500/15 hover:bg-emerald-500/25 border-emerald-500/30 text-emerald-300'
+                  : 'bg-emerald-50 hover:bg-emerald-100 border-emerald-300 text-emerald-800'
+              }`}
+              title="Show Daily Wisdom"
+            >
+              <span>⚡ {lang === 'hi' ? 'ज्ञान' : 'Wisdom'} #{factIndex + 1}</span>
+            </button>
+          )}
+
+          {/* Theme Toggle Button */}
+          <button 
+            onClick={toggleTheme} 
+            className={`p-2 rounded-xl border transition-all cursor-pointer ${
+              isDark 
+                ? 'bg-slate-800/80 border-slate-700 text-amber-300 hover:bg-slate-700 hover:text-amber-200' 
+                : 'bg-slate-100 border-slate-300 text-slate-800 hover:bg-slate-200 shadow-sm'
+            }`} 
+            aria-label="Toggle Theme"
+            title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          >
             {isDark ? <Sun size={15} /> : <Moon size={15} />}
           </button>
 
           {user ? (
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-800/60 border border-slate-700 text-xs font-mono">
+            <div className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-mono ${
+              isDark ? 'bg-slate-800/60 border-slate-700 text-slate-200' : 'bg-slate-100 border-slate-300 text-slate-800'
+            }`}>
               <img src={user.avatar} alt="User" className="w-5 h-5 rounded-full" />
-              <span className="hidden sm:inline font-bold text-slate-200">{user.name}</span>
-              <button onClick={handleLogout} className="text-rose-400 hover:text-rose-300 ml-1" aria-label="Logout"><LogOut size={13} /></button>
+              <span className="hidden sm:inline font-bold">{user.name}</span>
+              <button onClick={handleLogout} className="text-rose-400 hover:text-rose-300 ml-1 cursor-pointer" aria-label="Logout"><LogOut size={13} /></button>
             </div>
           ) : (
-            <button onClick={() => setShowEmailModal(true)} className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/20">
-              <User size={13} /> Sign In
+            <button 
+              onClick={() => setShowEmailModal(true)} 
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold transition-all shadow-md cursor-pointer ${
+                isDark ? 'bg-emerald-500 text-slate-950 hover:bg-emerald-400 shadow-emerald-500/20' : 'bg-emerald-600 text-white hover:bg-emerald-500 shadow-emerald-600/20'
+              }`}
+            >
+              <User size={13} /> {t('signIn')}
             </button>
           )}
         </div>
       </header>
+
+      {/* 3D Floating Daily Wisdom & Fact Top Banner */}
+      <AnimatePresence>
+        {isWisdomBannerVisible && (
+          <motion.aside
+            aria-label="Daily Wisdom & Fact"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="sticky top-[60px] z-40 px-3 sm:px-6 pt-2.5 pb-1 w-full max-w-6xl mx-auto"
+          >
+            <div className={`p-4 sm:p-5 rounded-3xl border backdrop-blur-2xl flex flex-col sm:flex-row items-center justify-between gap-4 transition-all ${
+              isDark 
+                ? 'bg-gradient-to-r from-slate-950/95 via-slate-900/95 to-slate-950/95 border-emerald-500/35 text-white shadow-[0_12px_40px_rgba(0,0,0,0.5)]' 
+                : 'bg-gradient-to-r from-emerald-50/95 via-white/98 to-teal-50/95 border-2 border-emerald-300 text-slate-900 shadow-[0_12px_32px_rgba(16,185,129,0.12)]'
+            }`}>
+              
+              <div className="flex items-start sm:items-center gap-3.5 w-full sm:w-auto flex-1 min-w-0">
+                <div className={`w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0 text-2xl shadow-md ${
+                  isDark ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 animate-pulse' : 'bg-emerald-600 text-white shadow-emerald-600/25'
+                }`}>
+                  ⚡
+                </div>
+                <div className="flex-1 min-w-0 space-y-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className={`text-[10px] font-mono font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border shadow-sm ${
+                      isDark ? 'text-emerald-300 bg-emerald-500/20 border-emerald-500/30' : 'text-emerald-900 bg-emerald-100 border-emerald-300 font-extrabold'
+                    }`}>
+                      📅 {t('dailyWisdomTitle')} #{factIndex + 1}
+                    </span>
+
+                    <span className={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full border shadow-sm ${
+                      isDark ? 'text-cyan-300 bg-cyan-500/15 border-cyan-500/30' : 'text-cyan-900 bg-cyan-100 border-cyan-300 font-extrabold'
+                    }`}>
+                      {(lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS)[factIndex % (lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS).length].tag}
+                    </span>
+
+                    <span className={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full border shadow-sm hidden md:inline ${
+                      isDark ? 'text-purple-300 bg-purple-500/15 border-purple-500/30' : 'text-purple-900 bg-purple-100 border-purple-300 font-extrabold'
+                    }`}>
+                      {(lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS)[factIndex % (lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS).length].category}
+                    </span>
+                  </div>
+
+                  <p className={`text-xs sm:text-sm font-semibold tracking-tight leading-snug line-clamp-2 sm:line-clamp-none ${
+                    isDark ? 'text-slate-100' : 'text-slate-950 font-bold'
+                  }`}>
+                    "{(lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS)[factIndex % (lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS).length].fact}"
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between sm:justify-end gap-2.5 w-full sm:w-auto shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-white/10">
+                <span className={`text-[10px] font-mono hidden lg:inline ${isDark ? 'text-slate-400' : 'text-slate-600 font-semibold'}`}>
+                  {lang === 'hi' ? 'दैनिक अपडेट • 10+ खोज' : 'Updated daily • 10+ Discoveries'}
+                </span>
+
+                <button
+                  onClick={() => setFactIndex((prev) => (prev + 1) % (lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS).length)}
+                  className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-1.5 active:scale-95 shadow-md whitespace-nowrap cursor-pointer hover:scale-105 ${
+                    isDark 
+                      ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 hover:brightness-110 shadow-emerald-500/20' 
+                      : 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:brightness-105 shadow-emerald-600/25'
+                  }`}
+                  title="Cycle to next discovery"
+                >
+                  <span>🔄 {t('nextFact')}</span>
+                </button>
+
+                <button
+                  onClick={() => setIsWisdomBannerVisible(false)}
+                  className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs transition-colors shrink-0 cursor-pointer ${
+                    isDark ? 'bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white' : 'bg-slate-200 hover:bg-slate-300 text-slate-800'
+                  }`}
+                  title="Hide banner"
+                >
+                  ✕
+                </button>
+              </div>
+
+            </div>
+          </motion.aside>
+        )}
+      </AnimatePresence>
 
       {/* Main Content */}
       <main className="flex-1 w-full max-w-6xl mx-auto px-4 py-8 relative z-10 flex flex-col gap-6">
@@ -873,11 +1217,14 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
         <motion.div 
           initial={{ opacity: 0, y: -20 }} 
           animate={{ opacity: 1, y: 0 }} 
-          className={`w-full p-8 sm:p-10 rounded-[32px] text-center overflow-hidden relative shadow-[0_12px_40px_rgba(0,0,0,0.15)] backdrop-blur-3xl border transition-all ${isDark ? 'bg-gradient-to-b from-rose-950/40 via-black/40 to-slate-950/60 border-rose-500/20' : 'bg-gradient-to-b from-rose-50/80 via-white/90 to-amber-50/80 border-rose-200'}`}
+          className={`w-full p-8 sm:p-10 rounded-[32px] text-center overflow-hidden relative shadow-[0_12px_40px_rgba(0,0,0,0.15)] backdrop-blur-3xl border transition-all ${
+            isDark 
+              ? 'bg-gradient-to-b from-rose-950/40 via-black/40 to-slate-950/60 border-rose-500/20 text-white' 
+              : 'bg-gradient-to-b from-white/95 via-slate-50/95 to-white/95 border-slate-200 text-slate-900 shadow-xl'
+          }`}
         >
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-32 bg-rose-500/10 blur-3xl rounded-full pointer-events-none" />
 
-          
           {/* Official CyberKarma Banner Graphic */}
           <div className="w-full max-w-2xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-emerald-500/20 mb-6 group">
             <img 
@@ -887,85 +1234,128 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
             />
           </div>
 
-
           {/* Emotional Headline */}
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight mb-4 font-title leading-tight">
             <span className={`bg-clip-text text-transparent drop-shadow-md ${isDark ? 'bg-gradient-to-r from-rose-400 via-amber-300 to-emerald-400' : 'bg-gradient-to-r from-rose-600 via-amber-600 to-emerald-600'}`}>
-              Every Answer Saves a Life.
+              {lang === 'hi' ? 'प्रत्येक सही उत्तर एक जीवन बचाता है।' : 'Every Answer Saves a Life.'}
             </span>
           </h1>
 
-          <p className={`text-sm sm:text-lg max-w-3xl mx-auto leading-relaxed mb-6 ${isDark ? 'text-slate-200 font-medium' : 'text-slate-800 font-bold'}`}>
-            Play daily to transform a life. For every correct answer, we donate{' '}
-            <span className={`px-2.5 py-0.5 rounded-lg font-bold border ${isDark ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-emerald-100 text-emerald-800 border-emerald-300'}`}>
-              10 grains of rice
-            </span>{' '}
-            to feed <strong className={isDark ? 'text-rose-300 font-bold' : 'text-rose-700 font-extrabold'}>rescue animals</strong> and <strong className={isDark ? 'text-amber-300 font-bold' : 'text-amber-700 font-extrabold'}>vulnerable families</strong> globally. Your knowledge creates real-world miracles.
+          <p className={`text-sm sm:text-lg max-w-3xl mx-auto leading-relaxed mb-6 ${isDark ? 'text-slate-200 font-medium' : 'text-slate-800 font-semibold'}`}>
+            {lang === 'hi' ? (
+              <>
+                प्रतिदिन ज्ञान अर्जित करें और जीवन बदलें। हर सही उत्तर पर हम{' '}
+                <span className={`px-2.5 py-0.5 rounded-lg font-bold border ${isDark ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-emerald-100 text-emerald-900 border-emerald-300'}`}>
+                  10 दाने अनाज
+                </span>{' '}
+                दान करते हैं, जिससे <strong className={isDark ? 'text-rose-300 font-bold' : 'text-rose-700 font-extrabold'}>बेसहारा जानवरों</strong> और <strong className={isDark ? 'text-amber-300 font-bold' : 'text-amber-700 font-extrabold'}>जरूरतमंदों</strong> को भोजन मिलता है।
+              </>
+            ) : (
+              <>
+                Play daily to transform a life. For every correct answer, we donate{' '}
+                <span className={`px-2.5 py-0.5 rounded-lg font-bold border ${isDark ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-emerald-100 text-emerald-900 border-emerald-300'}`}>
+                  10 grains of rice
+                </span>{' '}
+                to feed <strong className={isDark ? 'text-rose-300 font-bold' : 'text-rose-700 font-extrabold'}>rescue animals</strong> and <strong className={isDark ? 'text-amber-300 font-bold' : 'text-amber-700 font-extrabold'}>vulnerable families</strong> globally.
+              </>
+            )}
           </p>
 
-          
-        {/* Real-World Stray Animal Meal Impact HUD */}
-        <div className={`w-full p-6 rounded-3xl border backdrop-blur-2xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 transition-all ${isDark ? 'bg-gradient-to-r from-emerald-950/40 via-slate-900/60 to-rose-950/40 border-emerald-500/20' : 'bg-gradient-to-r from-emerald-50/90 via-white/90 to-rose-50/90 border-emerald-200'}`}>
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 text-slate-950 flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/20 flex-shrink-0 animate-bounce">
-              🐕
-            </div>
-            <div>
-              <div className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400">
-                Live Animal Feeding Impact • Patna Division
+          {/* Real-World Stray Animal Meal Impact HUD */}
+          <div className={`w-full p-6 rounded-3xl border backdrop-blur-2xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 transition-all ${
+            isDark 
+              ? 'bg-gradient-to-r from-emerald-950/40 via-slate-900/60 to-rose-950/40 border-emerald-500/20 text-white' 
+              : 'bg-gradient-to-r from-emerald-50/90 via-white/95 to-teal-50/90 border-emerald-200 text-slate-900 shadow-md'
+          }`}>
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 text-slate-950 flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/20 flex-shrink-0 animate-bounce">
+                🐕
               </div>
-              <h3 className="text-xl sm:text-2xl font-black font-title text-white">
-                {`${Math.floor(score / 50)} Warm Street Meals Funded`}
-              </h3>
-              <p className="text-xs text-slate-300">
-                {`Every 50 grains of rice unlocks 1 full bowl of nutritious food for rescue dogs in Patna.`}
-              </p>
+              <div className="text-left">
+                <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isDark ? 'text-emerald-400' : 'text-emerald-700'}`}>
+                  {lang === 'hi' ? 'लाइव पशु आहार सेवा • पटना मंडल' : 'Live Animal Feeding Impact • Patna Division'}
+                </div>
+                <h3 className={`text-xl sm:text-2xl font-black font-title ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                  {lang === 'hi' 
+                    ? `${Math.floor(score / 50)} पौष्टिक भोजन परोसे गए`
+                    : `${Math.floor(score / 50)} Warm Street Meals Funded`}
+                </h3>
+                <p className={`text-xs ${isDark ? 'text-slate-300' : 'text-slate-600 font-medium'}`}>
+                  {lang === 'hi'
+                    ? 'प्रत्येक 50 दानों पर बेसहारा कुत्तों के लिए 1 पूरा पौष्टिक भोजन कटोरा उपलब्ध होता है।'
+                    : 'Every 50 grains of rice unlocks 1 full bowl of nutritious food for rescue dogs in Patna.'}
+                </p>
+              </div>
+            </div>
+
+            <div className="w-full md:w-72 flex flex-col gap-2">
+              <div className={`flex justify-between text-xs font-mono font-bold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                <span>{lang === 'hi' ? 'अगला भोजन कटोरा:' : 'Next Street Meal:'}</span>
+                <span className={isDark ? 'text-emerald-400' : 'text-emerald-700 font-extrabold'}>{`${score % 50} / 50 ${lang === 'hi' ? 'दाने' : 'Grains'}`}</span>
+              </div>
+              <div className={`w-full h-3.5 rounded-full overflow-hidden border p-0.5 ${isDark ? 'bg-black/40 border-white/10' : 'bg-slate-200 border-slate-300'}`}>
+                <div 
+                  className="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 rounded-full transition-all duration-500 shadow-[0_0_12px_rgba(16,185,129,0.5)]"
+                  style={{ width: `${Math.min(100, Math.round(((score % 50) / 50) * 100))}%` }}
+                />
+              </div>
+              <div className="flex justify-between items-center pt-1">
+                <button 
+                  onClick={handleOpenLuckyCrate}
+                  className={`text-[11px] font-mono font-bold flex items-center gap-1.5 underline cursor-pointer ${
+                    isDark ? 'text-amber-400 hover:text-amber-300' : 'text-amber-700 hover:text-amber-800'
+                  }`}
+                >
+                  🎁 {t('openCrate')}
+                </button>
+                <button 
+                  onClick={handleShare}
+                  className={`text-[11px] font-mono font-bold flex items-center gap-1 cursor-pointer ${
+                    isDark ? 'text-cyan-400 hover:text-cyan-300' : 'text-teal-700 hover:text-teal-800'
+                  }`}
+                >
+                  <Share2 size={12} /> {lang === 'hi' ? 'शेयर करें' : 'Share Impact'}
+                </button>
+              </div>
             </div>
           </div>
-
-          <div className="w-full md:w-72 flex flex-col gap-2">
-            <div className="flex justify-between text-xs font-mono font-bold">
-              <span className="text-slate-300">Next Street Meal:</span>
-              <span className="text-emerald-400">{`${score % 50} / 50 Grains` }</span>
-            </div>
-            <div className="w-full h-3.5 bg-black/40 rounded-full overflow-hidden border border-white/10 p-0.5">
-              <div 
-                className="h-full bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 rounded-full transition-all duration-500 shadow-[0_0_12px_rgba(16,185,129,0.5)]"
-                style={{ width: `${Math.min(100, Math.round(((score % 50) / 50) * 100))}%` }}
-              />
-            </div>
-            <div className="flex justify-between items-center pt-1">
-              <button 
-                onClick={handleOpenLuckyCrate}
-                className="text-[11px] font-mono font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1.5 underline"
-              >
-                🎁 Open Daily Karma Crate
-              </button>
-              <button 
-                onClick={handleShare}
-                className="text-[11px] font-mono font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1"
-              >
-                <Share2 size={12} /> Share Impact
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* High-CTR AdSense Sponsor Banner */}
-        <AdSenseBanner isDark={isDark} adSlot="1234567890" />
-
 
           {/* Highlight Badges */}
-          <div className="flex flex-wrap justify-center gap-3 text-xs font-mono font-bold uppercase tracking-wider">
+          <div className="flex flex-wrap justify-center items-center gap-3 text-xs font-mono font-bold uppercase tracking-wider">
             <span className={`px-4 py-1.5 rounded-full shadow-sm flex items-center gap-1.5 border ${isDark ? 'bg-rose-500/10 border-rose-500/20 text-rose-300' : 'bg-rose-100 border-rose-200 text-rose-800'}`}>
-              ❤️ 10 Grains Pledged / Answer
+              {t('pledgePerAnswer')}
             </span>
             <span className={`px-4 py-1.5 rounded-full shadow-sm flex items-center gap-1.5 border ${isDark ? 'bg-amber-500/10 border-amber-500/20 text-amber-300' : 'bg-amber-100 border-amber-200 text-amber-800'}`}>
-              🕊️ 100% Free &amp; Ad-Funded
+              {t('nonProfitBadge')}
             </span>
             <span className={`px-4 py-1.5 rounded-full shadow-sm flex items-center gap-1.5 border ${isDark ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-300' : 'bg-emerald-100 border-emerald-200 text-emerald-800'}`}>
-              🌍 Verified Global Impact
+              {t('groundImpactBadge')}
             </span>
+
+            {/* Dedicated Hero Language Switcher Pill */}
+            <div className="flex items-center gap-1.5 p-1 rounded-full bg-purple-500/20 border border-purple-500/40 shadow-md">
+              <span className="text-[11px] font-bold text-purple-300 pl-2">🌐 {lang === 'hi' ? 'भाषा:' : 'Lang:'}</span>
+              <button
+                onClick={() => {
+                  setLang('en');
+                  localStorage.setItem('cyberkarma_lang', 'en');
+                  addToast('🌐 Language: English Active!', 'info');
+                }}
+                className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${lang === 'en' ? 'bg-purple-600 text-white shadow-md' : 'text-purple-300 hover:text-white'}`}
+              >
+                🇬🇧 English
+              </button>
+              <button
+                onClick={() => {
+                  setLang('hi');
+                  localStorage.setItem('cyberkarma_lang', 'hi');
+                  addToast('🌐 भाषा: हिंदी सक्रिय!', 'info');
+                }}
+                className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${lang === 'hi' ? 'bg-purple-600 text-white shadow-md' : 'text-purple-300 hover:text-white'}`}
+              >
+                🇮🇳 हिंदी
+              </button>
+            </div>
           </div>
         </motion.div>
 
@@ -974,33 +1364,78 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
           
           {/* Left Column: Active Quiz Panel */}
           <div className="lg:col-span-8 space-y-6">
+
+            {/* Prominent Language Bar Above Quiz */}
+            <div className={`p-3.5 rounded-[24px] backdrop-blur-2xl shadow-lg border flex flex-wrap items-center justify-between gap-3 ${isDark ? 'bg-gradient-to-r from-purple-950/40 via-slate-900/60 to-purple-950/40 border-purple-500/30' : 'bg-gradient-to-r from-purple-50/90 via-white/90 to-indigo-50/90 border-purple-200'}`}>
+              <div className="flex items-center gap-2">
+                <span className="text-lg">🌐</span>
+                <div>
+                  <span className="text-xs font-black font-title tracking-tight text-purple-400 block">
+                    {lang === 'hi' ? 'प्रश्नोत्तरी की भाषा (Quiz Language):' : 'Select Quiz Language:'}
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-400">
+                    {lang === 'hi' ? 'सभी प्रश्न और व्याख्याएँ हिंदी में' : 'Switch anytime between English & Hindi'}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    setLang('en');
+                    localStorage.setItem('cyberkarma_lang', 'en');
+                    addToast('🌐 Language: English Active!', 'info');
+                  }}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold font-mono transition-all flex items-center gap-1.5 cursor-pointer ${lang === 'en' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-500/25 scale-[1.03]' : isDark ? 'bg-black/40 text-slate-300 hover:text-white border border-white/10' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}`}
+                >
+                  <span>🇬🇧 English</span>
+                  {lang === 'en' && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />}
+                </button>
+
+                <button
+                  onClick={() => {
+                    setLang('hi');
+                    localStorage.setItem('cyberkarma_lang', 'hi');
+                    addToast('🌐 भाषा: हिंदी सक्रिय!', 'info');
+                  }}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold font-mono transition-all flex items-center gap-1.5 cursor-pointer ${lang === 'hi' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-500/25 scale-[1.03]' : isDark ? 'bg-black/40 text-slate-300 hover:text-white border border-white/10' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}`}
+                >
+                  <span>🇮🇳 हिंदी (Hindi)</span>
+                  {lang === 'hi' && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />}
+                </button>
+              </div>
+            </div>
             
             {/* Categories & Difficulty Container */}
             <div className={`p-3 rounded-[28px] backdrop-blur-3xl shadow-xl border flex flex-col sm:flex-row gap-3 justify-between items-center ${isDark ? 'bg-black/40 border-white/10' : 'bg-white/90 border-slate-200 shadow-md'}`}>
                 <div className={`flex flex-wrap gap-1.5 w-full sm:w-auto p-1.5 rounded-[22px] ${isDark ? 'bg-black/20' : 'bg-slate-100'}`}>
-                  {(Object.keys(quizData) as CategoryKey[]).map(cat => (
-                    <button
-                      key={cat}
-                      onClick={() => setCategory(cat)}
-                      className={`px-4 py-2 rounded-[16px] text-xs font-bold capitalize transition-all ${category === cat ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 shadow-md scale-[1.02]' : isDark ? 'opacity-70 hover:opacity-100 hover:bg-white/10 text-white' : 'text-slate-700 hover:bg-slate-200'}`}
-                    >
-                      {cat}
-                    </button>
-                  ))}
+                  {(Object.keys(quizData) as CategoryKey[]).map(cat => {
+                    const bank = lang === 'hi' ? quizDataHindi : quizData;
+                    const catTitle = bank[cat]?.title || cat;
+                    return (
+                      <button
+                        key={cat}
+                        onClick={() => setCategory(cat)}
+                        className={`px-3.5 py-2 rounded-[16px] text-xs font-bold transition-all truncate ${category === cat ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 shadow-md scale-[1.02]' : isDark ? 'opacity-70 hover:opacity-100 hover:bg-white/10 text-white' : 'text-slate-700 hover:bg-slate-200'}`}
+                      >
+                        {catTitle.split(' ')[0]} {catTitle.split(' ')[1] || cat}
+                      </button>
+                    );
+                  })}
                   <button
                     onClick={() => {
                       const keys = Object.keys(quizData) as CategoryKey[];
                       setCategory(keys[Math.floor(Math.random() * keys.length)]);
                     }}
-                    className={`px-4 py-2 rounded-[16px] text-xs font-bold capitalize transition-all ${isDark ? 'opacity-70 hover:opacity-100 hover:bg-white/10 text-white' : 'text-slate-700 hover:bg-slate-200'}`}
+                    className={`px-3.5 py-2 rounded-[16px] text-xs font-bold transition-all ${isDark ? 'opacity-70 hover:opacity-100 hover:bg-white/10 text-white' : 'text-slate-700 hover:bg-slate-200'}`}
                   >
-                    🎲 Random
+                    {t('randomCategory')}
                   </button>
                   <button
                     onClick={() => setShowAIModal(true)}
-                    className={`px-4 py-2 rounded-[16px] text-xs font-bold transition-all flex items-center gap-1.5 ${category === 'custom-ai' ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-md' : isDark ? 'opacity-80 hover:opacity-100 hover:bg-white/10 text-white' : 'text-purple-700 bg-purple-50 hover:bg-purple-100'}`}
+                    className={`px-3.5 py-2 rounded-[16px] text-xs font-bold transition-all flex items-center gap-1.5 ${category === 'custom-ai' ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-md' : isDark ? 'opacity-80 hover:opacity-100 hover:bg-white/10 text-white' : 'text-purple-700 bg-purple-50 hover:bg-purple-100'}`}
                   >
-                    <Cpu size={14} /> AI Quiz
+                    <Cpu size={14} /> {t('aiQuiz')}
                   </button>
                 </div>
 
@@ -1012,38 +1447,16 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                         onClick={() => setDifficulty(diff)}
                         className={`px-3 py-1.5 rounded-[14px] text-xs font-bold capitalize transition-all ${difficulty === diff ? 'bg-blue-600 text-white shadow-md' : isDark ? 'opacity-60 hover:opacity-100 text-slate-300' : 'text-slate-600 hover:text-slate-900'}`}
                       >
-                        {diff}
+                        {lang === 'hi' 
+                          ? (diff === 'beginner' ? 'सरल' : diff === 'intermediate' ? 'मध्यम' : 'कठिन')
+                          : (diff === 'beginner' ? 'Easy' : diff === 'intermediate' ? 'Medium' : 'Hard')}
                       </button>
                     ))}
                   </div>
                 )}
             </div>
 
-            {/* Corporate Sponsorship Banner */}
-            <div className={`p-4 sm:p-5 rounded-[24px] border backdrop-blur-2xl shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4 relative overflow-hidden group ${isDark ? 'bg-gradient-to-r from-emerald-950/60 via-slate-900/80 to-teal-950/60 border-emerald-500/30' : 'bg-gradient-to-r from-emerald-50 via-emerald-100/60 to-teal-50 border-emerald-300 shadow-md'}`}>
-              <div className="flex items-center gap-3.5 z-10">
-                <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-black text-lg shadow-inner">
-                  🐋
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className={`text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full border ${isDark ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'bg-emerald-200 text-emerald-800 border-emerald-400'}`}>Official Sponsor</span>
-                    <span className={`text-xs font-mono font-bold ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Orca6™ HFT</span>
-                  </div>
-                  <h4 className={`text-sm font-black uppercase tracking-wider mt-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>Automate Trading with Sub-Millisecond AI</h4>
-                  <p className={`text-xs font-semibold mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-700'}`}>Pre-funded demo account credentials delivered instantly • Zero personal capital risk.</p>
-                </div>
-              </div>
-              <Link
-                href="https://jumpstreet.tech"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto px-6 py-3 rounded-full text-xs font-black uppercase tracking-widest bg-emerald-600 text-white hover:bg-emerald-500 transition-all shadow-md hover:shadow-lg whitespace-nowrap flex items-center justify-center gap-2 z-10"
-              >
-                <span>Explore Orca6™</span>
-                <Zap size={14} />
-              </Link>
-            </div>
+
 
             {/* Quiz Area */}
             <div className="w-full">
@@ -1053,16 +1466,18 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                     <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                       <Award size={40} className="text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold mb-3">Quiz Completed!</h3>
+                    <h3 className="text-2xl font-bold mb-3">{lang === 'hi' ? 'क्विज़ पूरा हुआ!' : 'Quiz Completed!'}</h3>
                     <p className="text-base opacity-80 mb-8">
-                      You answered {aiCorrectCount} of 5 questions correctly on <strong>{aiTopic}</strong>. <br/>You generated <strong>{aiCorrectCount * 10} grains</strong> of rice!
+                      {lang === 'hi' 
+                        ? <>आपने <strong>{aiTopic}</strong> पर 5 में से {aiCorrectCount} प्रश्नों के सही उत्तर दिए। <br/>आपने <strong>{aiCorrectCount * 10} दाने</strong> अनाज दान किया!</>
+                        : <>You answered {aiCorrectCount} of 5 questions correctly on <strong>{aiTopic}</strong>. <br/>You generated <strong>{aiCorrectCount * 10} grains</strong> of rice!</>}
                     </p>
                     <div className="flex justify-center gap-4">
                       <button onClick={handleShareAIResult} className="px-6 py-3 rounded-full font-semibold bg-white text-slate-800 shadow-md hover:scale-105 transition-transform flex items-center gap-2">
-                        <Share2 size={18} /> Share Result
+                        <Share2 size={18} /> {lang === 'hi' ? 'परिणाम साझा करें' : 'Share Result'}
                       </button>
                       <button onClick={() => setShowAIModal(true)} className="px-6 py-3 rounded-full font-semibold bg-black/10 hover:bg-black/20 transition-colors">
-                        New Topic
+                        {lang === 'hi' ? 'नया विषय' : 'New Topic'}
                       </button>
                     </div>
                   </motion.div>
@@ -1078,7 +1493,7 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                     >
                       {category === 'custom-ai' && (
                         <div className="text-xs font-bold text-purple-500 uppercase tracking-wide mb-5 flex items-center gap-2">
-                          <Cpu size={14}/> AI Quiz: Question {aiIndex + 1} of {aiQuestions.length} ({aiTopic})
+                          <Cpu size={14}/> {lang === 'hi' ? 'एआई क्विज' : 'AI Quiz'}: Question {aiIndex + 1} / {aiQuestions.length} ({aiTopic})
                         </div>
                       )}
 
@@ -1116,17 +1531,91 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                               onClick={() => handleAnswer(i)}
                               className={btnClass}
                             >
-                              <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-4 shrink-0 text-sm font-bold ${isAnswered && i === currentQuestion.answer ? 'bg-white/20' : (isDark ? 'bg-white/10' : 'bg-black/5')}`}>
+                              {/* 3D Tactile Keycap Pill with Keyboard Shortcut Indicator */}
+                              <div className={`w-9 h-9 rounded-xl flex items-center justify-center mr-4 shrink-0 text-sm font-black font-mono shadow-sm transition-transform ${isAnswered && i === currentQuestion.answer ? 'bg-slate-950 text-emerald-400' : isDark ? 'bg-slate-800 border border-white/15 text-slate-200' : 'bg-slate-100 border border-slate-300 text-slate-700'}`}>
                                 {String.fromCharCode(65 + i)}
                               </div>
-                              {opt}
+                              <span className="flex-1">{opt}</span>
+                              <span className="opacity-40 text-[10px] font-mono ml-2 hidden sm:inline">[{String.fromCharCode(65 + i)} / {i + 1}]</span>
                             </button>
                           );
                         })}
                       </div>
 
-                      {/* Google AdSense / Display Ad Unit */}
-                      <AdSenseBanner refreshKey={`${currentQuestion?.question || score}`} isDark={isDark} />
+                      {/* Keyboard Shortcuts Quick Bar */}
+                      <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-slate-400 px-1">
+                        <span className="flex items-center gap-1">
+                          <kbd className="px-1.5 py-0.5 rounded bg-black/40 border border-white/15 text-slate-300 font-bold">A</kbd>
+                          <kbd className="px-1.5 py-0.5 rounded bg-black/40 border border-white/15 text-slate-300 font-bold">B</kbd>
+                          <kbd className="px-1.5 py-0.5 rounded bg-black/40 border border-white/15 text-slate-300 font-bold">C</kbd>
+                          <kbd className="px-1.5 py-0.5 rounded bg-black/40 border border-white/15 text-slate-300 font-bold">D</kbd>
+                          <span className="ml-1 text-[10px]">{t('orAnswerKeys')}</span>
+                        </span>
+                        <span className="flex items-center gap-1.5 text-[10px]">
+                          <kbd className="px-1.5 py-0.5 rounded bg-black/40 border border-white/15 text-slate-300 font-bold">Space</kbd>
+                          <span>{t('spaceToNext')}</span>
+                          <kbd className="px-1.5 py-0.5 rounded bg-black/40 border border-white/15 text-slate-300 font-bold ml-1.5">H</kbd>
+                          <span>{t('hForHint')}</span>
+                        </span>
+                      </div>
+
+                      {/* Educational Answer Breakdown & Explanation Card */}
+                      <AnimatePresence>
+                        {isAnswered && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 15, scale: 0.98 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            className={`p-5 sm:p-6 rounded-[24px] border mt-5 space-y-3 shadow-xl backdrop-blur-xl transition-all ${
+                              selectedAnswer === currentQuestion.answer
+                                ? (isDark ? 'bg-gradient-to-br from-emerald-950/60 to-slate-900/90 border-emerald-500/40 text-white shadow-emerald-500/10' : 'bg-emerald-50/95 border-emerald-300 text-slate-900 shadow-md')
+                                : (isDark ? 'bg-gradient-to-br from-rose-950/60 to-slate-900/90 border-rose-500/40 text-white shadow-rose-500/10' : 'bg-rose-50/95 border-rose-300 text-slate-900 shadow-md')
+                            }`}
+                          >
+                            <div className="flex flex-wrap items-center justify-between gap-3">
+                              <div className="flex items-center gap-2 font-bold font-title text-sm sm:text-base">
+                                {selectedAnswer === currentQuestion.answer ? (
+                                  <span className="text-emerald-400 flex items-center gap-2">
+                                    <span className="text-lg">🎉</span> 
+                                    <span>{t('correctAnswerTitle')}</span>
+                                  </span>
+                                ) : (
+                                  <span className="text-rose-400 flex items-center gap-2">
+                                    <span className="text-lg">❌</span> 
+                                    <span>{t('incorrectAnswerTitle')}</span>
+                                  </span>
+                                )}
+                              </div>
+                              <button
+                                onClick={advanceToNextQuestion}
+                                className="px-4 py-2 rounded-xl text-xs font-mono font-bold bg-white/20 hover:bg-white/30 border border-white/30 text-white transition-all flex items-center gap-2 cursor-pointer active:scale-95 shadow-md hover:scale-105"
+                              >
+                                <span>{t('nextQuestionBtn')} &rarr;</span>
+                                <kbd className="px-1.5 py-0.5 rounded bg-black/40 text-[10px]">Space</kbd>
+                              </button>
+                            </div>
+
+                            {selectedAnswer !== currentQuestion.answer && (
+                              <div className="p-3 rounded-xl bg-black/30 border border-white/10 text-xs font-mono">
+                                <span className="text-slate-400">{t('correctAnswerIs')} </span>
+                                <strong className="text-emerald-400">
+                                  Option {String.fromCharCode(65 + currentQuestion.answer)} — {currentQuestion.options[currentQuestion.answer]}
+                                </strong>
+                              </div>
+                            )}
+
+                            <div className="pt-2 border-t border-white/10 text-xs sm:text-sm leading-relaxed space-y-1">
+                              <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                                <span>💡</span> 
+                                <span>{t('whyCorrectInsight')}</span>
+                              </div>
+                              <p className={`font-sans leading-relaxed ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
+                                {currentQuestion.explanation || currentQuestion.hint || (lang === 'hi' ? "इस अवधारणा को सीखने से आपका ज्ञान बढ़ता है और बेसहारा जीवों के लिए आहार दान संभव होता है।" : "Mastering this concept strengthens your knowledge and powers verified meal donations for street animals in need.")}
+                              </p>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
 
                       <div className="mt-8 flex justify-between items-center min-h-[40px]">
                         <AnimatePresence>
@@ -1145,7 +1634,7 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                               </motion.div>
                             ) : (
                               <button onClick={handleUseHint} disabled={score < 5} className={`px-5 py-2.5 rounded-full text-xs font-semibold shadow-sm transition-colors ${score >= 5 ? (isDark ? 'bg-white/10 hover:bg-white/20' : 'bg-white hover:bg-gray-50') : 'opacity-40 cursor-not-allowed'}`}>
-                                <Lightbulb size={14} className="inline mr-1" /> Use Hint (-5 Grains)
+                                <Lightbulb size={14} className="inline mr-1" /> {t('useHintBtn')}
                               </button>
                             )}
                           </div>
@@ -1163,182 +1652,200 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
             </div>
           </div>
 
-          {/* Right Column: Staking Stats & Widgets */}
+          {/* Right Column: 3D Bowl HUD, Daily Facts & Community Impact */}
           <div className="lg:col-span-4 space-y-6">
             
-            {/* Main Score Widget */}
-            <motion.div layout className={`w-full rounded-[32px] border p-8 text-center relative overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-2xl ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/50 border-white/60'}`}>
-              
-              <div className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-bold text-blue-500 shadow-inner">
-                Level {level}: {currentLevelTitle}
-              </div>
-              
-              <div className="flex flex-col items-center justify-center gap-2 mb-6">
-                <motion.span 
-                  key={score}
-                  initial={{ scale: 1.1 }}
-                  animate={{ scale: 1 }}
-                  className="text-6xl font-bold tracking-tight"
-                >
-                  {score.toLocaleString()}
-                </motion.span>
-                <span className="text-xs font-semibold uppercase tracking-widest opacity-60">Grains Donated</span>
-                
-                {score >= 500 && (
-                  <div className="mt-2 inline-flex items-center gap-2 px-5 py-2.5 rounded-[20px] bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold text-sm shadow-sm">
-                    <Heart size={16} className="fill-emerald-500" />
-                    You've funded {Math.floor(score / 500)} full meal{Math.floor(score / 500) > 1 ? 's' : ''}!
-                  </div>
-                )}
-              </div>
+            {/* 3D Glowing Rice Bowl & Level HUD Widget */}
+            <TiltWrapper tiltDeg={6} glare={true} className="w-full">
+              <motion.div
+                layout
+                className={`w-full rounded-[36px] border p-7 sm:p-8 text-center relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.3)] backdrop-blur-2xl transition-all ${
+                  isDark 
+                    ? 'bg-gradient-to-b from-slate-900/95 via-slate-950/90 to-slate-950/95 border-emerald-500/30 shadow-[0_0_40px_rgba(16,185,129,0.15)] text-white' 
+                    : 'bg-gradient-to-b from-white/98 to-slate-50/98 border-2 border-emerald-300 text-slate-900 shadow-xl'
+                }`}
+              >
+                {/* 3D Level Crown Badge */}
+                <div className={`mb-5 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-xs font-black font-title shadow-sm ${
+                  isDark ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400' : 'bg-emerald-100 border-emerald-300 text-emerald-900 font-extrabold'
+                }`}>
+                  <span>⚡ {lang === 'hi' ? 'लेवल' : 'Level'} {level}: {currentLevelTitle}</span>
+                </div>
 
-              <div className="relative h-24 flex flex-col items-center justify-center">
-                <AnimatePresence>
-                  {riceGrains.map(grain => (
-                    <motion.span
-                      key={grain.id}
-                      initial={{ opacity: 0, y: -40, scale: 0.5 }}
-                      animate={{ opacity: 1, y: 20, scale: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.8, ease: 'easeOut' }}
-                      className="absolute text-3xl z-10"
-                      style={{ left: grain.left, animationDelay: grain.delay }}
-                    >
-                      {grain.icon}
-                    </motion.span>
-                  ))}
-                </AnimatePresence>
-                <motion.div animate={riceGrains.length ? { scale: [1, 1.1, 1] } : {}} className="text-6xl relative z-20">
-                  {recipientIcons[recipient].base}
-                </motion.div>
-              </div>
-
-              <div className={`w-full h-3 rounded-full overflow-hidden mt-8 shadow-inner ${isDark ? 'bg-black/30' : 'bg-black/5'}`}>
-                <motion.div className="h-full bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full" initial={{ width: 0 }} animate={{ width: `${progressPct}%` }} transition={{ duration: 0.5 }} />
-              </div>
-              <span className="text-[10px] font-semibold mt-3 block opacity-60">{milestone} / 500 for a full bowl</span>
-
-              <div className="mt-8">
-                <button onClick={handleShare} className={`w-full py-3.5 rounded-2xl text-sm font-semibold transition-all shadow-md flex items-center justify-center gap-2 ${isDark ? 'bg-white/10 hover:bg-white/20' : 'bg-white hover:bg-gray-50'}`}>
-                  <Share2 size={16} /> Share Impact
-                </button>
-              </div>
-            </motion.div>
-
-            {/* Recipients Widget */}
-            <div className={`p-6 rounded-[32px] border shadow-lg backdrop-blur-2xl ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/40 border-white/50'}`}>
-              <h3 className="text-sm font-bold mb-4 opacity-80 px-2">Support Target</h3>
-              <div className="grid grid-cols-2 gap-3">
-                {Object.entries(recipientIcons).slice(0, 4).map(([key, info]) => (
-                  <button
-                    key={key}
-                    onClick={() => setRecipient(key)}
-                    className={`p-4 rounded-[20px] text-sm font-semibold transition-all flex flex-col items-center gap-2 text-center border ${recipient === key ? 'bg-blue-500 text-white shadow-lg border-blue-400' : (isDark ? 'bg-white/5 border-white/10 hover:bg-white/10' : 'bg-white/60 border-white/80 hover:bg-white shadow-sm')}`}
+                {/* Rolling 3D Grains Counter */}
+                <div className="flex flex-col items-center justify-center gap-1 mb-5">
+                  <motion.span
+                    key={score}
+                    initial={{ scale: 1.15 }}
+                    animate={{ scale: 1 }}
+                    className={`text-6xl sm:text-7xl font-black font-title tracking-tight bg-clip-text text-transparent drop-shadow-md ${
+                      isDark ? 'bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400' : 'bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-700'
+                    }`}
                   >
-                    <span className="text-2xl">{info.base.slice(0, 2)}</span>
-                    <span className="text-xs">{info.label.split(' ')[0]}</span>
+                    {score.toLocaleString()}
+                  </motion.span>
+                  <span className={`text-xs font-mono font-bold uppercase tracking-widest ${
+                    isDark ? 'text-slate-400' : 'text-slate-600 font-extrabold'
+                  }`}>
+                    🌾 {t('totalRiceDonated')}
+                  </span>
+
+                  <div className={`mt-3 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border font-bold text-xs shadow-sm ${
+                    isDark 
+                      ? 'bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border-emerald-500/40 text-emerald-300' 
+                      : 'bg-emerald-100 border-emerald-300 text-emerald-900 font-extrabold'
+                  }`}>
+                    <Heart size={13} className="fill-emerald-500 text-emerald-500" />
+                    <span>{Math.floor(score / 50)} {lang === 'hi' ? 'भोजन परोसे गए 🐕' : 'Street Meals Funded 🐕'}</span>
+                  </div>
+                </div>
+
+                {/* 3D Ceramic Bowl & Floating Grains Animation */}
+                <div className="relative h-28 flex flex-col items-center justify-center my-2">
+                  <AnimatePresence>
+                    {riceGrains.map(grain => (
+                      <motion.span
+                        key={grain.id}
+                        initial={{ opacity: 0, y: -40, scale: 0.5 }}
+                        animate={{ opacity: 1, y: 20, scale: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.8, ease: 'easeOut' }}
+                        className="absolute text-3xl z-10 drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+                        style={{ left: grain.left, animationDelay: grain.delay }}
+                      >
+                        {grain.icon}
+                      </motion.span>
+                    ))}
+                  </AnimatePresence>
+                  <motion.div
+                    animate={riceGrains.length ? { scale: [1, 1.15, 1], rotate: [0, 3, -3, 0] } : {}}
+                    className="text-7xl relative z-20 drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)] cursor-pointer select-none"
+                    onClick={triggerRiceAnimation}
+                  >
+                    🐕🥣
+                  </motion.div>
+                </div>
+
+                {/* Progress Bar towards Next 50-Grain Bowl */}
+                <div className="space-y-1.5 mt-4">
+                  <div className={`flex justify-between text-[11px] font-mono font-bold ${
+                    isDark ? 'text-slate-300' : 'text-slate-700 font-bold'
+                  }`}>
+                    <span>{lang === 'hi' ? 'अगला कटोरा:' : 'Next Street Bowl:'}</span>
+                    <span className={isDark ? 'text-emerald-400' : 'text-emerald-700 font-extrabold'}>{score % 50} / 50 {lang === 'hi' ? 'दाने' : 'Grains'}</span>
+                  </div>
+                  <div className={`w-full h-3 rounded-full overflow-hidden border p-0.5 shadow-inner ${
+                    isDark ? 'bg-black/60 border-emerald-500/30' : 'bg-slate-200 border-slate-300'
+                  }`}>
+                    <motion.div
+                      className="h-full bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 rounded-full shadow-[0_0_12px_rgba(16,185,129,0.8)]"
+                      initial={{ width: 0 }}
+                      animate={{ width: `${Math.min(100, Math.round(((score % 50) / 50) * 100))}%` }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  </div>
+                </div>
+
+                {/* 3D Action Buttons */}
+                <div className="mt-6 flex flex-col gap-2.5">
+                  <button
+                    onClick={handleShare}
+                    className={`w-full py-3.5 rounded-2xl text-xs font-black font-title uppercase tracking-wider transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02] ${
+                      isDark 
+                        ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 shadow-emerald-500/25 hover:brightness-110' 
+                        : 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-emerald-600/25 font-extrabold'
+                    }`}
+                  >
+                    <Share2 size={14} /> {lang === 'hi' ? 'पुण्य प्रभाव शेयर करें' : 'Share Karmic Impact'}
                   </button>
-                ))}
-              </div>
-            </div>
+
+                  <button
+                    onClick={handleOpenLuckyCrate}
+                    className={`w-full py-2.5 rounded-xl text-xs font-mono font-bold border transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                      isDark 
+                        ? 'text-amber-400 hover:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border-amber-500/30' 
+                        : 'text-amber-900 hover:text-amber-950 bg-amber-100 hover:bg-amber-200 border-amber-300 font-bold shadow-sm'
+                    }`}
+                  >
+                    <span>🎁 {t('openCrate')}</span>
+                  </button>
+                </div>
+              </motion.div>
+            </TiltWrapper>
 
           </div>
         </div>
 
-        {/* Real-World Impact Gallery */}
-        <div className="w-full mt-8">
-          <div className={`p-8 sm:p-10 rounded-[32px] shadow-2xl backdrop-blur-2xl border overflow-hidden ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/60 border-white/60'}`}>
-            
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-white/10">
-              <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="p-2 rounded-xl bg-rose-500/20 text-rose-500 border border-rose-500/30">
-                    <Heart size={24} className="fill-rose-500" />
-                  </span>
-                  <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-title">Real-World Impact Drive</h2>
+        {/* Real-World Impact Drive Showcase Card */}
+        <div className="w-full mt-6">
+          <TiltWrapper tiltDeg={2} glare={true} className="w-full">
+            <div className={`p-8 sm:p-10 rounded-[36px] shadow-2xl backdrop-blur-2xl border overflow-hidden relative ${
+              isDark 
+                ? 'bg-gradient-to-br from-slate-900/90 via-rose-950/20 to-slate-950/90 border-rose-500/30 shadow-[0_0_40px_rgba(244,63,94,0.15)] text-white' 
+                : 'bg-white/98 border-2 border-rose-200 text-slate-900 shadow-xl'
+            }`}>
+              
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-white/10">
+                <div>
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="p-2 rounded-xl bg-rose-500/20 text-rose-500 border border-rose-500/30">
+                      <Heart size={22} className="fill-rose-500" />
+                    </span>
+                    <h2 className="text-2xl sm:text-3xl font-black tracking-tight font-title">
+                      {lang === 'hi' ? 'ज़मीनी स्तर पर सेवा एवं वास्तविक प्रमाण' : 'Real-World Impact & Field Proof'}
+                    </h2>
+                  </div>
+                  <p className={`text-sm max-w-2xl leading-relaxed font-medium ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                    {lang === 'hi' 
+                      ? 'प्रश्नोत्तरी के 100% अंक सीधे पटना मंडल (बिहार) में बेसहारा कुत्तों के दैनिक भोजन व उपचार में उपयोग होते हैं।'
+                      : '100% of quiz karma points directly fund verified stray dog feeding drives and medical rescues across Patna Division, Bihar.'}
+                  </p>
                 </div>
-                <p className="text-sm opacity-90 max-w-3xl leading-relaxed font-medium">
-                  Every single grain of rice makes a difference. These are the actual street animals and communities you are helping feed every time you answer a question. <strong>Your knowledge is their survival.</strong>
-                </p>
-              </div>
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold shrink-0">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>LIVE FEEDING VERIFIED • PATNA DIVISION</span>
-              </div>
-            </div>
-
-            {/* Featured Direct Feeding Drive Gallery */}
-            <div className="mb-10">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xs font-bold uppercase tracking-widest opacity-70 flex items-center gap-2">
-                  <span>🐕</span> Direct Street Feeding Drive • Rajbansi Nagar, Patna
-                </h3>
-                <span className="text-xs text-rose-500 font-bold">9 Verified Field Photos</span>
+                <Link
+                  href="/impact"
+                  className="px-6 py-3 rounded-full text-xs font-black font-title uppercase tracking-wider bg-rose-500 text-white hover:bg-rose-400 transition-all shadow-lg shadow-rose-500/25 flex items-center justify-center gap-2 shrink-0 hover:scale-105"
+                >
+                  <span>{lang === 'hi' ? '110+ तस्वीरें एवं बिल देखें' : 'Explore 110+ Field Photos'}</span>
+                  <span>&rarr;</span>
+                </Link>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {STREET_FEEDING_DRIVE.map((item, idx) => (
-                  <motion.div
+              {/* 3 Top Preview Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {STREET_FEEDING_DRIVE.slice(0, 3).map((item, idx) => (
+                  <Link
                     key={idx}
-                    whileHover={{ y: -6, scale: 1.02 }}
-                    onClick={() => setPreviewImage(item)}
-                    className="relative group rounded-[20px] overflow-hidden shadow-lg border border-white/15 cursor-pointer bg-black/40 h-72 flex flex-col justify-end p-4"
+                    href="/impact"
+                    className="relative group rounded-2xl overflow-hidden shadow-md border border-white/15 bg-black/40 h-56 flex flex-col justify-end p-4 transition-transform hover:-translate-y-1"
                   >
                     <img
                       src={item.src}
                       alt={item.title}
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent group-hover:from-black/95 transition-colors" />
-
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
                     <div className="relative z-10 space-y-1">
-                      <span className="px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider bg-rose-500 text-white shadow-sm inline-block mb-1">
+                      <span className="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider bg-rose-500 text-white">
                         {item.tag}
                       </span>
-                      <h4 className="text-xs font-bold text-white leading-tight font-title">{item.title}</h4>
-                      <p className="text-[10px] text-slate-300 flex items-center gap-1 font-mono">
-                        <span>📍</span> {item.location}
-                      </p>
-                      <span className="text-[9px] text-slate-400 block font-mono">{item.date}</span>
+                      <h4 className="text-xs font-bold text-white font-title truncate">{item.title}</h4>
+                      <p className="text-[10px] text-slate-300 font-mono truncate">📍 {item.location}</p>
                     </div>
-
-                    <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Heart size={14} className="fill-rose-500 text-rose-500" />
-                    </div>
-                  </motion.div>
+                  </Link>
                 ))}
               </div>
-            </div>
 
-            {/* Infinite Scrolling Marquee */}
-            <div>
-              <h3 className="text-xs font-bold uppercase tracking-widest opacity-70 mb-4 flex items-center gap-2">
-                <span>📷</span> Global Community Impact Archive (81 Verified Photos)
-              </h3>
-              <div className="relative w-full overflow-hidden rounded-[24px] h-56 flex items-center">
-                <motion.div 
-                  className="flex gap-4 absolute left-0"
-                  animate={{ x: [0, -17000] }}
-                  transition={{ repeat: Infinity, duration: 250, ease: 'linear' }}
+              <div className="mt-6 text-center pt-2">
+                <Link
+                  href="/impact"
+                  className="inline-flex items-center gap-2 text-xs font-mono font-bold text-rose-400 hover:text-rose-300 underline"
                 >
-                  {Array.from({ length: 81 }).map((_, i) => (
-                    <div key={i} className="w-40 h-56 shrink-0 rounded-[16px] overflow-hidden shadow-sm border border-white/10 group relative bg-black/10">
-                      <img 
-                        src={`/impact/impact-${i + 1}.jpeg`} 
-                        alt={`Real-World Impact ${i + 1}`} 
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                        loading="lazy" 
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                        <Heart size={16} className="text-white fill-white" />
-                      </div>
-                    </div>
-                  ))}
-                </motion.div>
+                  <span>{lang === 'hi' ? 'समर्पित दान रिकॉर्ड पेज देखें (पटना सेक्टर व 81 अभिलेखागार) →' : 'View Dedicated Field Proof Page (August 2026 Drives, Patna Sectors & 81 Archive Records) →'}</span>
+                </Link>
               </div>
-            </div>
 
-          </div>
+            </div>
+          </TiltWrapper>
         </div>
       </main>
 
@@ -1354,18 +1861,18 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
             >
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-amber-400 via-rose-500 to-emerald-400" />
               <div className="text-6xl animate-bounce">🎁</div>
-              <h3 className="text-2xl font-black font-title text-white">Daily Karma Crate Unlocked!</h3>
+              <h3 className="text-2xl font-black font-title text-white">{lang === 'hi' ? 'दैनिक कर्म क्रेट अनलॉक!' : 'Daily Karma Crate Unlocked!'}</h3>
               <p className="text-sm font-mono text-amber-300 font-bold leading-relaxed">
                 {luckyReward.text}
               </p>
               <p className="text-xs text-slate-300">
-                Your bonus grains have been added to the Patna Street Animal Rescue Feeding Pool!
+                {lang === 'hi' ? 'आपके बोनस दाने पटना बेसहारा पशु आहार पूल में जोड़ दिए गए हैं!' : 'Your bonus grains have been added to the Patna Street Animal Rescue Feeding Pool!'}
               </p>
               <button
                 onClick={() => setShowLuckyCrateModal(false)}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-400 to-rose-500 text-slate-950 font-black text-sm uppercase tracking-wider shadow-lg hover:brightness-110 transition-all"
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-400 to-rose-500 text-slate-950 font-black text-sm uppercase tracking-wider shadow-lg hover:brightness-110 transition-all cursor-pointer"
               >
-                Claim &amp; Keep Playing 🚀
+                {lang === 'hi' ? 'दाने प्राप्त करें और खेलें 🚀' : 'Claim & Keep Playing 🚀'}
               </button>
             </motion.div>
           </div>
@@ -1381,30 +1888,30 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
               <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg rotate-3">
                 <Cpu size={32} className="text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-center mb-2">Custom AI Quiz</h3>
+              <h3 className="text-2xl font-bold text-center mb-2">{t('aiModalTitle')}</h3>
               <p className="text-sm text-center opacity-60 mb-8">
-                Enter any topic and generate a quiz to feed charities!
+                {t('aiModalSubtitle')}
               </p>
 
               <div className="mb-5">
-                <label className="text-xs font-semibold ml-2 mb-2 block opacity-70">Topic</label>
+                <label className="text-xs font-semibold ml-2 mb-2 block opacity-70">{t('aiTopicLabel')}</label>
                 <input
                   type="text"
                   value={aiTopic}
                   onChange={e => setAiTopic(e.target.value)}
-                  placeholder="e.g., Space Exploration"
+                  placeholder={t('aiTopicPlaceholder')}
                   disabled={isGeneratingAI}
                   className={`w-full p-4 rounded-[16px] border outline-none transition-all shadow-inner ${isDark ? 'bg-black/30 border-white/10 focus:border-purple-500' : 'bg-gray-50 border-gray-200 focus:border-purple-400'}`}
                 />
               </div>
 
               <div className="mb-8">
-                <label className="text-xs font-semibold ml-2 mb-2 block opacity-70">Gemini API Key</label>
+                <label className="text-xs font-semibold ml-2 mb-2 block opacity-70">{t('geminiKeyLabel')}</label>
                 <input
                   type="password"
                   value={aiKey}
                   onChange={e => setAiKey(e.target.value)}
-                  placeholder="Paste AI key here..."
+                  placeholder={t('geminiKeyPlaceholder')}
                   disabled={isGeneratingAI}
                   className={`w-full p-4 rounded-[16px] border outline-none transition-all shadow-inner ${isDark ? 'bg-black/30 border-white/10 focus:border-purple-500' : 'bg-gray-50 border-gray-200 focus:border-purple-400'}`}
                 />
@@ -1414,57 +1921,18 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                 <button
                   onClick={handleGenerateAIQuiz}
                   disabled={isGeneratingAI}
-                  className="w-full py-4 rounded-[20px] font-bold bg-black text-white dark:bg-white dark:text-black hover:scale-[1.02] disabled:opacity-50 transition-all shadow-lg flex items-center justify-center gap-2"
+                  className="w-full py-4 rounded-[20px] font-bold bg-black text-white dark:bg-white dark:text-black hover:scale-[1.02] disabled:opacity-50 transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  {isGeneratingAI ? 'Generating...' : 'Generate Quiz'}
+                  {isGeneratingAI ? t('generatingAI') : t('generateQuizBtn')}
                 </button>
-                <button onClick={() => setShowAIModal(false)} disabled={isGeneratingAI} className="py-4 font-semibold opacity-60 hover:opacity-100">Cancel</button>
+                <button onClick={() => setShowAIModal(false)} disabled={isGeneratingAI} className="py-4 font-semibold opacity-60 hover:opacity-100 cursor-pointer">{lang === 'hi' ? 'रद्द करें' : 'Cancel'}</button>
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Auth Modal */}
-      <AnimatePresence>
-        {showEmailModal && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-md">
-            <motion.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }} className={`w-full max-w-sm p-8 rounded-[32px] shadow-2xl border text-center ${isDark ? 'bg-[#1c1c1e] border-white/10' : 'bg-white/90 border-white/100 backdrop-blur-xl'}`}>
-              {!magicLinkSent ? (
-                <>
-                  <div className="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-blue-500/30">
-                    <User size={32} className="text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold mb-2">Sign In</h3>
-                  <p className="text-sm opacity-60 mb-8">Enter your email to receive a secure login link.</p>
-                  <input
-                    type="email"
-                    value={emailInput}
-                    onChange={e => setEmailInput(e.target.value)}
-                    placeholder="name@example.com"
-                    className={`w-full p-4 rounded-[16px] border outline-none transition-all shadow-inner mb-6 text-center ${isDark ? 'bg-black/30 border-white/10 focus:border-blue-500' : 'bg-gray-50 border-gray-200 focus:border-blue-400'}`}
-                  />
-                  <div className="flex flex-col gap-3">
-                    <button onClick={sendMagicLink} disabled={isSendingMagicLink} className="w-full py-4 rounded-[20px] font-bold bg-blue-500 text-white hover:scale-[1.02] disabled:opacity-50 transition-all shadow-md shadow-blue-500/20">
-                      {isSendingMagicLink ? 'Sending...' : 'Send Magic Link'}
-                    </button>
-                    <button onClick={() => setShowEmailModal(false)} className="py-4 font-semibold opacity-60 hover:opacity-100">Cancel</button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-green-500/30">
-                    <span className="text-4xl">✓</span>
-                  </div>
-                  <h3 className="text-2xl font-bold mb-3">Check your inbox</h3>
-                  <p className="text-sm opacity-60 mb-8">We sent a magic link to {emailInput}. Click it to log in securely.</p>
-                  <button onClick={() => setShowEmailModal(false)} className="py-4 font-semibold opacity-60 hover:opacity-100">Close</button>
-                </>
-              )}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
 
       {/* Level Up Announcement Modal */}
       <AnimatePresence>
@@ -1482,21 +1950,21 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
               <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: 'linear' }} className="absolute -top-32 -left-32 w-64 h-64 bg-yellow-400/20 blur-[60px] rounded-full pointer-events-none" />
               
               <div className="text-7xl mb-6 inline-block">🌟</div>
-              <h3 className="text-3xl font-bold mb-2">Level Up!</h3>
-              <p className="text-sm opacity-70 mb-8">Your impact is growing globally.</p>
+              <h3 className="text-3xl font-bold mb-2">{lang === 'hi' ? 'लेवल अप!' : 'Level Up!'}</h3>
+              <p className="text-sm opacity-70 mb-8">{lang === 'hi' ? 'आपका पुण्य प्रभाव विश्व स्तर पर बढ़ रहा है।' : 'Your impact is growing globally.'}</p>
 
               <div className={`p-6 rounded-[24px] mb-8 border shadow-inner ${isDark ? 'bg-black/30 border-white/5' : 'bg-gray-50 border-gray-200'}`}>
-                <div className="text-xs font-bold uppercase tracking-wider text-blue-500 mb-2">New Rank</div>
+                <div className="text-xs font-bold uppercase tracking-wider text-blue-500 mb-2">{lang === 'hi' ? 'नया पद' : 'New Rank'}</div>
                 <div className="text-xl font-bold">
-                  Level {levelUpData.level}: {levelUpData.title}
+                  {lang === 'hi' ? 'लेवल' : 'Level'} {levelUpData.level}: {levelUpData.title}
                 </div>
               </div>
 
               <button
                 onClick={() => setShowLevelUpModal(false)}
-                className="w-full py-4 rounded-[20px] bg-blue-500 text-white font-bold hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-blue-500/30"
+                className="w-full py-4 rounded-[20px] bg-blue-500 text-white font-bold hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-blue-500/30 cursor-pointer"
               >
-                Continue Playing
+                {lang === 'hi' ? 'खेलना जारी रखें' : 'Continue Playing'}
               </button>
             </motion.div>
           </motion.div>
@@ -1520,7 +1988,7 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
             >
               <button
                 onClick={() => setPreviewImage(null)}
-                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-rose-600 transition-colors font-bold"
+                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-rose-600 transition-colors font-bold cursor-pointer"
               >
                 ✕
               </button>
@@ -1534,22 +2002,323 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
               <div className="p-6 bg-slate-950 text-white space-y-2">
                 <div className="flex items-center gap-2">
                   <span className="px-3 py-1 rounded-full bg-rose-500 text-white text-[10px] font-mono font-bold uppercase">
-                    Verified Field Impact
+                    {lang === 'hi' ? 'सत्यापित फील्ड प्रभाव' : 'Verified Field Impact'}
                   </span>
                   <span className="text-xs text-slate-400 font-mono">{previewImage.date}</span>
                 </div>
                 <h3 className="text-lg font-black font-title text-white">{previewImage.title}</h3>
                 <p className="text-xs text-slate-300 font-mono flex items-center gap-1">
-                  <span>📍</span> Location: {previewImage.location}
+                  <span>📍</span> {lang === 'hi' ? 'स्थान' : 'Location'}: {previewImage.location}
                 </p>
                 <p className="text-xs text-emerald-400 pt-2 border-t border-white/10 font-medium">
-                  ❤️ Your quiz participation directly funds rice meals for animals in this exact location.
+                  ❤️ {lang === 'hi' ? 'आपकी क्विज़ भागीदारी सीधे इस स्थान पर जानवरों के भोजन को वित्तपोषित करती है।' : 'Your quiz participation directly funds rice meals for animals in this exact location.'}
                 </p>
               </div>
             </motion.div>
           </motion.div>
         )}
+
+        {/* Google & Email Authentication Modal */}
+        {showEmailModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => {
+              setShowEmailModal(false);
+              setAuthMode('options');
+            }}
+            className="fixed inset-0 z-[130] flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl cursor-pointer"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-md w-full rounded-[32px] overflow-hidden bg-slate-900 border border-white/20 p-6 sm:p-8 shadow-2xl space-y-6"
+            >
+              <button
+                onClick={() => {
+                  setShowEmailModal(false);
+                  setAuthMode('options');
+                }}
+                className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/50 text-slate-400 hover:text-white flex items-center justify-center transition-colors text-sm font-bold"
+              >
+                ✕
+              </button>
+
+              <div className="text-center space-y-2">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 text-slate-950 flex items-center justify-center text-2xl mx-auto shadow-lg shadow-emerald-500/20 font-black">
+                  🐾
+                </div>
+                <h3 className="text-2xl font-black font-title text-white">
+                  {authMode === 'google-form' ? t('googleAccountName') : t('signInModalTitle')}
+                </h3>
+                <p className="text-xs text-slate-400">
+                  {t('signInModalSubtitle')}
+                </p>
+              </div>
+
+              {authMode === 'google-form' ? (
+                /* Google Account Setup Sub-view */
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleGoogleQuickSignIn(googleName, googleEmail);
+                  }}
+                  className="space-y-4"
+                >
+                  <div>
+                    <label className="text-[11px] font-mono text-slate-400 block mb-1">
+                      {t('googleAccountName')}
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Aditya"
+                      value={googleName}
+                      onChange={(e) => setGoogleName(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-white/10 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-[11px] font-mono text-slate-400 block mb-1">
+                      {t('googleEmailAddress')}
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="your.name@gmail.com"
+                      value={googleEmail}
+                      onChange={(e) => setGoogleEmail(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-white/10 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2 pt-1">
+                    <button
+                      type="submit"
+                      className="w-full py-3.5 px-4 rounded-2xl bg-blue-500 hover:bg-blue-400 text-white font-bold text-xs uppercase tracking-wider font-title flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-blue-500/25 active:scale-95 cursor-pointer"
+                    >
+                      <svg className="w-4 h-4 bg-white rounded-full p-0.5" viewBox="0 0 24 24">
+                        <path
+                          fill="#4285F4"
+                          d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                        />
+                        <path
+                          fill="#34A853"
+                          d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                        />
+                        <path
+                          fill="#FBBC05"
+                          d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+                        />
+                        <path
+                          fill="#EA4335"
+                          d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+                        />
+                      </svg>
+                      <span>{t('signInWithGoogleBtn')}</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setAuthMode('options')}
+                      className="py-2 text-xs font-mono text-slate-400 hover:text-white transition-colors cursor-pointer"
+                    >
+                      &larr; {t('backToOptions')}
+                    </button>
+                  </div>
+                </form>
+              ) : (
+                /* Main Options View */
+                <div className="space-y-4">
+                  {/* 1-Click Google Sign-In Trigger */}
+                  <button
+                    onClick={() => {
+                      setGoogleName('Aditya');
+                      setGoogleEmail('adityasec32@gmail.com');
+                      setAuthMode('google-form');
+                    }}
+                    className="w-full py-3.5 px-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-sm font-title flex items-center justify-center gap-3 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                  >
+                    <svg className="w-5 h-5" viewBox="0 0 24 24">
+                      <path
+                        fill="#4285F4"
+                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                      />
+                      <path
+                        fill="#34A853"
+                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                      />
+                      <path
+                        fill="#FBBC05"
+                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+                      />
+                      <path
+                        fill="#EA4335"
+                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+                      />
+                    </svg>
+                    <span>{t('continueWithGoogle')}</span>
+                  </button>
+
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1 h-[1px] bg-white/10" />
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500">{t('orEmailLink')}</span>
+                    <div className="flex-1 h-[1px] bg-white/10" />
+                  </div>
+
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      sendMagicLink();
+                    }}
+                    className="space-y-3"
+                  >
+                    <div>
+                      <label className="text-[11px] font-mono text-slate-400 block mb-1">
+                        {lang === 'hi' ? 'ईमेल पता' : 'Email Address'}
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        placeholder={t('emailPlaceholder')}
+                        value={emailInput}
+                        onChange={(e) => setEmailInput(e.target.value)}
+                        className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-white/10 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-emerald-500"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider transition-all cursor-pointer"
+                    >
+                      {t('instantSignInBtn')}
+                    </button>
+                  </form>
+                </div>
+              )}
+
+              <p className="text-[10px] font-mono text-center text-slate-500">
+                🔒 {t('freeNonCommercial')}
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
       </AnimatePresence>
+
+      {/* 3D SEO FAQ & How It Works Educational Section */}
+      <section className="w-full max-w-6xl mx-auto px-4 mt-12 mb-4 relative z-10">
+        <TiltWrapper tiltDeg={2} glare={true} className="w-full">
+          <div className={`p-8 sm:p-10 rounded-[36px] border shadow-2xl backdrop-blur-2xl transition-all ${isDark ? 'bg-gradient-to-br from-slate-900/90 via-slate-950/80 to-black/90 border-emerald-500/20' : 'bg-white/95 border-slate-200 shadow-xl'}`}>
+            
+            <div className="text-center max-w-2xl mx-auto mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold mb-3">
+                <span>💡 {t('faqBadge')}</span>
+              </div>
+              <h2 className="text-2xl sm:text-4xl font-black font-title tracking-tight mb-2">
+                {t('faqTitle')}
+              </h2>
+              <p className={`text-xs sm:text-sm ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                {lang === 'hi' ? 'जानें कि आपका ज्ञान पटना में बेसहारा जानवरों के भोजन में कैसे बदलता है।' : 'Learn how your knowledge converts directly into warm meals for stray animals in Patna.'}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                {
+                  q: t('faqQ1'),
+                  a: t('faqA1')
+                },
+                {
+                  q: t('faqQ2'),
+                  a: t('faqA2')
+                },
+                {
+                  q: t('faqQ3'),
+                  a: t('faqA3')
+                },
+                {
+                  q: lang === 'hi' ? "एआई क्विज जनरेटर में कौन से विषय शामिल हैं?" : "What subjects are included in the AI Quiz generator?",
+                  a: lang === 'hi' ? "आप साइबर सुरक्षा, शून्य विश्वास (Zero Trust), क्वांटम भौतिकी, प्राचीन इतिहास, अंतरिक्ष और किसी भी मनपसंद विषय पर असीमित प्रश्नोत्तरी बना सकते हैं।" : "You can generate unlimited quizzes on Cyber Warfare, Zero Trust, Post-Quantum Cryptography, Space Astrophysics, Nature, and any custom educational topic."
+                }
+              ].map((faq, idx) => (
+                <div
+                  key={idx}
+                  className={`p-5 sm:p-6 rounded-2xl border transition-all ${isDark ? 'bg-slate-950/60 border-white/10 hover:border-emerald-500/30' : 'bg-slate-50 border-slate-200 hover:border-emerald-400'}`}
+                >
+                  <h3 className="text-sm font-bold text-emerald-400 font-title mb-2 flex items-start gap-2">
+                    <span className="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 shrink-0">Q{idx + 1}</span>
+                    <span>{faq.q}</span>
+                  </h3>
+                  <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                    {faq.a}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 text-center pt-4 border-t border-white/10 flex flex-wrap items-center justify-center gap-4">
+              <Link
+                href="/impact"
+                className="inline-flex items-center gap-2 text-xs font-mono font-bold text-rose-400 hover:text-rose-300 underline"
+              >
+                <span>{lang === 'hi' ? 'समर्पित दान रिकॉर्ड पेज देखें (110+ तस्वीरें) →' : 'Explore Full Patna Feeding Proof Ledger (110+ Photos) →'}</span>
+              </Link>
+            </div>
+
+          </div>
+        </TiltWrapper>
+      </section>
+
+      {/* Professional Ecosystem & Community Footer */}
+      <footer className={`w-full border-t py-10 mt-12 text-xs font-mono transition-colors relative z-10 ${isDark ? 'border-white/10 bg-slate-950/40 text-slate-400' : 'border-slate-200 bg-white/40 text-slate-600'}`}>
+        <div className="max-w-6xl mx-auto px-4 space-y-6">
+          {/* Tasteful Technology Sponsor Attribution Card */}
+          <div className={`p-5 rounded-2xl border backdrop-blur-xl flex flex-col sm:flex-row items-center justify-between gap-4 ${isDark ? 'bg-slate-900/60 border-white/10 text-white' : 'bg-white/80 border-slate-200 text-slate-900 shadow-sm'}`}>
+            <div className="flex items-center gap-3.5">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-xl">
+                🐋
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">{lang === 'hi' ? 'प्रौद्योगिकी प्रायोजक' : 'Technology Sponsor'}</span>
+                  <span className="text-xs font-bold font-title">Orca6™ by Jumpstreet</span>
+                </div>
+                <p className="text-[11px] text-slate-400 mt-0.5">
+                  {lang === 'hi' ? 'साइबरकर्म पशु कल्याण अभियान के लिए उच्च गति बुनियादी ढांचा और होस्टिंग सहायता।' : 'Supporting infrastructure & high-speed hosting for CyberKarma animal welfare drives.'}
+                </p>
+              </div>
+            </div>
+            <Link
+              href="https://jumpstreet.tech"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-400 hover:text-emerald-300 transition-all flex items-center gap-1.5 shrink-0"
+            >
+              <span>{lang === 'hi' ? 'जंपस्ट्रीट देखें' : 'Explore Jumpstreet'}</span>
+              <ExternalLink size={12} />
+            </Link>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 text-[11px]">
+            <p>{lang === 'hi' ? '© 2026 साइबरकर्म • 100% गैर-लाभकारी पारदर्शी क्विज़ इंजन' : '© 2026 CyberKarma • 100% Non-Profit Philanthropic Trivia Engine'}</p>
+            <div className="flex items-center gap-4">
+              <Link href="/impact" className="text-rose-400 hover:underline">🐾 {lang === 'hi' ? 'फील्ड प्रमाण (110+ फोटो)' : 'Field Proof (110+ Photos)'}</Link>
+              <a href="https://adityasec32.systems" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white flex items-center gap-1 hover:underline">
+                <span>🛡️ AdityaSec Engineering</span>
+                <ExternalLink size={10} />
+              </a>
+              <a href="https://jumpstreet.tech" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white flex items-center gap-1 hover:underline">
+                <span>Jumpstreet</span>
+                <ExternalLink size={10} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
