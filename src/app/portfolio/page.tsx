@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import TiltWrapper from "@/components/3d/TiltWrapper";
+import CyberResumeButton from "@/components/CyberResumeButton";
 
 // Command responses for the Terminal Simulator
 const COMMANDS = {
@@ -194,14 +195,7 @@ export default function Home() {
               <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
               <span>{visitorCount} visitors</span>
             </div>
-            <a 
-              href="/Aditya_Jain_Cybersecurity_Engineer_US.pdf" 
-              download 
-              className="px-5 py-2 text-xs font-bold rounded-full bg-slate-900 text-white hover:bg-slate-800 transition-all flex items-center gap-2 shadow-md hover:shadow-lg"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Download CV</span>
-            </a>
+            <CyberResumeButton variant="nav" />
           </div>
         </div>
       </header>
