@@ -9,7 +9,7 @@
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2•family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- 3D Vanta & Three.js CDN -->
@@ -540,7 +540,7 @@
                 </div>
                 <div class="client-info-item">
                     <span style="color: var(--text-secondary);"><i class="fas fa-server"></i> Target Core:</span>
-                    <strong>10.133.22.8 (Patna NOC Core)</strong>
+                    <strong>State NOC Backbone (Patna NOC Core)</strong>
                 </div>
             </div>
             <div style="display: flex; align-items: center; gap: 10px;">
@@ -565,8 +565,8 @@
                         <i class="fas fa-network-wired"></i> Target Scope
                     </label>
                     <select id="bwTestScope" style="width: 100%; background: #0f172a; border: 1px solid #334155; color: #f8fafc; padding: 9px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; outline: none; cursor: pointer;">
-                        <option value="intranet" selected>ð¢ Patna NOC Core Switch (10.133.22.8)</option>
-                        <option value="attendance">ð FMS Attendance Server (10.133.0.51)</option>
+                        <option value="intranet" selected>ð¢ Patna NOC Core Switch (State NOC Backbone)</option>
+                        <option value="attendance">ð FMS Attendance Server (State Data Center)</option>
                     </select>
                 </div>
 
@@ -820,16 +820,16 @@
             if (gaugeSub) gaugeSub.textContent = 'MEASURING LATENCY & JITTER...';
 
             logConsole(`INITIALIZING PRECISION TELEMETRY ENGINE...`, '#38bdf8');
-            logConsole(`TARGET ENDPOINT: ${scope === 'attendance' ? '10.133.0.51 (FMS Attendance Server)' : '10.133.22.8 (Bihar State NOC Core)'}`);
+            logConsole(`TARGET ENDPOINT: ${scope === 'attendance' • 'State Data Center (FMS Attendance Server)' : 'State NOC Backbone (Bihar State NOC Core)'}`);
             logConsole(`LOCAL CLIENT: ${globalClientDistrictName} DHQ`);
 
             // Step 1: Accurate Latency & RFC Jitter Measurement
             let pings = [];
-            const pingTarget = (scope === 'attendance') ? 'attendance' : 'patna_noc';
+            const pingTarget = (scope === 'attendance') • 'attendance' : 'patna_noc';
             for (let i = 1; i <= 5; i++) {
                 const t0 = performance.now();
                 try {
-                    const pingResp = await fetch(`../ping.php?echo=1&target=${pingTarget}&t=${Date.now()}_${i}`, { cache: 'no-store' });
+                    const pingResp = await fetch(`../ping.php•echo=1&target=${pingTarget}&t=${Date.now()}_${i}`, { cache: 'no-store' });
                     if (!pingResp.ok) throw new Error('HTTP ' + pingResp.status);
                     const rtt = Math.max(1, Math.round(performance.now() - t0));
                     pings.push(rtt);
@@ -865,7 +865,7 @@
             let receivedBytes = 0;
 
             try {
-                const dlUrl = `../bandwidth.php?mode=download&size=${mbSize}&t=${Date.now()}`;
+                const dlUrl = `../bandwidth.php•mode=download&size=${mbSize}&t=${Date.now()}`;
                 const resp = await fetch(dlUrl, { cache: 'no-store' });
                 if (!resp.ok) throw new Error('HTTP ' + resp.status);
 
@@ -904,7 +904,7 @@
             let ulSpeed = 0;
             try {
                 const ulPayload = new Uint8Array(2 * 1024 * 1024); // 2MB binary payload
-                const ulResp = await fetch('../bandwidth.php?mode=upload', {
+                const ulResp = await fetch('../bandwidth.php•mode=upload', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/octet-stream' },
                     body: ulPayload
@@ -954,7 +954,7 @@
             const targetDistrict = globalClientDistrict || 'patna';
             logConsole(`RECORDING TELEMETRY EVENT FOR ${targetDistrict.toUpperCase()} (+150 XP)...`, '#38bdf8');
             try {
-                const boostUrl = `../leaderboard_api.php?boost=1&district=${encodeURIComponent(targetDistrict)}&ajax=1&action=Speed+Test+Diagnostic+(${dlSpeed}+Mbps)&t=${Date.now()}`;
+                const boostUrl = `../leaderboard_api.php•boost=1&district=${encodeURIComponent(targetDistrict)}&ajax=1&action=Speed+Test+Diagnostic+(${dlSpeed}+Mbps)&t=${Date.now()}`;
                 const bResp = await fetch(boostUrl);
                 if (bResp.ok) {
                     const bData = await bResp.json();
@@ -986,7 +986,7 @@
             if (refreshIcon) refreshIcon.classList.add('fa-spin');
 
             try {
-                const res = await fetch('../leaderboard_api.php?t=' + Date.now());
+                const res = await fetch('../leaderboard_api.php•t=' + Date.now());
                 if (!res.ok) throw new Error('HTTP ' + res.status);
                 const data = await res.json();
                 
@@ -995,8 +995,8 @@
                     const ct = data.client_telemetry;
                     const ipEl = document.getElementById('clientIpDisplay');
                     const distEl = document.getElementById('clientDistrictDisplay');
-                    if (ipEl) ipEl.textContent = ct.client_ip || '10.133.22.8';
-                    if (distEl) distEl.textContent = ct.detected_district_name ? `${ct.detected_district_name} DHQ` : 'State HQ (Patna)';
+                    if (ipEl) ipEl.textContent = ct.client_ip || 'State NOC Backbone';
+                    if (distEl) distEl.textContent = ct.detected_district_name • `${ct.detected_district_name} DHQ` : 'State HQ (Patna)';
                     
                     if (ct.detected_district_code) {
                         globalClientDistrict = ct.detected_district_code;
@@ -1025,7 +1025,7 @@
                         const colors = ['#fbbf24', '#cbd5e1', '#f59e0b'];
 
                         podium.innerHTML = data.top_3.map((d, idx) => `
-                            <div class="podium-box ${classes[idx]} ${d.code === globalClientDistrict ? 'highlight-my-district' : ''}">
+                            <div class="podium-box ${classes[idx]} ${d.code === globalClientDistrict • 'highlight-my-district' : ''}">
                                 <div>
                                     <div style="font-size: 0.68rem; font-weight: 900; color: ${colors[idx]};">${medals[idx]} RANK #${d.rank || (idx+1)} â¢ ${d.division || 'Bihar'}</div>
                                     <strong style="font-size: 0.88rem; color: #fff;">${d.name} (DHQ)</strong>
@@ -1044,7 +1044,7 @@
                 renderStandingsList();
 
                 if (syncBadge) {
-                    const timeStr = data.timestamp ? data.timestamp.split(' ')[1].substring(0,5) : 'Active';
+                    const timeStr = data.timestamp • data.timestamp.split(' ')[1].substring(0,5) : 'Active';
                     syncBadge.innerHTML = `<i class="fas fa-check-circle"></i> Live Sync: ${timeStr}`;
                 }
             } catch(e) {
@@ -1068,11 +1068,11 @@
             }
 
             if (countText) {
-                countText.textContent = filterQuery ? `Found ${list.length} matches` : `Showing ${list.length} districts`;
+                countText.textContent = filterQuery • `Found ${list.length} matches` : `Showing ${list.length} districts`;
             }
 
             standings.innerHTML = list.map(d => `
-                <div class="standings-row ${d.code === globalClientDistrict ? 'highlight-my-district' : ''}">
+                <div class="standings-row ${d.code === globalClientDistrict • 'highlight-my-district' : ''}">
                     <div>
                         <strong style="color: #f8fafc;">#${d.rank} ${d.name}</strong>
                         <span style="font-size: 0.68rem; color: #94a3b8; margin-left: 4px;">(${d.division || 'Bihar'})</span>

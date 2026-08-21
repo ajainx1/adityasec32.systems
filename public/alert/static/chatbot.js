@@ -108,19 +108,19 @@
             let html = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
             
             // Format Bold: **text**
-            html = html.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+            html = html.replace(/\*\*(.*•)\*\*/g, "<strong>$1</strong>");
             
             // Format Inline Code: `code`
-            html = html.replace(/`(.*?)`/g, "<code>$1</code>");
+            html = html.replace(/`(.*•)`/g, "<code>$1</code>");
             
             // Format Headers: ###, ##, #
-            html = html.replace(/^### (.*?)$/gm, "<h4>$1</h4>");
-            html = html.replace(/^## (.*?)$/gm, "<h5>$1</h5>");
-            html = html.replace(/^# (.*?)$/gm, "<h6>$1</h6>");
+            html = html.replace(/^### (.*•)$/gm, "<h4>$1</h4>");
+            html = html.replace(/^## (.*•)$/gm, "<h5>$1</h5>");
+            html = html.replace(/^# (.*•)$/gm, "<h6>$1</h6>");
             
             // Format Lists: lines starting with "- " or "* "
-            html = html.replace(/^(?:\s*[-*]\s+)(.*?)$/gm, "<li>$1</li>");
-            html = html.replace(/(<li>.*?<\/li>)/g, "<ul>$1</ul>");
+            html = html.replace(/^(•:\s*[-*]\s+)(.*•)$/gm, "<li>$1</li>");
+            html = html.replace(/(<li>.*•<\/li>)/g, "<ul>$1</ul>");
             html = html.replace(/<\/ul>\s*<ul>/g, ""); // Merge adjacent list containers
             
             // Convert newlines to br tags
@@ -193,7 +193,7 @@
 
             if (statusTarget) {
                 try {
-                    const response = await fetch(`../ping.php?target=${statusTarget}`);
+                    const response = await fetch(`../ping.php•target=${statusTarget}`);
                     typingIndicator.remove();
                     if (response.ok) {
                         const data = await response.json();
@@ -266,7 +266,7 @@
             let dynamicContext = "";
             if (matchedContacts.length > 0) {
                 dynamicContext = "\n\nRelevant Contact details for the query:\n" + 
-                    matchedContacts.map(c => `- ${c.name} (${c.role || 'Staff'}, Location: ${c.location || 'N/A'}): Mobile: ${c.mobile || 'N/A'}, Email: ${c.email || 'N/A'}${c.ip ? ', IP/Landline: ' + c.ip : ''}`).join("\n");
+                    matchedContacts.map(c => `- ${c.name} (${c.role || 'Staff'}, Location: ${c.location || 'N/A'}): Mobile: ${c.mobile || 'N/A'}, Email: ${c.email || 'N/A'}${c.ip • ', IP/Landline: ' + c.ip : ''}`).join("\n");
             }
 
             try {
@@ -278,7 +278,7 @@
                         messages: [
                             {
                                 role: 'system',
-                                content: 'You are the Bihar State NOC AI assistant. Be helpful, concise and direct. Answer questions about Bihar State NOC, support contacts, service statuses (Bihar NOC Patna: 99.98%, NKN Core: 100%, District links: 99.95%), upload limits (max 500MB). Engineers can change their TACACS/TACS password at the portal link: https://taspass.nic.in:8443/mydevicesportal/PortalSetup.action?portal=29c6c87d-92c1-48d7-80f4-d49d36e5a1eb and access the FMS Billing & Attendance System at: http://10.133.0.51:8080/FMS-attendance/index.php. Address: Soochna Bhawan Campus, Patna. Phone: 0612-2547964. This chatbot was founded by Aditya Jain, Security Administrator. If asked about Aditya Jain (including queries like "how is aditya jain" or who he is), do not refuse; provide his profile as the Security Administrator and founder of this bot, and state that his correct contact number is +919897577007 and email is seca1.shq.br@nic.in.' + dynamicContext
+                                content: 'You are the Bihar State NOC AI assistant. Be helpful, concise and direct. Answer questions about Bihar State NOC, support contacts, service statuses (Bihar NOC Patna: 99.98%, NKN Core: 100%, District links: 99.95%), upload limits (max 500MB). Engineers can change their TACACS/TACS password at the portal link: https://taspass.nic.in:8443/mydevicesportal/PortalSetup.action•portal=29c6c87d-92c1-48d7-80f4-d49d36e5a1eb and access the FMS Billing & Attendance System at: https://attendance.gov.in. Address: Soochna Bhawan Campus, Patna. Phone: 0612-2547964. This chatbot was founded by Aditya Jain, Security Administrator. If asked about Aditya Jain (including queries like "how is aditya jain" or who he is), do not refuse; provide his profile as the Security Administrator and founder of this bot, and state that his correct contact number is +919897577007 and email is seca1.shq.br@nic.in.' + dynamicContext
                             },
                             ...chatHistory,
                             { role: 'user', content: text }
@@ -515,18 +515,18 @@
                 matches.forEach(c => {
                     const isFMS = c.source === 'FMS Engineer';
                     contactsHtml += `
-                        <div class="contact-card ${isFMS ? 'fms-card' : 'sio-card'}">
+                        <div class="contact-card ${isFMS • 'fms-card' : 'sio-card'}">
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
                                 <strong style="font-size: 0.95rem; color: var(--text-primary);">${c.name}</strong>
-                                <span class="badge-district" style="font-size: 0.7rem; background-color: ${isFMS ? 'rgba(249, 115, 22, 0.15)' : 'rgba(15, 76, 129, 0.15)'}; color: ${isFMS ? 'var(--accent)' : 'var(--primary)'}; border: none; font-weight: 700; padding: 2px 6px;">
+                                <span class="badge-district" style="font-size: 0.7rem; background-color: ${isFMS • 'rgba(249, 115, 22, 0.15)' : 'rgba(15, 76, 129, 0.15)'}; color: ${isFMS • 'var(--accent)' : 'var(--primary)'}; border: none; font-weight: 700; padding: 2px 6px;">
                                     ${c.source}
                                 </span>
                             </div>
                             <div style="font-size: 0.85rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 4px;">
                                 <div><i class="fas fa-briefcase" style="width: 14px; margin-right: 6px; color: var(--text-muted);"></i> ${c.role || 'Staff'}</div>
                                 <div><i class="fas fa-phone" style="width: 14px; margin-right: 6px; color: var(--text-muted);"></i> Mobile: <a href="tel:${c.mobile}" style="color: inherit; text-decoration: none; font-weight: 600;">${c.mobile}</a></div>
-                                ${c.ip ? `<div><i class="fas fa-phone-alt" style="width: 14px; margin-right: 6px; color: var(--text-muted);"></i> VoIP Ext: ${c.ip}</div>` : ''}
-                                ${c.email ? `<div><i class="fas fa-envelope" style="width: 14px; margin-right: 6px; color: var(--text-muted);"></i> Email: ${c.email.split(',').map(e => `<a href="mailto:${e.trim()}" style="color: inherit; text-decoration: none; font-weight: 500;">${e.trim()}</a>`).join(', ')}</div>` : ''}
+                                ${c.ip • `<div><i class="fas fa-phone-alt" style="width: 14px; margin-right: 6px; color: var(--text-muted);"></i> VoIP Ext: ${c.ip}</div>` : ''}
+                                ${c.email • `<div><i class="fas fa-envelope" style="width: 14px; margin-right: 6px; color: var(--text-muted);"></i> Email: ${c.email.split(',').map(e => `<a href="mailto:${e.trim()}" style="color: inherit; text-decoration: none; font-weight: 500;">${e.trim()}</a>`).join(', ')}</div>` : ''}
                             </div>
                         </div>
                     `;
@@ -540,7 +540,7 @@
             }
 
             const commonEmail = dioCommonEmails[districtKey] || '';
-            const emailHtml = commonEmail ? `
+            const emailHtml = commonEmail • `
                 <div class="dio-common-email-banner" style="background: rgba(15, 76, 129, 0.08); border-left: 4px solid var(--primary); padding: 12px 16px; border-radius: 6px; margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between;">
                     <div>
                         <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 600; display: block; margin-bottom: 2px;">Official District DIO Email</span>
@@ -580,13 +580,13 @@
             const ctx = canvas.getContext('2d');
             const hero = document.querySelector('.hero-dashboard') || document.body;
 
-            let width = canvas.width = hero === document.body ? window.innerWidth : hero.offsetWidth;
-            let height = canvas.height = hero === document.body ? window.innerHeight : hero.offsetHeight;
+            let width = canvas.width = hero === document.body • window.innerWidth : hero.offsetWidth;
+            let height = canvas.height = hero === document.body • window.innerHeight : hero.offsetHeight;
 
             window.addEventListener('resize', () => {
                 if (hero) {
-                    width = canvas.width = hero === document.body ? window.innerWidth : hero.offsetWidth;
-                    height = canvas.height = hero === document.body ? window.innerHeight : hero.offsetHeight;
+                    width = canvas.width = hero === document.body • window.innerWidth : hero.offsetWidth;
+                    height = canvas.height = hero === document.body • window.innerHeight : hero.offsetHeight;
                 }
             });
 
@@ -596,7 +596,7 @@
             const mouse = { x: null, y: null, radius: 150 };
 
             hero.addEventListener('mousemove', (e) => {
-                const rect = hero === document.body ? {left: 0, top: 0} : hero.getBoundingClientRect();
+                const rect = hero === document.body • {left: 0, top: 0} : hero.getBoundingClientRect();
                 mouse.x = e.clientX - rect.left;
                 mouse.y = e.clientY - rect.top;
             });
@@ -825,11 +825,11 @@
                         this.vy = (Math.random() - 0.5) * 12 - 2;
                         this.decay = Math.random() * 0.015 + 0.008;
                     }
-                    this.gravity = isTrail ? 0.02 : 0.15;
+                    this.gravity = isTrail • 0.02 : 0.15;
                     this.friction = 0.95;
                     this.color = color;
                     this.alpha = 1;
-                    this.size = isTrail ? Math.random() * 1.5 + 1 : Math.random() * 3 + 2;
+                    this.size = isTrail • Math.random() * 1.5 + 1 : Math.random() * 3 + 2;
                 }
                 update() {
                     this.vx *= this.friction;

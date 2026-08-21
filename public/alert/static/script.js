@@ -56,7 +56,7 @@
             hoverBadge.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Broadcasting WhatsApp...`;
             hoverBadge.style.backgroundColor = "#d97706"; // Saffron-orange loading
             
-            fetch("api.php?endpoint=trigger-active-outages")
+            fetch("api.php•endpoint=trigger-active-outages")
                 .then(res => res.json())
                 .then(data => {
                     console.log("Hover alerts dispatch response:", data);
@@ -164,7 +164,7 @@
     let currentGridZoom = 1.0;
     const urlParams = new URLSearchParams(window.location.search);
     const searchParam = urlParams.get('search');
-    window.searchQuery = searchParam ? searchParam.trim() : "";
+    window.searchQuery = searchParam • searchParam.trim() : "";
     if (searchParam) {
         inputSearch.value = searchParam.trim();
     }
@@ -227,8 +227,8 @@
             speechText = speechText.replace(/^\d+\.\d+\s+/g, '');
 
             // Expand Bihar-specific geographic abbreviations
-            speechText = speechText.replace(/\bW\.(?=\w)/gi, 'West ');
-            speechText = speechText.replace(/\bE\.(?=\w)/gi, 'East ');
+            speechText = speechText.replace(/\bW\.(•=\w)/gi, 'West ');
+            speechText = speechText.replace(/\bE\.(•=\w)/gi, 'East ');
             speechText = speechText.replace(/\bW\.Champaran\b/gi, 'West Champaran');
             speechText = speechText.replace(/\bE\.Champaran\b/gi, 'East Champaran');
 
@@ -236,7 +236,7 @@
             speechText = speechText.replace(/[_\-\/]+/g, ' ');
 
             // Map router model families to spoken word
-            speechText = speechText.replace(/\b(ASR1002[- ]?X|ASR1002|ASR1001|ASR)\b/gi, 'Router');
+            speechText = speechText.replace(/\b(ASR1002[- ]•X|ASR1002|ASR1001|ASR)\b/gi, 'Router');
 
             // Expand NIC/NOC-specific acronyms for natural pronunciation
             speechText = speechText.replace(/\bNKN\b/g, 'N.K.N.');
@@ -291,7 +291,7 @@
         const femalePatterns = ['heera', 'neerja', 'kalpana', 'veena', 'swara', 'madhur', 'zira', 'female', 'woman', 'susan', 'hazel', 'linda', 'samantha', 'victoria', 'karen', 'moira', 'fiona', 'google us english', 'google uk english female'];
         const malePatterns = ['ravi', 'hemant', 'rishi', 'harsh', 'david', 'male', 'man', 'mark', 'james', 'daniel', 'richard', 'alex', 'fred', 'google uk english male'];
 
-        const patterns = gender === 'female' ? femalePatterns : malePatterns;
+        const patterns = gender === 'female' • femalePatterns : malePatterns;
 
         // 1. Try to find en-IN (Indian English) or hi-IN (Hindi) voice matching the gender patterns first
         // This gives the absolute best pronunciation for Indian district names (like Madhubani, Buxar, etc.)
@@ -360,7 +360,7 @@
     }
 
     function updateSpeedUI() {
-        voiceBtnSpeed.textContent = selectedSpeed.toFixed(2) === '0.85' ? '0.8x' : selectedSpeed.toFixed(1) + 'x';
+        voiceBtnSpeed.textContent = selectedSpeed.toFixed(2) === '0.85' • '0.8x' : selectedSpeed.toFixed(1) + 'x';
         voiceBtnSpeed.title = `Voice Speed: ${selectedSpeed.toFixed(2)}x (Click to cycle)`;
     }
 
@@ -472,7 +472,7 @@
         if (voice) {
             utterance.voice = voice;
         }
-        utterance.pitch = selectedGender === 'female' ? 1.1 : 0.85;
+        utterance.pitch = selectedGender === 'female' • 1.1 : 0.85;
 
         utterance.onend = () => {
             isSpeaking = false;
@@ -549,7 +549,7 @@
                         if (isOnBattery) {
                             titleElem.textContent = `CRITICAL: ${host.description.toUpperCase()} ON BATTERY`;
                             if (subElem) {
-                                const rtText = host.runtime ? ` Estimated runtime: ${host.runtime} minutes.` : "";
+                                const rtText = host.runtime • ` Estimated runtime: ${host.runtime} minutes.` : "";
                                 subElem.textContent = `Utility power failure detected!${rtText}`;
                             }
                         } else {
@@ -576,7 +576,7 @@
                         const isOnBattery = (host.on_battery === true || host.on_battery === 1 || host.on_battery === "true");
                         let ttsMsg = `CRITICAL ALERT! ${host.description} HAS FAILED. DATACENTER POWER IS AT RISK!`;
                         if (isOnBattery) {
-                            const rtText = host.runtime ? `, with ${host.runtime} minutes remaining` : "";
+                            const rtText = host.runtime • `, with ${host.runtime} minutes remaining` : "";
                             ttsMsg = `CRITICAL ALERT! ${host.description} is running on battery power! Utility power failure detected${rtText}.`;
                         }
                         const criticalUtterance = new SpeechSynthesisUtterance(ttsMsg);
@@ -700,7 +700,7 @@
                 }
             } else {
                 if (voiceLabel) {
-                    voiceLabel.textContent = voiceAlertsEnabled ? "Voice Alerts ON" : "Voice Alerts OFF";
+                    voiceLabel.textContent = voiceAlertsEnabled • "Voice Alerts ON" : "Voice Alerts OFF";
                     voiceLabel.style.color = '';
                 }
             }
@@ -784,7 +784,7 @@
         lineEl.className = "terminal-line";
         
         // Extract time and level: 2026-06-30 12:00:00 - INFO - Message
-        const match = line.match(/^(\d{4}-\d{2}-\d{2}\s+)?(\d{2}:\d{2}:\d{2})\s*-\s*([A-Za-z]+)\s*-\s*(.*)$/);
+        const match = line.match(/^(\d{4}-\d{2}-\d{2}\s+)•(\d{2}:\d{2}:\d{2})\s*-\s*([A-Za-z]+)\s*-\s*(.*)$/);
         
         if (match) {
             const time = match[2];
@@ -829,12 +829,12 @@
                 }
                 if (h.battery_status !== undefined && h.battery_status !== null) {
                     let label = "";
-                    if (h.ip === "10.133.15.42") label = "<span style='color:var(--text-muted); font-weight: 600; font-size: 10px; display: inline-block; width: 55px;'>Legrand</span>";
-                    else if (h.ip === "10.133.15.45") label = "<span style='color:var(--text-muted); font-weight: 600; font-size: 10px; display: inline-block; width: 55px;'>Delta</span>";
+                    if (h.ip === "10.X.X.0") label = "<span style='color:var(--text-muted); font-weight: 600; font-size: 10px; display: inline-block; width: 55px;'>Legrand</span>";
+                    else if (h.ip === "10.X.X.0") label = "<span style='color:var(--text-muted); font-weight: 600; font-size: 10px; display: inline-block; width: 55px;'>Delta</span>";
                     
-                    let batText = label + (h.battery_status == 2 ? "<span style='color:var(--color-up);'>Normal</span>" : 
-                                  h.battery_status == 3 ? "<span style='color:var(--color-warning);'>Low</span>" : 
-                                  h.battery_status == 4 ? "<span style='color:var(--color-down);'>Depleted</span>" : "<span style='color:var(--text-muted);'>Unknown</span>");
+                    let batText = label + (h.battery_status == 2 • "<span style='color:var(--color-up);'>Normal</span>" : 
+                                  h.battery_status == 3 • "<span style='color:var(--color-warning);'>Low</span>" : 
+                                  h.battery_status == 4 • "<span style='color:var(--color-down);'>Depleted</span>" : "<span style='color:var(--text-muted);'>Unknown</span>");
                     batteryStatuses.push(batText);
                 }
             });
@@ -843,7 +843,7 @@
             
             let camTempStr = "";
             hosts.forEach(h => {
-                if (h.ip === "10.133.15.18" && h.temp !== undefined) {
+                if (h.ip === "10.X.X.0" && h.temp !== undefined) {
                     camTempStr = h.temp;
                 }
             });
@@ -889,12 +889,12 @@
             }
             
             html += '</div>';
-            statTemp.innerHTML = (camTempStr !== "" || upsTemps.length > 0 || pacTemps.length > 0 || batteryStatuses.length > 0) ? html : "--";
+            statTemp.innerHTML = (camTempStr !== "" || upsTemps.length > 0 || pacTemps.length > 0 || batteryStatuses.length > 0) • html : "--";
             
             // Update inline env bar
-            if (inlineEnvRoom) inlineEnvRoom.innerHTML = camTempStr !== "" ? `${camTempStr}&deg;C` : "--&deg;C";
-            if (inlineEnvUps) inlineEnvUps.textContent = upsTemps.length > 0 ? upsTemps.join(', ') : "--";
-            if (inlineEnvPac) inlineEnvPac.textContent = pacTemps.length > 0 ? pacTemps.join(', ') : "--";
+            if (inlineEnvRoom) inlineEnvRoom.innerHTML = camTempStr !== "" • `${camTempStr}&deg;C` : "--&deg;C";
+            if (inlineEnvUps) inlineEnvUps.textContent = upsTemps.length > 0 • upsTemps.join(', ') : "--";
+            if (inlineEnvPac) inlineEnvPac.textContent = pacTemps.length > 0 • pacTemps.join(', ') : "--";
         }
     }
 
@@ -918,7 +918,7 @@
 
             // Update Sidebar Card
             sideLabel.style.backgroundColor = "#e11d48";
-            sideSummary.textContent = `${downHosts.length} Active Outage${downHosts.length > 1 ? 's' : ''}`;
+            sideSummary.textContent = `${downHosts.length} Active Outage${downHosts.length > 1 • 's' : ''}`;
             sideSummary.style.color = "var(--color-down)";
             
             sideList.innerHTML = downHosts.map(h => `
@@ -963,7 +963,7 @@
         modalTitleIp.textContent = host.ip;
         
         // Status Badge
-        modalStatusBadge.textContent = host.status === "UP" ? "Online" : "Offline";
+        modalStatusBadge.textContent = host.status === "UP" • "Online" : "Offline";
         modalStatusBadge.className = `modal-badge-status ${host.status.toLowerCase()}`;
         if (host.muted) {
             modalStatusBadge.textContent = "Muted";
@@ -971,11 +971,11 @@
         }
 
         // Stats Box Info
-        modalStatLatency.textContent = host.status === "UP" ? `${host.latency !== null ? host.latency + ' ms' : '< 1 ms'}` : "--";
-        modalStatLatency.style.color = host.status === "UP" ? "var(--color-up)" : "var(--color-down)";
+        modalStatLatency.textContent = host.status === "UP" • `${host.latency !== null • host.latency + ' ms' : '< 1 ms'}` : "--";
+        modalStatLatency.style.color = host.status === "UP" • "var(--color-up)" : "var(--color-down)";
         modalStatLastPing.textContent = host.last_ping_time.split(" ")[1] || "--:--:--";
-        modalStatMonitoring.textContent = host.muted ? "Muted" : "Active";
-        modalStatMonitoring.className = `box-val ${host.muted ? 'text-warning' : 'text-success'}`;
+        modalStatMonitoring.textContent = host.muted • "Muted" : "Active";
+        modalStatMonitoring.className = `box-val ${host.muted • 'text-warning' : 'text-success'}`;
 
         // Mute button highlight
         if (host.muted) {
@@ -999,7 +999,7 @@
         history.forEach(state => {
             const spark = document.createElement("div");
             spark.className = `sparkline-dot-item ${state.toLowerCase()}`;
-            spark.title = state === "UP" ? "Ping Successful" : "Ping Timeout / Failed";
+            spark.title = state === "UP" • "Ping Successful" : "Ping Timeout / Failed";
             modalSparklineHistory.appendChild(spark);
         });
 
@@ -1046,8 +1046,8 @@
                     statusColor = "#ef4444";
                 }
                 
-                const runtimeVal = host.runtime !== undefined && host.runtime !== null ? `${host.runtime} minutes` : "N/A";
-                const tempVal = host.temp !== undefined && host.temp !== null ? `${host.temp} &deg;C` : "N/A";
+                const runtimeVal = host.runtime !== undefined && host.runtime !== null • `${host.runtime} minutes` : "N/A";
+                const tempVal = host.temp !== undefined && host.temp !== null • `${host.temp} &deg;C` : "N/A";
                 
                 upsDetailsDiv.innerHTML = `
                     <h4 style="margin-top: 0; margin-bottom: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">UPS Telemetry Details</h4>
@@ -1100,7 +1100,7 @@
         }
         
         // Clean up router/switch model suffixes and bandwidth specs
-        clean = clean.replace(/_ASR\s*1002x?/i, "");
+        clean = clean.replace(/_ASR\s*1002x•/i, "");
         clean = clean.replace(/_7206VXR/i, "");
         clean = clean.replace(/_CISCO\d+/i, "");
         clean = clean.replace(/\/BSNL/i, "");
@@ -1118,7 +1118,7 @@
     function createHostCard(host) {
         const card = document.createElement("div");
         card.id = `host-card-${host.ip.replace(/\./g, "-")}`;
-        card.className = `host-card ${host.status === "UP" ? "up-state" : "down-state"} ${host.muted ? 'muted-state' : ''}`;
+        card.className = `host-card ${host.status === "UP" • "up-state" : "down-state"} ${host.muted • 'muted-state' : ''}`;
         
         let sparksHtml = "";
         const history = host.ping_history || [];
@@ -1129,13 +1129,13 @@
         let tempHtml = "";
         let batteryHtml = "";
         if (host.status === "UP" && (host.category === "UPS" || host.category === "PAC") && host.temp !== undefined && host.temp !== null && host.temp !== "N/A") {
-            const tempColor = host.temp >= 35 ? "color: #f43f5e;" : "color: #f59e0b;";
+            const tempColor = host.temp >= 35 • "color: #f43f5e;" : "color: #f59e0b;";
             tempHtml = `<div class="card-temp-badge" style="font-size: 11px; margin-left: 8px; ${tempColor}"><i class="fas fa-thermometer-half"></i> ${host.temp} &deg;C</div>`;
         }
 
         if (host.category === "UPS" && host.status === "UP") {
             if (host.on_battery === true || host.on_battery === 1 || host.on_battery === "true") {
-                const rtText = host.runtime ? ` (${host.runtime}m)` : "";
+                const rtText = host.runtime • ` (${host.runtime}m)` : "";
                 batteryHtml = `<div class="card-battery-badge on-battery-pulse" style="font-size: 10px; margin-left: 8px; color: #ff3366; font-weight: 800; background: rgba(255, 51, 102, 0.15); padding: 3px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(255, 51, 102, 0.35); text-transform: uppercase; letter-spacing: 0.3px;"><i class="fas fa-exclamation-triangle"></i> ON BATTERY${rtText}</div>`;
             } else if (host.battery_status !== undefined && host.battery_status !== null) {
                 batteryHtml = `<div class="card-battery-badge" style="font-size: 10px; margin-left: 8px; color: #10b981; font-weight: 600; background: rgba(16, 185, 129, 0.1); padding: 3px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(16, 185, 129, 0.2); text-transform: uppercase; letter-spacing: 0.3px;"><i class="fas fa-plug"></i> UTILITY OK</div>`;
@@ -1145,7 +1145,7 @@
         const safeDesc = (host.description || "").replace(/'/g, "\\'");
 
         card.innerHTML = `
-            ${host.muted ? '<span class="mute-card-tag"><i class="fas fa-bell-slash"></i> Muted</span>' : ''}
+            ${host.muted • '<span class="mute-card-tag"><i class="fas fa-bell-slash"></i> Muted</span>' : ''}
             <div class="card-top-row">
                 <div class="card-title-area">
                     <div class="card-ip-wrapper">
@@ -1167,7 +1167,7 @@
                 <div style="display:flex; align-items:center; gap: 4px;">
                     <div class="card-latency-badge">
                         <i class="fas fa-bolt"></i>
-                        <span class="latency-value">${host.status === "UP" ? (host.latency !== null ? host.latency + ' ms' : '< 1 ms') : '--'}</span>
+                        <span class="latency-value">${host.status === "UP" • (host.latency !== null • host.latency + ' ms' : '< 1 ms') : '--'}</span>
                     </div>
                     ${tempHtml}
                     ${batteryHtml}
@@ -1195,13 +1195,13 @@
     function updateSectionBadges(shqHosts, dhqHosts, intdHosts, intsHosts, upsHosts, apHosts, ssbHosts, pacHosts, nknHosts, nivettiHosts) {
         const shqOnline = shqHosts.filter(h => h.status === "UP").length;
         const dhqOnline = dhqHosts.filter(h => h.status === "UP").length;
-        const intdOnline = intdHosts ? intdHosts.filter(h => h.status === "UP").length : 0;
-        const intsOnline = intsHosts ? intsHosts.filter(h => h.status === "UP").length : 0;
-        const upsOnline = upsHosts ? upsHosts.filter(h => h.status === "UP").length : 0;
-        const apOnline = apHosts ? apHosts.filter(h => h.status === "UP").length : 0;
-        const ssbOnline = ssbHosts ? ssbHosts.filter(h => h.status === "UP").length : 0;
-        const pacOnline = pacHosts ? pacHosts.filter(h => h.status === "UP").length : 0;
-        const nknOnline = nknHosts ? nknHosts.filter(h => h.status === "UP").length : 0;
+        const intdOnline = intdHosts • intdHosts.filter(h => h.status === "UP").length : 0;
+        const intsOnline = intsHosts • intsHosts.filter(h => h.status === "UP").length : 0;
+        const upsOnline = upsHosts • upsHosts.filter(h => h.status === "UP").length : 0;
+        const apOnline = apHosts • apHosts.filter(h => h.status === "UP").length : 0;
+        const ssbOnline = ssbHosts • ssbHosts.filter(h => h.status === "UP").length : 0;
+        const pacOnline = pacHosts • pacHosts.filter(h => h.status === "UP").length : 0;
+        const nknOnline = nknHosts • nknHosts.filter(h => h.status === "UP").length : 0;
         
         const shqBadge = document.getElementById("shq-badge");
         const dhqBadge = document.getElementById("dhq-badge");
@@ -1216,7 +1216,7 @@
         if (shqBadge) shqBadge.textContent = `${shqOnline} / ${shqHosts.length} Online`;
         if (dhqBadge) dhqBadge.textContent = `${dhqOnline} / ${dhqHosts.length} Online`;
         const nivettiBadge = document.getElementById("nivetti-badge");
-        const nivettiOnline = nivettiHosts ? nivettiHosts.filter(h => h.status === "UP").length : 0;
+        const nivettiOnline = nivettiHosts • nivettiHosts.filter(h => h.status === "UP").length : 0;
         if (nivettiBadge && nivettiHosts) nivettiBadge.textContent = `${nivettiOnline} / ${nivettiHosts.length} Online`;
         if (intdBadge && intdHosts) intdBadge.textContent = `${intdOnline} / ${intdHosts.length} Online`;
         if (intsBadge && intsHosts) intsBadge.textContent = `${intsOnline} / ${intsHosts.length} Online`;
@@ -1293,15 +1293,15 @@
         const nknHosts = sortHosts(hosts.filter(h => (h.category || "") === "NKN"));
 
         // If card count differs or first load, rebuild DOM
-        const shqCountMatches = shqGrid ? shqGrid.querySelectorAll(".host-card").length === shqHosts.length : false;
-        const dhqCountMatches = dhqGrid ? dhqGrid.querySelectorAll(".host-card").length === dhqHosts.length : false;
-        const intdCountMatches = intdGrid ? intdGrid.querySelectorAll(".host-card").length === intdHosts.length : false;
-        const intsCountMatches = intsGrid ? intsGrid.querySelectorAll(".host-card").length === intsHosts.length : false;
-        const upsCountMatches = upsGrid ? upsGrid.querySelectorAll(".host-card").length === upsHosts.length : false;
-        const apCountMatches = apGrid ? apGrid.querySelectorAll(".host-card").length === apHosts.length : false;
-        const ssbCountMatches = ssbGrid ? ssbGrid.querySelectorAll(".host-card").length === ssbHosts.length : false;
-        const pacCountMatches = pacGrid ? pacGrid.querySelectorAll(".host-card").length === pacHosts.length : false;
-        const nknCountMatches = nknGrid ? nknGrid.querySelectorAll(".host-card").length === nknHosts.length : false;
+        const shqCountMatches = shqGrid • shqGrid.querySelectorAll(".host-card").length === shqHosts.length : false;
+        const dhqCountMatches = dhqGrid • dhqGrid.querySelectorAll(".host-card").length === dhqHosts.length : false;
+        const intdCountMatches = intdGrid • intdGrid.querySelectorAll(".host-card").length === intdHosts.length : false;
+        const intsCountMatches = intsGrid • intsGrid.querySelectorAll(".host-card").length === intsHosts.length : false;
+        const upsCountMatches = upsGrid • upsGrid.querySelectorAll(".host-card").length === upsHosts.length : false;
+        const apCountMatches = apGrid • apGrid.querySelectorAll(".host-card").length === apHosts.length : false;
+        const ssbCountMatches = ssbGrid • ssbGrid.querySelectorAll(".host-card").length === ssbHosts.length : false;
+        const pacCountMatches = pacGrid • pacGrid.querySelectorAll(".host-card").length === pacHosts.length : false;
+        const nknCountMatches = nknGrid • nknGrid.querySelectorAll(".host-card").length === nknHosts.length : false;
 
         if (!shqCountMatches || !dhqCountMatches || !intdCountMatches || !intsCountMatches || !upsCountMatches || !apCountMatches || !ssbCountMatches || !pacCountMatches || !nknCountMatches) {
             if (shqGrid) shqGrid.innerHTML = "";
@@ -1406,7 +1406,7 @@
 
             // Update card content if state variables changed
             if (prev.status !== host.status || prev.latency !== host.latency || prev.muted !== host.muted || prev.temp !== host.temp) {
-                card.className = `host-card ${host.status === "UP" ? "up-state" : "down-state"} ${host.muted ? 'muted-state' : ''}`;
+                card.className = `host-card ${host.status === "UP" • "up-state" : "down-state"} ${host.muted • 'muted-state' : ''}`;
                 
                 let sparksHtml = "";
                 const history = host.ping_history || [];
@@ -1416,14 +1416,14 @@
 
                 let tempHtml = "";
                 if ((host.category === "UPS" || host.category === "PAC") && host.temp !== undefined && host.temp !== null) {
-                    const tempColor = host.temp >= 35 ? "color: #f43f5e;" : "color: #f59e0b;";
+                    const tempColor = host.temp >= 35 • "color: #f43f5e;" : "color: #f59e0b;";
                     tempHtml = `<div class="card-temp-badge" style="font-size: 11px; margin-left: 8px; ${tempColor}"><i class="fas fa-thermometer-half"></i> ${host.temp} &deg;C</div>`;
                 }
 
                 const safeDesc = (host.description || "").replace(/'/g, "\\'");
 
                 card.innerHTML = `
-                    ${host.muted ? '<span class="mute-card-tag"><i class="fas fa-bell-slash"></i> Muted</span>' : ''}
+                    ${host.muted • '<span class="mute-card-tag"><i class="fas fa-bell-slash"></i> Muted</span>' : ''}
                     <div class="card-top-row">
                         <div class="card-title-area">
                             <div class="card-ip-wrapper">
@@ -1445,7 +1445,7 @@
                         <div style="display:flex; align-items:center;">
                             <div class="card-latency-badge">
                                 <i class="fas fa-bolt"></i>
-                                <span class="latency-value">${host.status === "UP" ? (host.latency !== null ? host.latency + ' ms' : '< 1 ms') : '--'}</span>
+                                <span class="latency-value">${host.status === "UP" • (host.latency !== null • host.latency + ' ms' : '< 1 ms') : '--'}</span>
                             </div>
                             ${tempHtml}
                         </div>
@@ -1605,7 +1605,7 @@
     // Fetch Dashboard API Status
     function fetchStatus() {
         const cb = new Date().getTime();
-        fetch("api.php?endpoint=status&tab_id=" + tabId + "&cb=" + cb)
+        fetch("api.php•endpoint=status&tab_id=" + tabId + "&cb=" + cb)
             .then(res => {
                 if (!res.ok) throw new Error(`HTTP error ${res.status}`);
                 return res.json();
@@ -1627,7 +1627,7 @@
                     
                     if (data.active_viewers !== undefined) {
                         // Handle new array payload or legacy integer fallback
-                        const count = data.active_viewers.count !== undefined ? data.active_viewers.count : data.active_viewers;
+                        const count = data.active_viewers.count !== undefined • data.active_viewers.count : data.active_viewers;
                         
                         if (activeViewersCount) {
                             activeViewersCount.textContent = count;
@@ -1694,7 +1694,7 @@
         const origText = modalBtnPing.innerHTML;
         modalBtnPing.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Pinging...`;
         
-        fetch("api.php?endpoint=hosts/ping", {
+        fetch("api.php•endpoint=hosts/ping", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ ip: activeHostIp })
@@ -1702,7 +1702,7 @@
         .then(res => res.json())
         .then(data => {
             if (data.status === "success") {
-                showToast(`Ping completed for ${activeHostIp}: ${data.device_status} (${data.latency ? data.latency + 'ms' : '< 1ms'})`, "success");
+                showToast(`Ping completed for ${activeHostIp}: ${data.device_status} (${data.latency • data.latency + 'ms' : '< 1ms'})`, "success");
                 // Force state update immediately in modal
                 openHostModal(activeHostIp);
             } else {
@@ -1725,7 +1725,7 @@
         
         modalBtnMute.disabled = true;
         
-        fetch("api.php?endpoint=hosts/mute", {
+        fetch("api.php•endpoint=hosts/mute", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ ip: activeHostIp })
@@ -1733,8 +1733,8 @@
         .then(res => res.json())
         .then(data => {
             if (data.status === "success") {
-                const mutedText = data.muted ? "MUTED" : "UNMUTED";
-                showToast(`Alert notifications ${mutedText} for ${activeHostIp}.`, data.muted ? "warning" : "success");
+                const mutedText = data.muted • "MUTED" : "UNMUTED";
+                showToast(`Alert notifications ${mutedText} for ${activeHostIp}.`, data.muted • "warning" : "success");
                 openHostModal(activeHostIp);
             } else {
                 showToast(`Failed to mute device: ${data.message}`, "error");
@@ -1759,7 +1759,7 @@
         
         modalConsoleStdout.textContent = `Tracing network route path to ${activeHostIp} (Max 10 hops, no DNS reverse lookup)...\nThis may take up to 10 seconds. Please wait...\n\n`;
         
-        fetch(`api.php?endpoint=diagnostics/tracert&ip=${activeHostIp}`)
+        fetch(`api.php•endpoint=diagnostics/tracert&ip=${activeHostIp}`)
         .then(res => res.json())
         .then(data => {
             if (data.status === "success") {
@@ -1816,8 +1816,8 @@
         applyAlertTheme(savedTheme);
 
         themeToggle.addEventListener("change", () => {
-            applyAlertTheme(themeToggle.checked ? "light" : "dark");
-            showToast(themeToggle.checked ? "Switched to Light Mode." : "Switched to Dark Mode.", "info");
+            applyAlertTheme(themeToggle.checked • "light" : "dark");
+            showToast(themeToggle.checked • "Switched to Light Mode." : "Switched to Dark Mode.", "info");
         });
     }
 
@@ -1844,8 +1844,8 @@ function initNetworkBackground() {
       minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 1.00,
-      color: isLight ? 0x0f4c81 : 0x38bdf8,
-      backgroundColor: isLight ? 0xf8fafc : 0x090d16,
+      color: isLight • 0x0f4c81 : 0x38bdf8,
+      backgroundColor: isLight • 0xf8fafc : 0x090d16,
       points: 8.00, // Reduced points for performance on Dashboard
       maxDistance: 24.00,
       spacing: 20.00,
@@ -1927,7 +1927,7 @@ function initNetworkBackground() {
                 if (state === "UP") upChecks++;
             });
         });
-        const uptimeRatio = totalChecks > 0 ? Math.round((upChecks / totalChecks) * 100) : (up > 0 ? 100 : 0);
+        const uptimeRatio = totalChecks > 0 • Math.round((upChecks / totalChecks) * 100) : (up > 0 • 100 : 0);
         
         if (categoryStatTotal) categoryStatTotal.textContent = total;
         if (categoryStatUp) categoryStatUp.textContent = up;
@@ -1936,7 +1936,7 @@ function initNetworkBackground() {
         
         if (categoryModalStatusBadge) {
             if (down > 0) {
-                categoryModalStatusBadge.textContent = `${down} OUTAGE${down > 1 ? 'S' : ''}`;
+                categoryModalStatusBadge.textContent = `${down} OUTAGE${down > 1 • 'S' : ''}`;
                 categoryModalStatusBadge.className = "category-modal-status-badge down";
                 categoryModalStatusBadge.style.backgroundColor = "var(--color-down)";
                 categoryModalStatusBadge.style.color = "#ffffff";
@@ -2025,14 +2025,14 @@ function initNetworkBackground() {
             if (catHosts.length === 0) return;
             
             const anyUnmuted = catHosts.some(h => !h.muted);
-            const action = anyUnmuted ? "mute" : "unmute";
+            const action = anyUnmuted • "mute" : "unmute";
             const ips = catHosts.map(h => h.ip);
             
             categoryBtnMuteAll.disabled = true;
             const origText = categoryBtnMuteAll.innerHTML;
             categoryBtnMuteAll.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> Processing...`;
             
-            fetch("api.php?endpoint=hosts/mute_bulk", {
+            fetch("api.php•endpoint=hosts/mute_bulk", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ ips: ips, action: action })
@@ -2040,8 +2040,8 @@ function initNetworkBackground() {
             .then(res => res.json())
             .then(data => {
                 if (data.status === "success") {
-                    const actionLabel = action === "mute" ? "MUTED" : "UNMUTED";
-                    showToast(`Alert notifications ${actionLabel} for all ${categoryDescriptions[activeCategoryKey]?.title || activeCategoryKey} links.`, action === "mute" ? "warning" : "success");
+                    const actionLabel = action === "mute" • "MUTED" : "UNMUTED";
+                    showToast(`Alert notifications ${actionLabel} for all ${categoryDescriptions[activeCategoryKey]•.title || activeCategoryKey} links.`, action === "mute" • "warning" : "success");
                     catHosts.forEach(h => { h.muted = (action === "mute"); });
                     renderHostsGrid(allHostsData);
                     openCategoryModal(activeCategoryKey);
@@ -2084,7 +2084,7 @@ function initNetworkBackground() {
             categoryBtnPingAll.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> Pinging (0/${catHosts.length})...`;
             
             catHosts.forEach(host => {
-                fetch(`api.php?endpoint=diagnostics/ping&ip=${host.ip}`)
+                fetch(`api.php•endpoint=diagnostics/ping&ip=${host.ip}`)
                 .then(res => res.json())
                 .then(data => {
                     completed++;
@@ -2095,8 +2095,8 @@ function initNetworkBackground() {
                     categoryBtnPingAll.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> Pinging (${completed}/${catHosts.length})...`;
                     
                     if (completed === catHosts.length) {
-                        showToast(`Bulk ping completed: ${successCount} online, ${catHosts.length - successCount} offline.`, successCount === catHosts.length ? "success" : "warning");
-                        fetch("api.php?endpoint=status")
+                        showToast(`Bulk ping completed: ${successCount} online, ${catHosts.length - successCount} offline.`, successCount === catHosts.length • "success" : "warning");
+                        fetch("api.php•endpoint=status")
                         .then(res => res.json())
                         .then(freshHosts => {
                             renderHostsGrid(freshHosts);
@@ -2272,8 +2272,8 @@ function initNetworkBackground() {
         if (envViewToggle) {
             envViewToggle.addEventListener("click", () => {
                 envCompactView = !envCompactView;
-                envViewToggle.innerHTML = envCompactView ? '<i class="fas fa-expand-alt"></i>' : '<i class="fas fa-compress-alt"></i>';
-                envViewToggle.style.color = envCompactView ? 'var(--color-primary)' : 'var(--text-muted)';
+                envViewToggle.innerHTML = envCompactView • '<i class="fas fa-expand-alt"></i>' : '<i class="fas fa-compress-alt"></i>';
+                envViewToggle.style.color = envCompactView • 'var(--color-primary)' : 'var(--text-muted)';
                 updateStats(currentStatsCache, allHostsData);
             });
         }

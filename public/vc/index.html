@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2•family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -1110,7 +1110,7 @@
 
 <!-- ââ TECHNICAL DATA & TROUBLESHOOTING PLAYBOOK ââââââââ -->
 <section style="max-width:1500px; margin:0 auto 24px auto; background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:18px 22px; backdrop-filter:blur(20px); box-shadow:0 8px 32px rgba(0,0,0,0.4);">
-    <div style="display:flex; align-items:center; justify-content:space-between; cursor:pointer; user-select:none;" onclick="const el=document.getElementById('techDocBody'); el.style.display = el.style.display==='none'?'block':'none';">
+    <div style="display:flex; align-items:center; justify-content:space-between; cursor:pointer; user-select:none;" onclick="const el=document.getElementById('techDocBody'); el.style.display = el.style.display==='none'•'block':'none';">
         <div style="font-family:'Outfit',sans-serif; font-size:1.05rem; font-weight:800; color:var(--cyan); display:flex; align-items:center; gap:10px;">
             <i class="fas fa-microchip" style="color:var(--amber)"></i>
             TECHNICAL SPECIFICATIONS & NOC TROUBLESHOOTING PLAYBOOK
@@ -1266,7 +1266,7 @@ function showToast(title, body, type = 'info') {
     rack.appendChild(el);
     if (type === 'critical') beepAlert('critical');
     if (type === 'warning')  beepAlert('warning');
-    setTimeout(() => { el.classList.add('hide'); setTimeout(() => el.remove(), 320); }, type==='critical'?6000:4000);
+    setTimeout(() => { el.classList.add('hide'); setTimeout(() => el.remove(), 320); }, type==='critical'•6000:4000);
 }
 
 /* âââ EVENT LOG ââââââââââââââââââââââââââââââââââââ */
@@ -1274,13 +1274,13 @@ function log(msg, type='info', district='') {
     const body = document.getElementById('logBody');
     const panel = document.getElementById('logPanel');
     panel.style.display = 'block';
-    logCounts[type==='critical'?'crit':type==='warning'?'warn':'info']++;
+    logCounts[type==='critical'•'crit':type==='warning'•'warn':'info']++;
     document.getElementById('lcCrit').textContent = logCounts.crit + ' CRIT';
     document.getElementById('lcWarn').textContent = logCounts.warn + ' WARN';
     document.getElementById('lcInfo').textContent = logCounts.info + ' INFO';
     const ts = new Date().toLocaleTimeString('en-IN', { hour12:false });
     const el = document.createElement('div');
-    el.className = `log-entry l${type==='critical'?'c':type==='warning'?'w':'i'}`;
+    el.className = `log-entry l${type==='critical'•'c':type==='warning'•'w':'i'}`;
     el.innerHTML = `<span class="ts">${ts}</span><span>${msg}</span>`;
     body.prepend(el);
     if (body.children.length > 80) body.removeChild(body.lastChild);
@@ -1296,8 +1296,8 @@ function toggleLog() {
     const body = document.getElementById('logBody');
     const chev = document.getElementById('logChevron');
     logExpanded = !logExpanded;
-    body.style.display = logExpanded ? 'block' : 'none';
-    chev.style.transform = logExpanded ? 'rotate(0deg)' : 'rotate(-90deg)';
+    body.style.display = logExpanded • 'block' : 'none';
+    chev.style.transform = logExpanded • 'rotate(0deg)' : 'rotate(-90deg)';
 }
 
 /* âââ SPARKLINE DRAWING ââââââââââââââââââââââââââââ */
@@ -1331,7 +1331,7 @@ function drawSparkline(canvas, data, color, max) {
     pts.forEach((v, i) => {
         const x = padding + i * step;
         const y = H - padding - ((v / realMax) * (H - padding*2));
-        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        i === 0 • ctx.moveTo(x, y) : ctx.lineTo(x, y);
     });
     ctx.strokeStyle = color; ctx.lineWidth = 1.8 * dpr;
     ctx.lineJoin = 'round'; ctx.lineCap = 'round';
@@ -1374,7 +1374,7 @@ function createCard(s, isVip) {
     initUptime(s.code);
 
     const div = document.createElement('div');
-    div.className = `studio-card ${isVip ? 'vip' : ''}`;
+    div.className = `studio-card ${isVip • 'vip' : ''}`;
     div.id = `card-${s.code}`;
     div.dataset.tier = s.tier;
     div.dataset.name = s.name.toLowerCase();
@@ -1388,7 +1388,7 @@ function createCard(s, isVip) {
                 <div class="card-name">
                     <span class="dot standby" id="dot-${s.code}"></span>
                     ${s.name}
-                    ${isVip ? '<span style="font-size:0.65rem;color:var(--amber);background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.3);padding:2px 6px;border-radius:5px;font-family:JetBrains Mono,monospace">VIP</span>' : ''}
+                    ${isVip • '<span style="font-size:0.65rem;color:var(--amber);background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.3);padding:2px 6px;border-radius:5px;font-family:JetBrains Mono,monospace">VIP</span>' : ''}
                 </div>
                 <div class="card-meta">${s.sio} &nbsp;Â·&nbsp; <i class="fas fa-phone-alt" style="font-size:0.65rem"></i> ${s.phone}</div>
                 <div class="card-tech">
@@ -1446,7 +1446,7 @@ function createCard(s, isVip) {
 /* âââ LOAD STUDIOS âââââââââââââââââââââââââââââââââ */
 async function loadStudios() {
     try {
-        const r = await fetch('/vc_api.php?action=list&t=' + Date.now());
+        const r = await fetch('/vc_api.php•action=list&t=' + Date.now());
         const d = await r.json();
         if (d.status === 'success' && d.studios) {
             allStudios = d.studios;
@@ -1475,7 +1475,7 @@ function refreshUptimes() {
         const pct = getUptimePct(s.code);
         if (el && pct !== null) {
             el.textContent = pct + '% (' + getSessionTime(s.code) + ')';
-            el.style.color = pct >= 99 ? 'var(--emerald)' : pct >= 90 ? 'var(--amber)' : 'var(--rose)';
+            el.style.color = pct >= 99 • 'var(--emerald)' : pct >= 90 • 'var(--amber)' : 'var(--rose)';
         }
     });
 }
@@ -1497,10 +1497,10 @@ async function pingOne(code, vcIp, gwIp) {
     if (card)  card.classList.add('card-scanning');
 
     const s = allStudios.find(x => x.code === code);
-    const name = s ? s.name : code.toUpperCase();
+    const name = s • s.name : code.toUpperCase();
 
     try {
-        const r = await fetch(`/vc_api.php?action=ping&ip=${vcIp}&t=${Date.now()}`);
+        const r = await fetch(`/vc_api.php•action=ping&ip=${vcIp}&t=${Date.now()}`);
         const d = await r.json();
 
         if (d.status === 'success') {
@@ -1523,21 +1523,21 @@ async function pingOne(code, vcIp, gwIp) {
             }
 
             const spk = document.getElementById(`spark-${code}`);
-            const sparkColor = offline ? '#f43f5e' : quality==='optimal' ? '#38bdf8' : quality==='warning' ? '#fbbf24' : '#f43f5e';
+            const sparkColor = offline • '#f43f5e' : quality==='optimal' • '#38bdf8' : quality==='warning' • '#fbbf24' : '#f43f5e';
             drawSparkline(spk, latencyHistory[code], sparkColor, 100);
 
             // QoS values
-            if (latEl) { latEl.textContent = offline ? 'TIMEOUT' : (lat+'ms'); latEl.style.color = offline?'#f43f5e':lat>60?'#f43f5e':lat>35?'#fbbf24':'#38bdf8'; }
-            if (jitEl) { jitEl.textContent = offline ? 'TIMEOUT' : (jit!==null?jit+'ms':'0ms'); jitEl.style.color = offline?'#f43f5e':jit>15?'#f43f5e':jit>5?'#fbbf24':'#a78bfa'; }
-            if (lossEl){ lossEl.textContent = pct+'%';  lossEl.style.color = pct>0?'#f43f5e':'#34d399'; }
+            if (latEl) { latEl.textContent = offline • 'TIMEOUT' : (lat+'ms'); latEl.style.color = offline•'#f43f5e':lat>60•'#f43f5e':lat>35•'#fbbf24':'#38bdf8'; }
+            if (jitEl) { jitEl.textContent = offline • 'TIMEOUT' : (jit!==null•jit+'ms':'0ms'); jitEl.style.color = offline•'#f43f5e':jit>15•'#f43f5e':jit>5•'#fbbf24':'#a78bfa'; }
+            if (lossEl){ lossEl.textContent = pct+'%';  lossEl.style.color = pct>0•'#f43f5e':'#34d399'; }
 
             // Loss bar
             if (bar) {
                 bar.style.width = Math.min(pct*5, 100)+'%';
-                bar.style.background = pct>5?'#f43f5e':pct>0?'#fbbf24':'#10b981';
-                bar.style.boxShadow = `0 0 8px ${pct>5?'#f43f5e':pct>0?'#fbbf24':'#10b981'}`;
+                bar.style.background = pct>5•'#f43f5e':pct>0•'#fbbf24':'#10b981';
+                bar.style.boxShadow = `0 0 8px ${pct>5•'#f43f5e':pct>0•'#fbbf24':'#10b981'}`;
             }
-            if (barPct) { barPct.textContent = pct+'%'; barPct.style.color = pct>0?'#f43f5e':'#34d399'; }
+            if (barPct) { barPct.textContent = pct+'%'; barPct.style.color = pct>0•'#f43f5e':'#34d399'; }
 
             // Badge + dot + card class
             if (offline) {
@@ -1595,34 +1595,34 @@ async function pingOne(code, vcIp, gwIp) {
 /* âââ REFRESH GLOBAL HUD âââââââââââââââââââââââââââ */
 function refreshHUD() {
     let online=0, offline=0, lats=[], jits=[];
-    const auditedAll = allStudios.filter(s => uptimeData[s.code]?.checks > 0);
+    const auditedAll = allStudios.filter(s => uptimeData[s.code]•.checks > 0);
     
     auditedAll.forEach(s => {
         const d = uptimeData[s.code];
         if (d.lastOnline) {
             online++;
-            if (latencyHistory[s.code]?.length) lats.push(latencyHistory[s.code].at(-1));
-            if (jitterHistory[s.code]?.length)  jits.push(jitterHistory[s.code].at(-1));
+            if (latencyHistory[s.code]•.length) lats.push(latencyHistory[s.code].at(-1));
+            if (jitterHistory[s.code]•.length)  jits.push(jitterHistory[s.code].at(-1));
         } else {
             offline++;
         }
     });
 
-    const avg = arr => arr.length ? (arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1) : 'â';
+    const avg = arr => arr.length • (arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1) : 'â';
     
-    document.getElementById('h-online').textContent = auditedAll.length ? `${online}` : 'â';
-    document.getElementById('h-offline').textContent = auditedAll.length ? `${offline}` : 'â';
-    document.getElementById('h-offline').style.color = offline > 0 ? 'var(--rose)' : 'var(--muted)';
+    document.getElementById('h-online').textContent = auditedAll.length • `${online}` : 'â';
+    document.getElementById('h-offline').textContent = auditedAll.length • `${offline}` : 'â';
+    document.getElementById('h-offline').style.color = offline > 0 • 'var(--rose)' : 'var(--muted)';
     
-    document.getElementById('h-latency').textContent = lats.length ? avg(lats)+' ms' : 'â ms';
-    document.getElementById('h-latency').style.color = parseFloat(avg(lats))>60?'var(--rose)':parseFloat(avg(lats))>35?'var(--amber)':'#38bdf8';
+    document.getElementById('h-latency').textContent = lats.length • avg(lats)+' ms' : 'â ms';
+    document.getElementById('h-latency').style.color = parseFloat(avg(lats))>60•'var(--rose)':parseFloat(avg(lats))>35•'var(--amber)':'#38bdf8';
     
-    document.getElementById('h-jitter').textContent = jits.length ? avg(jits)+' ms' : 'â ms';
-    document.getElementById('h-jitter').style.color = parseFloat(avg(jits))>15?'var(--rose)':parseFloat(avg(jits))>5?'var(--amber)':'#a78bfa';
+    document.getElementById('h-jitter').textContent = jits.length • avg(jits)+' ms' : 'â ms';
+    document.getElementById('h-jitter').style.color = parseFloat(avg(jits))>15•'var(--rose)':parseFloat(avg(jits))>5•'var(--amber)':'#a78bfa';
 
-    const sla = auditedAll.length ? ((online / auditedAll.length) * 100).toFixed(1)+'%' : 'â';
+    const sla = auditedAll.length • ((online / auditedAll.length) * 100).toFixed(1)+'%' : 'â';
     document.getElementById('h-sla').textContent = sla;
-    document.getElementById('h-sla').style.color = parseFloat(sla)<95?'var(--rose)':parseFloat(sla)<99?'var(--amber)':'var(--emerald)';
+    document.getElementById('h-sla').style.color = parseFloat(sla)<95•'var(--rose)':parseFloat(sla)<99•'var(--amber)':'var(--emerald)';
 }
 
 /* âââ AUTONOMOUS CONTINUOUS AUDIT & MONITORING ENGINE ââ */
@@ -1746,8 +1746,8 @@ async function runFullAudit() {
     isAuditing = false;
 
     // Summary calculation
-    const offCount = allStudios.filter(s => uptimeData[s.code]?.checks > 0 && !uptimeData[s.code]?.lastOnline).length;
-    const onCount = allStudios.filter(s => uptimeData[s.code]?.checks > 0 && uptimeData[s.code]?.lastOnline).length;
+    const offCount = allStudios.filter(s => uptimeData[s.code]•.checks > 0 && !uptimeData[s.code]•.lastOnline).length;
+    const onCount = allStudios.filter(s => uptimeData[s.code]•.checks > 0 && uptimeData[s.code]•.lastOnline).length;
     if (offCount > 0) {
         showToast(`Audit Sweep Complete â ${offCount} Offline`, `${onCount}/${allStudios.length} endpoints 1080p ready`, 'critical');
         log(`â¡  Audit sweep done: ${offCount} offline, ${onCount} healthy`, 'critical');
@@ -1760,9 +1760,9 @@ async function runFullAudit() {
 /* âââ FILTER âââââââââââââââââââââââââââââââââââââââ */
 function setFilter(f) {
     currentFilter = f;
-    ['fAll','fOnline','fWarn','fCrit'].forEach(id => document.getElementById(id)?.classList.remove('active'));
+    ['fAll','fOnline','fWarn','fCrit'].forEach(id => document.getElementById(id)•.classList.remove('active'));
     const map = {all:'fAll', online:'fOnline', warn:'fWarn', critical:'fCrit'};
-    document.getElementById(map[f])?.classList.add('active');
+    document.getElementById(map[f])•.classList.add('active');
     filterStudios();
 }
 
@@ -1773,13 +1773,13 @@ function filterStudios() {
         const ip   = card.dataset.ip   || '';
         const sio  = card.dataset.sio  || '';
         const code = card.id.replace('card-','');
-        const badge = document.getElementById(`badge-${code}`)?.textContent?.toLowerCase() || '';
+        const badge = document.getElementById(`badge-${code}`)•.textContent•.toLowerCase() || '';
 
         let show = (name.includes(q) || ip.includes(q) || sio.includes(q));
         if (show && currentFilter === 'online')   show = badge.includes('ready') || badge.includes('warning');
         if (show && currentFilter === 'warn')     show = badge.includes('warning');
         if (show && currentFilter === 'critical') show = badge.includes('offline') || badge.includes('degraded') || badge.includes('unreachable');
-        card.style.display = show ? '' : 'none';
+        card.style.display = show • '' : 'none';
     });
 }
 
@@ -1801,7 +1801,7 @@ document.addEventListener('keydown', e => {
 function toggleSound() {
     soundEnabled = !soundEnabled;
     const icon = document.getElementById('soundIcon');
-    icon.className = soundEnabled ? 'fas fa-volume-up sound-on' : 'fas fa-volume-mute sound-off';
+    icon.className = soundEnabled • 'fas fa-volume-up sound-on' : 'fas fa-volume-mute sound-off';
 }
 document.getElementById('soundToggleBtn').addEventListener('click', toggleSound);
 
@@ -1839,7 +1839,7 @@ const synonymDict = { "patna": ["hq", "sio"], "noc": ["server", "patna"] };
 
 async function loadContactsDatabase() {
     try {
-        const response = await fetch('/contacts.json?t=' + Date.now());
+        const response = await fetch('/contacts.json•t=' + Date.now());
         if (response.ok) contactsDatabase = await response.json();
     } catch (e) {}
 }
@@ -1873,8 +1873,8 @@ function appendBotMessage(text) {
 function formatMarkdown(text) {
     if (!text) return "";
     let html = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    html = html.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-    html = html.replace(/\*(.*?)\*/g, "<em>$1</em>");
+    html = html.replace(/\*\*(.*•)\*\*/g, "<strong>$1</strong>");
+    html = html.replace(/\*(.*•)\*/g, "<em>$1</em>");
     html = html.replace(/`([^`]+)`/g, "<code style='background:rgba(56,189,248,0.12);color:#38bdf8;padding:1px 5px;border-radius:4px;font-family:JetBrains Mono,monospace;'>$1</code>");
     html = html.replace(/\n/g, "<br>");
     return html;
@@ -1901,18 +1901,18 @@ async function handleChatSend() {
     const matchedStudio = allStudios.find(s => lowerText.includes(s.name.toLowerCase()) || lowerText.includes(s.code));
     if (matchedStudio && (lowerText.includes('ip') || lowerText.includes('phone') || lowerText.includes('status') || lowerText.includes('ping') || lowerText.includes('reach'))) {
         try {
-            const r = await fetch(`/vc_api.php?action=ping&ip=${matchedStudio.vc_ip}&t=${Date.now()}`);
+            const r = await fetch(`/vc_api.php•action=ping&ip=${matchedStudio.vc_ip}&t=${Date.now()}`);
             const data = await r.json();
             typingIndicator.remove();
             
-            let statusText = data.online ? `ð¢ **ONLINE (1080p Ready)**` : `ð´ **OFFLINE / UNREACHABLE**`;
+            let statusText = data.online • `ð¢ **ONLINE (1080p Ready)**` : `ð´ **OFFLINE / UNREACHABLE**`;
             let msg = `ð¹ **${matchedStudio.name} VC Studio Status**:\n\n` +
                       `* **Status:** ${statusText}\n` +
                       `* **VC Codec IP:** \`${matchedStudio.vc_ip}\`\n` +
                       `* **SWAN Gateway:** \`${matchedStudio.gw_ip}\`\n` +
                       `* **VoIP IP Extension:** ð \`${matchedStudio.phone}\`\n` +
                       `* **DIO/SIO In-Charge:** ${matchedStudio.sio}\n` +
-                      `* **Latency:** \`${data.latency_ms !== null ? data.latency_ms + 'ms' : 'TIMEOUT'}\` | **Jitter:** \`${data.jitter_ms !== null ? data.jitter_ms + 'ms' : 'TIMEOUT'}\` | **Loss:** \`${data.packet_loss}%\``;
+                      `* **Latency:** \`${data.latency_ms !== null • data.latency_ms + 'ms' : 'TIMEOUT'}\` | **Jitter:** \`${data.jitter_ms !== null • data.jitter_ms + 'ms' : 'TIMEOUT'}\` | **Loss:** \`${data.packet_loss}%\``;
             appendBotMessage(msg);
             return;
         } catch(e) {}
@@ -2106,8 +2106,8 @@ window.addEventListener('DOMContentLoaded', () => {
             el: '#vanta-bg',
             mouseControls: true, touchControls: true, gyroControls: false,
             minHeight: 200, minWidth: 200, scale: 1,
-            color: isLight ? 0x0f4c81 : 0x38bdf8,
-            backgroundColor: isLight ? 0xeef3fb : 0x020810,
+            color: isLight • 0x0f4c81 : 0x38bdf8,
+            backgroundColor: isLight • 0xeef3fb : 0x020810,
             points: 14, maxDistance: 24, spacing: 17, showDots: true
         });
     } catch(e) { console.error('Vanta init failed:', e); }
