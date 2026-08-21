@@ -1107,39 +1107,56 @@ export default function Home() {
 
             {/* Side 2: JumpStreet */}
             <TiltWrapper tiltDeg={3}>
-              <div className="p-8 rounded-[24px] bg-slate-900/60 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl h-full group hover:shadow-xl hover:shadow-purple-950/30">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-purple-500/10 text-purple-400 border border-purple-500/25">
-                      Quantitative &bull; High Frequency
-                    </span>
-                    <span className="text-[11px] font-mono text-slate-400 font-bold">jumpstreet.tech</span>
-                  </div>
-                  <h3 className="text-xl font-bold font-title text-white group-hover:text-purple-400 transition-colors">
-                    JumpStreet Quant Platform (Orca6)
-                  </h3>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    Statistical arbitrage quantitative trading architecture with real-time market data streaming, automated risk parameter execution, and embedded high-speed Orca6 VT100 terminal.
-                  </p>
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {["TypeScript", "Algorithmic Arbitrage", "Orca6 Engine", "WebSocket Streaming", "Risk Controls"].map((t, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-slate-950 border border-slate-800 text-purple-400/80">
-                        #{t}
-                      </span>
-                    ))}
-                  </div>
+              <div className="rounded-[24px] bg-slate-900/60 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 flex flex-col justify-between backdrop-blur-xl h-full group hover:shadow-xl hover:shadow-purple-950/30 overflow-hidden">
+                <div className="relative w-full h-44 overflow-hidden bg-slate-950">
+                  <img 
+                    src="/jumpstreet_banner.jpg" 
+                    alt="JumpStreet - High-Frequency Quantitative Trading & Orca6 Bot" 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80" />
+                  <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-black/60 backdrop-blur-md text-purple-300 border border-purple-500/30">
+                    Quantitative &bull; High Frequency
+                  </span>
                 </div>
-                <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
-                  <a 
-                    href="https://jumpstreet.tech" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="inline-flex items-center gap-2 text-xs font-mono font-bold text-purple-400 hover:text-purple-300"
-                  >
-                    <span>Visit jumpstreet.tech</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                  <span className="text-[10px] font-mono text-slate-400">Live Trading Bot</span>
+                <div className="p-6 space-y-3 flex-1 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-xl font-bold font-title text-white group-hover:text-purple-400 transition-colors">
+                        JumpStreet Quant Platform (Orca6)
+                      </h3>
+                      <span className="text-[11px] font-mono text-slate-400 font-bold">jumpstreet.tech</span>
+                    </div>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      Statistical arbitrage quantitative trading architecture with real-time market data streaming, automated risk parameter execution, and embedded high-speed Orca6 VT100 terminal.
+                    </p>
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {["TypeScript", "Algorithmic Arbitrage", "Orca6 Engine", "WebSocket Streaming", "Risk Controls"].map((t, i) => (
+                        <span key={i} className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-slate-950 border border-slate-800 text-purple-400/80">
+                          #{t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+                    <a 
+                      href="https://jumpstreet.tech" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="inline-flex items-center gap-2 text-xs font-mono font-bold text-purple-400 hover:text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 px-3 py-1.5 rounded-xl border border-purple-500/30 transition-all"
+                    >
+                      <span>Visit jumpstreet.tech</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                    <a 
+                      href="https://jumpstreet.tech" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-[11px] font-mono font-bold text-purple-400 hover:text-purple-300"
+                    >
+                      jumpstreet.tech &rarr;
+                    </a>
+                  </div>
                 </div>
               </div>
             </TiltWrapper>
