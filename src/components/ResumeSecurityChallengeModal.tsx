@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { Terminal, Shield, ShieldCheck, Lock, Unlock, AlertTriangle, CheckCircle2, XCircle, ArrowRight, RefreshCw, UserCheck, X, Download, Zap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { logSecurityEvent } from "./TelegramVisitorLogger";
@@ -113,6 +114,7 @@ export default function ResumeSecurityChallengeModal({
   onClose,
   onSuccess
 }: ResumeSecurityChallengeModalProps) {
+  const [mounted, setMounted] = useState(false);
   const [questions, setQuestions] = useState<Question[]>(QUESTION_BANK.slice(0, 3));
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
@@ -123,6 +125,10 @@ export default function ResumeSecurityChallengeModal({
   const [recruiterPass, setRecruiterPass] = useState<boolean>(false);
   const [timeLeft, setTimeLeft] = useState<number>(60);
   const [autoAdvanceTimer, setAutoAdvanceTimer] = useState<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Lock background body scroll when open
   useEffect(() => {
@@ -279,21 +285,21 @@ export default function ResumeSecurityChallengeModal({
     triggerFileDownload("RECRUITER_FAST_PASS", 3);
   };
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
   const currentQ = questions[currentIndex] || QUESTION_BANK[0];
   const progressPercent = Math.round(((currentIndex + (isUnlocked ? 1 : 0)) / questions.length) * 100);
 
-  return (
-    <div className="fixed inset-0 z-[100] overflow-y-auto p-3 sm:p-4 md:p-6 flex justify-center items-center bg-black/90 backdrop-blur-xl font-sans animate-fade-in">
+  const modalContent = (
+    <div className="fixed inset-0 z-[999999] overflow-y-auto p-3 sm:p-4 md:p-6 flex justify-center items-center bg-black/90 backdrop-blur-xl font-sans animate-fade-in">
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 15 }}
-        className="w-full max-w-2xl max-h-[92vh] flex flex-col bg-gradient-to-b from-slate-900 via-slate-950 to-black border-2 border-emerald-500/40 rounded-2xl sm:rounded-3xl shadow-[0_0_60px_rgba(16,185,129,0.25)] text-slate-100 overflow-hidden my-auto"
+        className="w-full max-w-2xl max-h-[92vh] flex flex-col bg-gradient-to-b from-slate-900 via-slate-950 to-black border-2 border-emerald-500/40 rounded-2xl sm:rounded-3xl shadow-[0_0_60px_rgba(16,185,129,0.3)] text-slate-100 overflow-hidden my-auto relative z-10"
       >
         {/* Top Fixed Terminal Header */}
-        <div className="flex items-center justify-between border-b border-emerald-500/20 px-5 py-4 sm:px-6 shrink-0 bg-slate-900/90 backdrop-blur-md">
+        <div className="flex items-center justify-between border-b border-emerald-500/20 px-5 py-4 sm:px-6 shrink-0 bg-slate-900/95 backdrop-blur-md">
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
               <Terminal className="w-5 h-5" />
@@ -479,7 +485,7 @@ export default function ResumeSecurityChallengeModal({
 
         {/* Bottom Fixed Action Bar */}
         {!isUnlocked && (
-          <div className="px-5 py-3.5 sm:px-6 border-t border-slate-800 bg-slate-950/90 backdrop-blur-md shrink-0 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="px-5 py-3.5 sm:px-6 border-t border-slate-800 bg-slate-950/95 backdrop-blur-md shrink-0 flex flex-col sm:flex-row items-center justify-between gap-3">
             {/* Recruiter 1-Click Fast Pass */}
             <button
               type="button"
@@ -520,4 +526,6 @@ export default function ResumeSecurityChallengeModal({
       </motion.div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }
