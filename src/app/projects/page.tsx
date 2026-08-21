@@ -17,6 +17,7 @@ import {
   BookOpen
 } from "lucide-react";
 import TiltWrapper from "@/components/3d/TiltWrapper";
+import CyberResumeButton from "@/components/CyberResumeButton";
 
 interface Project {
   id: string;
@@ -208,13 +209,7 @@ export default function ProjectsPage() {
             <span className="hidden sm:inline-block text-xs font-mono text-slate-400">
               {ALL_PROJECTS.length} Systems Catalogued
             </span>
-            <a 
-              href="/resume.pdf" 
-              download
-              className="px-4 py-1.5 rounded-full text-xs font-bold font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all"
-            >
-              Resume.pdf
-            </a>
+            <CyberResumeButton variant="nav" />
           </div>
         </div>
       </header>
@@ -355,20 +350,14 @@ export default function ProjectsPage() {
           <p className="text-sm text-slate-400 max-w-xl mx-auto">
             Deep-dive architectures, sanitized lab configurations, and purple team engagement demonstrations available upon request.
           </p>
-          <div className="pt-2 flex flex-wrap justify-center gap-4">
+          <div className="pt-2 flex flex-wrap justify-center items-center gap-4">
             <a
               href="mailto:contact@adityasec32.systems"
-              className="px-6 py-2.5 rounded-xl text-xs font-mono font-bold bg-emerald-500 text-slate-950 hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-500/20"
+              className="px-6 py-2.5 rounded-xl text-xs font-mono font-bold bg-slate-900 border border-slate-700 text-slate-200 hover:bg-slate-800 transition-all"
             >
               Contact Aditya
             </a>
-            <a
-              href="/resume.pdf"
-              download
-              className="px-6 py-2.5 rounded-xl text-xs font-mono font-bold bg-slate-900 border border-slate-700 text-slate-200 hover:bg-slate-800 transition-all"
-            >
-              Download Full CV
-            </a>
+            <CyberResumeButton variant="hero" />
           </div>
         </div>
 
