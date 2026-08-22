@@ -130,17 +130,24 @@ export default function ResumeSecurityChallengeModal({
     setMounted(true);
   }, []);
 
-  // Lock background body scroll when open
+  // Handle Escape key and body scroll locking
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          onClose();
+        }
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        document.body.style.overflow = "unset";
+        window.removeEventListener("keydown", handleKeyDown);
+      };
     } else {
       document.body.style.overflow = "unset";
     }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   // Trigger download helper
   const triggerFileDownload = useCallback((method: string, finalScore: number) => {

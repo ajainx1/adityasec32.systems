@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Shield, 
@@ -24,7 +24,16 @@ import {
   Send,
   Sparkles,
   Menu,
-  ChevronDown
+  ChevronDown,
+  Copy,
+  Check,
+  Cpu,
+  Radio,
+  Share2,
+  Filter,
+  Flame,
+  ArrowUpRight,
+  Phone
 } from "lucide-react";
 import Link from "next/link";
 import TiltWrapper from "@/components/3d/TiltWrapper";
@@ -33,30 +42,32 @@ import CharityQuizClient from "@/components/charity/CharityQuizClient";
 import { ToastProvider } from "@/components/js/ToastContext";
 
 // Interactive Terminal Data
-const COMMANDS = {
+const COMMANDS: Record<string, string[]> = {
   help: [
     "Available commands:",
-    "  whoami      - Display professional profile summary",
+    "  whoami      - Display professional profile summary (JSON)",
     "  skills      - List core technical competencies & NGFW stacks",
     "  exp         - View verified enterprise employment history",
     "  education   - View academic degrees & MBA (Cybersecurity)",
     "  certs       - View active & targeted certifications",
+    "  projects    - Summary of active CNI & defense systems",
+    "  ecosystem   - View AdityaSec, JumpStreet & CyberKarma triad",
     "  contact     - Display direct contact channels & relocation status",
     "  clear       - Clear terminal output"
   ],
   whoami: [
     "aditya@secops:~$ cat whoami.json",
     "{",
-    "  \"name\": \"Aditya Jain\",",
-    "  \"title\": \"Cybersecurity Engineer | Network Security & NGFW Architecture\",",
-    "  \"specialization\": \"Palo Alto/Check Point/Fortinet NGFW, VAPT, SIEM/EDR, DFIR\",",
-    "  \"experience\": \"4+ Years Enterprise SecOps & CNI Defense\",",
-    "  \"current\": \"Security Administrator & NGFW Architect @ Ebix / NIC (MeitY)\",",
-    "  \"impact\": \"750+ Endpoints Secured · 60% Audit Effort Saved · +35% True-Positives\",",
-    "  \"education\": \"MBA (Cybersecurity) in progress · B.Tech CSE (Manipal)\",",
-    "  \"phone\": \"+91 74005 88896\",",
-    "  \"email\": \"adityasec32@gmail.com / contact@adityasec32.systems\",",
-    "  \"relocation\": \"Preferred: Delhi NCR / Noida · Open: Blr/Hyd/Pune/Mum/Jaipur · UAE · SG · UK · Germany · EU · US\"",
+    '  "name": "Aditya Jain",',
+    '  "role": "Cybersecurity Engineer | Network Security & NGFW Architect",',
+    '  "specialization": "Palo Alto/Check Point/Fortinet NGFW, VAPT, SIEM/EDR, DFIR",',
+    '  "experience": "4+ Years Enterprise SecOps & CNI Defense",',
+    '  "current": "Security Administrator & NGFW Architect @ Ebix / NIC (MeitY)",',
+    '  "impact": "750+ Endpoints Secured · 60% Audit Time Cut · +35% True Positives",',
+    '  "education": "MBA in Cybersecurity (In Progress) · B.Tech CSE (Manipal)",',
+    '  "phone": "+91 74005 88896",',
+    '  "email": "adityasec32@gmail.com / contact@adityasec32.systems",',
+    '  "location": "Patna, Bihar (NIC MeitY) | Relocation: Delhi NCR, Blr, Hyd, Pune, Mum, Global (UAE, SG, UK, EU)"',
     "}"
   ],
   skills: [
@@ -64,7 +75,7 @@ const COMMANDS = {
     "• Network Security & NGFW : Palo Alto (Panorama, App-ID, Threat Prev), Check Point, Fortinet, Default-Deny, ZTNA, OSPF, TACACS+/RADIUS, Wireshark",
     "• Offensive & VAPT        : Web & Infra VAPT, OWASP Top 10, Active Directory Exploitation (BloodHound, Kerberoasting, DCSync, Impacket, Mimikatz, Rubeus, Hashcat, NetExec, Burp Suite Pro, Nmap)",
     "• SIEM / EDR & Hunting    : Wazuh, Splunk, SentinelOne, Trend Micro Deep Security, Microsoft Sentinel, Kaspersky EDR, Snort, MITRE ATT&CK",
-    "• Compliance & Cloud      : CERT-In Guidelines, CDAC Standards, NIST CSF, ISO 27001, AWS/Azure Fundamentals, Python, Bash, PowerShell, Git, RAM Dump Analysis"
+    "• Compliance & Scripting  : CERT-In Guidelines, CDAC Standards, NIST CSF, ISO 27001, Python, Bash, PowerShell Automation, Git, RAM Dump Analysis"
   ],
   exp: [
     "aditya@secops:~$ get-history",
@@ -90,21 +101,36 @@ const COMMANDS = {
     "[Earned & Verified]",
     "• Fortinet Certified Associate (FCA) in Cybersecurity (Jan 2026)",
     "• EC-Council: In the Trenches - SOC",
-    "[In Progress & Targeted]",
+    "[In Progress & Targeted Roadmap]",
     "• eJPT (Junior Penetration Tester) - Target: Q4 2026",
     "• CEH v13 (Certified Ethical Hacker) - Target: 2026",
     "• CISSP (Information Systems Security) - Target: Q3 2027",
     "• OSCP (Offensive Security Certified Professional) - Target: 2027+",
     "• MBA in Cybersecurity (Chitkara University - In Progress)"
   ],
+  projects: [
+    "aditya@secops:~$ list-systems",
+    "1. CDAC/CERT-In Compliance Engine  - 750+ Endpoints, 60% Audit Cut (Sanitized)",
+    "2. State NOC Telemetry Portal      - 38 District Core Nodes + Local Ollama RAG AI",
+    "3. Real-Time Alert & Voice Grid   - Sub-second ICMP ping & Indian English voice synthesis",
+    "4. State NOC Bandwidth Engine      - Multi-threaded TCP/HTTP latency & VC codec QoS",
+    "5. 38-District VC Studio Monitor   - Panasonic KX-VC1300 real-time QoS matrix",
+    "6. CyberKarma & JumpStreet Triad   - Free Rice non-profit trivia + Orca6 quant trading"
+  ],
+  ecosystem: [
+    "aditya@secops:~$ cat ecosystem.map",
+    "• adityasec32.systems - SecOps & CNI Defense Portfolio (Primary)",
+    "• jumpstreet.tech     - Quantitative Trading & Statistical Arbitrage Platform",
+    "• cyberkarma.me       - Free Rice Philanthropic Trivia Engine (Patna Animal Welfare)"
+  ],
   contact: [
     "aditya@secops:~$ show-contact",
     "• Phone     : +91 74005 88896",
     "• Email     : adityasec32@gmail.com / contact@adityasec32.systems",
-    "• LinkedIn  : https://www.linkedin.com/in/ajainx1",
+    "• LinkedIn  : https://www.linkedin.com/in/ajainx1/",
     "• GitHub    : https://github.com/ajainx1",
     "• Portfolio : https://adityasec32.systems",
-    "• Location  : Patna, India (On-site: NIC, MeitY) | Preferred: Delhi NCR / Noida",
+    "• Location  : Patna, Bihar (NIC MeitY) | Preferred: Delhi NCR / Noida",
     "• Relocation: Open to India (Blr/Hyd/Pune/Mum/Jaipur), UAE, Singapore, UK, Germany (EU Blue Card), EU, US"
   ]
 };
@@ -121,6 +147,7 @@ interface WriteUp {
     overview: string;
     methodology: string[];
     takeaways: string[];
+    codeSnippet?: string;
   };
 }
 
@@ -168,7 +195,18 @@ const WRITE_UPS: WriteUp[] = [
         "60% reduction in manual engineer audit cycles across 750+ government offices.",
         "Zero-day remediation visibility for unauthorized peripheral devices and dormant local accounts.",
         "Established automated compliance evidence generation mapped directly to ISO 27001 and CERT-In mandates."
-      ]
+      ],
+      codeSnippet: `# Modular Compliance Checker (Snippet)
+$AuditResults = [PSCustomObject]@{
+    Hostname        = $env:COMPUTERNAME
+    Timestamp       = (Get-Date).ToString("yyyy-MM-ddTHH:mm:ssZ")
+    SMBv1Disabled   = !(Get-WindowsOptionalFeature -Online -FeatureName SMB1Protocol).State -eq "Enabled"
+    USBStorageBlock = (Get-ItemProperty -Path "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\USBSTOR").Start -eq 4
+    LAPSInstalled   = Test-Path "C:\\Program Files\\LAPS\\AdmPwd.dll"
+    FirewallActive  = (Get-NetFirewallProfile -Profile Domain,Public,Private | Where-Object Enabled -eq $false).Count -eq 0
+}
+$JsonPayload = $AuditResults | ConvertTo-Json -Compress
+Invoke-RestMethod -Uri "https://compliance-collector.internal/api/v1/telemetry" -Method Post -Body $JsonPayload -ContentType "application/json"`
     }
   },
   {
@@ -191,8 +229,137 @@ const WRITE_UPS: WriteUp[] = [
         "Reduced daily alert volume by 30%, allowing Level 2/3 analysts to focus exclusively on high-fidelity indicators.",
         "Boosted true-positive detection rate by 35% across lateral movement and privilege escalation phases.",
         "Documented reproducible detection playbooks for rapid triage of living-off-the-land binaries (LOLBins)."
-      ]
+      ],
+      codeSnippet: `<!-- Wazuh Custom Correlation Rule (T1059.001 Suspicious PowerShell Execution) -->
+<group name="windows,sysmon,powershell,">
+  <rule id="100150" level="12">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.image">powershell.exe</field>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)(-enc|-encodedcommand|-w\s+hidden|-noni|-nop)</field>
+    <description>MITRE T1059.001: Encoded or Obfuscated PowerShell Execution Detected</description>
+    <mitre>
+      <id>T1059.001</id>
+    </mitre>
+  </rule>
+</group>`
     }
+  }
+];
+
+interface ProjectCard {
+  id: string;
+  title: string;
+  category: "cni" | "offensive" | "sandbox" | "social";
+  categoryLabel: string;
+  orbitTag: string;
+  impactHighlight: string;
+  description: string;
+  tags: string[];
+  link?: string;
+  isModal?: boolean;
+  linkText: string;
+  colorBorder: string;
+  colorGlow: string;
+  colorBadge: string;
+  colorText: string;
+}
+
+const PROJECTS_DATA: ProjectCard[] = [
+  {
+    id: "cert-in-engine",
+    title: "CDAC / CERT-In Compliance Automation Engine",
+    category: "cni",
+    categoryLabel: "CNI & SecOps Automation",
+    orbitTag: "ORBIT: NIST-CSF-01",
+    impactHighlight: "Cut quarterly audit time by 60% across 750+ government endpoints",
+    description: "Automated PowerShell & Python framework validating 120+ regulatory baselines, USB lockouts, and registry keys across 750+ endpoints via KACE UEM.",
+    tags: ["PowerShell", "Python", "KACE UEM", "NIST CSF", "CERT-In"],
+    isModal: true,
+    linkText: "View Case Study Architecture",
+    colorBorder: "border-emerald-500/25 hover:border-emerald-400",
+    colorGlow: "hover:shadow-emerald-500/20",
+    colorBadge: "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
+    colorText: "group-hover:text-emerald-400"
+  },
+  {
+    id: "noc-admin-portal",
+    title: "State NOC Admin & Telemetry Portal",
+    category: "sandbox",
+    categoryLabel: "Live NOC Sandbox",
+    orbitTag: "ORBIT: 38-DHQ-CORE",
+    impactHighlight: "Centralized 38 district link health monitors with local Ollama RAG AI",
+    description: "Enterprise network operations dashboard integrating 38 district nodes, TACACS+ credential resets, real-time telemetry, and on-premise RAG LLM troubleshooting.",
+    tags: ["Next.js", "Ollama LLM", "PHP API", "Three.js", "RAG"],
+    link: "/noc/",
+    linkText: "Launch NOC Portal Demo",
+    colorBorder: "border-cyan-500/25 hover:border-cyan-400",
+    colorGlow: "hover:shadow-cyan-500/20",
+    colorBadge: "bg-cyan-500/10 text-cyan-300 border-cyan-500/30",
+    colorText: "group-hover:text-cyan-400"
+  },
+  {
+    id: "network-alert-dashboard",
+    title: "Real-Time Network Alert & Speech Grid",
+    category: "sandbox",
+    categoryLabel: "Live Telemetry",
+    orbitTag: "ORBIT: 293-NODES",
+    impactHighlight: "Sub-second ICMP ping tracking with Web Speech Voice Synthesis",
+    description: "Sub-second packet loss and ping outage tracking across 293 core routing units with Indian English voice broadcast alarms and threshold filtering.",
+    tags: ["JavaScript", "Chart.js", "Web Speech API", "Glassmorphic"],
+    link: "/alert/",
+    linkText: "Launch Voice Alert Grid",
+    colorBorder: "border-blue-500/25 hover:border-blue-400",
+    colorGlow: "hover:shadow-blue-500/20",
+    colorBadge: "bg-blue-500/10 text-blue-300 border-blue-500/30",
+    colorText: "group-hover:text-blue-400"
+  },
+  {
+    id: "speed-diagnostics-engine",
+    title: "State NOC Diagnostics & Bandwidth Engine",
+    category: "sandbox",
+    categoryLabel: "Throughput QoS",
+    orbitTag: "ORBIT: SPEED-INJECT",
+    impactHighlight: "Multi-threaded TCP/HTTP bandwidth diagnostic measuring 1080p VC score",
+    description: "High-precision latency, jitter, throughput and QoS testing utility rating video conferencing codecs for mission-critical government broadcasts.",
+    tags: ["Performance API", "Vanta.js", "TCP Sockets", "Speed Test"],
+    link: "/speed/",
+    linkText: "Run Speed Diagnostics",
+    colorBorder: "border-indigo-500/25 hover:border-indigo-400",
+    colorGlow: "hover:shadow-indigo-500/20",
+    colorBadge: "bg-indigo-500/10 text-indigo-300 border-indigo-500/30",
+    colorText: "group-hover:text-indigo-400"
+  },
+  {
+    id: "district-vc-monitor",
+    title: "38-District VC Studio Codec Monitor",
+    category: "cni",
+    categoryLabel: "Broadcast Quality",
+    orbitTag: "ORBIT: 38-VC-STUDIOS",
+    impactHighlight: "38-District Panasonic KX-VC1300 real-time telemetry",
+    description: "Centralized studio video codec monitor tracking jitter, packet drop, and bitrate to ensure uninterrupted 1080p government video conferencing.",
+    tags: ["Panasonic Codecs", "QoS Analysis", "Jitter Buffers", "HD 1080p"],
+    link: "/vc/",
+    linkText: "Launch VC Studio Portal",
+    colorBorder: "border-teal-500/25 hover:border-teal-400",
+    colorGlow: "hover:shadow-teal-500/20",
+    colorBadge: "bg-teal-500/10 text-teal-300 border-teal-500/30",
+    colorText: "group-hover:text-teal-400"
+  },
+  {
+    id: "cyberkarma-jumpstreet-triad",
+    title: "CyberKarma & JumpStreet Ecosystem",
+    category: "social",
+    categoryLabel: "Karma & Quant Triad",
+    orbitTag: "ORBIT: SOCIAL-ALGO",
+    impactHighlight: "Free Rice animal welfare platform + Orca6 algorithmic trading engine",
+    description: "Decentralized educational charity game converting correct trivia into real-world stray dog meals in Patna + statistical arbitrage quantitative trading platform.",
+    tags: ["Next.js", "Web3/Charity", "Algorithmic Quant", "TypeScript"],
+    link: "https://cyberkarma.me",
+    linkText: "Explore cyberkarma.me",
+    colorBorder: "border-purple-500/25 hover:border-purple-400",
+    colorGlow: "hover:shadow-purple-500/20",
+    colorBadge: "bg-purple-500/10 text-purple-300 border-purple-500/30",
+    colorText: "group-hover:text-purple-400"
   }
 ];
 
@@ -218,18 +385,27 @@ export default function Home() {
     );
   }
 
+  // State Management
   const [terminalHistory, setTerminalHistory] = useState<string[]>([
     "aditya@secops:~# secure session initialized...",
     "SEC_CORE: ACTIVE | 750+ ENDPOINTS HARDENED",
-    "Type 'whoami' or 'help' for available commands.",
+    "Type 'whoami', 'skills', 'projects', or 'help' for available commands.",
     ""
   ]);
   const [terminalInput, setTerminalInput] = useState("");
+  const [historyIndex, setHistoryIndex] = useState<number>(-1);
+  const [inputHistory, setInputHistory] = useState<string[]>([]);
   const [selectedWriteUp, setSelectedWriteUp] = useState<WriteUp | null>(null);
+  const [activeWriteUpTab, setActiveWriteUpTab] = useState<"overview" | "methodology" | "takeaways" | "code">("overview");
   const [caseStudyModal, setCaseStudyModal] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [contactMessage, setContactMessage] = useState<string>("");
   const [contactSent, setContactSent] = useState<boolean>(false);
+  const [copiedEmail, setCopiedEmail] = useState<boolean>(false);
+  const [copiedTerminal, setCopiedTerminal] = useState<boolean>(false);
+  const [copiedPgp, setCopiedPgp] = useState<boolean>(false);
+  const [projectFilter, setProjectFilter] = useState<"all" | "cni" | "offensive" | "sandbox" | "social">("all");
+
   const terminalEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll terminal
@@ -242,28 +418,80 @@ export default function Home() {
     const cmd = terminalInput.trim().toLowerCase();
     if (!cmd) return;
 
+    setInputHistory((prev) => [...prev, cmd]);
+    setHistoryIndex(-1);
+
     let response: string[] = [];
     if (cmd === "clear") {
       setTerminalHistory([]);
       setTerminalInput("");
       return;
     } else if (cmd in COMMANDS) {
-      response = COMMANDS[cmd as keyof typeof COMMANDS];
+      response = COMMANDS[cmd];
     } else {
-      response = [`aditya@secops:~$ ${cmd}`, `Command '${cmd}' not recognized. Type 'help' for instructions.`];
+      response = [`aditya@secops:~$ ${cmd}`, `Command '${cmd}' not recognized. Type 'help' for list of commands.`];
     }
 
     setTerminalHistory((prev) => [...prev, `aditya@secops:~$ ${terminalInput}`, ...response, ""]);
     setTerminalInput("");
   };
 
+  const handleKeyDownTerminal = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (inputHistory.length > 0) {
+        const nextIndex = historyIndex === -1 ? inputHistory.length - 1 : Math.max(0, historyIndex - 1);
+        setHistoryIndex(nextIndex);
+        setTerminalInput(inputHistory[nextIndex]);
+      }
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (historyIndex !== -1) {
+        const nextIndex = historyIndex + 1;
+        if (nextIndex < inputHistory.length) {
+          setHistoryIndex(nextIndex);
+          setTerminalInput(inputHistory[nextIndex]);
+        } else {
+          setHistoryIndex(-1);
+          setTerminalInput("");
+        }
+      }
+    } else if (e.key === "Tab") {
+      e.preventDefault();
+      const current = terminalInput.trim().toLowerCase();
+      const match = Object.keys(COMMANDS).find((c) => c.startsWith(current));
+      if (match) {
+        setTerminalInput(match);
+      }
+    }
+  };
+
   const runTerminalShortcut = (cmd: string) => {
-    let response = COMMANDS[cmd as keyof typeof COMMANDS];
     if (cmd === "clear") {
       setTerminalHistory([]);
       return;
     }
+    const response = COMMANDS[cmd] || [];
     setTerminalHistory((prev) => [...prev, `aditya@secops:~$ ${cmd}`, ...response, ""]);
+  };
+
+  const copyTerminalOutput = () => {
+    const text = terminalHistory.join("\n");
+    navigator.clipboard.writeText(text);
+    setCopiedTerminal(true);
+    setTimeout(() => setCopiedTerminal(false), 2000);
+  };
+
+  const copyEmailAddress = () => {
+    navigator.clipboard.writeText("contact@adityasec32.systems");
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
+
+  const copyPgpKey = () => {
+    navigator.clipboard.writeText("4A8B 92C1 3E7F 8902 B5D4 1A9C 77E0 63F8");
+    setCopiedPgp(true);
+    setTimeout(() => setCopiedPgp(false), 2000);
   };
 
   const handleQuickContact = (e: React.FormEvent) => {
@@ -273,35 +501,40 @@ export default function Home() {
     setContactSent(true);
   };
 
+  const filteredProjects = useMemo(() => {
+    if (projectFilter === "all") return PROJECTS_DATA;
+    return PROJECTS_DATA.filter((p) => p.category === projectFilter);
+  }, [projectFilter]);
+
   return (
-    <div className="min-h-screen relative flex flex-col font-sans bg-[#020617] text-[#E8EAE6] selection:bg-emerald-500/30 selection:text-emerald-300">
+    <div className="min-h-screen relative flex flex-col font-sans bg-[#020617] text-[#E8EAE6] selection:bg-emerald-500/30 selection:text-emerald-300 bg-cyber-grid">
       
-      {/* Background Cyber Mesh with Motion Reduction Respect */}
+      {/* Dynamic Background Mesh Gradients */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-[#020617]/75 backdrop-blur-[1px]" />
-        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full blur-[140px] opacity-15 bg-emerald-700 pointer-events-none" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[55vw] h-[55vw] rounded-full blur-[150px] opacity-10 bg-cyan-700 pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(16,185,129,0.04),rgba(255,255,255,0))]" />
+        <div className="absolute inset-0 bg-[#020617]/80 backdrop-blur-[1px]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[55vw] h-[55vw] rounded-full blur-[140px] opacity-20 bg-emerald-700 pointer-events-none" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[55vw] h-[55vw] rounded-full blur-[150px] opacity-15 bg-cyan-700 pointer-events-none" />
+        <div className="absolute top-[40%] right-[10%] w-[40vw] h-[40vw] rounded-full blur-[160px] opacity-10 bg-indigo-700 pointer-events-none" />
       </div>
 
       {/* CISO / Recruiter Sanitization Trust Banner */}
-      <div className="w-full bg-emerald-950/70 border-b border-emerald-500/20 py-1.5 px-4 text-center text-[11px] font-mono font-semibold text-emerald-300 backdrop-blur-md relative z-50">
-        <div className="max-w-7xl mx-auto flex items-center justify-center gap-2">
+      <div className="w-full bg-emerald-950/80 border-b border-emerald-500/25 py-2 px-4 text-center text-[11px] font-mono font-semibold text-emerald-300 backdrop-blur-xl relative z-50 shadow-sm">
+        <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 flex-wrap">
           <Shield className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
           <span>All government case studies &amp; project demos are sanitized recordings &amp; mock telemetry; zero live state infrastructure is exposed.</span>
         </div>
       </div>
 
-      {/* Sticky 5-Section Navigation Header (Mercury 5) */}
-      <header className="sticky top-0 z-40 w-full border-b border-emerald-500/10 bg-[#020617]/85 backdrop-blur-2xl shadow-lg shadow-black/40">
+      {/* Sticky 5-Section Navigation Header */}
+      <header className="sticky top-0 z-40 w-full border-b border-emerald-500/15 bg-[#020617]/90 backdrop-blur-2xl shadow-lg shadow-black/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 font-title font-bold text-lg tracking-tight hover:opacity-90 transition-opacity">
-            <span className="bg-gradient-to-br from-emerald-400 to-cyan-500 text-slate-950 shadow-md shadow-emerald-500/20 px-2 py-0.5 rounded-lg text-sm font-black font-mono">AJ</span>
+            <span className="bg-gradient-to-br from-emerald-400 to-cyan-500 text-slate-950 shadow-md shadow-emerald-500/25 px-2.5 py-0.5 rounded-lg text-sm font-black font-mono">AJ</span>
             <span className="text-white">Aditya<span className="text-emerald-400">.</span>Jain</span>
           </Link>
           
-          {/* Exactly Five Nav Links */}
-          <nav className="hidden md:flex items-center gap-8 text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
+          {/* Five Primary Navigation Links */}
+          <nav className="hidden md:flex items-center gap-7 text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
             <a href="#home" className="hover:text-emerald-400 transition-colors">Home</a>
             <a 
               href="#projects" 
@@ -311,11 +544,12 @@ export default function Home() {
               <Globe className="w-3.5 h-3.5 text-emerald-400 group-hover:rotate-180 transition-transform duration-700" />
               <span className="tracking-widest">Projects &bull; Orbit</span>
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
               </span>
             </a>
             <a href="#writeups" className="hover:text-emerald-400 transition-colors">Write-Ups</a>
+            <a href="#experience" className="hover:text-emerald-400 transition-colors">Experience</a>
             <a href="#about" className="hover:text-emerald-400 transition-colors">About</a>
             <a href="#contact" className="hover:text-emerald-400 transition-colors">Contact</a>
             
@@ -335,7 +569,7 @@ export default function Home() {
             {/* Mobile Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="md:hidden p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -345,10 +579,11 @@ export default function Home() {
 
         {/* Mobile Nav Dropdown */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-b border-slate-800 bg-slate-950/95 px-6 py-4 space-y-3 text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
+          <div className="md:hidden border-b border-slate-800 bg-slate-950/95 px-6 py-4 space-y-3 text-xs font-mono font-bold uppercase tracking-wider text-slate-300 backdrop-blur-xl">
             <a href="#home" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Home</a>
-            <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Projects</a>
+            <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Projects &bull; Orbit</a>
             <a href="#writeups" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Write-Ups</a>
+            <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Experience</a>
             <a href="#about" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">About</a>
             <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Contact</a>
             <Link href="/charity-quiz" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-rose-400 font-bold">🐾 Free Rice Quiz (हिं/EN)</Link>
@@ -363,10 +598,10 @@ export default function Home() {
         <section id="home" className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center min-h-[calc(100vh-14rem)]">
           <div className="lg:col-span-7 space-y-7">
             
-            {/* Purple Teamer Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/25 bg-emerald-950/40 backdrop-blur-xl text-xs font-mono font-bold text-emerald-300">
-              <Shield className="w-3.5 h-3.5 text-emerald-400" />
-              <span>PURPLE TEAMER &bull; CNI THREAT HUNTER &bull; SECOPS SME</span>
+            {/* Top Purple Teamer Status Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-950/50 backdrop-blur-xl text-xs font-mono font-bold text-emerald-300 shadow-sm">
+              <Shield className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+              <span>PURPLE TEAMER &bull; CNI THREAT HUNTER &bull; SECOPS ARCHITECT</span>
             </div>
 
             {/* H1 & Master H2 Headline */}
@@ -379,35 +614,46 @@ export default function Home() {
                 Cybersecurity Engineer | Network Security &amp; NGFW Architecture | VAPT &bull; SIEM/EDR &bull; DFIR
               </h2>
 
-              {/* One-Line Value Prop with Proof */}
+              {/* Verified Value Proposition */}
               <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl pt-1">
-                Securing 750+ government endpoints &amp; Critical National Infrastructure &mdash; cutting audit effort 60% and lifting detection 35%.
+                Securing <strong>750+ government endpoints &amp; Critical National Infrastructure</strong> &mdash; reducing audit turnaround 60% and lifting true-positive threat detection 35%.
               </p>
             </div>
 
-            {/* Exact CTA Hierarchy Order */}
+            {/* CTA Hierarchy Buttons */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
-              {/* 1. Download Resume (Cyber Tactical Scramble) */}
+              {/* 1. Download Resume (Tactical Scramble & Decryption Modal) */}
               <CyberResumeButton variant="hero" showChecksum={true} />
 
-              {/* 2. View Case Studies (Cosmic Orbital Defense Grid CTA) */}
+              {/* 2. View Case Studies & Orbital Grid */}
               <a 
                 href="#projects"
-                className="group relative px-6 py-3.5 rounded-xl text-xs font-mono font-bold bg-slate-900/90 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-950/50 hover:border-emerald-400 hover:text-white transition-all flex items-center gap-2.5 hover:-translate-y-0.5 min-h-[44px] shadow-xl shadow-emerald-950/40"
+                className="group relative px-6 py-3.5 rounded-xl text-xs font-mono font-bold bg-slate-900/90 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-950/60 hover:border-emerald-400 hover:text-white transition-all flex items-center gap-2.5 hover:-translate-y-0.5 min-h-[44px] shadow-xl shadow-emerald-950/40"
               >
                 <Globe className="w-4 h-4 text-emerald-400 group-hover:rotate-45 transition-transform" />
-                <span>🛰️ View Orbital Defense Grid &amp; Projects</span>
+                <span>🛰️ View Orbital Defense Grid</span>
                 <ArrowRight className="w-4 h-4 text-emerald-400 group-hover:translate-x-1 transition-transform" />
               </a>
 
-              {/* 3. Contact (Ghost) */}
-              <a 
-                href="#contact"
-                className="px-6 py-3.5 rounded-xl text-xs font-mono font-bold bg-transparent text-slate-300 hover:text-white hover:bg-slate-900/60 transition-all flex items-center gap-2 min-h-[44px]"
+              {/* 3. Direct Quick Copy Email */}
+              <button
+                type="button"
+                onClick={copyEmailAddress}
+                className="px-5 py-3.5 rounded-xl text-xs font-mono font-bold bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-emerald-300 hover:border-emerald-500/40 transition-all flex items-center gap-2 min-h-[44px] cursor-pointer"
+                title="Click to copy contact email"
               >
-                <Mail className="w-4 h-4 text-emerald-400" />
-                <span>Contact</span>
-              </a>
+                {copiedEmail ? (
+                  <>
+                    <Check className="w-4 h-4 text-emerald-400" />
+                    <span className="text-emerald-400">Copied Email!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4 text-slate-400" />
+                    <span>Copy Email</span>
+                  </>
+                )}
+              </button>
             </div>
 
             {/* Proof-Metrics Strip Under Hero */}
@@ -422,9 +668,9 @@ export default function Home() {
                   { label: "Audit Effort Reduced", value: "60%" },
                   { label: "True Positives Boost", value: "+35%" },
                   { label: "District Core Nodes", value: "38" },
-                  { label: "Teams Trained", value: "60+" }
+                  { label: "FMS Teams Trained", value: "60+" }
                 ].map((stat, i) => (
-                  <div key={i} className="p-3.5 bg-slate-900/60 border border-emerald-500/10 rounded-2xl backdrop-blur-xl flex flex-col items-center justify-center text-center hover:border-emerald-500/30 transition-colors">
+                  <div key={i} className="p-3.5 bg-slate-900/70 border border-emerald-500/15 rounded-2xl backdrop-blur-xl flex flex-col items-center justify-center text-center hover:border-emerald-500/40 transition-all shadow-md">
                     <div className="text-xl sm:text-2xl font-black font-mono text-emerald-400">{stat.value}</div>
                     <div className="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-1 leading-tight">{stat.label}</div>
                   </div>
@@ -434,21 +680,33 @@ export default function Home() {
 
           </div>
 
-          {/* Terminal Simulator on Right */}
+          {/* Interactive Terminal Simulator on Right */}
           <div className="lg:col-span-5">
             <TiltWrapper tiltDeg={3}>
-              <div className="rounded-2xl border border-emerald-500/20 bg-slate-950/95 backdrop-blur-2xl shadow-2xl overflow-hidden font-mono text-xs shadow-emerald-950/30">
-                <div className="px-4 py-3 bg-slate-900/90 border-b border-emerald-500/10 flex items-center justify-between">
+              <div className="rounded-2xl border border-emerald-500/30 bg-slate-950/95 backdrop-blur-2xl shadow-2xl overflow-hidden font-mono text-xs shadow-emerald-950/40 scanline-effect">
+                
+                {/* Header bar */}
+                <div className="px-4 py-3 bg-slate-900/90 border-b border-emerald-500/20 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full bg-rose-500/80" />
                     <div className="w-3 h-3 rounded-full bg-amber-500/80" />
                     <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
                     <span className="text-[11px] text-slate-300 font-bold ml-2">aditya@secops: ~/terminal</span>
                   </div>
-                  <span className="text-[10px] text-emerald-400 font-bold">BASH 5.2</span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={copyTerminalOutput}
+                      className="p-1 rounded bg-slate-800 text-slate-400 hover:text-emerald-300 hover:bg-slate-700 transition-colors"
+                      title="Copy Terminal Text"
+                    >
+                      {copiedTerminal ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    </button>
+                    <span className="text-[10px] text-emerald-400 font-bold px-1.5 py-0.5 rounded bg-emerald-950 border border-emerald-500/30">BASH 5.2</span>
+                  </div>
                 </div>
 
-                <div className="p-4 h-[300px] overflow-y-auto space-y-2 text-slate-300 scrollbar-thin">
+                {/* Console Output Area */}
+                <div className="p-4 h-[310px] overflow-y-auto space-y-2 text-slate-300 scrollbar-thin">
                   {terminalHistory.map((line, i) => (
                     <div key={i} className={line.startsWith("aditya@") ? "text-emerald-400 font-bold" : "text-slate-300 whitespace-pre-wrap leading-relaxed"}>
                       {line}
@@ -457,27 +715,29 @@ export default function Home() {
                   <div ref={terminalEndRef} />
                 </div>
 
-                {/* Shortcuts */}
-                <div className="p-2 border-t border-slate-900 bg-slate-900/40 flex flex-wrap gap-1.5">
-                  {["whoami", "skills", "exp", "certs", "contact", "clear"].map((cmd) => (
+                {/* Quick Command Shortcuts */}
+                <div className="p-2 border-t border-slate-900 bg-slate-900/60 flex flex-wrap gap-1.5">
+                  {["whoami", "skills", "exp", "certs", "projects", "ecosystem", "contact", "clear"].map((cmd) => (
                     <button
                       key={cmd}
+                      type="button"
                       onClick={() => runTerminalShortcut(cmd)}
-                      className="px-2.5 py-1 rounded bg-slate-800 text-[10px] text-emerald-400 hover:bg-slate-700 hover:text-emerald-300 font-mono transition-colors"
+                      className="px-2.5 py-1 rounded bg-slate-800/90 text-[10px] text-emerald-400 hover:bg-emerald-500/20 hover:text-emerald-300 font-mono transition-colors border border-emerald-500/10 cursor-pointer active:scale-95"
                     >
                       ${cmd}
                     </button>
                   ))}
                 </div>
 
-                {/* Input Form */}
-                <form onSubmit={handleCommandSubmit} className="p-3 bg-slate-900/80 border-t border-emerald-500/10 flex items-center gap-2">
+                {/* Terminal Input Form */}
+                <form onSubmit={handleCommandSubmit} className="p-3 bg-slate-900/90 border-t border-emerald-500/15 flex items-center gap-2">
                   <span className="text-emerald-400 font-bold">aditya@secops:~$</span>
                   <input
                     type="text"
                     value={terminalInput}
                     onChange={(e) => setTerminalInput(e.target.value)}
-                    placeholder="type 'whoami' or 'help'..."
+                    onKeyDown={handleKeyDownTerminal}
+                    placeholder="type 'whoami', 'skills' or [Tab]..."
                     className="flex-1 bg-transparent border-none outline-none text-emerald-300 placeholder:text-slate-600 text-xs font-mono"
                   />
                 </form>
@@ -486,12 +746,12 @@ export default function Home() {
           </div>
         </section>
 
-        {/* TIER 2 & 3: KEY PROJECTS & CASE STUDIES — TOP-ANGLE UNIVERSE DEFENSE GRID */}
+        {/* TIER 2 & 3: KEY PROJECTS & CASE STUDIES — ORBITAL DEFENSE GRID */}
         <section id="projects" className="space-y-10 pt-8">
           
           {/* Top-Angle Orbital Command Banner */}
           <div className="p-6 sm:p-8 rounded-[28px] bg-gradient-to-br from-slate-950 via-slate-900/95 to-emerald-950/40 border border-emerald-500/30 backdrop-blur-2xl shadow-2xl relative overflow-hidden space-y-6">
-            {/* Ambient Nebula Glow */}
+            {/* Ambient Glows */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -499,7 +759,7 @@ export default function Home() {
               <div className="space-y-2">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-xs font-mono font-bold text-emerald-300">
                   <Globe className="w-3.5 h-3.5 text-emerald-400 animate-spin-slow" />
-                  <span>TOP-ANGLE ORBITAL RADAR // ALL-SYSTEMS UNIVERSE MATRIX</span>
+                  <span>TOP-ANGLE ORBITAL RADAR // ALL-SYSTEMS MATRIX</span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-black font-title text-white tracking-tight">
                   Critical National Infrastructure &amp; Engineering Grid
@@ -529,266 +789,95 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            {/* Filter Category Pills */}
+            <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-800/80 relative z-10">
+              <span className="text-[11px] font-mono font-bold text-slate-400 flex items-center gap-1.5 mr-2">
+                <Filter className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Filter Grid:</span>
+              </span>
+              {[
+                { id: "all", label: "All Systems (6)" },
+                { id: "cni", label: "CNI & Enterprise" },
+                { id: "sandbox", label: "Live Sandboxes" },
+                { id: "social", label: "Karma & Quant Triad" }
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setProjectFilter(tab.id as any)}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-bold transition-all cursor-pointer ${
+                    projectFilter === tab.id
+                      ? "bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/30"
+                      : "bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-emerald-500/30"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* 6 Planetary Defense Grid Cards */}
+          {/* Planetary Defense Grid Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            {/* Node 01: CDAC/CERT-In Compliance Automation Engine */}
-            <TiltWrapper tiltDeg={3}>
-              <div className="h-full p-7 rounded-[24px] bg-slate-900/70 border border-emerald-500/20 hover:border-emerald-500/50 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group hover:shadow-xl hover:shadow-emerald-950/40">
-                <div className="space-y-3.5">
-                  <div className="flex items-center justify-between">
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
-                      Case Study (Sanitized)
-                    </span>
-                    <span className="text-[10px] font-mono text-slate-400 font-bold">ORBIT: NIST-CSF-01</span>
-                  </div>
-
-                  <h3 className="text-xl font-bold font-title text-white group-hover:text-emerald-400 transition-colors">
-                    CDAC / CERT-In Compliance Engine
-                  </h3>
-
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    <strong>Impact:</strong> Cut quarterly audit cycles by 60% across 750+ government endpoints using PowerShell &amp; Python orchestration mapped to NIST CSF &amp; CERT-In baselines.
-                  </p>
-
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {["PowerShell", "Python", "KACE UEM", "NIST CSF", "CERT-In"].map((t, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-slate-950 border border-slate-800 text-emerald-400/80">
-                        #{t}
+            {filteredProjects.map((project) => (
+              <TiltWrapper key={project.id} tiltDeg={3}>
+                <div className={`h-full p-7 rounded-[24px] bg-slate-900/70 border ${project.colorBorder} transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group hover:shadow-2xl ${project.colorGlow}`}>
+                  <div className="space-y-3.5">
+                    <div className="flex items-center justify-between">
+                      <span className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold border ${project.colorBadge}`}>
+                        {project.categoryLabel}
                       </span>
-                    ))}
-                  </div>
-                </div>
+                      <span className="text-[10px] font-mono text-slate-400 font-bold">{project.orbitTag}</span>
+                    </div>
 
-                <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-                  <button
-                    onClick={() => setCaseStudyModal(true)}
-                    className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-400 hover:text-emerald-300"
-                  >
-                    <BookOpen className="w-3.5 h-3.5" />
-                    <span>Case Study Modal</span>
-                  </button>
-                  <span className="text-[10px] font-mono text-slate-400">Sanitized</span>
-                </div>
-              </div>
-            </TiltWrapper>
+                    <h3 className={`text-xl font-bold font-title text-white ${project.colorText} transition-colors`}>
+                      {project.title}
+                    </h3>
 
-            {/* Node 02: Government NOC Admin & Telemetry Portal */}
-            <TiltWrapper tiltDeg={3}>
-              <div className="h-full p-7 rounded-[24px] bg-slate-900/70 border border-cyan-500/20 hover:border-cyan-500/50 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group hover:shadow-xl hover:shadow-cyan-950/40">
-                <div className="space-y-3.5">
-                  <div className="flex items-center justify-between">
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
-                      Live Sandbox
-                    </span>
-                    <span className="text-[10px] font-mono text-slate-400 font-bold">ORBIT: 38-DHQ-CORE</span>
+                    <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800/80 text-xs font-mono text-emerald-300">
+                      <strong>Impact:</strong> {project.impactHighlight}
+                    </div>
+
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      {project.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {project.tags.map((t, i) => (
+                        <span key={i} className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-slate-950 border border-slate-800 text-emerald-400/80">
+                          #{t}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
-                  <h3 className="text-xl font-bold font-title text-white group-hover:text-cyan-400 transition-colors">
-                    State NOC Admin &amp; Telemetry
-                  </h3>
-
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    <strong>Impact:</strong> Centralized 38 district link health monitors with local on-premise Ollama RAG chatbot assistance, TACACS+ credential resets, and district audit sheets.
-                  </p>
-
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {["Next.js", "Ollama LLM", "PHP API", "Three.js", "RAG"].map((t, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-slate-950 border border-slate-800 text-cyan-400/80">
-                        #{t}
-                      </span>
-                    ))}
+                  <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
+                    {project.isModal ? (
+                      <button
+                        type="button"
+                        onClick={() => setCaseStudyModal(true)}
+                        className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-400 hover:text-emerald-300 cursor-pointer"
+                      >
+                        <BookOpen className="w-3.5 h-3.5" />
+                        <span>{project.linkText}</span>
+                      </button>
+                    ) : (
+                      <a
+                        href={project.link}
+                        target={project.link?.startsWith("http") ? "_blank" : "_self"}
+                        rel={project.link?.startsWith("http") ? "noopener noreferrer" : ""}
+                        className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-cyan-400 hover:text-cyan-300"
+                      >
+                        <span>{project.linkText}</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    )}
+                    <span className="text-[10px] font-mono text-slate-500">Sanitized Demo</span>
                   </div>
                 </div>
-
-                <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-                  <a
-                    href="/noc/"
-                    className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-cyan-400 hover:text-cyan-300"
-                  >
-                    <span>Launch Portal</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                  <span className="text-[10px] font-mono text-slate-400">Live Demo</span>
-                </div>
-              </div>
-            </TiltWrapper>
-
-            {/* Node 03: Real-Time Network Alert Dashboard */}
-            <TiltWrapper tiltDeg={3}>
-              <div className="h-full p-7 rounded-[24px] bg-slate-900/70 border border-blue-500/20 hover:border-blue-500/50 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group hover:shadow-xl hover:shadow-blue-950/40">
-                <div className="space-y-3.5">
-                  <div className="flex items-center justify-between">
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-blue-500/10 border border-blue-500/20 text-blue-400">
-                      Live Telemetry
-                    </span>
-                    <span className="text-[10px] font-mono text-slate-400 font-bold">ORBIT: 293-NODES</span>
-                  </div>
-
-                  <h3 className="text-xl font-bold font-title text-white group-hover:text-blue-400 transition-colors">
-                    Real-Time Alert &amp; Speech Grid
-                  </h3>
-
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    <strong>Impact:</strong> Automated ping outage detection for 293 core nodes with Indian English Web Speech voice alerts, noise filtering, and sparkline latency telemetry.
-                  </p>
-
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {["JavaScript", "Chart.js", "Web Speech API", "Glassmorphic"].map((t, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-slate-950 border border-slate-800 text-blue-400/80">
-                        #{t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-                  <a
-                    href="/alert/"
-                    className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-blue-400 hover:text-blue-300"
-                  >
-                    <span>Launch Alerts</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                  <span className="text-[10px] font-mono text-slate-400">Voice Synthesis</span>
-                </div>
-              </div>
-            </TiltWrapper>
-
-            {/* Node 04: State NOC Diagnostics & Speed Engine */}
-            <TiltWrapper tiltDeg={3}>
-              <div className="h-full p-7 rounded-[24px] bg-slate-900/70 border border-indigo-500/20 hover:border-indigo-500/50 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group hover:shadow-xl hover:shadow-indigo-950/40">
-                <div className="space-y-3.5">
-                  <div className="flex items-center justify-between">
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
-                      Throughput QoS
-                    </span>
-                    <span className="text-[10px] font-mono text-slate-400 font-bold">ORBIT: SPEED-INJECT</span>
-                  </div>
-
-                  <h3 className="text-xl font-bold font-title text-white group-hover:text-indigo-400 transition-colors">
-                    State NOC Speed &amp; Bandwidth
-                  </h3>
-
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    <strong>Impact:</strong> Multi-threaded TCP/HTTP bandwidth diagnostic utility measuring latency, jitter, throughput, and 1080p Ultra-HD video conferencing readiness scores.
-                  </p>
-
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {["Performance API", "Vanta.js", "TCP Sockets", "Speed Test"].map((t, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-slate-950 border border-slate-800 text-indigo-400/80">
-                        #{t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-                  <a
-                    href="/speed/"
-                    className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-indigo-400 hover:text-indigo-300"
-                  >
-                    <span>Run Speed Test</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                  <span className="text-[10px] font-mono text-slate-400">Bandwidth Test</span>
-                </div>
-              </div>
-            </TiltWrapper>
-
-            {/* Node 05: 38-District Video Conference (VC) Studio Monitor */}
-            <TiltWrapper tiltDeg={3}>
-              <div className="h-full p-7 rounded-[24px] bg-slate-900/70 border border-teal-500/20 hover:border-teal-500/50 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group hover:shadow-xl hover:shadow-teal-950/40">
-                <div className="space-y-3.5">
-                  <div className="flex items-center justify-between">
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-teal-500/10 border border-teal-500/20 text-teal-400">
-                      Broadcast Ready
-                    </span>
-                    <span className="text-[10px] font-mono text-slate-400 font-bold">ORBIT: 38-VC-STUDIOS</span>
-                  </div>
-
-                  <h3 className="text-xl font-bold font-title text-white group-hover:text-teal-400 transition-colors">
-                    38-District VC Studio Codec Monitor
-                  </h3>
-
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    <strong>Impact:</strong> 38-District Panasonic KX-VC1300 real-time telemetry (Jitter, Packet Loss, Latency) monitoring 1080p high-definition broadcast readiness.
-                  </p>
-
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {["Panasonic Codecs", "QoS Analysis", "Jitter Buffers", "HD 1080p"].map((t, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-slate-950 border border-slate-800 text-teal-400/80">
-                        #{t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-                  <a
-                    href="/vc/"
-                    className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-teal-400 hover:text-teal-300"
-                  >
-                    <span>Launch VC Portal</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                  <span className="text-[10px] font-mono text-slate-400">38 Studios</span>
-                </div>
-              </div>
-            </TiltWrapper>
-
-            {/* Node 06: CyberKarma & JumpStreet Dual Impact Ecosystems */}
-            <TiltWrapper tiltDeg={3}>
-              <div className="h-full p-7 rounded-[24px] bg-slate-900/70 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group hover:shadow-xl hover:shadow-purple-950/40">
-                <div className="space-y-3.5">
-                  <div className="flex items-center justify-between">
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-purple-500/10 border border-purple-500/20 text-purple-400">
-                      Karma &amp; Quant
-                    </span>
-                    <span className="text-[10px] font-mono text-slate-400 font-bold">ORBIT: SOCIAL-ALGO</span>
-                  </div>
-
-                  <h3 className="text-xl font-bold font-title text-white group-hover:text-purple-400 transition-colors">
-                    CyberKarma &amp; JumpStreet Engines
-                  </h3>
-
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    <strong>Impact:</strong> Decentralized ethical charity quiz engine funding real animal rescue meals in Patna + quantitative algorithmic trading platform (Orca6).
-                  </p>
-
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {["Next.js", "Web3/Charity", "Algorithmic Quant", "TypeScript"].map((t, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded-md text-[9px] font-mono font-bold bg-slate-950 border border-slate-800 text-purple-400/80">
-                        #{t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-                  <a
-                    href="https://cyberkarma.me"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-purple-400 hover:text-purple-300"
-                  >
-                    <span>cyberkarma.me</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                  <a
-                    href="https://jumpstreet.tech"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-[10px] font-mono text-cyan-400 hover:underline"
-                  >
-                    jumpstreet.tech &rarr;
-                  </a>
-                </div>
-              </div>
-            </TiltWrapper>
-
+              </TiltWrapper>
+            ))}
           </div>
         </section>
 
@@ -815,7 +904,7 @@ export default function Home() {
               { title: "CISSP (Information Systems Security)", org: "ISC2", status: "Target: Q3 2027", color: "border-indigo-500/25 text-indigo-400 bg-indigo-950/20" },
               { title: "MBA in Cybersecurity", org: "Chitkara University", status: "In Progress (Exp 2027)", color: "border-emerald-500/25 text-emerald-300 bg-emerald-950/20" }
             ].map((cert, idx) => (
-              <div key={idx} className={`p-4 rounded-2xl border ${cert.color} backdrop-blur-xl flex flex-col justify-between space-y-2`}>
+              <div key={idx} className={`p-4 rounded-2xl border ${cert.color} backdrop-blur-xl flex flex-col justify-between space-y-2 hover:border-emerald-400/40 transition-all`}>
                 <div>
                   <div className="text-xs font-mono font-bold text-slate-400">{cert.org}</div>
                   <div className="text-sm font-bold text-white mt-0.5">{cert.title}</div>
@@ -828,7 +917,6 @@ export default function Home() {
           </div>
         </section>
 
-        
         {/* SECTION: ACADEMIC EDUCATION */}
         <section className="space-y-6">
           <div className="space-y-1">
@@ -842,7 +930,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-[24px] bg-slate-900/60 border border-emerald-500/20 backdrop-blur-xl flex flex-col justify-between space-y-4">
+            <div className="p-6 rounded-[24px] bg-slate-900/60 border border-emerald-500/20 backdrop-blur-xl flex flex-col justify-between space-y-4 hover:border-emerald-500/40 transition-all">
               <div className="space-y-2">
                 <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-full text-xs font-bold font-mono border border-emerald-500/20">Expected Jul 2027</span>
                 <h3 className="text-lg font-bold font-title text-white">MBA in Cybersecurity</h3>
@@ -856,7 +944,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="p-6 rounded-[24px] bg-slate-900/60 border border-cyan-500/20 backdrop-blur-xl flex flex-col justify-between space-y-4">
+            <div className="p-6 rounded-[24px] bg-slate-900/60 border border-cyan-500/20 backdrop-blur-xl flex flex-col justify-between space-y-4 hover:border-cyan-500/40 transition-all">
               <div className="space-y-2">
                 <span className="px-3 py-1 bg-cyan-500/10 text-cyan-400 rounded-full text-xs font-bold font-mono border border-cyan-500/20">2019 &mdash; 2022</span>
                 <h3 className="text-lg font-bold font-title text-white">B.Tech &mdash; Computer Science &amp; Engineering</h3>
@@ -870,7 +958,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="p-6 rounded-[24px] bg-slate-900/60 border border-blue-500/20 backdrop-blur-xl flex flex-col justify-between space-y-4">
+            <div className="p-6 rounded-[24px] bg-slate-900/60 border border-blue-500/20 backdrop-blur-xl flex flex-col justify-between space-y-4 hover:border-blue-500/40 transition-all">
               <div className="space-y-2">
                 <span className="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-bold font-mono border border-blue-500/20">2013 &mdash; 2018</span>
                 <h3 className="text-lg font-bold font-title text-white">Diploma &mdash; Computer Science &amp; Engineering</h3>
@@ -886,9 +974,8 @@ export default function Home() {
           </div>
         </section>
 
-
         {/* SECTION 3: EMPLOYMENT TIMELINE */}
-        <section className="space-y-8">
+        <section id="experience" className="space-y-8">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
               <Briefcase className="w-3.5 h-3.5" />
@@ -900,7 +987,7 @@ export default function Home() {
           </div>
 
           <div className="space-y-6">
-                        {[
+            {[
               {
                 period: "Feb 2024 — Present",
                 role: "Security Administrator & NGFW Architect",
@@ -989,7 +1076,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SECTION 4: TECHNICAL WRITE-UPS ENGINE (TIER 5) */}
+        {/* SECTION 4: TECHNICAL WRITE-UPS & FIELD BLUEPRINTS */}
         <section id="writeups" className="space-y-8 pt-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1">
@@ -1010,7 +1097,10 @@ export default function Home() {
             {WRITE_UPS.map((art) => (
               <div
                 key={art.id}
-                onClick={() => setSelectedWriteUp(art)}
+                onClick={() => {
+                  setSelectedWriteUp(art);
+                  setActiveWriteUpTab("overview");
+                }}
                 className="p-6 rounded-[24px] bg-slate-900/60 border border-emerald-500/15 hover:border-emerald-500/40 hover:bg-slate-900/90 transition-all duration-300 cursor-pointer flex flex-col justify-between space-y-4 group backdrop-blur-xl"
               >
                 <div className="space-y-3">
@@ -1037,19 +1127,19 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SECTION 5: BEYOND SECURITY — SIDE PROJECTS SHELF */}
+        {/* SECTION 5: BEYOND SECURITY — ECOSYSTEM & SIDE PROJECTS */}
         <section className="space-y-6 pt-4">
           <div className="space-y-1">
             <div className="text-[11px] font-mono text-slate-400 font-bold uppercase tracking-wider">
               05 // Breadth &amp; Engineering Diversity
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold font-title text-white">
-              Beyond Security &mdash; Side Projects
+              Beyond Security &mdash; The Triad Ecosystem
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {/* Side 1: CyberKarma */}
+            {/* Side 1: CyberKarma */}
             <TiltWrapper tiltDeg={3}>
               <div className="rounded-[24px] bg-slate-900/60 border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 flex flex-col justify-between backdrop-blur-xl h-full group hover:shadow-xl hover:shadow-amber-950/30 overflow-hidden">
                 <div className="relative w-full h-44 overflow-hidden bg-slate-950">
@@ -1060,7 +1150,7 @@ export default function Home() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80" />
                   <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-black/60 backdrop-blur-md text-amber-300 border border-amber-500/30">
-                    Social Impact &bull; Animal Daanam
+                    Social Impact &bull; Animal Welfare
                   </span>
                 </div>
                 <div className="p-6 space-y-3 flex-1 flex flex-col justify-between">
@@ -1175,7 +1265,7 @@ export default function Home() {
             </h2>
           </div>
 
-                    <div className="p-8 rounded-[24px] bg-slate-900/60 border border-emerald-500/15 backdrop-blur-xl space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+          <div className="p-8 rounded-[24px] bg-slate-900/60 border border-emerald-500/15 backdrop-blur-xl space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
             <p>
               <strong>Cybersecurity Engineer &amp; NGFW Architect at Ebix Technologies (Client: NIC, MeitY Govt. of India)</strong>, architecting default-deny NGFW estates (Palo Alto, Check Point, Fortinet) and managing SentinelOne, Deep Security, and Wazuh deployments across 750+ regional government endpoints.
             </p>
@@ -1193,7 +1283,7 @@ export default function Home() {
 
         {/* SECTION 7: CONTACT & RECRUITER REACH */}
         <section id="contact" className="space-y-8 pt-6">
-          <div className="p-8 sm:p-12 rounded-3xl border border-emerald-500/20 bg-gradient-to-r from-emerald-950/30 via-slate-900/60 to-cyan-950/30 backdrop-blur-2xl space-y-8">
+          <div className="p-8 sm:p-12 rounded-3xl border border-emerald-500/25 bg-gradient-to-r from-emerald-950/40 via-slate-900/80 to-cyan-950/40 backdrop-blur-2xl space-y-8 shadow-2xl">
             <div className="space-y-2 text-center max-w-2xl mx-auto">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
                 <Mail className="w-3.5 h-3.5" />
@@ -1205,7 +1295,7 @@ export default function Home() {
               </p>
               <div className="pt-2 text-xs font-mono font-bold text-emerald-400 flex items-center justify-center gap-2">
                 <MapPin className="w-3.5 h-3.5" />
-                <span>Open to relocation: India &bull; UAE &bull; Singapore &bull; UK &bull; EU</span>
+                <span>Open to relocation: India &bull; UAE &bull; Singapore &bull; UK &bull; Germany &bull; EU &bull; US</span>
               </div>
             </div>
 
@@ -1217,7 +1307,7 @@ export default function Home() {
               >
                 <Mail className="w-6 h-6 text-emerald-400 group-hover:scale-110 transition-transform" />
                 <div className="text-xs font-mono font-bold text-white">Direct Email</div>
-                <div className="text-[11px] font-mono text-slate-400">adityasec32@gmail.com</div>
+                <div className="text-[11px] font-mono text-slate-400">contact@adityasec32.systems</div>
               </a>
 
               <a
@@ -1243,7 +1333,7 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Quick Contact Box */}
+            {/* Quick Contact Form */}
             <form onSubmit={handleQuickContact} className="max-w-xl mx-auto space-y-3 pt-2">
               <div className="flex gap-2">
                 <input
@@ -1255,7 +1345,7 @@ export default function Home() {
                 />
                 <button
                   type="submit"
-                  className="px-5 py-3 rounded-xl bg-emerald-500 text-slate-950 font-mono font-bold text-xs hover:bg-emerald-400 transition-all flex items-center gap-1.5 min-h-[44px]"
+                  className="px-5 py-3 rounded-xl bg-emerald-500 text-slate-950 font-mono font-bold text-xs hover:bg-emerald-400 transition-all flex items-center gap-1.5 min-h-[44px] cursor-pointer"
                 >
                   <span>Send</span>
                   <Send className="w-3.5 h-3.5" />
@@ -1268,18 +1358,23 @@ export default function Home() {
               )}
             </form>
 
-            {/* Repeat Download Resume at Bottom of Page (Never make recruiters scroll back up) */}
+            {/* Bottom Download Resume */}
             <div className="text-center pt-6 border-t border-slate-800">
               <CyberResumeButton variant="bottom" />
             </div>
 
-            {/* PGP & Security Disclosure Signals */}
+            {/* PGP & Security Disclosure */}
             <div className="pt-6 text-center space-y-2 text-[11px] font-mono text-slate-400">
               <div className="flex flex-wrap items-center justify-center gap-4">
-                <span className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={copyPgpKey}
+                  className="flex items-center gap-1.5 text-slate-400 hover:text-emerald-300 transition-colors cursor-pointer"
+                >
                   <KeyRound className="w-3.5 h-3.5 text-emerald-400" />
                   <span>PGP: 4A8B 92C1 3E7F 8902 B5D4 1A9C 77E0 63F8</span>
-                </span>
+                  {copiedPgp ? <span className="text-emerald-400 font-bold ml-1">(Copied!)</span> : null}
+                </button>
                 <span>&bull;</span>
                 <a href="/.well-known/security.txt" className="text-emerald-400 hover:underline">
                   security.txt Policy
@@ -1292,16 +1387,22 @@ export default function Home() {
 
       </main>
 
-      {/* Write-Up Reader Modal */}
+      {/* Technical Write-Up Deep Dive Reader Modal */}
       <AnimatePresence>
         {selectedWriteUp && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+          <div 
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setSelectedWriteUp(null);
+            }}
+          >
             <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              className="w-full max-w-3xl max-h-[85vh] overflow-y-auto bg-slate-900 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl font-sans text-slate-200"
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              className="w-full max-w-3xl max-h-[85vh] overflow-y-auto bg-slate-900 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl font-sans text-slate-200 scrollbar-thin"
             >
+              {/* Header */}
               <div className="flex items-start justify-between gap-4 border-b border-slate-800 pb-4">
                 <div className="space-y-1">
                   <span className="px-3 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
@@ -1317,46 +1418,111 @@ export default function Home() {
                   </div>
                 </div>
                 <button
+                  type="button"
                   onClick={() => setSelectedWriteUp(null)}
-                  className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
                   aria-label="Close Blueprint"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              <div className="space-y-4 text-sm text-slate-300 leading-relaxed">
-                <div>
-                  <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 mb-1">Executive Overview</h4>
-                  <p>{selectedWriteUp.content.overview}</p>
-                </div>
-
-                <div>
-                  <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 mb-2">Technical Methodology &amp; Execution</h4>
-                  <ul className="space-y-2 list-disc pl-5">
-                    {selectedWriteUp.content.methodology.map((m, i) => (
-                      <li key={i}>{m}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 mb-2">Defensive Mitigations &amp; Key Takeaways</h4>
-                  <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
-                    {selectedWriteUp.content.takeaways.map((t, i) => (
-                      <div key={i} className="flex items-start gap-2 text-xs font-mono text-slate-300">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
-                        <span>{t}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              {/* Tab Navigation */}
+              <div className="flex flex-wrap gap-2 border-b border-slate-800 pb-3">
+                {[
+                  { id: "overview", label: "Executive Overview" },
+                  { id: "methodology", label: "Methodology & Steps" },
+                  { id: "takeaways", label: "Defensive Mitigations" },
+                  ...(selectedWriteUp.content.codeSnippet ? [{ id: "code", label: "Code / CLI Payload" }] : [])
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setActiveWriteUpTab(tab.id as any)}
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
+                      activeWriteUpTab === tab.id
+                        ? "bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/30"
+                        : "bg-slate-950 border border-slate-800 text-slate-400 hover:text-white"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
               </div>
 
+              {/* Tab Content */}
+              <div className="space-y-4 text-sm text-slate-300 leading-relaxed">
+                {activeWriteUpTab === "overview" && (
+                  <div className="space-y-3">
+                    <p className="text-base text-slate-200 leading-relaxed font-sans">{selectedWriteUp.content.overview}</p>
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {selectedWriteUp.tags.map((t, i) => (
+                        <span key={i} className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-slate-950 border border-slate-800 text-emerald-400">
+                          #{t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeWriteUpTab === "methodology" && (
+                  <div className="space-y-3">
+                    <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 mb-2">Technical Execution Phases:</h4>
+                    <ul className="space-y-3 pl-2">
+                      {selectedWriteUp.content.methodology.map((m, i) => (
+                        <li key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-950/80 border border-slate-800/80">
+                          <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5">
+                            {i + 1}
+                          </span>
+                          <span className="text-xs sm:text-sm text-slate-200">{m}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {activeWriteUpTab === "takeaways" && (
+                  <div className="space-y-3">
+                    <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 mb-2">Defensive Playbook &amp; Controls:</h4>
+                    <div className="space-y-2.5">
+                      {selectedWriteUp.content.takeaways.map((t, i) => (
+                        <div key={i} className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-950 border border-emerald-500/20 text-xs sm:text-sm font-mono text-slate-200">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                          <span>{t}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeWriteUpTab === "code" && selectedWriteUp.content.codeSnippet && (
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-xs font-mono text-slate-400">
+                      <span>Executable Commands &amp; Rule Syntax:</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigator.clipboard.writeText(selectedWriteUp.content.codeSnippet || "");
+                        }}
+                        className="px-2 py-1 rounded bg-slate-800 text-emerald-400 hover:text-emerald-300 text-xs font-mono flex items-center gap-1 cursor-pointer"
+                      >
+                        <Copy className="w-3.5 h-3.5" />
+                        <span>Copy Code</span>
+                      </button>
+                    </div>
+                    <pre className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-emerald-300 font-mono text-xs overflow-x-auto leading-relaxed">
+                      <code>{selectedWriteUp.content.codeSnippet}</code>
+                    </pre>
+                  </div>
+                )}
+              </div>
+
+              {/* Footer */}
               <div className="pt-4 border-t border-slate-800 flex justify-end">
                 <button
+                  type="button"
                   onClick={() => setSelectedWriteUp(null)}
-                  className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-mono font-bold text-white transition-colors min-h-[44px]"
+                  className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-mono font-bold text-white transition-colors min-h-[44px] cursor-pointer"
                 >
                   Close Blueprint
                 </button>
@@ -1369,11 +1535,16 @@ export default function Home() {
       {/* Case Study Modal */}
       <AnimatePresence>
         {caseStudyModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+          <div 
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setCaseStudyModal(false);
+            }}
+          >
             <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
               className="w-full max-w-2xl bg-slate-900 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl font-sans text-slate-200"
             >
               <div className="flex items-start justify-between gap-4 border-b border-slate-800 pb-4">
@@ -1386,8 +1557,9 @@ export default function Home() {
                   </h3>
                 </div>
                 <button
+                  type="button"
                   onClick={() => setCaseStudyModal(false)}
-                  className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
                   aria-label="Close Case Study"
                 >
                   <X className="w-5 h-5" />
@@ -1410,8 +1582,9 @@ export default function Home() {
 
               <div className="pt-4 border-t border-slate-800 flex justify-end">
                 <button
+                  type="button"
                   onClick={() => setCaseStudyModal(false)}
-                  className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-mono font-bold text-white transition-colors min-h-[44px]"
+                  className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-mono font-bold text-white transition-colors min-h-[44px] cursor-pointer"
                 >
                   Close Case Study
                 </button>

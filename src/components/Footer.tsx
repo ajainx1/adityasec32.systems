@@ -102,10 +102,10 @@ export default function Footer() {
         <div className="space-y-3">
           <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-slate-200">Competencies</h4>
           <ul className="space-y-2 text-xs font-mono">
-            <li><a href="#skills" className="hover:text-cyan-400 transition-colors">EDR & SIEM Engineering</a></li>
-            <li><a href="#experience" className="hover:text-cyan-400 transition-colors">Enterprise History</a></li>
-            <li><a href="#projects" className="hover:text-cyan-400 transition-colors">Offensive Automation</a></li>
-            <li><a href="#certs" className="hover:text-cyan-400 transition-colors">Certifications & FCAC</a></li>
+            <li><a href="#projects" className="hover:text-emerald-400 transition-colors">CNI Defense &amp; Telemetry</a></li>
+            <li><a href="#writeups" className="hover:text-emerald-400 transition-colors">Technical Write-Ups</a></li>
+            <li><a href="#experience" className="hover:text-emerald-400 transition-colors">Enterprise History (NIC &amp; DAE)</a></li>
+            <li><a href="#about" className="hover:text-emerald-400 transition-colors">Certifications &amp; Degrees</a></li>
           </ul>
         </div>
 
@@ -113,28 +113,30 @@ export default function Footer() {
         <div className="space-y-3">
           <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-slate-200">Ecosystem</h4>
           <ul className="space-y-2 text-xs font-mono">
-            <li><a href="https://cyberkarma.me" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">CyberKarma Charity</a></li>
-            <li><a href="https://jumpstreet.tech" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">JumpStreet Tech</a></li>
+            <li><a href="https://adityasec32.systems" className="hover:text-emerald-400 transition-colors">adityasec32.systems</a></li>
+            <li><a href="https://cyberkarma.me" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">CyberKarma (Free Rice)</a></li>
+            <li><a href="https://jumpstreet.tech" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">JumpStreet Quant Platform</a></li>
           </ul>
         </div>
 
         {/* Compliance */}
         <div className="space-y-3">
-          <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-slate-200">Legal & Privacy</h4>
+          <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-slate-200">Legal &amp; Security</h4>
           <ul className="space-y-2 text-xs font-mono">
-            <li><a href="https://cyberkarma.me/privacy/" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">Privacy Policy</a></li>
-            <li><a href="https://cyberkarma.me/terms/" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">Terms of Service</a></li>
-            <li><a href="mailto:contact@adityasec32.systems" className="hover:text-cyan-400 transition-colors flex items-center gap-1.5"><Mail size={12} /> contact@adityasec32.systems</a></li>
+            <li><a href="/.well-known/security.txt" className="hover:text-emerald-400 transition-colors">security.txt Policy</a></li>
+            <li><a href="https://cyberkarma.me/privacy/" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">Privacy Policy</a></li>
+            <li><a href="https://cyberkarma.me/terms/" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">Terms of Service</a></li>
+            <li><a href="mailto:contact@adityasec32.systems" className="hover:text-emerald-400 transition-colors flex items-center gap-1.5"><Mail size={12} /> contact@adityasec32.systems</a></li>
           </ul>
         </div>
 
       </div>
 
       <div className="max-w-7xl mx-auto pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-slate-500 gap-4">
-        <span>© {new Date().getFullYear()} Aditya Jain. All rights reserved. SME Cybersecurity Engineer.</span>
+        <span>© {new Date().getFullYear()} Aditya Jain. All rights reserved. Cybersecurity Engineer &amp; NGFW Architect.</span>
         <div className="flex items-center gap-4">
+          <a href="/.well-known/security.txt" className="hover:underline text-emerald-400">Security Disclosure</a>
           <a href="https://cyberkarma.me/privacy/" className="hover:underline">Privacy</a>
-          <a href="https://cyberkarma.me/terms/" className="hover:underline">Terms</a>
           <a href="mailto:contact@adityasec32.systems" className="hover:underline">Contact</a>
         </div>
       </div>
