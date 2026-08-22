@@ -23,10 +23,24 @@ let cachedVisitorInfo: VisitorInfo | null = null;
 export async function getVisitorLocation(): Promise<VisitorInfo> {
   if (cachedVisitorInfo) return cachedVisitorInfo;
 
+  // Non-blocking fetch with strict 1.5s timeout via AbortController
+  const fetchWithTimeout = async (url: string, timeoutMs = 1500) => {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const res = await fetch(url, { signal: controller.signal, cache: "no-store" });
+      clearTimeout(id);
+      return res;
+    } catch {
+      clearTimeout(id);
+      return null;
+    }
+  };
+
   // Try Provider 1: ipapi.co
   try {
-    const res = await fetch("https://ipapi.co/json/", { cache: "no-store" });
-    if (res.ok) {
+    const res = await fetchWithTimeout("https://ipapi.co/json/", 1200);
+    if (res && res.ok) {
       const data = await res.json();
       if (data && data.ip) {
         cachedVisitorInfo = {
@@ -47,8 +61,8 @@ export async function getVisitorLocation(): Promise<VisitorInfo> {
 
   // Try Provider 2: ipwho.is
   try {
-    const res2 = await fetch("https://ipwho.is/", { cache: "no-store" });
-    if (res2.ok) {
+    const res2 = await fetchWithTimeout("https://ipwho.is/", 1200);
+    if (res2 && res2.ok) {
       const data2 = await res2.json();
       if (data2 && data2.ip) {
         cachedVisitorInfo = {
@@ -66,7 +80,7 @@ export async function getVisitorLocation(): Promise<VisitorInfo> {
     }
   } catch {}
 
-  // Fallback generic
+  // Fallback fast
   cachedVisitorInfo = {
     ip: "Protected / Local",
     city: "Direct Access",
@@ -109,7 +123,7 @@ export async function logSecurityEvent(
     const chatId = TELEGRAM_CHAT_ID;
 
     if (token && chatId) {
-      await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -117,10 +131,9 @@ export async function logSecurityEvent(
           text: message,
           parse_mode: "HTML",
         }),
-      });
+      }).catch(() => {});
     }
 
-    // Also persist in local telemetry buffer for live SOC monitoring
     try {
       const existing = JSON.parse(localStorage.getItem("soc_visitor_telemetry") || "[]");
       existing.unshift({
@@ -148,17 +161,20 @@ export default function TelegramVisitorLogger() {
     const sessionKey = "tg_visitor_logged_" + path;
     if (sessionStorage.getItem(sessionKey)) return;
 
-    const recordVisit = async () => {
-      try {
-        sessionStorage.setItem(sessionKey, "true");
-        await logSecurityEvent("PAGE_VISIT", {
-          referrer: document.referrer || "Direct / Bookmark / Search",
-          resolution: `${window.innerWidth}x${window.innerHeight}`
-        });
-      } catch {}
+    // Run in idle time so it never delays UI rendering
+    const scheduleLog = () => {
+      sessionStorage.setItem(sessionKey, "true");
+      logSecurityEvent("PAGE_VISIT", {
+        referrer: document.referrer || "Direct / Bookmark / Search",
+        resolution: `${window.innerWidth}x${window.innerHeight}`
+      }).catch(() => {});
     };
 
-    recordVisit();
+    if ("requestIdleCallback" in window) {
+      (window as any).requestIdleCallback(scheduleLog, { timeout: 3000 });
+    } else {
+      setTimeout(scheduleLog, 2500);
+    }
   }, []);
 
   return null;
