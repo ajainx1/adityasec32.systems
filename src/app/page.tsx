@@ -33,7 +33,17 @@ import {
   Filter,
   Flame,
   ArrowUpRight,
-  Phone
+  Phone,
+  Server,
+  Zap,
+  Crosshair,
+  FileCheck,
+  Bot,
+  Compass,
+  Clock,
+  UserCheck,
+  GraduationCap,
+  Plane
 } from "lucide-react";
 import Link from "next/link";
 import TiltWrapper from "@/components/3d/TiltWrapper";
@@ -41,18 +51,20 @@ import CyberResumeButton from "@/components/CyberResumeButton";
 import CharityQuizClient from "@/components/charity/CharityQuizClient";
 import { ToastProvider } from "@/components/js/ToastContext";
 
-// Interactive Terminal Data
+// Interactive Terminal Command Database (Synchronized with Official Resume)
 const COMMANDS: Record<string, string[]> = {
   help: [
     "Available commands:",
-    "  whoami      - Display professional profile summary (JSON)",
-    "  skills      - List core technical competencies & NGFW stacks",
-    "  exp         - View verified enterprise employment history",
-    "  education   - View academic degrees & MBA (Cybersecurity)",
-    "  certs       - View active & targeted certifications",
-    "  projects    - Summary of active CNI & defense systems",
-    "  ecosystem   - View AdityaSec, JumpStreet & CyberKarma triad",
-    "  contact     - Display direct contact channels & relocation status",
+    "  whoami      - Executive profile summary & verified impact (JSON)",
+    "  skills      - 5 Core Competencies & technical toolchains",
+    "  exp         - 4+ Years enterprise employment history & CNI SecOps",
+    "  projects    - Key CNI defense systems & production tools",
+    "  labs        - Offensive security labs & academic coursework",
+    "  certs       - Active certifications & targeted roadmap",
+    "  education   - Academic degrees & MBA (Cybersecurity)",
+    "  recruiter   - Fast-facts, mobility, languages & availability",
+    "  ecosystem   - AdityaSec + JumpStreet + CyberKarma triad",
+    "  contact     - Direct contact channels & PGP fingerprint",
     "  clear       - Clear terminal output"
   ],
   whoami: [
@@ -60,41 +72,84 @@ const COMMANDS: Record<string, string[]> = {
     "{",
     '  "name": "Aditya Jain",',
     '  "role": "Cybersecurity Engineer | Network Security & NGFW Architect",',
-    '  "specialization": "Palo Alto/Check Point/Fortinet NGFW, VAPT, SIEM/EDR, DFIR",',
+    '  "sub_roles": "Purple Teamer | VAPT | SIEM/EDR | DFIR",',
     '  "experience": "4+ Years Enterprise SecOps & CNI Defense",',
-    '  "current": "Security Administrator & NGFW Architect @ Ebix / NIC (MeitY)",',
-    '  "impact": "750+ Endpoints Secured · 60% Audit Time Cut · +35% True Positives",',
-    '  "education": "MBA in Cybersecurity (In Progress) · B.Tech CSE (Manipal)",',
-    '  "phone": "+91 74005 88896",',
-    '  "email": "adityasec32@gmail.com / contact@adityasec32.systems",',
-    '  "location": "Patna, Bihar (NIC MeitY) | Relocation: Delhi NCR, Blr, Hyd, Pune, Mum, Global (UAE, SG, UK, EU)"',
+    '  "current_role": "Security Administrator & NGFW Architect @ Ebix / NIC (MeitY Govt. of India)",',
+    '  "posting": "Patna, Bihar (On-site: NIC MeitY) | Employer HQ: Noida",',
+    '  "verified_impact": {',
+    '    "endpoints_secured": "750+ Government Endpoints",',
+    '    "audit_reduction": "60% Reduction in Manual Audit Cycles (KACE UEM)",',
+    '    "threat_detection": "+35% Elevation in True-Positive Alert Efficacy",',
+    '    "cni_nodes": "38 Regional Districts & SDC Linux Rack Servers"',
+    '  },',
+    '  "education": "MBA (Cybersecurity) in progress · B.Tech CSE (Manipal)",',
+    '  "contact": {',
+    '    "phone": "+91 74005 88896",',
+    '    "email": "adityasec32@gmail.com / contact@adityasec32.systems",',
+    '    "linkedin": "linkedin.com/in/ajainx1",',
+    '    "github": "github.com/ajainx1"',
+    '  }',
     "}"
   ],
   skills: [
-    "aditya@secops:~$ list-competencies --verbose",
-    "• Network Security & NGFW : Palo Alto (Panorama, App-ID, Threat Prev), Check Point, Fortinet, Default-Deny, ZTNA, OSPF, TACACS+/RADIUS, Wireshark",
-    "• Offensive & VAPT        : Web & Infra VAPT, OWASP Top 10, Active Directory Exploitation (BloodHound, Kerberoasting, DCSync, Impacket, Mimikatz, Rubeus, Hashcat, NetExec, Burp Suite Pro, Nmap)",
-    "• SIEM / EDR & Hunting    : Wazuh, Splunk, SentinelOne, Trend Micro Deep Security, Microsoft Sentinel, Kaspersky EDR, Snort, MITRE ATT&CK",
-    "• Compliance & Scripting  : CERT-In Guidelines, CDAC Standards, NIST CSF, ISO 27001, Python, Bash, PowerShell Automation, Git, RAM Dump Analysis"
+    "aditya@secops:~$ list-competencies --all",
+    "1. NETWORK SECURITY & FIREWALLS:",
+    "   • Palo Alto (Panorama, App-ID, Threat Prevention), Check Point, Fortinet",
+    "   • Default-Deny Architecture, ZTNA, OSPF, TACACS+/RADIUS, Network Segmentation, Wireshark",
+    "2. OFFENSIVE SECURITY & VAPT:",
+    "   • Web & Infra VAPT, OWASP Top 10",
+    "   • Active Directory Exploitation (BloodHound, Kerberoasting, AS-REP Roasting, DCSync, Pass-the-Hash, Delegation Abuse)",
+    "   • Tools: Impacket, Mimikatz, Rubeus, Hashcat, NetExec (CrackMapExec), PrivEsc (winPEAS/linPEAS), Metasploit, Burp Suite Pro, Nmap",
+    "3. SIEM, EDR & THREAT HUNTING:",
+    "   • Wazuh, Splunk, SentinelOne, Trend Micro Deep Security, Microsoft Sentinel, Kaspersky EDR, Snort",
+    "   • MITRE ATT&CK Framework, DFIR & RAM Dump Analysis",
+    "4. COMPLIANCE, CLOUD & SCRIPTING:",
+    "   • CERT-In Guidelines, CDAC Standards, NIST CSF, CIS Controls, ISO 27001 (familiar)",
+    "   • AWS/Azure Fundamentals, Linux (RHEL/Ubuntu), Python, Bash, PowerShell, Git",
+    "5. AI-AUGMENTED ENGINEERING & OPSEC:",
+    "   • Claude, Google Antigravity (agentic IDE), GitHub Copilot",
+    "   • OPSEC and anonymity-network research (Tor) for defensive threat intelligence"
   ],
   exp: [
     "aditya@secops:~$ get-history",
-    "• Ebix Technologies / Client: NIC (MeitY) (Security Admin & NGFW Architect) - Feb 2024 to Present",
-    "  - Default-deny Palo Alto/Check Point clusters; managed SentinelOne/Deep Security/Wazuh across 750+ endpoints; automated 120+ CERT-In checks (60% audit cut)",
-    "• Independent Security Researcher (Offensive Security & AD Exploitation) - Aug 2023 to Jan 2024",
-    "  - Advanced AD exploitation labs (HTB, VulnLab multi-forest, Kerberoasting, DCSync, DC compromise)",
-    "• RRG Engineering / Client: DAE Nuclear Fuel Complex (SOC Analyst - Threat Hunter) - Dec 2022 to Jul 2023",
-    "  - 24x7 CNI nuclear SOC threat hunting; Blu Sapphire SIEM / Splunk; +35% true-positive detection boost",
-    "• E2E Networks Limited (SOC Analyst - IDS & Signatures) - Aug 2022 to Oct 2022",
-    "  - Authored Snort & Wazuh signatures; automated AbuseIPDB perimeter IP blocklisting",
-    "• Teleperformance (Technical Support Executive - Microsoft Enterprise) - Dec 2021 to May 2022",
-    "  - Tier-2 Microsoft enterprise support with strict SLA compliance"
+    "• Ebix Technologies (Client: NIC, MeitY Govt. of India) - Feb 2024 to Present",
+    "  Role: Security Administrator & NGFW Architect (Patna, India)",
+    "  - Architected default-deny policies on Palo Alto & Check Point clusters; secured Bihar SDC Linux rack servers.",
+    "  - Managed SentinelOne, Deep Security & Wazuh across 750+ endpoints; tuned correlation rules (-30% alert fatigue).",
+    "  - Primary CERT-In incident responder; automated 120+ CDAC/CERT-In checks via KACE UEM (60% audit cut).",
+    "  - Authored PoC exploits with NIC-CERT; executed Active Directory attack-path analysis.",
+    "  - Engineered Unified NOC Monitoring Suite (VC health, WAN latency, portal checks across 38 districts).",
+    "  - Delivered specialized NGFW/EDR/CERT-In security training to 60+ district FMS teams.",
+    "• Independent Security Researcher - Aug 2023 to Jan 2024 (Remote)",
+    "  - Executed advanced AD exploitation labs (HTB, VulnLab multi-forest, Kerberoasting, DCSync, DC compromise).",
+    "• RRG Engineering Tech (Client: DAE Nuclear Fuel Complex) - Dec 2022 to Jul 2023 (Kota, India)",
+    "  Role: SOC Analyst – Threat Hunter (24x7 CNI SOC)",
+    "  - 24x7 threat hunting via Blu Sapphire SIEM & Splunk; +35% true-positive detection boost.",
+    "  - Behavioral malware analysis and sandbox reproduction to update detection signatures.",
+    "• E2E Networks Limited - Aug 2022 to Oct 2022 (Vellore, India)",
+    "  Role: SOC Analyst – IDS & Signature Development (Snort/Wazuh custom signatures, AbuseIPDB feed automation).",
+    "• Teleperformance - Dec 2021 to May 2022 (Jaipur, India)",
+    "  Role: Technical Support Executive (Microsoft Enterprise support, strict SLA compliance)."
   ],
-  education: [
-    "aditya@secops:~$ get-education",
-    "• Chitkara University (Punjab, India) - MBA in Cybersecurity (In Progress, Exp: Jul 2027)",
-    "• Manipal University Jaipur (Rajasthan, India) - B.Tech in Computer Science & Engineering (2019 - 2022)",
-    "• Hindu College of Engineering (Haryana, India) - Diploma in Computer Science & Engineering (2013 - 2018)"
+  projects: [
+    "aditya@secops:~$ list-projects --verified",
+    "1. State NOC Admin Portal (NIC Bihar)       - 38 district nodes, live traceroute diagnostics, Ollama LLM voice RAG",
+    "2. Real-Time Network Alert Dashboard        - 293 core routers, sub-second ping tracking, Web Speech voice alarms",
+    "3. Unified NOC Monitoring Suite (NIC Bihar) - Synthetic VC health, WAN speed-tests, portal checks, SLA reporting",
+    "4. LAN Asset Management Portal              - DHCP/PXE-based automated OS deployment, secure internal file sharing",
+    "5. CDAC / CERT-In Compliance Engine         - 750+ endpoints, 120+ checks, 60% audit cycle reduction",
+    "6. CyberKarma & JumpStreet Triad            - Free Rice trivia animal welfare + Orca6 algorithmic trading engine"
+  ],
+  labs: [
+    "aditya@secops:~$ list-labs",
+    "[Offensive Security Labs]",
+    "• Hack The Box: Active Directory exploitation, privilege escalation",
+    "• VulnLab: Multi-forest AD, Domain Controller compromise",
+    "• OPSEC & Tor: Anonymity-network research for defensive threat intelligence",
+    "[Academic Coursework]",
+    "• Security Management & Governance (Royal Holloway, University of London)",
+    "• Introduction to Network Security (University of London)",
+    "• Mathematical Foundations for Cryptography (University of Colorado)"
   ],
   certs: [
     "aditya@secops:~$ list-certs",
@@ -106,22 +161,29 @@ const COMMANDS: Record<string, string[]> = {
     "• CEH v13 (Certified Ethical Hacker) - Target: 2026",
     "• CISSP (Information Systems Security) - Target: Q3 2027",
     "• OSCP (Offensive Security Certified Professional) - Target: 2027+",
-    "• MBA in Cybersecurity (Chitkara University - In Progress)"
+    "• MBA in Cybersecurity (Chitkara University - Expected Jul 2027)"
   ],
-  projects: [
-    "aditya@secops:~$ list-systems",
-    "1. CDAC/CERT-In Compliance Engine  - 750+ Endpoints, 60% Audit Cut (Sanitized)",
-    "2. State NOC Telemetry Portal      - 38 District Core Nodes + Local Ollama RAG AI",
-    "3. Real-Time Alert & Voice Grid   - Sub-second ICMP ping & Indian English voice synthesis",
-    "4. State NOC Bandwidth Engine      - Multi-threaded TCP/HTTP latency & VC codec QoS",
-    "5. 38-District VC Studio Monitor   - Panasonic KX-VC1300 real-time QoS matrix",
-    "6. CyberKarma & JumpStreet Triad   - Free Rice non-profit trivia + Orca6 quant trading"
+  education: [
+    "aditya@secops:~$ get-education",
+    "• Chitkara University (Punjab, India) - MBA in Cybersecurity (In Progress, Expected Jul 2027)",
+    "• Manipal University Jaipur (Rajasthan, India) - B.Tech in Computer Science & Engineering (2019 - 2022)",
+    "• Hindu College of Engineering (Haryana, India) - Diploma in Computer Science & Engineering (2013 - 2018)"
+  ],
+  recruiter: [
+    "aditya@secops:~$ show-recruiter-intel",
+    "• Current Posting    : On-site at National Informatics Centre (MeitY), Patna (Employer HQ: Noida)",
+    "• Relocation Markets : Delhi NCR, Bengaluru, Hyderabad, Pune, Mumbai, Jaipur (family base)",
+    "                       International: UAE, Singapore, UK, Germany (EU Blue Card pathway), EU, US",
+    "• Work Authorization : Indian citizen (Open to visa sponsorship for UAE, SG, UK, Germany, EU, US)",
+    "• Languages          : English (Professional), Hindi (Native)",
+    "• Availability       : 60 Days (Negotiable)",
+    "• Direct Contact     : +91 74005 88896 | adityasec32@gmail.com / contact@adityasec32.systems"
   ],
   ecosystem: [
     "aditya@secops:~$ cat ecosystem.map",
-    "• adityasec32.systems - SecOps & CNI Defense Portfolio (Primary)",
-    "• jumpstreet.tech     - Quantitative Trading & Statistical Arbitrage Platform",
-    "• cyberkarma.me       - Free Rice Philanthropic Trivia Engine (Patna Animal Welfare)"
+    "• adityasec32.systems - Primary SecOps, Purple Teaming & CNI Defense Portfolio",
+    "• jumpstreet.tech     - Quantitative Trading, WebSocket Feeds & Orca6 Arbitrage Engine",
+    "• cyberkarma.me       - Gamified Free Rice Cybersecurity Trivia (Feeding Stray Animals in Patna)"
   ],
   contact: [
     "aditya@secops:~$ show-contact",
@@ -130,8 +192,7 @@ const COMMANDS: Record<string, string[]> = {
     "• LinkedIn  : https://www.linkedin.com/in/ajainx1/",
     "• GitHub    : https://github.com/ajainx1",
     "• Portfolio : https://adityasec32.systems",
-    "• Location  : Patna, Bihar (NIC MeitY) | Preferred: Delhi NCR / Noida",
-    "• Relocation: Open to India (Blr/Hyd/Pune/Mum/Jaipur), UAE, Singapore, UK, Germany (EU Blue Card), EU, US"
+    "• PGP Key   : 4A8B 92C1 3E7F 8902 B5D4 1A9C 77E0 63F8"
   ]
 };
 
@@ -172,7 +233,16 @@ const WRITE_UPS: WriteUp[] = [
         "Enforce 25+ character complex passwords or Group Managed Service Accounts (gMSA) to render offline Kerberoasting crack attempts mathematically infeasible.",
         "Disable RC4-HMAC encryption domain-wide, enforcing AES-128 / AES-256 Kerberos ticket encryption.",
         "Deploy honeypot SPN service accounts with Wazuh SIEM alerting on Event ID 4769 (Kerberos Ticket Request with 0x17 ticket encryption)."
-      ]
+      ],
+      codeSnippet: `# Active Directory Attack Chain Commands (Sanitized Lab)
+# 1. Enumerate and request Kerberos SPN tickets
+GetUserSPNs.py corp.internal/jdoe:Password123 -dc-ip 10.10.10.1 -request -outputfile tgs_hashes.txt
+
+# 2. Offline hash cracking via Hashcat
+hashcat -m 13100 tgs_hashes.txt /usr/share/wordlists/rockyou.txt -r rules/best64.rule --force
+
+# 3. Perform DCSync to dump KRBTGT hash
+secretsdump.py corp.internal/svc_backup:CrackedPass@10.10.10.1 -just-dc-user krbtgt`
     }
   },
   {
@@ -266,29 +336,13 @@ interface ProjectCard {
 
 const PROJECTS_DATA: ProjectCard[] = [
   {
-    id: "cert-in-engine",
-    title: "CDAC / CERT-In Compliance Automation Engine",
-    category: "cni",
-    categoryLabel: "CNI & SecOps Automation",
-    orbitTag: "ORBIT: NIST-CSF-01",
-    impactHighlight: "Cut quarterly audit time by 60% across 750+ government endpoints",
-    description: "Automated PowerShell & Python framework validating 120+ regulatory baselines, USB lockouts, and registry keys across 750+ endpoints via KACE UEM.",
-    tags: ["PowerShell", "Python", "KACE UEM", "NIST CSF", "CERT-In"],
-    isModal: true,
-    linkText: "View Case Study Architecture",
-    colorBorder: "border-emerald-500/25 hover:border-emerald-400",
-    colorGlow: "hover:shadow-emerald-500/20",
-    colorBadge: "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
-    colorText: "group-hover:text-emerald-400"
-  },
-  {
     id: "noc-admin-portal",
-    title: "State NOC Admin & Telemetry Portal",
+    title: "State NOC Admin Portal (NIC Bihar)",
     category: "sandbox",
     categoryLabel: "Live NOC Sandbox",
     orbitTag: "ORBIT: 38-DHQ-CORE",
-    impactHighlight: "Centralized 38 district link health monitors with local Ollama RAG AI",
-    description: "Enterprise network operations dashboard integrating 38 district nodes, TACACS+ credential resets, real-time telemetry, and on-premise RAG LLM troubleshooting.",
+    impactHighlight: "Monitors 38 district nodes with live traceroute & Ollama voice RAG LLM",
+    description: "Enterprise network operations dashboard monitoring 38 regional district nodes with live traceroute diagnostics, automated outage alerting, and an on-premise Ollama voice-enabled RAG chatbot.",
     tags: ["Next.js", "Ollama LLM", "PHP API", "Three.js", "RAG"],
     link: "/noc/",
     linkText: "Launch NOC Portal Demo",
@@ -299,12 +353,12 @@ const PROJECTS_DATA: ProjectCard[] = [
   },
   {
     id: "network-alert-dashboard",
-    title: "Real-Time Network Alert & Speech Grid",
+    title: "Real-Time Network Alert Dashboard",
     category: "sandbox",
     categoryLabel: "Live Telemetry",
     orbitTag: "ORBIT: 293-NODES",
-    impactHighlight: "Sub-second ICMP ping tracking with Web Speech Voice Synthesis",
-    description: "Sub-second packet loss and ping outage tracking across 293 core routing units with Indian English voice broadcast alarms and threshold filtering.",
+    impactHighlight: "JavaScript/CSS Grid ping-monitoring tool for government routers with voice alerts",
+    description: "Sub-second packet loss and ping outage tracking across 293 core routing units with Indian English Web Speech broadcast alarms, severity filtering, and device grid visualization.",
     tags: ["JavaScript", "Chart.js", "Web Speech API", "Glassmorphic"],
     link: "/alert/",
     linkText: "Launch Voice Alert Grid",
@@ -314,45 +368,61 @@ const PROJECTS_DATA: ProjectCard[] = [
     colorText: "group-hover:text-blue-400"
   },
   {
-    id: "speed-diagnostics-engine",
-    title: "State NOC Diagnostics & Bandwidth Engine",
-    category: "sandbox",
-    categoryLabel: "Throughput QoS",
-    orbitTag: "ORBIT: SPEED-INJECT",
-    impactHighlight: "Multi-threaded TCP/HTTP bandwidth diagnostic measuring 1080p VC score",
-    description: "High-precision latency, jitter, throughput and QoS testing utility rating video conferencing codecs for mission-critical government broadcasts.",
-    tags: ["Performance API", "Vanta.js", "TCP Sockets", "Speed Test"],
+    id: "unified-noc-suite",
+    title: "Unified NOC Monitoring Suite (NIC Bihar)",
+    category: "cni",
+    categoryLabel: "CNI Observability",
+    orbitTag: "ORBIT: 38-DISTRICTS-SLA",
+    impactHighlight: "Synthetic monitoring platform for VC health, WAN speed-tests & SLA reporting",
+    description: "In-house observability platform delivering video-conferencing (VC) health monitoring, district WAN speed-tests, and automated portal availability checks across 38 districts with severity-tiered alerting.",
+    tags: ["Synthetic Probes", "QoS Analysis", "WAN Latency", "SLA Engine"],
     link: "/speed/",
-    linkText: "Run Speed Diagnostics",
+    linkText: "Run Diagnostics Suite",
     colorBorder: "border-indigo-500/25 hover:border-indigo-400",
     colorGlow: "hover:shadow-indigo-500/20",
     colorBadge: "bg-indigo-500/10 text-indigo-300 border-indigo-500/30",
     colorText: "group-hover:text-indigo-400"
   },
   {
-    id: "district-vc-monitor",
-    title: "38-District VC Studio Codec Monitor",
+    id: "lan-asset-management",
+    title: "LAN Asset Management Portal",
     category: "cni",
-    categoryLabel: "Broadcast Quality",
-    orbitTag: "ORBIT: 38-VC-STUDIOS",
-    impactHighlight: "38-District Panasonic KX-VC1300 real-time telemetry",
-    description: "Centralized studio video codec monitor tracking jitter, packet drop, and bitrate to ensure uninterrupted 1080p government video conferencing.",
-    tags: ["Panasonic Codecs", "QoS Analysis", "Jitter Buffers", "HD 1080p"],
-    link: "/vc/",
-    linkText: "Launch VC Studio Portal",
+    categoryLabel: "Deployment Automation",
+    orbitTag: "ORBIT: PXE-DHCP-CORE",
+    impactHighlight: "DHCP/PXE-based automated OS deployment & secure internal file distribution",
+    description: "Locally-hosted Python/Bash asset management infrastructure enabling silent PXE OS provisioning, hardware inventory tracking, and cryptographic internal software distribution.",
+    tags: ["Python", "Bash", "DHCP/PXE", "Asset Inventory", "Linux RHEL"],
+    isModal: true,
+    linkText: "View Architecture Specs",
     colorBorder: "border-teal-500/25 hover:border-teal-400",
     colorGlow: "hover:shadow-teal-500/20",
     colorBadge: "bg-teal-500/10 text-teal-300 border-teal-500/30",
     colorText: "group-hover:text-teal-400"
   },
   {
+    id: "cert-in-engine",
+    title: "CDAC / CERT-In Compliance Automation Engine",
+    category: "cni",
+    categoryLabel: "SecOps Automation",
+    orbitTag: "ORBIT: NIST-CSF-01",
+    impactHighlight: "Cut quarterly compliance audit time by 60% across 750+ endpoints",
+    description: "Automated PowerShell & Python framework validating 120+ regulatory baselines, USB lockouts, SMBv1 deprecation, and registry hardening across 750+ endpoints via KACE UEM.",
+    tags: ["PowerShell", "Python", "KACE UEM", "NIST CSF", "CERT-In"],
+    isModal: true,
+    linkText: "View Case Study Blueprint",
+    colorBorder: "border-emerald-500/25 hover:border-emerald-400",
+    colorGlow: "hover:shadow-emerald-500/20",
+    colorBadge: "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
+    colorText: "group-hover:text-emerald-400"
+  },
+  {
     id: "cyberkarma-jumpstreet-triad",
-    title: "CyberKarma & JumpStreet Ecosystem",
+    title: "CyberKarma & JumpStreet Triad Ecosystem",
     category: "social",
     categoryLabel: "Karma & Quant Triad",
     orbitTag: "ORBIT: SOCIAL-ALGO",
-    impactHighlight: "Free Rice animal welfare platform + Orca6 algorithmic trading engine",
-    description: "Decentralized educational charity game converting correct trivia into real-world stray dog meals in Patna + statistical arbitrage quantitative trading platform.",
+    impactHighlight: "Free Rice animal welfare platform + Orca6 algorithmic trading platform",
+    description: "Gamified educational trivia platform converting cybersecurity quizzes into real stray animal meals in Patna + statistical arbitrage quantitative trading architecture (Orca6).",
     tags: ["Next.js", "Web3/Charity", "Algorithmic Quant", "TypeScript"],
     link: "https://cyberkarma.me",
     linkText: "Explore cyberkarma.me",
@@ -360,6 +430,75 @@ const PROJECTS_DATA: ProjectCard[] = [
     colorGlow: "hover:shadow-purple-500/20",
     colorBadge: "bg-purple-500/10 text-purple-300 border-purple-500/30",
     colorText: "group-hover:text-purple-400"
+  }
+];
+
+// 5 Pillars of Core Competencies from Official Resume
+const SKILLS_PILLARS = [
+  {
+    id: "network",
+    title: "Network Security & Firewalls",
+    icon: Shield,
+    badge: "NGFW & ZTNA",
+    skills: [
+      { name: "Palo Alto", details: "Panorama, App-ID, Threat Prevention, SSL Decryption" },
+      { name: "Check Point", details: "ClusterXL, SmartConsole, Threat Extraction" },
+      { name: "Fortinet FortiGate", details: "FCA Certified, FortiOS, SD-WAN, IPS Policies" },
+      { name: "Default-Deny Architecture", details: "Zero-Trust perimeter enforcement across SDC rack servers" },
+      { name: "Zero Trust (ZTNA)", details: "Identity-aware least privilege microsegmentation" },
+      { name: "Routing & Protocols", details: "OSPF, BGP, TACACS+, RADIUS, 802.1X" },
+      { name: "Packet Analysis", details: "Wireshark, TCPDump, NetFlow telemetry analysis" }
+    ]
+  },
+  {
+    id: "offensive",
+    title: "Offensive Security & VAPT",
+    icon: Crosshair,
+    badge: "VAPT & AD Exploitation",
+    skills: [
+      { name: "Active Directory Exploitation", details: "BloodHound path analysis, Kerberoasting, AS-REP Roasting, DCSync, Pass-the-Hash, Delegation Abuse" },
+      { name: "Offensive Toolchains", details: "Impacket suite, Mimikatz, Rubeus, Hashcat, NetExec (CrackMapExec)" },
+      { name: "Privilege Escalation", details: "winPEAS, linPEAS, token manipulation, service abuse" },
+      { name: "Web & Infra VAPT", details: "Burp Suite Pro, OWASP Top 10, Metasploit, Nmap, PoC exploit authoring" },
+      { name: "Lab Mastery", details: "Hack The Box & VulnLab multi-forest Active Directory compromise" }
+    ]
+  },
+  {
+    id: "siem",
+    title: "SIEM, EDR & Threat Hunting",
+    icon: Zap,
+    badge: "SOC & Detection Engineering",
+    skills: [
+      { name: "Enterprise EDR", details: "SentinelOne, Trend Micro Deep Security, Kaspersky EDR" },
+      { name: "SIEM Stacks", details: "Wazuh, Splunk, Microsoft Sentinel, Blu Sapphire SIEM" },
+      { name: "Detection Engineering", details: "Custom Sigma rules, Wazuh XML decoders, Snort IDS signatures" },
+      { name: "Threat Hunting & DFIR", details: "MITRE ATT&CK mapping, RAM Dump Analysis (Volatility), Incident Triage" },
+      { name: "24x7 CNI SOC Operations", details: "SME threat hunting for Nuclear Fuel Complex (DAE) critical infrastructure" }
+    ]
+  },
+  {
+    id: "compliance",
+    title: "Compliance, Cloud & Scripting",
+    icon: FileCheck,
+    badge: "Govt. Baselines & Automation",
+    skills: [
+      { name: "Regulatory Compliance", details: "CERT-In Guidelines, CDAC Standards, NIST CSF, CIS Controls, ISO 27001 (familiar)" },
+      { name: "Automation & Scripting", details: "PowerShell automation, Python data pipelines, Bash shell scripting" },
+      { name: "Endpoint Orchestration", details: "KACE UEM modular agent orchestration (750+ government nodes)" },
+      { name: "Cloud & Systems", details: "AWS & Azure Fundamentals, Linux (RHEL/Ubuntu server administration), Git" }
+    ]
+  },
+  {
+    id: "ai_opsec",
+    title: "AI-Augmented Engineering & OPSEC",
+    icon: Bot,
+    badge: "Modern AI & Threat Intel",
+    skills: [
+      { name: "Agentic AI IDEs", details: "Google Antigravity IDE, Claude 3.5 Sonnet, GitHub Copilot" },
+      { name: "On-Premise LLM / RAG", details: "Local Ollama LLM integration for air-gapped NOC troubleshooting" },
+      { name: "OPSEC Research", details: "Anonymity-network research (Tor) for defensive threat intelligence" },
+      { name: "Security Architecture", details: "Pairing LLMs with SecOps automation for sub-second incident triage" }
+    ]
   }
 ];
 
@@ -388,8 +527,8 @@ export default function Home() {
   // State Management
   const [terminalHistory, setTerminalHistory] = useState<string[]>([
     "aditya@secops:~# secure session initialized...",
-    "SEC_CORE: ACTIVE | 750+ ENDPOINTS HARDENED",
-    "Type 'whoami', 'skills', 'projects', or 'help' for available commands.",
+    "SEC_CORE: ACTIVE | 750+ ENDPOINTS HARDENED | NIC MeitY CNI",
+    "Type 'whoami', 'skills', 'projects', 'labs', or 'help' for commands.",
     ""
   ]);
   const [terminalInput, setTerminalInput] = useState("");
@@ -405,6 +544,7 @@ export default function Home() {
   const [copiedTerminal, setCopiedTerminal] = useState<boolean>(false);
   const [copiedPgp, setCopiedPgp] = useState<boolean>(false);
   const [projectFilter, setProjectFilter] = useState<"all" | "cni" | "offensive" | "sandbox" | "social">("all");
+  const [activeSkillPillar, setActiveSkillPillar] = useState<string>("network");
 
   const terminalEndRef = useRef<HTMLDivElement>(null);
 
@@ -511,7 +651,7 @@ export default function Home() {
       
       {/* Dynamic Background Mesh Gradients */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-[#020617]/80 backdrop-blur-[1px]" />
+        <div className="absolute inset-0 bg-[#020617]/85 backdrop-blur-[1px]" />
         <div className="absolute top-[-10%] left-[-10%] w-[55vw] h-[55vw] rounded-full blur-[140px] opacity-20 bg-emerald-700 pointer-events-none" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[55vw] h-[55vw] rounded-full blur-[150px] opacity-15 bg-cyan-700 pointer-events-none" />
         <div className="absolute top-[40%] right-[10%] w-[40vw] h-[40vw] rounded-full blur-[160px] opacity-10 bg-indigo-700 pointer-events-none" />
@@ -525,7 +665,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Sticky 5-Section Navigation Header */}
+      {/* Sticky Navigation Header */}
       <header className="sticky top-0 z-40 w-full border-b border-emerald-500/15 bg-[#020617]/90 backdrop-blur-2xl shadow-lg shadow-black/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 font-title font-bold text-lg tracking-tight hover:opacity-90 transition-opacity">
@@ -533,24 +673,25 @@ export default function Home() {
             <span className="text-white">Aditya<span className="text-emerald-400">.</span>Jain</span>
           </Link>
           
-          {/* Five Primary Navigation Links */}
-          <nav className="hidden md:flex items-center gap-7 text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
+          {/* Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-6 text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
             <a href="#home" className="hover:text-emerald-400 transition-colors">Home</a>
+            <a href="#skills" className="hover:text-emerald-400 transition-colors">Skills &bull; Tools</a>
             <a 
               href="#projects" 
-              className="relative group px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:text-white hover:bg-emerald-500/25 hover:border-emerald-400 transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.25)]"
+              className="relative group px-3 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:text-white hover:bg-emerald-500/25 hover:border-emerald-400 transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.25)]"
               title="Explore Planetary Defense Grid & Case Studies"
             >
               <Globe className="w-3.5 h-3.5 text-emerald-400 group-hover:rotate-180 transition-transform duration-700" />
-              <span className="tracking-widest">Projects &bull; Orbit</span>
+              <span className="tracking-widest">Projects</span>
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
               </span>
             </a>
-            <a href="#writeups" className="hover:text-emerald-400 transition-colors">Write-Ups</a>
             <a href="#experience" className="hover:text-emerald-400 transition-colors">Experience</a>
-            <a href="#about" className="hover:text-emerald-400 transition-colors">About</a>
+            <a href="#labs" className="hover:text-emerald-400 transition-colors">Labs &bull; Edu</a>
+            <a href="#writeups" className="hover:text-emerald-400 transition-colors">Write-Ups</a>
             <a href="#contact" className="hover:text-emerald-400 transition-colors">Contact</a>
             
             <Link
@@ -569,7 +710,7 @@ export default function Home() {
             {/* Mobile Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
+              className="lg:hidden p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -579,12 +720,13 @@ export default function Home() {
 
         {/* Mobile Nav Dropdown */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-b border-slate-800 bg-slate-950/95 px-6 py-4 space-y-3 text-xs font-mono font-bold uppercase tracking-wider text-slate-300 backdrop-blur-xl">
+          <div className="lg:hidden border-b border-slate-800 bg-slate-950/95 px-6 py-4 space-y-3 text-xs font-mono font-bold uppercase tracking-wider text-slate-300 backdrop-blur-xl">
             <a href="#home" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Home</a>
+            <a href="#skills" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Skills &bull; Tools</a>
             <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Projects &bull; Orbit</a>
-            <a href="#writeups" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Write-Ups</a>
             <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Experience</a>
-            <a href="#about" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">About</a>
+            <a href="#labs" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Labs &bull; Coursework</a>
+            <a href="#writeups" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Write-Ups</a>
             <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Contact</a>
             <Link href="/charity-quiz" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-rose-400 font-bold">🐾 Free Rice Quiz (हिं/EN)</Link>
           </div>
@@ -594,7 +736,7 @@ export default function Home() {
       {/* Main Container */}
       <main id="main-content" className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-24 sm:space-y-32 relative z-10">
         
-        {/* TIER 1: HERO SECTION */}
+        {/* TIER 1: HERO SECTION & RECRUITER MOBILITY */}
         <section id="home" className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center min-h-[calc(100vh-14rem)]">
           <div className="lg:col-span-7 space-y-7">
             
@@ -616,13 +758,13 @@ export default function Home() {
 
               {/* Verified Value Proposition */}
               <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl pt-1">
-                Securing <strong>750+ government endpoints &amp; Critical National Infrastructure</strong> &mdash; reducing audit turnaround 60% and lifting true-positive threat detection 35%.
+                Results-driven Cybersecurity Engineer with <strong>4+ years of experience architecting default-deny NGFW estates and enterprise EDR/SIEM programs</strong> for government and Critical National Infrastructure (CNI) &mdash; reducing audit turnaround 60% and elevating true-positive detection 35%.
               </p>
             </div>
 
             {/* CTA Hierarchy Buttons */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
-              {/* 1. Download Resume (Tactical Scramble & Decryption Modal) */}
+              {/* 1. Download Resume */}
               <CyberResumeButton variant="hero" showChecksum={true} />
 
               {/* 2. View Case Studies & Orbital Grid */}
@@ -631,7 +773,7 @@ export default function Home() {
                 className="group relative px-6 py-3.5 rounded-xl text-xs font-mono font-bold bg-slate-900/90 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-950/60 hover:border-emerald-400 hover:text-white transition-all flex items-center gap-2.5 hover:-translate-y-0.5 min-h-[44px] shadow-xl shadow-emerald-950/40"
               >
                 <Globe className="w-4 h-4 text-emerald-400 group-hover:rotate-45 transition-transform" />
-                <span>🛰️ View Orbital Defense Grid</span>
+                <span>🛰️ View Key Projects</span>
                 <ArrowRight className="w-4 h-4 text-emerald-400 group-hover:translate-x-1 transition-transform" />
               </a>
 
@@ -656,8 +798,37 @@ export default function Home() {
               </button>
             </div>
 
-            {/* Proof-Metrics Strip Under Hero */}
-            <div className="pt-6 border-t border-slate-800/80">
+            {/* Recruiter Mobility & Fast Facts Strip */}
+            <div className="p-4 rounded-2xl bg-slate-900/80 border border-emerald-500/20 backdrop-blur-xl space-y-2.5 text-xs font-mono">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                <span className="text-[10px] uppercase font-bold tracking-widest text-emerald-400 flex items-center gap-1.5">
+                  <UserCheck className="w-3.5 h-3.5" />
+                  <span>Recruiter Fast-Facts &amp; Mobility</span>
+                </span>
+                <span className="text-[10px] text-slate-400 font-bold">Availability: 60 Days (Negotiable)</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-300 text-[11px]">
+                <div className="flex items-start gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <span><strong>Posting:</strong> On-site NIC (MeitY), Patna | Employer HQ: Noida</span>
+                </div>
+                <div className="flex items-start gap-1.5">
+                  <Globe className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0 mt-0.5" />
+                  <span><strong>Relocation:</strong> Delhi NCR, Blr, Hyd, Pune, Mum, Jaipur (Family Base)</span>
+                </div>
+                <div className="flex items-start gap-1.5">
+                  <Plane className="w-3.5 h-3.5 text-indigo-400 flex-shrink-0 mt-0.5" />
+                  <span><strong>Global Markets:</strong> UAE, Singapore, UK, Germany (EU Blue Card), EU, US</span>
+                </div>
+                <div className="flex items-start gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <span><strong>Languages:</strong> English (Professional), Hindi (Native)</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Proof-Metrics Strip */}
+            <div className="pt-2 border-t border-slate-800/80">
               <div className="text-[11px] font-mono uppercase tracking-widest text-slate-400 font-bold mb-3 flex items-center gap-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Verified Impact &amp; Operational Metrics</span>
@@ -691,7 +862,7 @@ export default function Home() {
                     <div className="w-3 h-3 rounded-full bg-rose-500/80" />
                     <div className="w-3 h-3 rounded-full bg-amber-500/80" />
                     <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                    <span className="text-[11px] text-slate-300 font-bold ml-2">aditya@secops: ~/terminal</span>
+                    <span className="text-[11px] text-slate-300 font-bold ml-2">aditya@secops: ~/resume</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <button
@@ -717,7 +888,7 @@ export default function Home() {
 
                 {/* Quick Command Shortcuts */}
                 <div className="p-2 border-t border-slate-900 bg-slate-900/60 flex flex-wrap gap-1.5">
-                  {["whoami", "skills", "exp", "certs", "projects", "ecosystem", "contact", "clear"].map((cmd) => (
+                  {["whoami", "skills", "exp", "projects", "labs", "certs", "recruiter", "clear"].map((cmd) => (
                     <button
                       key={cmd}
                       type="button"
@@ -737,7 +908,7 @@ export default function Home() {
                     value={terminalInput}
                     onChange={(e) => setTerminalInput(e.target.value)}
                     onKeyDown={handleKeyDownTerminal}
-                    placeholder="type 'whoami', 'skills' or [Tab]..."
+                    placeholder="type 'skills', 'labs', 'whoami' or [Tab]..."
                     className="flex-1 bg-transparent border-none outline-none text-emerald-300 placeholder:text-slate-600 text-xs font-mono"
                   />
                 </form>
@@ -746,12 +917,90 @@ export default function Home() {
           </div>
         </section>
 
-        {/* TIER 2 & 3: KEY PROJECTS & CASE STUDIES — ORBITAL DEFENSE GRID */}
-        <section id="projects" className="space-y-10 pt-8">
+        {/* SECTION: CORE COMPETENCIES & TECHNICAL SKILLS (5 PILLARS INTERACTIVE MATRIX) */}
+        <section id="skills" className="space-y-8 pt-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
+                <Cpu className="w-3.5 h-3.5" />
+                <span>01 // Core Competencies &amp; Toolchains</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold font-title text-white">
+                Technical Skills &amp; Defense Toolchains
+              </h2>
+            </div>
+            <p className="text-xs font-mono text-slate-400 max-w-sm">
+              Hands-on mastery across Palo Alto/Fortinet NGFW, Active Directory red teaming, enterprise EDR/SIEM, compliance orchestration, and agentic AI OPSEC.
+            </p>
+          </div>
+
+          {/* 5 Pillar Category Tabs */}
+          <div className="flex flex-wrap gap-2.5 border-b border-slate-800 pb-4">
+            {SKILLS_PILLARS.map((pillar) => {
+              const Icon = pillar.icon;
+              const isActive = activeSkillPillar === pillar.id;
+              return (
+                <button
+                  key={pillar.id}
+                  type="button"
+                  onClick={() => setActiveSkillPillar(pillar.id)}
+                  className={`px-4 py-2.5 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-2 cursor-pointer ${
+                    isActive 
+                      ? "bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/30 scale-102"
+                      : "bg-slate-900/80 border border-slate-800 text-slate-400 hover:text-white hover:border-emerald-500/40"
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  <span>{pillar.title}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Active Pillar Card Breakdown */}
+          {SKILLS_PILLARS.filter((p) => p.id === activeSkillPillar).map((active) => (
+            <motion.div
+              key={active.id}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25 }}
+              className="p-6 sm:p-8 rounded-[28px] bg-slate-900/70 border border-emerald-500/25 backdrop-blur-2xl shadow-2xl space-y-6"
+            >
+              <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-3 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <active.icon className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold font-title text-white">{active.title}</h3>
+                    <div className="text-xs font-mono text-emerald-400 font-bold">{active.badge}</div>
+                  </div>
+                </div>
+                <span className="text-[11px] font-mono text-slate-500 hidden sm:block">Verified Production Experience</span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {active.skills.map((item, i) => (
+                  <div key={i} className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800/90 hover:border-emerald-500/40 transition-all space-y-1.5 group">
+                    <div className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+                      <span>{item.name}</span>
+                    </div>
+                    <div className="text-xs text-slate-400 leading-relaxed font-sans pl-5">
+                      {item.details}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </section>
+
+        {/* SECTION: KEY SECURITY PROJECTS & PLANETARY DEFENSE GRID */}
+        <section id="projects" className="space-y-10 pt-6">
           
           {/* Top-Angle Orbital Command Banner */}
           <div className="p-6 sm:p-8 rounded-[28px] bg-gradient-to-br from-slate-950 via-slate-900/95 to-emerald-950/40 border border-emerald-500/30 backdrop-blur-2xl shadow-2xl relative overflow-hidden space-y-6">
-            {/* Ambient Glows */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -759,13 +1008,13 @@ export default function Home() {
               <div className="space-y-2">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-xs font-mono font-bold text-emerald-300">
                   <Globe className="w-3.5 h-3.5 text-emerald-400 animate-spin-slow" />
-                  <span>TOP-ANGLE ORBITAL RADAR // ALL-SYSTEMS MATRIX</span>
+                  <span>KEY SECURITY PROJECTS // CNI &amp; OBSERVABILITY MATRIX</span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-black font-title text-white tracking-tight">
-                  Critical National Infrastructure &amp; Engineering Grid
+                  Critical Infrastructure Portals &amp; Engineering Systems
                 </h2>
                 <p className="text-sm text-slate-300 max-w-2xl leading-relaxed">
-                  An omniscient, top-down orbital vantage point connecting 6 synchronized state defense portals, sub-second telemetry nodes, and algorithmic ecosystems.
+                  Production monitoring platforms, synthetic diagnostic suites, and automated compliance engines built for government and enterprise operations.
                 </p>
               </div>
 
@@ -798,7 +1047,7 @@ export default function Home() {
               </span>
               {[
                 { id: "all", label: "All Systems (6)" },
-                { id: "cni", label: "CNI & Enterprise" },
+                { id: "cni", label: "CNI & Observability" },
                 { id: "sandbox", label: "Live Sandboxes" },
                 { id: "social", label: "Karma & Quant Triad" }
               ].map((tab) => (
@@ -881,108 +1130,15 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SECTION 2: CERTIFICATIONS STRIP (TRUST SIGNALS) */}
-        <section className="space-y-6">
-          <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
-              <Award className="w-3.5 h-3.5" />
-              <span>02 // Verified Credentials &amp; Certifications</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-bold font-title text-white">
-              Professional Certifications &amp; Ongoing Roadmap
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              { title: "Fortinet Certified Associate (FCA)", org: "Fortinet", status: "Verified / Active", color: "border-red-500/25 text-red-400 bg-red-950/20" },
-              { title: "In the Trenches: SOC Analyst", org: "EC-Council", status: "Verified / Active", color: "border-emerald-500/25 text-emerald-400 bg-emerald-950/20" },
-              { title: "OSCP (Offensive Security)", org: "OffSec", status: "Target: 2027+", color: "border-rose-500/25 text-rose-400 bg-rose-950/20" },
-              { title: "Active Directory Labs", org: "HTB & VulnLab", status: "Multi-Forest AD Mastery", color: "border-amber-500/25 text-amber-400 bg-amber-950/20" },
-              { title: "eJPT (Junior Penetration Tester)", org: "eLearnSecurity", status: "Target: Q4 2026", color: "border-purple-500/25 text-purple-400 bg-purple-950/20" },
-              { title: "Certified Ethical Hacker (CEH v13)", org: "EC-Council", status: "Target: 2026", color: "border-blue-500/25 text-blue-400 bg-blue-950/20" },
-              { title: "CISSP (Information Systems Security)", org: "ISC2", status: "Target: Q3 2027", color: "border-indigo-500/25 text-indigo-400 bg-indigo-950/20" },
-              { title: "MBA in Cybersecurity", org: "Chitkara University", status: "In Progress (Exp 2027)", color: "border-emerald-500/25 text-emerald-300 bg-emerald-950/20" }
-            ].map((cert, idx) => (
-              <div key={idx} className={`p-4 rounded-2xl border ${cert.color} backdrop-blur-xl flex flex-col justify-between space-y-2 hover:border-emerald-400/40 transition-all`}>
-                <div>
-                  <div className="text-xs font-mono font-bold text-slate-400">{cert.org}</div>
-                  <div className="text-sm font-bold text-white mt-0.5">{cert.title}</div>
-                </div>
-                <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-300 pt-2 border-t border-slate-800">
-                  {cert.status}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* SECTION: ACADEMIC EDUCATION */}
-        <section className="space-y-6">
-          <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
-              <BookOpen className="w-3.5 h-3.5" />
-              <span>Academic Degrees &amp; Higher Education</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-bold font-title text-white">
-              Education &amp; Cybersecurity Qualifications
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-[24px] bg-slate-900/60 border border-emerald-500/20 backdrop-blur-xl flex flex-col justify-between space-y-4 hover:border-emerald-500/40 transition-all">
-              <div className="space-y-2">
-                <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-full text-xs font-bold font-mono border border-emerald-500/20">Expected Jul 2027</span>
-                <h3 className="text-lg font-bold font-title text-white">MBA in Cybersecurity</h3>
-                <div className="text-xs text-slate-400 font-semibold">Chitkara University &bull; Punjab, India</div>
-                <p className="text-xs text-slate-300 leading-relaxed pt-1">
-                  Postgraduate studies specializing in enterprise cybersecurity risk governance, compliance frameworks, and defensive/offensive alignment.
-                </p>
-              </div>
-              <div className="text-[11px] font-mono text-emerald-400 font-bold border-t border-slate-800 pt-3">
-                In Progress (Active Coursework)
-              </div>
-            </div>
-
-            <div className="p-6 rounded-[24px] bg-slate-900/60 border border-cyan-500/20 backdrop-blur-xl flex flex-col justify-between space-y-4 hover:border-cyan-500/40 transition-all">
-              <div className="space-y-2">
-                <span className="px-3 py-1 bg-cyan-500/10 text-cyan-400 rounded-full text-xs font-bold font-mono border border-cyan-500/20">2019 &mdash; 2022</span>
-                <h3 className="text-lg font-bold font-title text-white">B.Tech &mdash; Computer Science &amp; Engineering</h3>
-                <div className="text-xs text-slate-400 font-semibold">Manipal University Jaipur &bull; Rajasthan, India</div>
-                <p className="text-xs text-slate-300 leading-relaxed pt-1">
-                  Undergraduate degree in CSE with extensive coursework in Network Security, Operating Systems, Cryptography, and Distributed Systems.
-                </p>
-              </div>
-              <div className="text-[11px] font-mono text-cyan-400 font-bold border-t border-slate-800 pt-3">
-                Completed &bull; B.Tech CSE
-              </div>
-            </div>
-
-            <div className="p-6 rounded-[24px] bg-slate-900/60 border border-blue-500/20 backdrop-blur-xl flex flex-col justify-between space-y-4 hover:border-blue-500/40 transition-all">
-              <div className="space-y-2">
-                <span className="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-bold font-mono border border-blue-500/20">2013 &mdash; 2018</span>
-                <h3 className="text-lg font-bold font-title text-white">Diploma &mdash; Computer Science &amp; Engineering</h3>
-                <div className="text-xs text-slate-400 font-semibold">Hindu College of Engineering &bull; Haryana, India</div>
-                <p className="text-xs text-slate-300 leading-relaxed pt-1">
-                  Core engineering diploma covering computer networking, system administration, C/C++ programming, and digital electronics.
-                </p>
-              </div>
-              <div className="text-[11px] font-mono text-blue-400 font-bold border-t border-slate-800 pt-3">
-                Completed &bull; Diploma CSE
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 3: EMPLOYMENT TIMELINE */}
+        {/* SECTION: VERIFIED ENTERPRISE EXPERIENCE TIMELINE */}
         <section id="experience" className="space-y-8">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
               <Briefcase className="w-3.5 h-3.5" />
-              <span>03 // Verified Experience Timeline</span>
+              <span>03 // Professional Work History</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold font-title text-white">
-              Enterprise Work History (4+ Years SecOps)
+              Enterprise SecOps Experience (4+ Years)
             </h2>
           </div>
 
@@ -991,14 +1147,15 @@ export default function Home() {
               {
                 period: "Feb 2024 — Present",
                 role: "Security Administrator & NGFW Architect",
-                company: "Ebix Technologies Ltd (Client: National Informatics Centre - NIC, MeitY Govt. of India)",
+                company: "Ebix Technologies (Client: National Informatics Centre - NIC, MeitY Govt. of India)",
                 location: "Patna, Bihar, India",
-                tags: ["750+ Endpoints", "Palo Alto", "Check Point", "SentinelOne", "Deep Security", "60% Audit Cut"],
+                tags: ["750+ Endpoints", "Palo Alto", "Check Point", "SentinelOne", "Deep Security", "Wazuh", "KACE UEM"],
                 bullets: [
                   "NGFW & Network Hardening: Architect and enforce default-deny policies across Palo Alto and Check Point NGFW clusters; audit public IP exposure and secure Linux rack servers across the Bihar State Data Centre (SDC).",
                   "Enterprise EDR/SIEM Deployment: Manage SentinelOne, Trend Micro Deep Security, and Wazuh/Splunk deployments across 750+ regional government endpoints; tune correlation rules against emerging attack vectors, reducing false-positive fatigue by 30%.",
                   "Incident Response & Compliance: Serve as primary CERT-In incident responder; automate compliance reporting (120+ CDAC/CERT-In checks via KACE UEM), cutting manual audit effort by 60%.",
                   "VAPT & AD Security: Lead coordination with NIC-CERT to remediate critical web vulnerabilities (authoring PoC exploits) and conduct Active Directory attack-path analysis to secure district-level nodes.",
+                  "Unified NOC Monitoring Suite: Engineered an in-house observability platform delivering video-conferencing (VC) health monitoring, WAN speed/latency probing, and automated portal availability checks across 38 districts; reduced outage detection time and produced SLA evidence for FMS teams.",
                   "Security Training: Deliver specialized training on NGFW, EDR, and CERT-In compliance to 60+ district-level Facility Management System (FMS) teams."
                 ]
               },
@@ -1015,8 +1172,8 @@ export default function Home() {
               },
               {
                 period: "Dec 2022 — Jul 2023",
-                role: "SOC Analyst — Threat Hunter",
-                company: "RRG Engineering Technologies (Client: Nuclear Fuel Complex - NFC / DAE Govt. of India)",
+                role: "SOC Analyst – Threat Hunter",
+                company: "RRG Engineering Tech (Client: Nuclear Fuel Complex - NFC / DAE Govt. of India)",
                 location: "Kota, Rajasthan, India",
                 tags: ["24x7 CNI SOC", "Blu Sapphire SIEM", "Splunk", "+35% Detection Boost", "Malware TTPs"],
                 bullets: [
@@ -1027,7 +1184,7 @@ export default function Home() {
               },
               {
                 period: "Aug 2022 — Oct 2022",
-                role: "SOC Analyst — IDS & Signature Development",
+                role: "SOC Analyst – IDS & Signature Development",
                 company: "E2E Networks Limited",
                 location: "Vellore, Tamil Nadu, India",
                 tags: ["Snort IDS", "Wazuh SIEM", "AbuseIPDB Feed", "Perimeter Defense"],
@@ -1076,13 +1233,175 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SECTION 4: TECHNICAL WRITE-UPS & FIELD BLUEPRINTS */}
+        {/* SECTION: PROFESSIONAL DEVELOPMENT & LABS */}
+        <section id="labs" className="space-y-6 pt-4">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
+              <Compass className="w-3.5 h-3.5" />
+              <span>04 // Professional Development &amp; Coursework</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold font-title text-white">
+              Hands-On Security Labs &amp; Academic Coursework
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Box 1: Offensive Labs */}
+            <div className="p-6 sm:p-8 rounded-[24px] bg-slate-900/60 border border-emerald-500/20 backdrop-blur-xl space-y-4">
+              <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
+                <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                  <Crosshair className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold font-title text-white">Offensive Security Labs</h3>
+                  <div className="text-xs font-mono text-slate-400">Red Team &amp; AD Exploitation</div>
+                </div>
+              </div>
+              <ul className="space-y-3 text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+                <li className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-950/70 border border-slate-800">
+                  <span className="text-emerald-400 font-mono font-bold">01</span>
+                  <span><strong>Hack The Box:</strong> Active Directory exploitation, Kerberoasting, privilege escalation &amp; network pivoting.</span>
+                </li>
+                <li className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-950/70 border border-slate-800">
+                  <span className="text-emerald-400 font-mono font-bold">02</span>
+                  <span><strong>VulnLab Multi-Forest Labs:</strong> Forest trust abuse, DC shadow attacks, DCSync, and full Domain Controller compromise.</span>
+                </li>
+                <li className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-950/70 border border-slate-800">
+                  <span className="text-emerald-400 font-mono font-bold">03</span>
+                  <span><strong>OPSEC &amp; Anonymity:</strong> Tor network research and threat intelligence infrastructure for defensive early-warning feeds.</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Box 2: Academic Coursework */}
+            <div className="p-6 sm:p-8 rounded-[24px] bg-slate-900/60 border border-cyan-500/20 backdrop-blur-xl space-y-4">
+              <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
+                <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                  <GraduationCap className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold font-title text-white">Academic Security Coursework</h3>
+                  <div className="text-xs font-mono text-slate-400">University Specializations</div>
+                </div>
+              </div>
+              <ul className="space-y-3 text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
+                <li className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-950/70 border border-slate-800">
+                  <span className="text-cyan-400 font-mono font-bold">01</span>
+                  <span><strong>Security Management &amp; Governance:</strong> Royal Holloway, University of London &mdash; Enterprise risk matrices &amp; policies.</span>
+                </li>
+                <li className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-950/70 border border-slate-800">
+                  <span className="text-cyan-400 font-mono font-bold">02</span>
+                  <span><strong>Introduction to Network Security:</strong> University of London &mdash; Cryptographic key exchanges, packet filters &amp; TLS.</span>
+                </li>
+                <li className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-950/70 border border-slate-800">
+                  <span className="text-cyan-400 font-mono font-bold">03</span>
+                  <span><strong>Mathematical Foundations for Cryptography:</strong> University of Colorado &mdash; Asymmetric ciphers, hashing, and discrete log.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION: CERTIFICATIONS ROADMAP */}
+        <section className="space-y-6">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
+              <Award className="w-3.5 h-3.5" />
+              <span>05 // Verified Credentials &amp; Certifications</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold font-title text-white">
+              Professional Certifications &amp; Ongoing Roadmap
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { title: "Fortinet Certified Associate (FCA)", org: "Fortinet", status: "Earned & Verified (Jan 2026)", color: "border-red-500/25 text-red-400 bg-red-950/20" },
+              { title: "In the Trenches: SOC", org: "EC-Council", status: "Earned & Verified", color: "border-emerald-500/25 text-emerald-400 bg-emerald-950/20" },
+              { title: "eJPT (Junior Penetration Tester)", org: "eLearnSecurity", status: "In Progress (Target: Q4 2026)", color: "border-purple-500/25 text-purple-400 bg-purple-950/20" },
+              { title: "Certified Ethical Hacker (CEH v13)", org: "EC-Council", status: "In Progress (Target: 2026)", color: "border-blue-500/25 text-blue-400 bg-blue-950/20" },
+              { title: "CISSP (Information Systems Security)", org: "ISC2", status: "Targeted (Q3 2027)", color: "border-indigo-500/25 text-indigo-400 bg-indigo-950/20" },
+              { title: "OSCP (Offensive Security Certified)", org: "OffSec", status: "Targeted (2027+)", color: "border-rose-500/25 text-rose-400 bg-rose-950/20" },
+              { title: "Active Directory Multi-Forest Labs", org: "HTB & VulnLab", status: "Mastery Level", color: "border-amber-500/25 text-amber-400 bg-amber-950/20" },
+              { title: "MBA in Cybersecurity", org: "Chitkara University", status: "In Progress (Expected Jul 2027)", color: "border-emerald-500/25 text-emerald-300 bg-emerald-950/20" }
+            ].map((cert, idx) => (
+              <div key={idx} className={`p-4 rounded-2xl border ${cert.color} backdrop-blur-xl flex flex-col justify-between space-y-2 hover:border-emerald-400/40 transition-all`}>
+                <div>
+                  <div className="text-xs font-mono font-bold text-slate-400">{cert.org}</div>
+                  <div className="text-sm font-bold text-white mt-0.5">{cert.title}</div>
+                </div>
+                <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-300 pt-2 border-t border-slate-800">
+                  {cert.status}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* SECTION: ACADEMIC EDUCATION */}
+        <section className="space-y-6">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>06 // Academic Higher Education</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold font-title text-white">
+              Degrees &amp; Cybersecurity Qualifications
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 rounded-[24px] bg-slate-900/60 border border-emerald-500/20 backdrop-blur-xl flex flex-col justify-between space-y-4 hover:border-emerald-500/40 transition-all">
+              <div className="space-y-2">
+                <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-full text-xs font-bold font-mono border border-emerald-500/20">Expected Jul 2027</span>
+                <h3 className="text-lg font-bold font-title text-white">MBA in Cybersecurity</h3>
+                <div className="text-xs text-slate-400 font-semibold">Chitkara University &bull; Punjab, India</div>
+                <p className="text-xs text-slate-300 leading-relaxed pt-1">
+                  Postgraduate studies in enterprise cybersecurity risk governance, compliance frameworks, and defensive/offensive purple team alignment.
+                </p>
+              </div>
+              <div className="text-[11px] font-mono text-emerald-400 font-bold border-t border-slate-800 pt-3">
+                In Progress (Active Coursework)
+              </div>
+            </div>
+
+            <div className="p-6 rounded-[24px] bg-slate-900/60 border border-cyan-500/20 backdrop-blur-xl flex flex-col justify-between space-y-4 hover:border-cyan-500/40 transition-all">
+              <div className="space-y-2">
+                <span className="px-3 py-1 bg-cyan-500/10 text-cyan-400 rounded-full text-xs font-bold font-mono border border-cyan-500/20">2019 &mdash; 2022</span>
+                <h3 className="text-lg font-bold font-title text-white">B.Tech &mdash; Computer Science &amp; Engineering</h3>
+                <div className="text-xs text-slate-400 font-semibold">Manipal University Jaipur &bull; Rajasthan, India</div>
+                <p className="text-xs text-slate-300 leading-relaxed pt-1">
+                  Undergraduate degree in CSE with extensive coursework in Network Security, Operating Systems, Cryptography, and Distributed Systems.
+                </p>
+              </div>
+              <div className="text-[11px] font-mono text-cyan-400 font-bold border-t border-slate-800 pt-3">
+                Completed &bull; B.Tech CSE
+              </div>
+            </div>
+
+            <div className="p-6 rounded-[24px] bg-slate-900/60 border border-blue-500/20 backdrop-blur-xl flex flex-col justify-between space-y-4 hover:border-blue-500/40 transition-all">
+              <div className="space-y-2">
+                <span className="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-bold font-mono border border-blue-500/20">2013 &mdash; 2018</span>
+                <h3 className="text-lg font-bold font-title text-white">Diploma &mdash; Computer Science &amp; Engineering</h3>
+                <div className="text-xs text-slate-400 font-semibold">Hindu College of Engineering &bull; Haryana, India</div>
+                <p className="text-xs text-slate-300 leading-relaxed pt-1">
+                  Core engineering diploma covering computer networking, system administration, C/C++ programming, and digital electronics.
+                </p>
+              </div>
+              <div className="text-[11px] font-mono text-blue-400 font-bold border-t border-slate-800 pt-3">
+                Completed &bull; Diploma CSE
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION: TECHNICAL WRITE-UPS & FIELD BLUEPRINTS */}
         <section id="writeups" className="space-y-8 pt-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1">
               <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
                 <BookOpen className="w-3.5 h-3.5" />
-                <span>04 // Technical Publications &amp; Field Blueprints</span>
+                <span>07 // Technical Publications &amp; Field Blueprints</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold font-title text-white">
                 Technical Write-Ups &amp; Defense Blueprints
@@ -1127,11 +1446,11 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SECTION 5: BEYOND SECURITY — ECOSYSTEM & SIDE PROJECTS */}
+        {/* SECTION: BEYOND SECURITY — ECOSYSTEM & SIDE PROJECTS */}
         <section className="space-y-6 pt-4">
           <div className="space-y-1">
             <div className="text-[11px] font-mono text-slate-400 font-bold uppercase tracking-wider">
-              05 // Breadth &amp; Engineering Diversity
+              08 // Breadth &amp; Engineering Diversity
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold font-title text-white">
               Beyond Security &mdash; The Triad Ecosystem
@@ -1253,12 +1572,12 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SECTION 6: ABOUT PROFILE */}
+        {/* SECTION: ABOUT PROFILE */}
         <section id="about" className="space-y-8 pt-6">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
               <Shield className="w-3.5 h-3.5" />
-              <span>06 // Professional Summary</span>
+              <span>09 // Professional Summary</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold font-title text-white">
               Executive Profile &amp; Philosophy
@@ -1270,7 +1589,7 @@ export default function Home() {
               <strong>Cybersecurity Engineer &amp; NGFW Architect at Ebix Technologies (Client: NIC, MeitY Govt. of India)</strong>, architecting default-deny NGFW estates (Palo Alto, Check Point, Fortinet) and managing SentinelOne, Deep Security, and Wazuh deployments across 750+ regional government endpoints.
             </p>
             <p>
-              <strong>Primary CERT-In Incident Responder</strong> with hands-on proficiency in Active Directory attack-path analysis (Kerberoasting, DCSync, Delegation Abuse), web &amp; infrastructure VAPT, and digital forensics.
+              <strong>Primary CERT-In Incident Responder</strong> with hands-on proficiency in Active Directory attack-path analysis (Kerberoasting, AS-REP Roasting, DCSync, Pass-the-Hash, Delegation Abuse), web &amp; infrastructure VAPT, and digital forensics.
             </p>
             <p>
               <strong>Prior 24x7 CNI SOC Threat Hunter at Nuclear Fuel Complex (DAE)</strong>, conducting proactive threat hunts, reverse-engineering malware payloads, and tuning SIEM correlation rules to boost true-positive rates by 35%.
@@ -1281,7 +1600,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SECTION 7: CONTACT & RECRUITER REACH */}
+        {/* SECTION: CONTACT & RECRUITER REACH */}
         <section id="contact" className="space-y-8 pt-6">
           <div className="p-8 sm:p-12 rounded-3xl border border-emerald-500/25 bg-gradient-to-r from-emerald-950/40 via-slate-900/80 to-cyan-950/40 backdrop-blur-2xl space-y-8 shadow-2xl">
             <div className="space-y-2 text-center max-w-2xl mx-auto">
@@ -1295,7 +1614,7 @@ export default function Home() {
               </p>
               <div className="pt-2 text-xs font-mono font-bold text-emerald-400 flex items-center justify-center gap-2">
                 <MapPin className="w-3.5 h-3.5" />
-                <span>Open to relocation: India &bull; UAE &bull; Singapore &bull; UK &bull; Germany &bull; EU &bull; US</span>
+                <span>Open to relocation: India (Delhi NCR/Blr/Hyd/Pune/Mum/Jaipur) &bull; UAE &bull; Singapore &bull; UK &bull; Germany (EU Blue Card) &bull; EU &bull; US</span>
               </div>
             </div>
 
@@ -1311,14 +1630,14 @@ export default function Home() {
               </a>
 
               <a
-                href="https://www.linkedin.com/in/adityajainx1/"
+                href="https://www.linkedin.com/in/ajainx1/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-5 rounded-2xl bg-slate-950/80 border border-cyan-500/20 hover:border-cyan-500/50 hover:bg-slate-900 transition-all flex flex-col items-center text-center space-y-2 group min-h-[44px]"
               >
                 <Globe className="w-6 h-6 text-cyan-400 group-hover:scale-110 transition-transform" />
                 <div className="text-xs font-mono font-bold text-white">LinkedIn Profile</div>
-                <div className="text-[11px] font-mono text-slate-400">in/adityajainx1</div>
+                <div className="text-[11px] font-mono text-slate-400">in/ajainx1</div>
               </a>
 
               <a
@@ -1550,10 +1869,10 @@ export default function Home() {
               <div className="flex items-start justify-between gap-4 border-b border-slate-800 pb-4">
                 <div>
                   <span className="px-3 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    Architecture Case Study (Sanitized)
+                    Architecture Blueprint (Sanitized)
                   </span>
                   <h3 className="text-xl font-bold font-title text-white mt-2">
-                    CDAC / CERT-In Compliance Automation Engine
+                    CDAC / CERT-In Compliance Automation Engine &amp; LAN Asset Portal
                   </h3>
                 </div>
                 <button
@@ -1568,15 +1887,18 @@ export default function Home() {
 
               <div className="space-y-4 text-sm text-slate-300 leading-relaxed">
                 <p>
-                  <strong>Challenge:</strong> 750+ government endpoints distributed across 38 regional districts required quarterly compliance auditing against 120+ mandatory CERT-In and NIST guidelines. Manual auditing required over 14 business days.
+                  <strong>Challenge:</strong> 750+ government endpoints distributed across 38 regional districts required quarterly compliance auditing against 120+ mandatory CERT-In and NIST guidelines. Manual auditing took over 14 business days.
                 </p>
                 <p>
                   <strong>Architecture:</strong> Designed a zero-dependency PowerShell core packaged for silent orchestration via KACE UEM. Telemetry was aggregated into a central dashboard that triggered automated remediation GPO scripts for non-compliant endpoints.
                 </p>
+                <p>
+                  <strong>LAN Asset Management:</strong> Integrated DHCP/PXE-based automated OS deployment and secure internal file distribution to ensure uniform endpoint configurations across the state.
+                </p>
                 <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2 font-mono text-xs text-emerald-300">
-                  <div>✓ 60% reduction in manual engineer audit cycles</div>
-                  <div>✓ 100% visibility over unauthorized USB peripherals</div>
-                  <div>✓ Automated SHA-256 evidence logging for official audits</div>
+                  <div>✓ 60% reduction in manual engineer audit cycles across 750+ endpoints</div>
+                  <div>✓ 100% visibility over unauthorized USB peripherals and dormant local admins</div>
+                  <div>✓ Automated SHA-256 evidence logging directly mapped to ISO 27001 &amp; CERT-In</div>
                 </div>
               </div>
 
@@ -1586,7 +1908,7 @@ export default function Home() {
                   onClick={() => setCaseStudyModal(false)}
                   className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-mono font-bold text-white transition-colors min-h-[44px] cursor-pointer"
                 >
-                  Close Case Study
+                  Close Blueprint
                 </button>
               </div>
             </motion.div>

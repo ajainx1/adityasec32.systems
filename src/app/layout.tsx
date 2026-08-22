@@ -153,27 +153,71 @@ export default function RootLayout({
       "@type": "Organization",
       "name": "Ebix Technologies / NIC (MeitY)"
     },
-    "alumniOf": "Manipal University",
     "knowsAbout": [
-      "Cybersecurity",
-      "Network Security",
-      "Palo Alto NGFW",
+      "Cybersecurity Engineering",
+      "Network Security & Firewalls",
+      "Palo Alto NGFW (Panorama, App-ID, Threat Prevention)",
       "Check Point Firewall",
       "Fortinet FortiGate",
-      "Purple Teaming",
-      "Threat Hunting",
+      "Default-Deny Architecture",
+      "Zero Trust (ZTNA)",
+      "OSPF & Network Segmentation",
+      "TACACS+ / RADIUS",
+      "Vulnerability Assessment & Penetration Testing (VAPT)",
+      "Active Directory Exploitation (BloodHound, Kerberoasting, AS-REP Roasting, DCSync, Pass-the-Hash, Delegation Abuse)",
+      "Offensive Tools (Impacket, Mimikatz, Rubeus, Hashcat, NetExec, CrackMapExec, winPEAS, linPEAS, Metasploit, Burp Suite Pro, Nmap)",
+      "Security Operations Center (SOC)",
+      "Threat Hunting & Detection Engineering",
       "SentinelOne EDR",
+      "Trend Micro Deep Security",
       "Wazuh SIEM",
-      "Active Directory Exploitation",
-      "VAPT",
-      "DFIR",
-      "CERT-In Compliance",
-      "NIST CSF"
+      "Splunk SIEM",
+      "Microsoft Sentinel",
+      "Kaspersky EDR",
+      "Snort IDS",
+      "MITRE ATT&CK Framework",
+      "Digital Forensics & Incident Response (DFIR)",
+      "RAM Dump Analysis",
+      "CERT-In Guidelines & CDAC Standards",
+      "NIST Cybersecurity Framework (CSF)",
+      "CIS Controls & ISO 27001",
+      "PowerShell & Bash Scripting",
+      "Python Automation",
+      "AI-Augmented Engineering (Google Antigravity, Claude, Copilot)",
+      "OPSEC & Tor Threat Intelligence"
+    ],
+    "alumniOf": [
+      {
+        "@type": "EducationalOrganization",
+        "name": "Chitkara University",
+        "description": "MBA in Cybersecurity (In Progress)"
+      },
+      {
+        "@type": "EducationalOrganization",
+        "name": "Manipal University Jaipur",
+        "description": "B.Tech in Computer Science & Engineering"
+      },
+      {
+        "@type": "EducationalOrganization",
+        "name": "Hindu College of Engineering",
+        "description": "Diploma in Computer Science & Engineering"
+      }
+    ],
+    "hasCredential": [
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "Fortinet Certified Associate (FCA) in Cybersecurity"
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "EC-Council: In the Trenches - SOC"
+      }
     ],
     "sameAs": [
       "https://cyberkarma.me",
+      "https://jumpstreet.tech",
       "https://github.com/ajainx1",
-      "https://www.linkedin.com/in/adityajainx1/"
+      "https://www.linkedin.com/in/ajainx1/"
     ]
   };
 
