@@ -62,6 +62,14 @@ export const metadata: Metadata = isCyberKarmaSite
         description: "Answer cybersecurity & trivia questions to donate real bowls of food to street animals. 100% Free & Impactful.",
         images: ["/cyberkarma_banner.jpg"],
       },
+      icons: {
+        icon: [
+          { url: "/charity_favicon.svg", type: "image/svg+xml" },
+          { url: "/favicon.svg", type: "image/svg+xml" },
+        ],
+        shortcut: "/charity_favicon.svg",
+        apple: "/apple-touch-icon.png",
+      },
       other: {
         "google-adsense-account": "ca-pub-6072468142870937",
         "theme-color": "#0f0414",
@@ -122,8 +130,10 @@ export const metadata: Metadata = isCyberKarmaSite
       icons: {
         icon: [
           { url: "/favicon.svg", type: "image/svg+xml" },
+          { url: "/icon.svg", type: "image/svg+xml" },
           { url: "/favicon.ico", sizes: "any" }
         ],
+        shortcut: "/favicon.svg",
         apple: "/apple-touch-icon.png",
       },
       other: {
