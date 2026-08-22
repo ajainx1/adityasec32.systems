@@ -119,6 +119,13 @@ export const metadata: Metadata = isCyberKarmaSite
         description: "Network Security & NGFW Architecture (Palo Alto · Check Point · Fortinet) · VAPT · SIEM/EDR · DFIR — securing 750+ government endpoints & Critical National Infrastructure.",
         images: ["/og_image.png"],
       },
+      icons: {
+        icon: [
+          { url: "/favicon.svg", type: "image/svg+xml" },
+          { url: "/favicon.ico", sizes: "any" }
+        ],
+        apple: "/apple-touch-icon.png",
+      },
       other: {
         "google-adsense-account": "ca-pub-6072468142870937",
         "theme-color": "#020617",
