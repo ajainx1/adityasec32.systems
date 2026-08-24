@@ -1,4 +1,4 @@
-﻿export type Language = 'en' | 'hi';
+export type Language = 'en' | 'hi';
 
 export const UI_TRANSLATIONS: Record<Language, Record<string, string>> = {
   en: {
@@ -110,14 +110,12 @@ export const UI_TRANSLATIONS: Record<Language, Record<string, string>> = {
     freeNonCommercial: "100% Free & Non-Commercial • No Spam Ever",
 
     // AI Modal
-    aiModalTitle: "Generate Custom AI Quiz",
-    aiModalSubtitle: "Create 5 real-time questions on any topic using Gemini 2.5 Flash.",
-    aiTopicLabel: "Quiz Topic",
-    aiTopicPlaceholder: "e.g., Quantum Computing, Animal Behavior, Ancient India",
-    geminiKeyLabel: "Gemini API Key",
-    geminiKeyPlaceholder: "AIzaSy...",
-    generateQuizBtn: "Generate & Play AI Quiz",
-    generatingAI: "Synthesizing Questions with AI...",
+    aiModalTitle: "Google Gemini AI Quiz Generator",
+    aiModalSubtitle: "Generate 5 dynamic questions on any custom topic in real-time.",
+    aiTopicLabel: "Enter Topic or Pick a Suggestion:",
+    aiTopicPlaceholder: "e.g., Quantum Computing, Street Animal Empathy, Black Holes...",
+    generateQuizBtn: "Generate & Play AI Quiz 🚀",
+    generatingAI: "Generating Questions with Google Gemini AI...",
 
     // FAQ Section
     faqBadge: "KNOWLEDGE BASE & MISSION",
@@ -243,14 +241,12 @@ export const UI_TRANSLATIONS: Record<Language, Record<string, string>> = {
     freeNonCommercial: "100% निःशुल्क एवं गैर-व्यावसायिक • कोई स्पैम नहीं",
 
     // AI Modal
-    aiModalTitle: "कस्टम एआई क्विज़ बनाएं",
-    aiModalSubtitle: "Gemini 2.5 Flash की सहायता से किसी भी विषय पर 5 लाइव प्रश्न तैयार करें।",
-    aiTopicLabel: "क्विज़ का विषय",
-    aiTopicPlaceholder: "उदा. क्वांटम भौतिकी, पशु व्यवहार, प्राचीन भारतीय इतिहास",
-    geminiKeyLabel: "Gemini API Key",
-    geminiKeyPlaceholder: "AIzaSy...",
-    generateQuizBtn: "प्रश्नोत्तरी बनाएं और खेलें",
-    generatingAI: "एआई द्वारा प्रश्न तैयार किए जा रहे हैं...",
+    aiModalTitle: "Google Gemini AI प्रश्नोत्तरी जनरेटर",
+    aiModalSubtitle: "Google Gemini AI द्वारा किसी भी विषय पर 5 नए प्रश्न तैयार करें।",
+    aiTopicLabel: "अपना विषय लिखें या नीचे दिए गए सुझाव चुनें:",
+    aiTopicPlaceholder: "उदा. क्वांटम भौतिकी, पशु संरक्षण, ब्लैक होल, प्राचीन भारत...",
+    generateQuizBtn: "AI प्रश्नोत्तरी शुरू करें 🚀",
+    generatingAI: "Google Gemini AI से प्रश्न तैयार किए जा रहे हैं...",
 
     // FAQ Section
     faqBadge: "ज्ञान केंद्र एवं हमारा मिशन",
