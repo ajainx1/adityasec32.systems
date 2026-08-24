@@ -51,6 +51,129 @@ const levelTitles = [
   { minLvl: 25, title: "Ketu Supreme Architect", titleHi: "केतु परम ज्ञाता" }
 ];
 
+export const ALL_QUIZ_CATEGORIES = [
+  {
+    id: 'animals' as CategoryKey,
+    icon: '🐾',
+    titleEn: 'Animals',
+    titleHi: 'पशु संरक्षण',
+    subtitleEn: 'Wildlife & Rescue',
+    subtitleHi: 'वन्यजीव एवं श्वान सेवा',
+    badge: '🐾 High Impact',
+    badgeColor: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
+    colorGradient: 'from-amber-500 to-orange-600',
+    activeGlow: 'shadow-[0_0_20px_rgba(245,158,11,0.35)] border-amber-400 bg-amber-500/20 text-amber-300',
+  },
+  {
+    id: 'math' as CategoryKey,
+    icon: '🧮',
+    titleEn: 'Math',
+    titleHi: 'गणित',
+    subtitleEn: 'Fast Arithmetic & Logic',
+    subtitleHi: 'तीव्र गणना एवं पहेलियाँ',
+    badge: '⚡ Fast Logic',
+    badgeColor: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
+    colorGradient: 'from-blue-500 to-indigo-600',
+    activeGlow: 'shadow-[0_0_20px_rgba(59,130,246,0.35)] border-blue-400 bg-blue-500/20 text-blue-300',
+  },
+  {
+    id: 'space' as CategoryKey,
+    icon: '🚀',
+    titleEn: 'Space',
+    titleHi: 'अंतरिक्ष',
+    subtitleEn: 'Planets & Cosmos',
+    subtitleHi: 'सौर मंडल एवं खगोलिकी',
+    badge: '🪐 Cosmic Lore',
+    badgeColor: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
+    colorGradient: 'from-purple-600 to-indigo-700',
+    activeGlow: 'shadow-[0_0_20px_rgba(147,51,234,0.35)] border-purple-400 bg-purple-500/20 text-purple-300',
+  },
+  {
+    id: 'vocab' as CategoryKey,
+    icon: '📖',
+    titleEn: 'Vocab',
+    titleHi: 'शब्दावली',
+    subtitleEn: 'Words & Idioms',
+    subtitleHi: 'अंग्रेजी शब्दावली',
+    badge: '📚 Word Power',
+    badgeColor: 'bg-rose-500/20 text-rose-300 border-rose-500/30',
+    colorGradient: 'from-rose-500 to-pink-600',
+    activeGlow: 'shadow-[0_0_20px_rgba(244,63,94,0.35)] border-rose-400 bg-rose-500/20 text-rose-300',
+  },
+  {
+    id: 'geography' as CategoryKey,
+    icon: '🌍',
+    titleEn: 'Geography',
+    titleHi: 'भूगोल',
+    subtitleEn: 'Capitals & Maps',
+    subtitleHi: 'विश्व राजधानियाँ एवं सागर',
+    badge: '🗺️ Explorer',
+    badgeColor: 'bg-teal-500/20 text-teal-300 border-teal-500/30',
+    colorGradient: 'from-teal-500 to-emerald-600',
+    activeGlow: 'shadow-[0_0_20px_rgba(20,184,166,0.35)] border-teal-400 bg-teal-500/20 text-teal-300',
+  },
+  {
+    id: 'science' as CategoryKey,
+    icon: '🔬',
+    titleEn: 'Science',
+    titleHi: 'विज्ञान',
+    subtitleEn: 'Biology & Physics',
+    subtitleHi: 'जीव विज्ञान एवं भौतिकी',
+    badge: '🧪 Lab Wonders',
+    badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
+    colorGradient: 'from-emerald-500 to-teal-600',
+    activeGlow: 'shadow-[0_0_20px_rgba(16,185,129,0.35)] border-emerald-400 bg-emerald-500/20 text-emerald-300',
+  },
+  {
+    id: 'gk' as CategoryKey,
+    icon: '💡',
+    titleEn: 'GK',
+    titleHi: 'सामान्य ज्ञान',
+    subtitleEn: 'Inventions & History',
+    subtitleHi: 'ऐतिहासिक आविष्कार',
+    badge: '🏆 Trivia Master',
+    badgeColor: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
+    colorGradient: 'from-yellow-500 to-amber-600',
+    activeGlow: 'shadow-[0_0_20px_rgba(234,179,8,0.35)] border-yellow-400 bg-yellow-500/20 text-yellow-300',
+  },
+  {
+    id: 'cybersecurity' as CategoryKey,
+    icon: '🛡️',
+    titleEn: 'Cybersecurity',
+    titleHi: 'साइबर सुरक्षा',
+    subtitleEn: 'Purple Team & SecOps',
+    subtitleHi: 'सुरक्षा एवं हैकिंग',
+    badge: '🔐 SecOps Elite',
+    badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
+    colorGradient: 'from-cyan-500 to-teal-600',
+    activeGlow: 'shadow-[0_0_20px_rgba(6,182,212,0.35)] border-cyan-400 bg-cyan-500/20 text-cyan-300',
+  },
+  {
+    id: 'random' as const,
+    icon: '🎲',
+    titleEn: 'Random',
+    titleHi: 'रैंडम',
+    subtitleEn: 'Shuffle All 8 Subjects',
+    subtitleHi: 'सभी विषयों का मिश्रण',
+    badge: '🎲 Surprise',
+    badgeColor: 'bg-fuchsia-500/20 text-fuchsia-300 border-fuchsia-500/30',
+    colorGradient: 'from-fuchsia-500 to-purple-600',
+    activeGlow: 'shadow-[0_0_20px_rgba(217,70,239,0.35)] border-fuchsia-400 bg-fuchsia-500/20 text-fuchsia-300',
+  },
+  {
+    id: 'custom-ai' as const,
+    icon: '🤖',
+    titleEn: 'AI Quiz',
+    titleHi: 'AI क्विज़',
+    subtitleEn: 'Unlimited Custom AI Prompts',
+    subtitleHi: 'असीमित विषय जनरेटर',
+    badge: '⚡ Gemini AI',
+    badgeColor: 'bg-violet-500/20 text-violet-300 border-violet-500/30',
+    colorGradient: 'from-violet-600 to-indigo-600',
+    activeGlow: 'shadow-[0_0_20px_rgba(139,92,246,0.35)] border-violet-400 bg-violet-500/20 text-violet-300',
+  },
+];
+
 export default function CharityQuizClient() {
   // Language & Internationalization State
   const [lang, setLang] = useState<Language>('en');
@@ -1406,54 +1529,147 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
               </div>
             </div>
             
-            {/* Categories & Difficulty Container */}
-            <div className={`p-3 rounded-[28px] backdrop-blur-3xl shadow-xl border flex flex-col sm:flex-row gap-3 justify-between items-center ${isDark ? 'bg-black/40 border-white/10' : 'bg-white/90 border-slate-200 shadow-md'}`}>
-                <div className={`flex flex-wrap gap-1.5 w-full sm:w-auto p-1.5 rounded-[22px] ${isDark ? 'bg-black/20' : 'bg-slate-100'}`}>
-                  {(Object.keys(quizData) as CategoryKey[]).map(cat => {
-                    const bank = lang === 'hi' ? quizDataHindi : quizData;
-                    const catTitle = bank[cat]?.title || cat;
-                    return (
-                      <button
-                        key={cat}
-                        onClick={() => setCategory(cat)}
-                        className={`px-3.5 py-2 rounded-[16px] text-xs font-bold transition-all truncate ${category === cat ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 shadow-md scale-[1.02]' : isDark ? 'opacity-70 hover:opacity-100 hover:bg-white/10 text-white' : 'text-slate-700 hover:bg-slate-200'}`}
-                      >
-                        {catTitle.split(' ')[0]} {catTitle.split(' ')[1] || cat}
-                      </button>
-                    );
-                  })}
-                  <button
-                    onClick={() => {
-                      const keys = Object.keys(quizData) as CategoryKey[];
-                      setCategory(keys[Math.floor(Math.random() * keys.length)]);
-                    }}
-                    className={`px-3.5 py-2 rounded-[16px] text-xs font-bold transition-all ${isDark ? 'opacity-70 hover:opacity-100 hover:bg-white/10 text-white' : 'text-slate-700 hover:bg-slate-200'}`}
-                  >
-                    {t('randomCategory')}
-                  </button>
-                  <button
-                    onClick={() => setShowAIModal(true)}
-                    className={`px-3.5 py-2 rounded-[16px] text-xs font-bold transition-all flex items-center gap-1.5 ${category === 'custom-ai' ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-md' : isDark ? 'opacity-80 hover:opacity-100 hover:bg-white/10 text-white' : 'text-purple-700 bg-purple-50 hover:bg-purple-100'}`}
-                  >
-                    <Cpu size={14} /> {t('aiQuiz')}
-                  </button>
+            {/* 10-Category Visual Deck */}
+            <div className={`p-4 sm:p-5 rounded-[28px] backdrop-blur-3xl shadow-2xl border space-y-4 ${isDark ? 'bg-gradient-to-b from-slate-900/80 via-slate-950/90 to-black/90 border-white/10' : 'bg-white/95 border-slate-200 shadow-xl'}`}>
+              
+              {/* Category Selector Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/5 pb-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm">
+                    📚
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-black font-title tracking-tight text-white flex items-center gap-2">
+                      <span>{lang === 'hi' ? 'प्रश्नोत्तरी विषय चुनें (10 श्रेणियाँ):' : 'Select Quiz Category (10 Topics):'}</span>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                        {lang === 'hi' ? '10 विषय उपलब्ध' : '10 Topics Available'}
+                      </span>
+                    </h3>
+                    <p className="text-[11px] font-mono text-slate-400">
+                      {lang === 'hi' ? 'प्रत्येक सही उत्तर से पटना में बेसहारा जानवरों को 10 दाने भोजन दान होता है।' : 'Every correct answer donates 10 grains of rice to feed stray animals in Patna.'}
+                    </p>
+                  </div>
                 </div>
 
+                {/* Difficulty Controls */}
                 {category !== 'custom-ai' && (
-                  <div className={`flex gap-1.5 p-1.5 rounded-[22px] ${isDark ? 'bg-black/20' : 'bg-slate-100'}`}>
-                    {(['beginner', 'intermediate', 'advanced'] as Difficulty[]).map(diff => (
-                      <button
-                        key={diff}
-                        onClick={() => setDifficulty(diff)}
-                        className={`px-3 py-1.5 rounded-[14px] text-xs font-bold capitalize transition-all ${difficulty === diff ? 'bg-blue-600 text-white shadow-md' : isDark ? 'opacity-60 hover:opacity-100 text-slate-300' : 'text-slate-600 hover:text-slate-900'}`}
-                      >
-                        {lang === 'hi' 
-                          ? (diff === 'beginner' ? 'सरल' : diff === 'intermediate' ? 'मध्यम' : 'कठिन')
-                          : (diff === 'beginner' ? 'Easy' : diff === 'intermediate' ? 'Medium' : 'Hard')}
-                      </button>
-                    ))}
+                  <div className="flex items-center gap-1.5 self-start sm:self-auto">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mr-1 hidden sm:inline-block">
+                      {lang === 'hi' ? 'कठिनाई:' : 'Difficulty:'}
+                    </span>
+                    <div className={`flex gap-1 p-1 rounded-xl ${isDark ? 'bg-black/40 border border-white/10' : 'bg-slate-100 border border-slate-200'}`}>
+                      {(['beginner', 'intermediate', 'advanced'] as Difficulty[]).map(diff => (
+                        <button
+                          key={diff}
+                          onClick={() => {
+                            setDifficulty(diff);
+                            addToast(lang === 'hi' ? `कठिनाई: ${diff === 'beginner' ? 'सरल' : diff === 'intermediate' ? 'मध्यम' : 'कठिन'} सेट!` : `Difficulty: ${diff.toUpperCase()} Set!`, 'info');
+                          }}
+                          className={`px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold capitalize transition-all cursor-pointer ${
+                            difficulty === diff 
+                              ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-black shadow-md' 
+                              : isDark ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
+                          }`}
+                        >
+                          {lang === 'hi' 
+                            ? (diff === 'beginner' ? 'सरल' : diff === 'intermediate' ? 'मध्यम' : 'कठिन')
+                            : (diff === 'beginner' ? 'Easy' : diff === 'intermediate' ? 'Med' : 'Hard')}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 )}
+              </div>
+
+              {/* 10 Category Buttons Grid / Pill Ribbon */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5">
+                {ALL_QUIZ_CATEGORIES.map(cat => {
+                  const isSelected = category === cat.id;
+
+                  return (
+                    <button
+                      key={cat.id}
+                      onClick={() => {
+                        if (cat.id === 'random') {
+                          const keys: CategoryKey[] = ['animals', 'math', 'space', 'vocab', 'geography', 'science', 'gk', 'cybersecurity'];
+                          const picked = keys[Math.floor(Math.random() * keys.length)];
+                          setCategory(picked);
+                          const chosenConfig = ALL_QUIZ_CATEGORIES.find(c => c.id === picked);
+                          addToast(lang === 'hi' ? `🎲 रैंडम विषय चुना गया: ${chosenConfig?.titleHi}!` : `🎲 Random Topic Selected: ${chosenConfig?.titleEn}!`, 'success');
+                        } else if (cat.id === 'custom-ai') {
+                          setShowAIModal(true);
+                        } else {
+                          setCategory(cat.id);
+                          addToast(lang === 'hi' ? `✨ श्रेणी: ${cat.titleHi} सक्रिय!` : `✨ Category: ${cat.titleEn} Active!`, 'info');
+                        }
+                      }}
+                      className={`group relative p-2.5 sm:p-3 rounded-2xl border text-left transition-all duration-200 cursor-pointer overflow-hidden flex flex-col justify-between min-h-[72px] sm:min-h-[82px] ${
+                        isSelected
+                          ? `${cat.activeGlow} scale-[1.03]`
+                          : isDark
+                            ? 'bg-slate-900/60 border-white/10 hover:border-white/25 hover:bg-slate-800/80 text-slate-300 hover:text-white'
+                            : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 shadow-sm'
+                      }`}
+                    >
+                      {/* Active Indicator Top Accent Bar */}
+                      {isSelected && (
+                        <span className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400" />
+                      )}
+
+                      <div className="flex items-center justify-between gap-1 w-full">
+                        <span className="text-xl sm:text-2xl group-hover:scale-110 transition-transform">{cat.icon}</span>
+                        <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-md border ${isSelected ? 'bg-white/20 border-white/30 text-white' : cat.badgeColor}`}>
+                          {cat.badge.split(' ')[0]}
+                        </span>
+                      </div>
+
+                      <div className="pt-1">
+                        <div className={`text-xs sm:text-sm font-black font-title tracking-tight flex items-center justify-between ${isSelected ? 'text-white' : ''}`}>
+                          <span>{lang === 'hi' ? cat.titleHi : cat.titleEn}</span>
+                          {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />}
+                        </div>
+                        <p className="text-[10px] font-mono opacity-70 truncate">
+                          {lang === 'hi' ? cat.subtitleHi : cat.subtitleEn}
+                        </p>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Active Category Micro-HUD */}
+              {category !== 'custom-ai' && (
+                <div className={`p-3 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 text-xs font-mono ${
+                  isDark ? 'bg-black/30 border-white/5 text-slate-300' : 'bg-slate-50 border-slate-200 text-slate-700'
+                }`}>
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">
+                      {ALL_QUIZ_CATEGORIES.find(c => c.id === category)?.icon || '📚'}
+                    </span>
+                    <div>
+                      <span className="font-bold text-white">
+                        {lang === 'hi' 
+                          ? (quizDataHindi[category]?.title || category) 
+                          : (quizData[category]?.title || category)}
+                      </span>
+                      <span className="text-[11px] opacity-75 block">
+                        {lang === 'hi' 
+                          ? (quizDataHindi[category]?.description || '') 
+                          : (quizData[category]?.description || '')}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                      👥 {quizData[category]?.ageGroup || 'All Ages'}
+                    </span>
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                      🎯 {lang === 'hi' ? (difficulty === 'beginner' ? 'सरल स्तर' : difficulty === 'intermediate' ? 'मध्यम स्तर' : 'कठिन स्तर') : `${difficulty.toUpperCase()} Level`}
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
 
 
