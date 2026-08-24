@@ -418,6 +418,7 @@ export default function CharityQuizClient() {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [isMinting, setIsMinting] = useState(false);
   const [nftMinted, setNftMinted] = useState(false);
+  const [activeLightboxImage, setActiveLightboxImage] = useState<string | null>(null);
 
   // Staking Nodes State
   const [stakingNodes, setStakingNodes] = useState([
@@ -1844,13 +1845,74 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
-                      className={`w-full rounded-[32px] border p-8 sm:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-2xl relative overflow-hidden ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/50 border-white/60'}`}
+                      className={`w-full rounded-[32px] border p-6 sm:p-8 md:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-2xl relative overflow-hidden ${isDark ? 'bg-slate-900/80 border-white/10' : 'bg-white/90 border-white/80'}`}
                     >
-                      {category === 'custom-ai' && (
-                        <div className="text-xs font-bold text-purple-500 uppercase tracking-wide mb-5 flex items-center gap-2">
-                          <Cpu size={14}/> {lang === 'hi' ? 'एआई क्विज' : 'AI Quiz'}: Question {aiIndex + 1} / {aiQuestions.length} ({aiTopic})
-                        </div>
-                      )}
+                      {/* Dynamic Question Visual Hero Showcase */}
+                      {(() => {
+                        const currentCategoryConfig = ALL_QUIZ_CATEGORIES.find(c => c.id === category);
+                        const categoryFallbackImage = category !== 'custom-ai'
+                          ? (quizData[category]?.heroImage || '/quiz/animals_hero.jpg')
+                          : '/quiz/ai_hero.jpg';
+                        const heroImageSrc = currentQuestion.image || categoryFallbackImage;
+                        const categoryTitle = lang === 'hi' ? (currentCategoryConfig?.titleHi || 'प्रश्नोत्तरी') : (currentCategoryConfig?.titleEn || 'Trivia');
+
+                        return (
+                          <div className="relative w-full h-44 sm:h-56 md:h-64 rounded-[22px] sm:rounded-[26px] overflow-hidden mb-6 border border-white/15 shadow-2xl group select-none bg-slate-950">
+                            {/* Background Image with Ambient Zoom */}
+                            <img
+                              src={heroImageSrc}
+                              alt={currentQuestion.question}
+                              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                              loading="eager"
+                            />
+
+                            {/* Cyberpunk Vignette & Glass Gradient Overlays */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+
+                            {/* Top Bar Floating Badges */}
+                            <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 z-10">
+                              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl backdrop-blur-xl bg-black/70 border border-white/20 text-white shadow-lg">
+                                <span className="text-sm">{currentCategoryConfig?.icon || '💡'}</span>
+                                <span className="text-xs font-bold font-title tracking-wide truncate max-w-[180px] sm:max-w-none">
+                                  {category === 'custom-ai' ? `🤖 AI: ${aiTopic}` : categoryTitle}
+                                </span>
+                                <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded-md border border-emerald-500/30">
+                                  {category === 'custom-ai' ? `Q${aiIndex + 1}/${aiQuestions.length}` : `Q#${questionHistoryRef.current.length + 1}`}
+                                </span>
+                              </div>
+
+                              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl backdrop-blur-xl bg-emerald-950/80 border border-emerald-400/40 text-emerald-300 font-mono text-xs font-bold shadow-lg shadow-emerald-950/50">
+                                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                                <span>{lang === 'hi' ? '🌾 10 दाने दांव पर' : '🌾 10 Grains Pledged'}</span>
+                              </div>
+                            </div>
+
+                            {/* Bottom Visual Details Overlay */}
+                            <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2 z-10">
+                              <div className="flex flex-wrap items-center gap-1.5">
+                                <span className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-black/70 border border-white/15 text-slate-300 backdrop-blur-md">
+                                  🎯 {lang === 'hi' 
+                                    ? (currentQuestion.difficulty === 'beginner' ? 'सरल स्तर' : currentQuestion.difficulty === 'intermediate' ? 'मध्यम स्तर' : 'कठिन स्तर') 
+                                    : `${(currentQuestion.difficulty || difficulty).toUpperCase()} Level`}
+                                </span>
+                                <span className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-purple-950/80 border border-purple-400/30 text-purple-200 backdrop-blur-md hidden sm:inline-flex items-center gap-1">
+                                  🐾 Patna Stray Animal Mission
+                                </span>
+                              </div>
+
+                              <button
+                                type="button"
+                                onClick={() => setActiveLightboxImage(heroImageSrc)}
+                                className="p-2 px-2.5 rounded-xl bg-black/70 hover:bg-black border border-white/20 text-slate-200 hover:text-white backdrop-blur-md transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-md flex items-center gap-1.5 text-xs font-mono"
+                                title={lang === 'hi' ? 'छवि को बड़ा करें' : 'Expand Image'}
+                              >
+                                <span>🔍</span>
+                                <span className="hidden sm:inline font-bold">{lang === 'hi' ? 'विस्तार' : 'Zoom'}</span>
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })()}
 
                       {currentQuestion.scenario && (
                         <div className={`p-5 rounded-[20px] mb-6 text-sm leading-relaxed border ${isDark ? 'bg-black/20 border-white/5' : 'bg-white/40 border-white/50 shadow-sm'}`}>
@@ -2744,6 +2806,66 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
           </div>
         </div>
       </footer>
+
+      {/* Fullscreen Question Visual Lightbox Modal */}
+      <AnimatePresence>
+        {activeLightboxImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActiveLightboxImage(null)}
+            className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6 bg-black/90 backdrop-blur-xl cursor-zoom-out"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={e => e.stopPropagation()}
+              className="relative max-w-5xl max-h-[90vh] w-full rounded-3xl overflow-hidden border border-white/20 shadow-2xl bg-black flex flex-col"
+            >
+              <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+                <button
+                  onClick={() => setActiveLightboxImage(null)}
+                  className="w-10 h-10 rounded-full bg-black/80 hover:bg-black border border-white/30 text-white flex items-center justify-center text-lg font-bold transition-all cursor-pointer shadow-lg hover:scale-105"
+                  title="Close"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="flex-1 overflow-auto flex items-center justify-center p-2 sm:p-4 bg-black/40">
+                <img
+                  src={activeLightboxImage}
+                  alt="High Resolution Visual Preview"
+                  className="w-full h-auto max-h-[75vh] object-contain rounded-2xl"
+                />
+              </div>
+
+              <div className="p-4 sm:p-5 bg-slate-950/95 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-slate-300">
+                <div className="flex items-center gap-2">
+                  <span className="p-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs">🐾</span>
+                  <span className="font-title font-bold text-white text-sm">
+                    {lang === 'hi' ? 'साइबरकर्म विज़ुअल चित्रण एवं फील्ड प्रमाण' : 'CyberKarma High-Definition Visual Showcase'}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <span className="text-[11px] text-emerald-400 font-bold hidden sm:inline">
+                    🌾 {lang === 'hi' ? 'प्रत्येक सही उत्तर से 10 दाने दान' : '10 Grains Donated Per Correct Answer'}
+                  </span>
+                  <button
+                    onClick={() => setActiveLightboxImage(null)}
+                    className="px-4 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-bold transition-all cursor-pointer"
+                  >
+                    {lang === 'hi' ? 'बंद करें (Esc)' : 'Close Preview'}
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

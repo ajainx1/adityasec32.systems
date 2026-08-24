@@ -1,4 +1,4 @@
-﻿import { CategoryData, CategoryKey } from './quizData';
+import { CategoryData, CategoryKey } from './quizData';
 
 export const DAILY_FACTS_HI: { category: string; fact: string; tag: string }[] = [
   {
@@ -59,6 +59,7 @@ export const quizDataHindi: Record<CategoryKey, CategoryData> = {
     description: "रोमांचक वन्यजीव तथ्य और पशु सहानुभूति सीखें और साथ ही बेसहारा जानवरों के लिए भोजन दान करें।",
     icon: "🐕",
     ageGroup: "सभी आयु वर्ग",
+    heroImage: "/quiz/animals_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
@@ -116,6 +117,7 @@ export const quizDataHindi: Record<CategoryKey, CategoryData> = {
     description: "मानसिक अंकगणित, बीजगणित और तार्किक पहेलियों को हल करें और पुण्य के दाने अर्जित करें।",
     icon: "⚡",
     ageGroup: "विद्यार्थी एवं सभी",
+    heroImage: "/quiz/math_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
@@ -173,6 +175,7 @@ export const quizDataHindi: Record<CategoryKey, CategoryData> = {
     description: "ग्रहों, तारों, ब्लैक होल और अंतरिक्ष अभियानों के रहस्यों को जानें।",
     icon: "🪐",
     ageGroup: "जिज्ञासु मस्तिष्क",
+    heroImage: "/quiz/space_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
@@ -222,6 +225,7 @@ export const quizDataHindi: Record<CategoryKey, CategoryData> = {
     description: "अपनी भाषा प्रवीणता, मुहावरे, विलोम और समानार्थी शब्दों को निखारें।",
     icon: "📖",
     ageGroup: "विद्यार्थी एवं सभी",
+    heroImage: "/quiz/vocab_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
@@ -271,6 +275,7 @@ export const quizDataHindi: Record<CategoryKey, CategoryData> = {
     description: "देशों, महाद्वीपों, नदियों और पर्वतमालाओं की दुनिया का अन्वेषण करें।",
     icon: "🗺️",
     ageGroup: "सभी के लिए",
+    heroImage: "/quiz/geography_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
@@ -320,6 +325,7 @@ export const quizDataHindi: Record<CategoryKey, CategoryData> = {
     description: "रसायन विज्ञान, जीव विज्ञान और भौतिकी के मूलभूत नियमों को समझें।",
     icon: "🧪",
     ageGroup: "सभी आयु वर्ग",
+    heroImage: "/quiz/science_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
@@ -369,6 +375,7 @@ export const quizDataHindi: Record<CategoryKey, CategoryData> = {
     description: "इतिहास, महान खोजों और विश्व की प्रमुख उपलब्धियों का ज्ञान प्राप्त करें।",
     icon: "🏆",
     ageGroup: "सभी आयु वर्ग",
+    heroImage: "/quiz/gk_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
@@ -418,6 +425,7 @@ export const quizDataHindi: Record<CategoryKey, CategoryData> = {
     description: "साइबर सुरक्षा, हैकिंग से बचाव और डिजिटल सुरक्षा के गुर सीखें।",
     icon: "💻",
     ageGroup: "युवा एवं तकनीकी",
+    heroImage: "/quiz/cybersecurity_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',

@@ -9,6 +9,9 @@ export interface Question {
   hint: string;
   scenario?: string;
   explanation?: string;
+  image?: string;
+  imageAlt?: string;
+  topicBadge?: string;
 }
 
 export interface CategoryData {
@@ -16,6 +19,7 @@ export interface CategoryData {
   description: string;
   icon: string;
   ageGroup: string;
+  heroImage: string;
   questions: Question[];
 }
 
@@ -25,6 +29,7 @@ export const quizData: Record<CategoryKey, CategoryData> = {
     description: "Learn fun wildlife facts, rescue habits, and animal empathy while donating real street animal food.",
     icon: "🐕",
     ageGroup: "Kids & All Ages",
+    heroImage: "/quiz/animals_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
@@ -82,6 +87,7 @@ export const quizData: Record<CategoryKey, CategoryData> = {
     description: "Sharpen mental calculation, logic puzzles, and algebra tricks. Perfect for kids, students, and puzzle lovers.",
     icon: "⚡",
     ageGroup: "Students & Kids",
+    heroImage: "/quiz/math_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
@@ -139,6 +145,7 @@ export const quizData: Record<CategoryKey, CategoryData> = {
     description: "Explore planets, constellations, black holes, and space missions to unlock cosmic karma rice.",
     icon: "🪐",
     ageGroup: "Curious Minds",
+    heroImage: "/quiz/space_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
@@ -188,6 +195,7 @@ export const quizData: Record<CategoryKey, CategoryData> = {
     description: "Boost your language fluency, SAT/GRE words, idioms, and synonyms while supporting rescue animals.",
     icon: "📖",
     ageGroup: "Students & Writers",
+    heroImage: "/quiz/vocab_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
@@ -237,6 +245,7 @@ export const quizData: Record<CategoryKey, CategoryData> = {
     description: "Travel the world, master countries, continents, mountain ranges, and ocean wonders.",
     icon: "🗺️",
     ageGroup: "Students & Explorers",
+    heroImage: "/quiz/geography_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
@@ -286,6 +295,7 @@ export const quizData: Record<CategoryKey, CategoryData> = {
     description: "Unravel genetics, physics, chemistry, and environmental wonders through gamified learning.",
     icon: "🧪",
     ageGroup: "Curious Students",
+    heroImage: "/quiz/science_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
@@ -335,6 +345,7 @@ export const quizData: Record<CategoryKey, CategoryData> = {
     description: "Test historical breakthroughs, world records, and great discoveries of human civilization.",
     icon: "🏆",
     ageGroup: "All Ages",
+    heroImage: "/quiz/gk_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
@@ -384,6 +395,7 @@ export const quizData: Record<CategoryKey, CategoryData> = {
     description: "Crack offensive & defensive cyber trivia to fund real street animal meals and secure the digital frontier.",
     icon: "💻",
     ageGroup: "Tech & Adults",
+    heroImage: "/quiz/cybersecurity_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
