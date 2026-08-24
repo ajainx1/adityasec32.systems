@@ -37,7 +37,9 @@ export const quizData: Record<CategoryKey, CategoryData> = {
         options: ["Through their fur", "Through their paws and panting", "Through their ears", "Through their tail"],
         answer: 1,
         hint: "They have merocrine sweat glands on their paw pads and cool down via breath.",
-        explanation: "Dogs regulate heat primarily through evaporation during panting and through sweat glands located in their paw pads."
+        explanation: "Dogs regulate heat primarily through evaporation during panting and through sweat glands located in their paw pads.",
+        image: "/impact/dog-feed-1.jpeg",
+        topicBadge: "🐾 Animal Biology & Care"
       },
       {
         difficulty: 'beginner',
@@ -45,7 +47,9 @@ export const quizData: Record<CategoryKey, CategoryData> = {
         options: ["Domestic & Street Dogs", "Raccoons", "Squirrels", "Pigeons"],
         answer: 0,
         hint: "They have lived alongside humans for over 15,000 years.",
-        explanation: "Dogs are universally cherished for their unconditional loyalty, affection, and companionship."
+        explanation: "Dogs are universally cherished for their unconditional loyalty, affection, and companionship.",
+        image: "/impact/dog-feed-3.jpeg",
+        topicBadge: "🐕 Companion Animal Care"
       },
       {
         difficulty: 'beginner',
@@ -53,7 +57,9 @@ export const quizData: Record<CategoryKey, CategoryData> = {
         options: ["A Pack", "A Herd", "A Pride", "A Flock"],
         answer: 2,
         hint: "It rhymes with 'stride'.",
-        explanation: "A family group of lions consisting of related females, their offspring, and resident males is called a pride."
+        explanation: "A family group of lions consisting of related females, their offspring, and resident males is called a pride.",
+        image: "/quiz/animals_hero.jpg",
+        topicBadge: "🦁 Wildlife Ecology"
       },
       {
         difficulty: 'intermediate',
@@ -61,7 +67,9 @@ export const quizData: Record<CategoryKey, CategoryData> = {
         options: ["Tasmanian Devil", "Hippopotamus", "Hyena", "Grizzly Bear"],
         answer: 0,
         hint: "A marsupial native to an Australian island state.",
-        explanation: "The Tasmanian Devil possesses the strongest bite force relative to body mass of any living mammalian land carnivore."
+        explanation: "The Tasmanian Devil possesses the strongest bite force relative to body mass of any living mammalian land carnivore.",
+        image: "/impact/dog-feed-7.jpeg",
+        topicBadge: "🐾 Mammalian Anatomy"
       },
       {
         difficulty: 'intermediate',
@@ -69,7 +77,9 @@ export const quizData: Record<CategoryKey, CategoryData> = {
         options: ["They are too cold", "Cooked bones can splinter and puncture their stomach", "Dogs dislike the smell", "They contain too much water"],
         answer: 1,
         hint: "Cooking makes bird bones brittle and sharp.",
-        explanation: "Cooked bones easily splinter into needle-sharp shards that can cause severe internal throat and stomach punctures."
+        explanation: "Cooked bones easily splinter into needle-sharp shards that can cause severe internal throat and stomach punctures.",
+        image: "/impact/dog-feed-13.jpeg",
+        topicBadge: "🍖 Street Feeding Safety"
       },
       {
         difficulty: 'advanced',
@@ -77,7 +87,9 @@ export const quizData: Record<CategoryKey, CategoryData> = {
         options: ["Taste", "Sense of Smell (Olfaction)", "Color Vision", "Depth Perception"],
         answer: 1,
         hint: "Dogs possess over 300 million olfactory receptors in their noses.",
-        explanation: "A dog's sense of smell is so extraordinarily powerful they can detect parts-per-trillion chemical traces across miles."
+        explanation: "A dog's sense of smell is so extraordinarily powerful they can detect parts-per-trillion chemical traces across miles.",
+        image: "/impact/dog-feed-14.jpeg",
+        topicBadge: "🐕 Canine Sensory Neuroscience"
       }
     ]
   },
