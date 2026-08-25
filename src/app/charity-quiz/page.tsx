@@ -18,14 +18,18 @@ export const metadata: Metadata = {
     'Zero Trust Trivia',
     'Non-Profit Educational Game',
     'Stray Dog Rescue Bihar',
-    'Patna Animal Welfare'
+    'Patna Animal Welfare',
+    'Free Rice Trivia Online',
+    'Play Trivia Donate Food',
+    'Gamified Philanthropy',
+    'Injured Stray Dog First Aid Patna'
   ],
   authors: [{ name: 'Aditya Jain', url: 'https://adityasec32.systems' }],
   creator: 'Aditya Jain',
   publisher: 'CyberKarma Philanthropy',
   openGraph: {
     title: 'Cyber Free Rice 🐾 — Play Free Trivia & Feed Stray Dogs',
-    description: 'Every correct answer donates 10 grains of rice to feed real rescue animals in Patna, Bihar. Level up, build streaks, and play unlimited AI quizzes to make a real-world difference!',
+    description: 'Every correct answer donates 10 grains of rice to feed real rescue animals and fund medical aid in Patna, Bihar. 100% Free, Unlimited AI Mode & Field-Verified Impact.',
     url: 'https://cyberkarma.me',
     siteName: 'CyberKarma • Cyber Free Rice',
     images: [
@@ -48,6 +52,19 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://cyberkarma.me',
+    languages: {
+      'en': 'https://cyberkarma.me',
+      'hi': 'https://cyberkarma.me/?lang=hi',
+      'es': 'https://cyberkarma.me/?lang=es',
+      'fr': 'https://cyberkarma.me/?lang=fr',
+      'de': 'https://cyberkarma.me/?lang=de',
+      'bn': 'https://cyberkarma.me/?lang=bn',
+      'ta': 'https://cyberkarma.me/?lang=ta',
+      'te': 'https://cyberkarma.me/?lang=te',
+      'ja': 'https://cyberkarma.me/?lang=ja',
+      'ar': 'https://cyberkarma.me/?lang=ar',
+      'x-default': 'https://cyberkarma.me',
+    },
   },
   other: {
     'geo.region': 'IN-BR',
@@ -195,6 +212,65 @@ const jsonLdBreadcrumb = {
   ]
 };
 
+const jsonLdHowTo = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Feed Stray Animals for Free by Playing Online Trivia",
+  "description": "Learn how playing trivia questions on CyberKarma generates free rice donations and medical care for street dogs in Patna, Bihar.",
+  "totalTime": "PT2M",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Choose a Subject or AI Category",
+      "text": "Select from Cybersecurity, Wildlife Care, Space, Science, Math, Geography, or create a custom AI topic.",
+      "url": "https://cyberkarma.me/"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Answer Trivia Questions Correctly",
+      "text": "Each correct answer pledges 10 grains of rice to the community animal welfare pool.",
+      "url": "https://cyberkarma.me/"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Accumulate Meals & Verify Field Delivery",
+      "text": "Every 50 grains funds 1 full warm street meal. Inspect geotagged photo proof on the Impact Ledger.",
+      "url": "https://cyberkarma.me/impact"
+    }
+  ]
+};
+
+const jsonLdSocialEvent = {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Daily Street Dog Rescue & Feeding Drives in Patna",
+  "startDate": "2026-08-01T17:00:00+05:30",
+  "endDate": "2026-12-31T21:00:00+05:30",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "Place",
+    "name": "Patna Division Corridors",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Rajbansi Nagar & Boring Road",
+      "addressLocality": "Patna",
+      "addressRegion": "Bihar",
+      "postalCode": "800001",
+      "addressCountry": "IN"
+    }
+  },
+  "organizer": {
+    "@type": "Organization",
+    "name": "CyberKarma Philanthropy",
+    "url": "https://cyberkarma.me"
+  },
+  "description": "Daily verified field feeding rounds and injured street animal medical aid funded by online trivia players across the globe."
+};
+
 export default function CharityQuizPage() {
   const combinedJsonLd = {
     "@context": "https://schema.org",
@@ -202,7 +278,9 @@ export default function CharityQuizPage() {
       jsonLdWebApp,
       jsonLdOrganization,
       jsonLdFaq,
-      jsonLdBreadcrumb
+      jsonLdBreadcrumb,
+      jsonLdHowTo,
+      jsonLdSocialEvent
     ]
   };
 
