@@ -169,9 +169,24 @@ export const ALL_QUIZ_CATEGORIES = [
     subtitleHi: 'असीमित विषय जनरेटर',
     badge: '⚡ Gemini AI',
     badgeColor: 'bg-violet-500/20 text-violet-300 border-violet-500/30',
-    colorGradient: 'from-violet-600 to-indigo-600',
-    activeGlow: 'shadow-[0_0_20px_rgba(139,92,246,0.35)] border-violet-400 bg-violet-500/20 text-violet-300',
+    colorGradient: 'from-violet-600 via-fuchsia-600 to-indigo-600',
+    activeGlow: 'shadow-[0_0_30px_rgba(168,85,247,0.5)] border-purple-400 bg-purple-500/25 text-purple-200',
   },
+];
+
+const AI_PRESET_TOPICS = [
+  { icon: '🐕', topic: 'Dog Rescue & Animal Empathy', topicHi: 'पशु संवेदना एवं श्वान कल्याण', desc: 'Canine psychology & rescue ethics' },
+  { icon: '🌌', topic: 'Quantum Physics & Black Holes', topicHi: 'क्वांटम भौतिकी एवं ब्रह्मांड', desc: 'Cosmic singularities & quantum states' },
+  { icon: '🚀', topic: 'NASA & Interstellar Space Travel', topicHi: 'नासा एवं अंतरिक्ष अन्वेषण', desc: 'Mars rovers & exoplanet missions' },
+  { icon: '🛡️', topic: 'Cybersecurity & Ethical Hacking', topicHi: 'साइबर सुरक्षा एवं एथिकल हैकिंग', desc: 'Zero-day exploits & cryptography' },
+  { icon: '🧠', topic: 'Neuroscience & Human Cognition', topicHi: 'न्यूरोसाइंस एवं मानव मस्तिष्क', desc: 'Synapses, memory & consciousness' },
+  { icon: '🧬', topic: 'CRISPR & Human Genetics', topicHi: 'जेनेटिक्स एवं डीएनए विज्ञान', desc: 'Gene editing & cellular longevity' },
+  { icon: '🏛️', topic: 'Ancient Civilizations & Mythology', topicHi: 'प्राचीन सभ्यताएं एवं इतिहास', desc: 'Indus Valley, Rome & Egyptian wonders' },
+  { icon: '🤖', topic: 'Artificial Intelligence & Neural Nets', topicHi: 'आर्टिफिशियल इंटेलिजेंस (AI)', desc: 'Transformers, LLMs & AGI horizons' },
+  { icon: '🌊', topic: 'Marine Biology & Ocean Depths', topicHi: 'समुद्री जीवन एवं महासागर', desc: 'Bioluminescence & abyssal trenches' },
+  { icon: '🏎️', topic: 'Formula 1 & High-Performance Cars', topicHi: 'फॉर्मूला 1 एवं सुपरकार्स', desc: 'Aerodynamics & hybrid V6 engines' },
+  { icon: '📜', topic: 'Stoicism & Practical Philosophy', topicHi: 'दर्शनशास्त्र एवं आत्मज्ञान', desc: 'Marcus Aurelius & mental clarity' },
+  { icon: '🪐', topic: 'Astrobiology & Alien Worlds', topicHi: 'अन्य ग्रहों पर जीवन की खोज', desc: 'James Webb observations & biosignatures' },
 ];
 
 export default function CharityQuizClient() {
@@ -2165,19 +2180,31 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                       className={`group relative p-2.5 sm:p-3 rounded-2xl border text-left transition-all duration-200 cursor-pointer overflow-hidden flex flex-col justify-between min-h-[72px] sm:min-h-[82px] ${
                         isSelected
                           ? `${cat.activeGlow} scale-[1.03]`
-                          : isDark
-                            ? 'bg-slate-900/60 border-white/10 hover:border-white/25 hover:bg-slate-800/80 text-slate-300 hover:text-white'
-                            : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 shadow-sm'
+                          : cat.id === 'custom-ai'
+                            ? isDark
+                              ? 'bg-gradient-to-br from-purple-950/70 via-fuchsia-950/40 to-slate-900/90 border-purple-500/50 shadow-[0_0_20px_rgba(168,85,247,0.35)] text-purple-200 hover:border-purple-400 hover:scale-[1.02]'
+                              : 'bg-gradient-to-br from-purple-50 via-fuchsia-50 to-indigo-50 border-purple-300 shadow-md text-purple-950 hover:border-purple-400 hover:scale-[1.02]'
+                            : isDark
+                              ? 'bg-slate-900/60 border-white/10 hover:border-white/25 hover:bg-slate-800/80 text-slate-300 hover:text-white'
+                              : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 shadow-sm'
                       }`}
                     >
                       {/* Active Indicator Top Accent Bar */}
-                      {isSelected && (
+                      {isSelected ? (
                         <span className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400" />
-                      )}
+                      ) : cat.id === 'custom-ai' ? (
+                        <span className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-fuchsia-400 to-indigo-500 animate-pulse" />
+                      ) : null}
 
                       <div className="flex items-center justify-between gap-1 w-full">
                         <span className="text-xl sm:text-2xl group-hover:scale-110 transition-transform">{cat.icon}</span>
-                        <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-md border ${isSelected ? 'bg-white/20 border-white/30 text-white' : cat.badgeColor}`}>
+                        <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-md border ${
+                          isSelected 
+                            ? 'bg-white/20 border-white/30 text-white' 
+                            : cat.id === 'custom-ai'
+                              ? 'bg-gradient-to-r from-purple-500/30 to-fuchsia-500/30 text-purple-200 border-purple-400/40 animate-pulse font-black'
+                              : cat.badgeColor
+                        }`}>
                           {cat.badge.split(' ')[0]}
                         </span>
                       </div>
@@ -2186,6 +2213,7 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                         <div className={`text-xs sm:text-sm font-black font-title tracking-tight flex items-center justify-between ${isSelected ? 'text-white' : ''}`}>
                           <span>{lang === 'hi' ? cat.titleHi : cat.titleEn}</span>
                           {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />}
+                          {!isSelected && cat.id === 'custom-ai' && <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />}
                         </div>
                         <p className="text-[10px] font-mono opacity-70 truncate">
                           {lang === 'hi' ? cat.subtitleHi : cat.subtitleEn}
@@ -3538,6 +3566,240 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                   Done
                 </button>
               </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Holographic Animated AI Quiz Generator Modal */}
+      <AnimatePresence>
+        {showAIModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => !isGeneratingAI && setShowAIModal(false)}
+            className="fixed inset-0 z-[220] flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-2xl overflow-y-auto"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.9, y: 20, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              onClick={e => e.stopPropagation()}
+              className="relative max-w-2xl w-full my-auto rounded-[32px] overflow-hidden border border-purple-500/40 shadow-[0_0_80px_rgba(168,85,247,0.35)] bg-gradient-to-b from-slate-900/98 via-slate-950/98 to-black text-white p-6 sm:p-8 space-y-6"
+            >
+              {/* Holographic Glowing Ambient Background Lights */}
+              <div className="absolute top-0 left-1/4 w-72 h-72 bg-purple-600/20 rounded-full blur-3xl pointer-events-none -translate-y-1/2" />
+              <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none translate-y-1/2" />
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-purple-500 via-fuchsia-400 to-cyan-400 animate-pulse" />
+
+              {/* Modal Header */}
+              <div className="relative z-10 flex items-start justify-between gap-4 border-b border-white/10 pb-5">
+                <div className="flex items-center gap-3.5">
+                  <div className="relative">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 via-fuchsia-600 to-indigo-500 flex items-center justify-center text-3xl shadow-[0_0_25px_rgba(168,85,247,0.6)] animate-pulse">
+                      🤖
+                    </div>
+                    <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-400 border-2 border-slate-950 flex items-center justify-center text-[8px] font-black text-slate-950">
+                      ✓
+                    </span>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-black uppercase tracking-widest bg-gradient-to-r from-purple-500/20 to-fuchsia-500/20 text-purple-300 border border-purple-500/30">
+                        ⚡ Google Gemini AI 2.5
+                      </span>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 animate-pulse">
+                        100% Free
+                      </span>
+                    </div>
+                    <h2 className="text-xl sm:text-2xl font-black font-title tracking-tight text-white mt-1">
+                      {lang === 'hi' ? 'AI प्रश्नोत्तरी जनरेटर' : 'AI Custom Quiz Generator'}
+                    </h2>
+                    <p className="text-xs text-slate-300 font-mono">
+                      {lang === 'hi'
+                        ? 'किसी भी विषय पर वास्तविक समय में 10 नए बहुविकल्पीय प्रश्न बनाएं।'
+                        : 'Generate 10 dynamic, verifiable multiple-choice questions on any topic in real-time.'}
+                    </p>
+                  </div>
+                </div>
+
+                {!isGeneratingAI && (
+                  <button
+                    onClick={() => setShowAIModal(false)}
+                    className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center text-base font-bold transition-all cursor-pointer hover:scale-105 shrink-0"
+                    title="Close"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+
+              {/* Dynamic Generating State Screen */}
+              {isGeneratingAI ? (
+                <div className="relative z-10 py-12 flex flex-col items-center justify-center text-center space-y-6">
+                  <div className="relative w-28 h-28 flex items-center justify-center">
+                    {/* Outer Rotating Energy Ring */}
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                      className="absolute inset-0 rounded-full border-2 border-dashed border-purple-400/60"
+                    />
+                    {/* Reverse Inner Ring */}
+                    <motion.div
+                      animate={{ rotate: -360 }}
+                      transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+                      className="absolute inset-2 rounded-full border-2 border-dotted border-cyan-400/60"
+                    />
+                    {/* Glowing Core */}
+                    <motion.div
+                      animate={{ scale: [1, 1.15, 1] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                      className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 via-fuchsia-600 to-cyan-500 flex items-center justify-center text-3xl shadow-[0_0_40px_rgba(168,85,247,0.8)]"
+                    >
+                      ⚡
+                    </motion.div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="text-lg sm:text-xl font-black font-title tracking-tight bg-gradient-to-r from-purple-300 via-fuchsia-200 to-cyan-300 bg-clip-text text-transparent">
+                      {lang === 'hi' ? `"${aiTopic}" पर 10 प्रश्न तैयार हो रहे हैं...` : `Synthesizing 10 Questions on "${aiTopic}"...`}
+                    </h3>
+                    <div className="flex items-center justify-center gap-2 text-xs font-mono text-slate-400">
+                      <Sparkles size={14} className="text-purple-400 animate-spin" />
+                      <span>{lang === 'hi' ? 'Google Gemini AI न्यूरल इंजन से जुड़ाव एवं विकल्प यादृच्छिकीकरण...' : 'Connecting to Gemini AI Neural Engine & Randomizing Options...'}</span>
+                    </div>
+                  </div>
+
+                  {/* Telemetry Progress Bar */}
+                  <div className="w-full max-w-sm h-2.5 rounded-full overflow-hidden bg-black/60 border border-purple-500/30 p-0.5">
+                    <motion.div
+                      className="h-full bg-gradient-to-r from-purple-500 via-fuchsia-400 to-cyan-400 rounded-full"
+                      animate={{ width: ['0%', '70%', '95%'] }}
+                      transition={{ duration: 3, ease: 'easeInOut' }}
+                    />
+                  </div>
+                </div>
+              ) : (
+                /* Interactive Form Area */
+                <div className="relative z-10 space-y-5">
+                  {/* Topic Input Box */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-mono font-bold uppercase tracking-wider text-purple-300 flex items-center gap-1.5">
+                        <Sparkles size={14} className="text-purple-400" />
+                        <span>{lang === 'hi' ? 'अपना पसंदीदा विषय दर्ज करें:' : 'Enter Custom Topic of Curiosity:'}</span>
+                      </label>
+                      <button
+                        onClick={() => {
+                          const rand = AI_PRESET_TOPICS[Math.floor(Math.random() * AI_PRESET_TOPICS.length)];
+                          setAiTopic(lang === 'hi' ? rand.topicHi : rand.topic);
+                          addToast(lang === 'hi' ? `🎲 चुना गया: ${rand.topicHi}` : `🎲 Random: ${rand.topic}`, 'info');
+                        }}
+                        className="text-[11px] font-mono font-bold text-cyan-400 hover:text-cyan-300 underline cursor-pointer flex items-center gap-1"
+                      >
+                        🎲 {lang === 'hi' ? 'रैंडम सुझाव भरें' : 'Surprise Me'}
+                      </button>
+                    </div>
+
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={aiTopic}
+                        onChange={e => setAiTopic(e.target.value)}
+                        onKeyDown={e => {
+                          if (e.key === 'Enter' && aiTopic.trim()) {
+                            handleGenerateAIQuiz();
+                          }
+                        }}
+                        placeholder={lang === 'hi' ? 'उदा. ब्लैक होल, प्राचीन भारत, डीएनए, सुपरकार्स, क्वांटम भौतिकी...' : 'e.g., Quantum Computing, Street Animal Empathy, Black Holes, Formula 1...'}
+                        className="w-full px-4 py-3.5 pl-11 pr-10 rounded-2xl bg-black/60 border border-purple-500/40 focus:border-purple-400 focus:ring-2 focus:ring-purple-500/40 text-sm font-mono text-white placeholder:text-slate-500 outline-none transition-all shadow-inner"
+                      />
+                      <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-lg text-purple-400">
+                        ⚡
+                      </span>
+                      {aiTopic && (
+                        <button
+                          onClick={() => setAiTopic('')}
+                          className="absolute right-3.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 text-slate-400 hover:text-white flex items-center justify-center text-xs transition-colors cursor-pointer"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* 12 Quick-Select Topic Chips */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-xs font-mono text-slate-400">
+                      <span className="font-bold text-slate-300">
+                        {lang === 'hi' ? '🔥 लोकप्रिय त्वरित सुझाव (12 श्रेणियाँ):' : '🔥 Popular Trending Topics (12 Categories):'}
+                      </span>
+                      <span className="text-[10px] text-purple-400">Tap to Select</span>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-56 overflow-y-auto pr-1 scrollbar-thin">
+                      {AI_PRESET_TOPICS.map((preset, idx) => {
+                        const isChosen = aiTopic.toLowerCase() === (lang === 'hi' ? preset.topicHi : preset.topic).toLowerCase();
+                        return (
+                          <button
+                            key={idx}
+                            onClick={() => {
+                              setAiTopic(lang === 'hi' ? preset.topicHi : preset.topic);
+                            }}
+                            className={`p-2.5 rounded-xl border text-left transition-all flex items-center gap-2.5 cursor-pointer hover:scale-[1.02] active:scale-98 ${
+                              isChosen
+                                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 border-purple-400 text-white shadow-lg shadow-purple-500/30'
+                                : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-purple-500/30 hover:text-white'
+                            }`}
+                          >
+                            <span className="text-xl shrink-0">{preset.icon}</span>
+                            <div className="min-w-0">
+                              <div className="text-xs font-bold font-title truncate">
+                                {lang === 'hi' ? preset.topicHi : preset.topic}
+                              </div>
+                              <div className="text-[9px] font-mono text-slate-400 truncate">
+                                {preset.desc}
+                              </div>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Patna Rice Donation Notice & Action CTA */}
+                  <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-between gap-3 text-xs font-mono">
+                    <div className="flex items-center gap-2 text-emerald-300">
+                      <span className="text-lg">🐕🍲</span>
+                      <span>
+                        {lang === 'hi'
+                          ? '10 में से हर सही उत्तर पर 10 दाने अन्नदान (कुल 100 दाने संभव = 2 पूरे भोजन कटोरे)!'
+                          : '10 Grains Donated Per Correct Answer (Up to 100 Grains = 2 Full Dog Meal Bowls)!'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Primary Action Button */}
+                  <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+                    <button
+                      onClick={handleGenerateAIQuiz}
+                      disabled={!aiTopic.trim()}
+                      className="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 hover:brightness-110 disabled:opacity-50 text-white font-black font-title text-sm tracking-wide shadow-xl shadow-purple-500/30 flex items-center justify-center gap-2 cursor-pointer transition-all hover:scale-[1.02] active:scale-98"
+                    >
+                      <Sparkles size={18} />
+                      <span>{lang === 'hi' ? '🚀 10 प्रश्नों की AI क्विज़ शुरू करें' : '🚀 Generate & Launch 10-Question AI Quiz'}</span>
+                    </button>
+                    <button
+                      onClick={() => setShowAIModal(false)}
+                      className="w-full sm:w-auto px-6 py-4 rounded-2xl bg-white/10 hover:bg-white/20 text-slate-300 font-bold font-mono text-xs transition-colors cursor-pointer"
+                    >
+                      {lang === 'hi' ? 'रद्द करें' : 'Cancel'}
+                    </button>
+                  </div>
+                </div>
+              )}
             </motion.div>
           </motion.div>
         )}
