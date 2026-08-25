@@ -348,10 +348,20 @@ export default function CharityQuizClient() {
     return dayOfYear % DAILY_FACTS.length;
   });
   const [isWisdomBannerVisible, setIsWisdomBannerVisible] = useState(true);
+  const [isFactHovered, setIsFactHovered] = useState(false);
 
   const handleNextFact = () => {
     setFactIndex((prev) => (prev + 1) % DAILY_FACTS.length);
   };
+
+  // Autoscroll / Auto-rotate Wisdom & Facts banner every 6.5 seconds (pauses on mouse hover)
+  useEffect(() => {
+    if (!isWisdomBannerVisible || isFactHovered) return;
+    const factTimer = setInterval(() => {
+      setFactIndex((prev) => (prev + 1) % DAILY_FACTS.length);
+    }, 6500);
+    return () => clearInterval(factTimer);
+  }, [isWisdomBannerVisible, isFactHovered]);
   
   // Daily Streak & Shields State
   const [dailyStreak, setDailyStreak] = useState(0);
@@ -1630,45 +1640,74 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
             exit={{ opacity: 0, y: -20 }}
             className="sticky top-[60px] z-40 px-3 sm:px-6 pt-2.5 pb-1 w-full max-w-6xl mx-auto"
           >
-            <div className={`p-4 sm:p-5 rounded-3xl border backdrop-blur-2xl flex flex-col sm:flex-row items-center justify-between gap-4 transition-all ${
-              isDark 
-                ? 'bg-gradient-to-r from-slate-950/95 via-slate-900/95 to-slate-950/95 border-emerald-500/35 text-white shadow-[0_12px_40px_rgba(0,0,0,0.5)]' 
-                : 'bg-gradient-to-r from-emerald-50/95 via-white/98 to-teal-50/95 border-2 border-emerald-300 text-slate-900 shadow-[0_12px_32px_rgba(16,185,129,0.12)]'
-            }`}>
+            <div 
+              onMouseEnter={() => setIsFactHovered(true)}
+              onMouseLeave={() => setIsFactHovered(false)}
+              className={`p-4 sm:p-5 rounded-3xl border backdrop-blur-2xl flex flex-col sm:flex-row items-center justify-between gap-4 transition-all relative overflow-hidden ${
+                isDark 
+                  ? 'bg-gradient-to-r from-slate-950/95 via-slate-900/95 to-slate-950/95 border-emerald-500/35 text-white shadow-[0_12px_40px_rgba(0,0,0,0.5)]' 
+                  : 'bg-gradient-to-r from-emerald-50/95 via-white/98 to-teal-50/95 border-2 border-emerald-300 text-slate-900 shadow-[0_12px_32px_rgba(16,185,129,0.12)]'
+              }`}
+            >
+              {/* Autoscroll Progress Timer Line */}
+              <motion.div
+                key={factIndex}
+                initial={{ width: '0%' }}
+                animate={{ width: isFactHovered ? '0%' : '100%' }}
+                transition={{ duration: 6.5, ease: 'linear' }}
+                className="absolute top-0 left-0 h-1 bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 opacity-80"
+              />
               
               <div className="flex items-start sm:items-center gap-3.5 w-full sm:w-auto flex-1 min-w-0">
-                <div className={`w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0 text-2xl shadow-md ${
+                <div className={`w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0 text-2xl shadow-md cursor-pointer hover:scale-105 transition-transform ${
                   isDark ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 animate-pulse' : 'bg-emerald-600 text-white shadow-emerald-600/25'
-                }`}>
+                }`}
+                onClick={handleNextFact}
+                title="Click for next fact"
+                >
                   ⚡
                 </div>
-                <div className="flex-1 min-w-0 space-y-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className={`text-[10px] font-mono font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border shadow-sm ${
-                      isDark ? 'text-emerald-300 bg-emerald-500/20 border-emerald-500/30' : 'text-emerald-900 bg-emerald-100 border-emerald-300 font-extrabold'
-                    }`}>
-                      📅 {t('dailyWisdomTitle')} #{factIndex + 1}
-                    </span>
+                
+                <AnimatePresence mode="wait">
+                  <motion.div 
+                    key={factIndex}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.35, ease: 'easeInOut' }}
+                    className="flex-1 min-w-0 space-y-1"
+                  >
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className={`text-[10px] font-mono font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border shadow-sm ${
+                        isDark ? 'text-emerald-300 bg-emerald-500/20 border-emerald-500/30' : 'text-emerald-900 bg-emerald-100 border-emerald-300 font-extrabold'
+                      }`}>
+                        📅 {t('dailyWisdomTitle')} #{(factIndex % (lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS).length) + 1}
+                      </span>
 
-                    <span className={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full border shadow-sm ${
-                      isDark ? 'text-cyan-300 bg-cyan-500/15 border-cyan-500/30' : 'text-cyan-900 bg-cyan-100 border-cyan-300 font-extrabold'
-                    }`}>
-                      {(lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS)[factIndex % (lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS).length].tag}
-                    </span>
+                      <span className={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full border shadow-sm ${
+                        isDark ? 'text-cyan-300 bg-cyan-500/15 border-cyan-500/30' : 'text-cyan-900 bg-cyan-100 border-cyan-300 font-extrabold'
+                      }`}>
+                        {(lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS)[factIndex % (lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS).length].tag}
+                      </span>
 
-                    <span className={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full border shadow-sm hidden md:inline ${
-                      isDark ? 'text-purple-300 bg-purple-500/15 border-purple-500/30' : 'text-purple-900 bg-purple-100 border-purple-300 font-extrabold'
-                    }`}>
-                      {(lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS)[factIndex % (lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS).length].category}
-                    </span>
-                  </div>
+                      <span className={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full border shadow-sm hidden md:inline ${
+                        isDark ? 'text-purple-300 bg-purple-500/15 border-purple-500/30' : 'text-purple-900 bg-purple-100 border-purple-300 font-extrabold'
+                      }`}>
+                        {(lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS)[factIndex % (lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS).length].category}
+                      </span>
 
-                  <p className={`text-xs sm:text-sm font-semibold tracking-tight leading-snug line-clamp-2 sm:line-clamp-none ${
-                    isDark ? 'text-slate-100' : 'text-slate-950 font-bold'
-                  }`}>
-                    "{(lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS)[factIndex % (lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS).length].fact}"
-                  </p>
-                </div>
+                      <span className="text-[9px] font-mono text-emerald-400/80 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 hidden sm:inline">
+                        ⏱️ Auto-rotating
+                      </span>
+                    </div>
+
+                    <p className={`text-xs sm:text-sm font-semibold tracking-tight leading-snug line-clamp-2 sm:line-clamp-none ${
+                      isDark ? 'text-slate-100' : 'text-slate-950 font-bold'
+                    }`}>
+                      "{(lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS)[factIndex % (lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS).length].fact}"
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
               </div>
 
               <div className="flex items-center justify-between sm:justify-end gap-2.5 w-full sm:w-auto shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-white/10">
@@ -1677,7 +1716,7 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                 </span>
 
                 <button
-                  onClick={() => setFactIndex((prev) => (prev + 1) % (lang === 'hi' ? DAILY_FACTS_HI : DAILY_FACTS).length)}
+                  onClick={handleNextFact}
                   className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-1.5 active:scale-95 shadow-md whitespace-nowrap cursor-pointer hover:scale-105 ${
                     isDark 
                       ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 hover:brightness-110 shadow-emerald-500/20' 
