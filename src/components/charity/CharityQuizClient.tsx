@@ -33,19 +33,22 @@ interface CategoryConfig {
   titleHi: string;
   subtitleEn: string;
   subtitleHi: string;
+  tagEn?: string;
+  tagHi?: string;
+  goldSpecial?: boolean;
 }
 
 const CATEGORIES: CategoryConfig[] = [
-  { id: 'animals', icon: '🐾', titleEn: 'Animals & Rescue', titleHi: 'पशु संरक्षण', subtitleEn: 'Canine welfare & wildlife', subtitleHi: 'श्वान सेवा व जीव विज्ञान' },
-  { id: 'cybersecurity', icon: '🛡️', titleEn: 'Cybersecurity', titleHi: 'साइबर सुरक्षा', subtitleEn: 'Ethical hacking & defense', subtitleHi: 'नेटवर्क व सुरक्षा' },
-  { id: 'space', icon: '🚀', titleEn: 'Space & Cosmos', titleHi: 'अंतरिक्ष', subtitleEn: 'Astronomy & universe', subtitleHi: 'खगोलिकी व ब्रह्मांड' },
-  { id: 'science', icon: '🔬', titleEn: 'Natural Science', titleHi: 'विज्ञान', subtitleEn: 'Physics & biology', subtitleHi: 'भौतिकी व रसायन' },
-  { id: 'math', icon: '🧮', titleEn: 'Mathematics', titleHi: 'गणित', subtitleEn: 'Logic & number theory', subtitleHi: 'तर्क व अंकगणित' },
-  { id: 'geography', icon: '🌍', titleEn: 'Geography', titleHi: 'भूगोल', subtitleEn: 'World maps & capitals', subtitleHi: 'विश्व राजधानियाँ व सागर' },
-  { id: 'vocab', icon: '📖', titleEn: 'Vocabulary', titleHi: 'शब्दावली', subtitleEn: 'Linguistics & words', subtitleHi: 'शब्द शक्ति व अर्थ' },
-  { id: 'gk', icon: '💡', titleEn: 'General Knowledge', titleHi: 'सामान्य ज्ञान', subtitleEn: 'History & discoveries', subtitleHi: 'इतिहास व आविष्कार' },
-  { id: 'random', icon: '🎲', titleEn: 'Random Mix', titleHi: 'रैंडम मिक्स', subtitleEn: 'All topics shuffled', subtitleHi: 'सभी विषयों का मिश्रण' },
-  { id: 'custom-ai', icon: '🤖', titleEn: 'AI Custom Quiz', titleHi: 'AI कस्टम क्विज़', subtitleEn: 'Any topic of curiosity', subtitleHi: 'मनपसंद विषय जनरेटर' },
+  { id: 'animals', icon: '🐾', titleEn: 'Animals & Rescue', titleHi: 'पशु संरक्षण', subtitleEn: 'Canine welfare & wildlife', subtitleHi: 'श्वान सेवा व जीव विज्ञान', tagEn: '⭐ 100% Impact', tagHi: '⭐ 100% सेवा', goldSpecial: true },
+  { id: 'cybersecurity', icon: '🛡️', titleEn: 'Cybersecurity', titleHi: 'साइबर सुरक्षा', subtitleEn: 'Ethical hacking & defense', subtitleHi: 'नेटवर्क व सुरक्षा', tagEn: '🔐 SecOps', tagHi: '🔐 सुरक्षा' },
+  { id: 'space', icon: '🚀', titleEn: 'Space & Cosmos', titleHi: 'अंतरिक्ष', subtitleEn: 'Astronomy & universe', subtitleHi: 'खगोलिकी व ब्रह्मांड', tagEn: '🪐 Cosmos', tagHi: '🪐 अंतरिक्ष' },
+  { id: 'science', icon: '🔬', titleEn: 'Natural Science', titleHi: 'विज्ञान', subtitleEn: 'Physics & biology', subtitleHi: 'भौतिकी व रसायन', tagEn: '🧪 Science', tagHi: '🧪 विज्ञान' },
+  { id: 'math', icon: '🧮', titleEn: 'Mathematics', titleHi: 'गणित', subtitleEn: 'Logic & number theory', subtitleHi: 'तर्क व अंकगणित', tagEn: '📐 Logic', tagHi: '📐 तर्क' },
+  { id: 'geography', icon: '🌍', titleEn: 'Geography', titleHi: 'भूगोल', subtitleEn: 'World maps & capitals', subtitleHi: 'विश्व राजधानियाँ व सागर', tagEn: '🗺️ Atlas', tagHi: '🗺️ मानचित्र' },
+  { id: 'vocab', icon: '📖', titleEn: 'Vocabulary', titleHi: 'शब्दावली', subtitleEn: 'Linguistics & words', subtitleHi: 'शब्द शक्ति व अर्थ', tagEn: '📚 Words', tagHi: '📚 शब्द' },
+  { id: 'gk', icon: '💡', titleEn: 'General Knowledge', titleHi: 'सामान्य ज्ञान', subtitleEn: 'History & discoveries', subtitleHi: 'इतिहास व आविष्कार', tagEn: '🏆 Trivia', tagHi: '🏆 ज्ञान' },
+  { id: 'random', icon: '🎲', titleEn: 'Random Mix', titleHi: 'रैंडम मिक्स', subtitleEn: 'All topics shuffled', subtitleHi: 'सभी विषयों का मिश्रण', tagEn: '✨ Shuffle', tagHi: '✨ मिश्रण' },
+  { id: 'custom-ai', icon: '🤖', titleEn: 'AI Custom Quiz', titleHi: 'AI कस्टम क्विज़', subtitleEn: 'Any topic of curiosity', subtitleHi: 'मनपसंद विषय जनरेटर', tagEn: '⚡ Gemini', tagHi: '⚡ AI' },
 ];
 
 const CURATED_AI_TOPICS = [
@@ -192,6 +195,16 @@ export default function CharityQuizClient() {
   // Question Memory Buffer to avoid repeats
   const questionHistoryRef = useRef<string[]>([]);
   const currentQuestionRef = useRef<Question | null>(null);
+
+  // Animated Category Spotlight State
+  const [spotlightIdx, setSpotlightIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSpotlightIdx(prev => (prev + 1) % CATEGORIES.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, []);
 
   const { addToast } = useToast();
   const t = (key: any) => getTranslation(lang, key);
@@ -687,13 +700,24 @@ Do NOT include markdown formatting or backticks.`;
             )}
           </div>
 
-          {/* Category Tabs Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
-            {CATEGORIES.map(cat => {
+          {/* Category Tabs Grid with Golden Highlights & Pop-Out Animation */}
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+            {CATEGORIES.map((cat, idx) => {
               const isSelected = category === cat.id;
+              const isSpotlighted = spotlightIdx === idx && !isSelected;
+
               return (
-                <button
+                <motion.button
                   key={cat.id}
+                  whileHover={{ scale: 1.04, y: -3 }}
+                  whileTap={{ scale: 0.96 }}
+                  animate={
+                    isSelected
+                      ? { scale: 1.02, y: -2 }
+                      : isSpotlighted
+                        ? { scale: [1, 1.025, 1], transition: { duration: 1.8, repeat: Infinity } }
+                        : { scale: 1, y: 0 }
+                  }
                   onClick={() => {
                     if (cat.id === 'custom-ai') {
                       setShowAIModal(true);
@@ -701,24 +725,57 @@ Do NOT include markdown formatting or backticks.`;
                       setCategory(cat.id);
                     }
                   }}
-                  className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex items-center gap-2.5 ${
+                  className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-2.5 relative overflow-hidden group ${
                     isSelected
-                      ? 'bg-emerald-600/10 border-emerald-500 text-emerald-400 shadow-sm font-semibold'
-                      : isDark
-                        ? 'bg-slate-900/60 border-slate-800/80 text-slate-300 hover:border-slate-700 hover:bg-slate-900'
-                        : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300 shadow-sm'
+                      ? isDark
+                        ? 'bg-gradient-to-br from-amber-500/20 via-amber-500/10 to-slate-900 border-amber-400 text-amber-200 shadow-[0_0_25px_rgba(245,158,11,0.35)]'
+                        : 'bg-gradient-to-br from-amber-100 via-amber-50 to-white border-amber-400 text-amber-950 shadow-[0_0_20px_rgba(245,158,11,0.25)] font-bold'
+                      : cat.goldSpecial
+                        ? isDark
+                          ? 'bg-gradient-to-br from-amber-950/40 to-slate-900/90 border-amber-500/50 text-amber-300 hover:border-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.25)]'
+                          : 'bg-amber-50/80 border-amber-300 text-amber-900 hover:border-amber-400 shadow-sm'
+                        : isDark
+                          ? 'bg-slate-900/70 border-slate-800 text-slate-300 hover:border-amber-500/40 hover:bg-slate-900'
+                          : 'bg-white border-slate-200 text-slate-700 hover:border-amber-400 shadow-sm'
                   }`}
                 >
-                  <span className="text-xl shrink-0">{cat.icon}</span>
+                  {/* Top Golden Accent Line for Active & Gold Special */}
+                  {(isSelected || cat.goldSpecial) && (
+                    <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${
+                      isSelected
+                        ? 'from-amber-400 via-yellow-300 to-amber-500 shadow-[0_0_12px_rgba(245,158,11,0.8)]'
+                        : 'from-amber-500/60 via-yellow-400/40 to-amber-600/60'
+                    }`} />
+                  )}
+
+                  <div className="flex items-center justify-between gap-1 w-full">
+                    <span className="text-2xl shrink-0 group-hover:scale-110 transition-transform">
+                      {cat.icon}
+                    </span>
+                    {cat.tagEn && (
+                      <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full border ${
+                        isSelected || cat.goldSpecial
+                          ? 'bg-amber-500/20 text-amber-300 border-amber-400/40 shadow-sm'
+                          : isDark ? 'bg-slate-800 text-slate-400 border-slate-700' : 'bg-slate-100 text-slate-600 border-slate-200'
+                      }`}>
+                        {lang === 'hi' ? (cat.tagHi || cat.tagEn) : cat.tagEn}
+                      </span>
+                    )}
+                  </div>
+
                   <div className="min-w-0">
-                    <div className="text-xs font-bold truncate">
+                    <div className={`text-xs font-bold truncate ${
+                      isSelected 
+                        ? 'text-amber-300 font-extrabold' 
+                        : cat.goldSpecial ? 'text-amber-300 font-bold' : ''
+                    }`}>
                       {lang === 'hi' ? cat.titleHi : cat.titleEn}
                     </div>
-                    <div className="text-[10px] opacity-60 truncate font-mono">
+                    <div className="text-[10px] opacity-70 truncate font-mono">
                       {lang === 'hi' ? cat.subtitleHi : cat.subtitleEn}
                     </div>
                   </div>
-                </button>
+                </motion.button>
               );
             })}
           </div>
