@@ -175,10 +175,12 @@ export const ALL_QUIZ_CATEGORIES = [
 ];
 
 export default function CharityQuizClient() {
+  const [mounted, setMounted] = useState(false);
   // Language & Internationalization State
   const [lang, setLang] = useState<Language>('en');
 
   useEffect(() => {
+    setMounted(true);
     const saved = localStorage.getItem('cyberkarma_lang') as Language;
     if (saved === 'en' || saved === 'hi') {
       setLang(saved);
