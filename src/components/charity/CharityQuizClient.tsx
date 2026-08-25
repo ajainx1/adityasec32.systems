@@ -199,6 +199,11 @@ export default function CharityQuizClient() {
   // Animated Category Spotlight State
   const [spotlightIdx, setSpotlightIdx] = useState(0);
 
+  // Auto-advance Countdown State (3-second timer)
+  const [countdown, setCountdown] = useState<number>(3);
+  const [isTimerPaused, setIsTimerPaused] = useState<boolean>(false);
+  const autoAdvanceRef = useRef<NodeJS.Timeout | null>(null);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setSpotlightIdx(prev => (prev + 1) % CATEGORIES.length);
@@ -380,7 +385,13 @@ export default function CharityQuizClient() {
     }
   };
 
-  const advanceToNextQuestion = () => {
+  const advanceToNextQuestion = useCallback(() => {
+    if (autoAdvanceRef.current) {
+      clearInterval(autoAdvanceRef.current);
+    }
+    setIsTimerPaused(false);
+    setCountdown(3);
+
     if (category === 'custom-ai') {
       if (aiIndex + 1 < aiQuestions.length) {
         const nextIdx = aiIndex + 1;
@@ -396,7 +407,34 @@ export default function CharityQuizClient() {
     } else {
       loadNextQuestionForCategory(category, lang);
     }
-  };
+  }, [category, aiIndex, aiQuestions, lang, loadNextQuestionForCategory]);
+
+  // Auto-advance Countdown Timer (3-second auto-advance on answer)
+  useEffect(() => {
+    if (isAnswered && !isTimerPaused) {
+      setCountdown(3);
+      const startTime = Date.now();
+      const durationMs = 3000;
+
+      const interval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, (durationMs - elapsed) / 1000);
+        setCountdown(remaining);
+
+        if (remaining <= 0) {
+          clearInterval(interval);
+          advanceToNextQuestion();
+        }
+      }, 50);
+
+      autoAdvanceRef.current = interval;
+      return () => clearInterval(interval);
+    } else {
+      if (autoAdvanceRef.current) {
+        clearInterval(autoAdvanceRef.current);
+      }
+    }
+  }, [isAnswered, isTimerPaused, advanceToNextQuestion]);
 
   // Keyboard shortcut listener
   useEffect(() => {
@@ -914,40 +952,69 @@ Do NOT include markdown formatting or backticks.`;
                   })}
                 </div>
 
-                {/* Explanation Card & Next Action */}
+                {/* Explanation Card & Auto-Advance Countdown Timer */}
                 {isAnswered && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={`p-5 rounded-2xl border space-y-3 ${
+                    className={`p-5 rounded-2xl border space-y-3 relative overflow-hidden ${
                       selectedAnswer === currentQuestion.answer 
                         ? isDark ? 'bg-emerald-950/30 border-emerald-800/40 text-slate-200' : 'bg-emerald-50 border-emerald-200 text-slate-800'
                         : isDark ? 'bg-rose-950/30 border-rose-800/40 text-slate-200' : 'bg-rose-50 border-rose-200 text-slate-800'
                     }`}
                   >
-                    <div className="flex items-center justify-between gap-3">
+                    {/* Animated Countdown Progress Line at Top */}
+                    {!isTimerPaused && (
+                      <div className="absolute top-0 left-0 right-0 h-1 bg-slate-800/50 overflow-hidden">
+                        <div 
+                          className="h-full bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 transition-all duration-75"
+                          style={{ width: `${(countdown / 3) * 100}%` }}
+                        />
+                      </div>
+                    )}
+
+                    <div className="flex items-center justify-between gap-3 flex-wrap">
                       <div className="flex items-center gap-2 text-sm font-bold">
                         {selectedAnswer === currentQuestion.answer ? (
-                          <span className="text-emerald-400 flex items-center gap-1.5">
-                            <CheckCircle2 size={16} /> Correct Answer!
+                          <span className="text-emerald-400 flex items-center gap-1.5 font-bold">
+                            <CheckCircle2 size={16} /> {lang === 'hi' ? 'सही उत्तर! +10 दाने दान' : 'Correct Answer! +10 Grains'}
                           </span>
                         ) : (
-                          <span className="text-rose-400">
-                            Correct: Option {String.fromCharCode(65 + currentQuestion.answer)}
+                          <span className="text-rose-400 font-bold">
+                            {lang === 'hi' 
+                              ? `सही विकल्प: Option ${String.fromCharCode(65 + currentQuestion.answer)}`
+                              : `Correct: Option ${String.fromCharCode(65 + currentQuestion.answer)}`}
                           </span>
                         )}
                       </div>
 
-                      <button
-                        onClick={advanceToNextQuestion}
-                        className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm"
-                      >
-                        <span>Next Question</span>
-                        <ArrowRight size={13} />
-                      </button>
+                      {/* Timing Countdown Controls */}
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => setIsTimerPaused(!isTimerPaused)}
+                          className={`px-2.5 py-1.5 rounded-xl border text-[11px] font-mono flex items-center gap-1 transition-colors cursor-pointer ${
+                            isTimerPaused
+                              ? 'bg-amber-500/20 text-amber-300 border-amber-400/40 font-bold shadow-sm'
+                              : isDark ? 'bg-slate-900 border-slate-800 text-slate-300 hover:text-white' : 'bg-white border-slate-300 text-slate-600'
+                          }`}
+                          title={isTimerPaused ? "Resume auto-advance timer" : "Pause timer to read explanation"}
+                        >
+                          {isTimerPaused 
+                            ? '▶️ ' + (lang === 'hi' ? 'चालू करें' : 'Resume') 
+                            : `⏳ ${lang === 'hi' ? 'अगला' : 'Next in'} ${Math.ceil(countdown)}s`}
+                        </button>
+
+                        <button
+                          onClick={advanceToNextQuestion}
+                          className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm"
+                        >
+                          <span>{lang === 'hi' ? 'अगला' : 'Next Now'}</span>
+                          <ArrowRight size={13} />
+                        </button>
+                      </div>
                     </div>
 
-                    <p className="text-xs leading-relaxed opacity-90">
+                    <p className="text-xs leading-relaxed opacity-90 pt-1">
                       {currentQuestion.explanation || currentQuestion.hint}
                     </p>
                   </motion.div>
