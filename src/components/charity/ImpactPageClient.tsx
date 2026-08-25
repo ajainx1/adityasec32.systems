@@ -232,7 +232,7 @@ export default function ImpactPageClient() {
             }`}
           >
             <span>{lang === 'hi' ? '🌟 अगस्त 2026 अभियान' : '🌟 August 2026 Drives'}</span>
-            <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-black/30 text-white font-mono">20</span>
+            <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-black/30 text-white font-mono">{AUGUST_FEEDING_DRIVE.length}</span>
           </button>
 
           <button
@@ -244,7 +244,7 @@ export default function ImpactPageClient() {
             }`}
           >
             <span>{lang === 'hi' ? '🐾 मुख्य फील्ड ड्राइव' : '🐾 Core Field Drives'}</span>
-            <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-black/30 text-white font-mono">9</span>
+            <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-black/30 text-white font-mono">{STREET_FEEDING_DRIVE.length}</span>
           </button>
 
           <button
@@ -267,7 +267,7 @@ export default function ImpactPageClient() {
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
               <div className="flex items-center justify-between px-2">
                 <h3 className="text-sm font-black font-title flex items-center gap-2 text-emerald-400">
-                  <span>🌟</span> August 2026 Latest Verified Drives (20 Records)
+                  <span>🌟</span> {lang === 'hi' ? `अगस्त 2026 नवीनतम सत्यापित अभियान (${AUGUST_FEEDING_DRIVE.length} रिकॉर्ड्स)` : `August 2026 Latest Verified Drives (${AUGUST_FEEDING_DRIVE.length} Records)`}
                 </h3>
                 <span className="text-xs font-mono text-slate-400">Direct Field Photos</span>
               </div>
