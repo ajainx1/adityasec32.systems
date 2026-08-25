@@ -19,6 +19,7 @@ import TiltWrapper from '@/components/3d/TiltWrapper';
 import SuggestionModal from './SuggestionModal';
 import LiveImpactCarousel from './LiveImpactCarousel';
 import WelcomeOnboardingModal from './WelcomeOnboardingModal';
+import ThreeDArtBackground from '@/components/3d/ThreeDArtBackground';
 
 // Initialize Supabase client
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://xkhgccximcrsdpdlskys.supabase.co';
@@ -508,43 +509,8 @@ Do NOT include markdown formatting or backticks.`;
   return (
     <div className={`min-h-screen transition-colors duration-200 relative overflow-hidden ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
       
-      {/* ── 3D Ambient Mesh Background ── */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
-        {/* Primary emerald orb — top-left drift */}
-        <div 
-          className={`absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-opacity duration-1000 ${
-            isDark ? 'bg-emerald-600/[0.07]' : 'bg-emerald-400/[0.08]'
-          }`}
-          style={{ animation: 'float-slow 25s ease-in-out infinite alternate' }}
-        />
-        {/* Cyan orb — center-right drift */}
-        <div 
-          className={`absolute top-1/3 -right-24 w-[420px] h-[420px] rounded-full blur-[110px] transition-opacity duration-1000 ${
-            isDark ? 'bg-cyan-500/[0.05]' : 'bg-sky-400/[0.06]'
-          }`}
-          style={{ animation: 'float-slow 30s ease-in-out infinite alternate-reverse' }}
-        />
-        {/* Violet orb — bottom-left accent */}
-        <div 
-          className={`absolute -bottom-20 left-1/4 w-[380px] h-[380px] rounded-full blur-[100px] transition-opacity duration-1000 ${
-            isDark ? 'bg-violet-600/[0.05]' : 'bg-purple-300/[0.06]'
-          }`}
-          style={{ animation: 'float-slow 22s ease-in-out 3s infinite alternate' }}
-        />
-        {/* Warm amber orb — bottom-right subtle warmth */}
-        <div 
-          className={`absolute bottom-1/4 -right-16 w-[300px] h-[300px] rounded-full blur-[90px] transition-opacity duration-1000 ${
-            isDark ? 'bg-amber-500/[0.03]' : 'bg-orange-300/[0.04]'
-          }`}
-          style={{ animation: 'float-slow 28s ease-in-out 5s infinite alternate-reverse' }}
-        />
-        {/* Subtle grid overlay for 3D depth */}
-        <div className={`absolute inset-0 ${
-          isDark 
-            ? 'bg-[radial-gradient(ellipse_at_center,_transparent_0%,_rgba(2,6,23,0.8)_70%)]' 
-            : 'bg-[radial-gradient(ellipse_at_center,_transparent_0%,_rgba(248,250,252,0.7)_70%)]'
-        }`} />
-      </div>
+      {/* ── High-Definition Interactive 3D Art Background ── */}
+      <ThreeDArtBackground isDark={isDark} />
 
       {/* All page content sits above the ambient background */}
       <div className="relative z-10">

@@ -1,11 +1,11 @@
 "use client";
 import dynamic from "next/dynamic";
 
-const Global3DBackground = dynamic(
-  () => import("@/components/3d/Global3DBackground"),
+const ThreeDArtBackground = dynamic(
+  () => import("@/components/3d/ThreeDArtBackground"),
   { ssr: false }
 );
 
 export default function Background3D() {
-  return <Global3DBackground />;
+  return <ThreeDArtBackground />;
 }
