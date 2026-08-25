@@ -27,6 +27,58 @@ const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://xkhgccximc
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhraGdjY3hpbWNyc2RwZGxza3lzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM2NjQ0OTksImV4cCI6MjA5OTI0MDQ5OX0.R9t0QNG0voJPyxhZkXO2hQtD4_Gr2xdnGyI8AlTOk5g';
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+interface DifficultyLevelConfig {
+  id: Difficulty;
+  icon: string;
+  labelKey: string;
+  tagEn: string;
+  tagHi: string;
+  activeDark: string;
+  activeLight: string;
+  badgeBg: string;
+  badgeBorder: string;
+  textColor: string;
+}
+
+const DIFFICULTY_CONFIG: DifficultyLevelConfig[] = [
+  {
+    id: 'beginner',
+    icon: '🌱',
+    labelKey: 'easy',
+    tagEn: 'Relaxed',
+    tagHi: 'सरल',
+    activeDark: 'bg-emerald-500/20 text-emerald-300 border-emerald-400/80 shadow-[0_0_16px_rgba(16,185,129,0.35)]',
+    activeLight: 'bg-emerald-600 text-white border-emerald-600 shadow-md',
+    badgeBg: 'bg-emerald-500/15',
+    badgeBorder: 'border-emerald-500/30',
+    textColor: 'text-emerald-400'
+  },
+  {
+    id: 'intermediate',
+    icon: '⚡',
+    labelKey: 'medium',
+    tagEn: 'Standard',
+    tagHi: 'मध्यम',
+    activeDark: 'bg-amber-500/20 text-amber-300 border-amber-400/80 shadow-[0_0_16px_rgba(245,158,11,0.35)]',
+    activeLight: 'bg-amber-500 text-white border-amber-600 shadow-md',
+    badgeBg: 'bg-amber-500/15',
+    badgeBorder: 'border-amber-500/30',
+    textColor: 'text-amber-400'
+  },
+  {
+    id: 'advanced',
+    icon: '🔥',
+    labelKey: 'hard',
+    tagEn: 'Expert',
+    tagHi: 'कठिन',
+    activeDark: 'bg-rose-500/20 text-rose-300 border-rose-400/80 shadow-[0_0_16px_rgba(244,63,94,0.35)]',
+    activeLight: 'bg-rose-600 text-white border-rose-600 shadow-md',
+    badgeBg: 'bg-rose-500/15',
+    badgeBorder: 'border-rose-500/30',
+    textColor: 'text-rose-400'
+  }
+];
+
 interface CategoryConfig {
   id: CategoryKey | 'random' | 'custom-ai';
   icon: string;
@@ -873,24 +925,40 @@ Do NOT include markdown formatting or backticks.`;
               {getTranslation('selectCategory', lang)}
             </h2>
 
-            {/* Difficulty Pills */}
+            {/* Interactive Segmented Difficulty Console */}
             {category !== 'custom-ai' && (
-              <div className={`inline-flex p-1 rounded-xl border text-xs font-mono ${
-                isDark ? 'bg-slate-900 border-slate-800' : 'bg-slate-100 border-slate-200'
+              <div className={`flex items-center p-1 rounded-2xl border shadow-inner transition-all ${
+                isDark ? 'bg-slate-950/90 border-slate-800/90' : 'bg-slate-100 border-slate-200'
               }`}>
-                {(['beginner', 'intermediate', 'advanced'] as Difficulty[]).map(d => (
-                  <button
-                    key={d}
-                    onClick={() => setDifficulty(d)}
-                    className={`px-2.5 py-1 rounded-lg capitalize transition-colors cursor-pointer ${
-                      difficulty === d
-                        ? 'bg-emerald-600 text-white font-bold shadow-sm'
-                        : isDark ? 'text-slate-400 hover:text-slate-200' : 'text-slate-600 hover:text-slate-900'
-                    }`}
-                  >
-                    {getTranslation(d === 'beginner' ? 'easy' : d === 'intermediate' ? 'medium' : 'hard', lang)}
-                  </button>
-                ))}
+                {DIFFICULTY_CONFIG.map((diff) => {
+                  const isSelected = difficulty === diff.id;
+                  return (
+                    <motion.button
+                      key={diff.id}
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.96 }}
+                      onClick={() => {
+                        setDifficulty(diff.id);
+                        playChime(true);
+                      }}
+                      className={`relative px-3 py-1.5 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 transition-all cursor-pointer border ${
+                        isSelected
+                          ? (isDark ? diff.activeDark : diff.activeLight)
+                          : isDark
+                            ? 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
+                            : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                      }`}
+                    >
+                      <span className="text-sm shrink-0">{diff.icon}</span>
+                      <span>{getTranslation(diff.labelKey, lang)}</span>
+                      <span className={`hidden md:inline text-[9px] px-1 py-0.2 rounded font-sans font-semibold ${
+                        isSelected ? 'bg-black/20 opacity-90' : 'opacity-50'
+                      }`}>
+                        {lang === 'hi' ? diff.tagHi : diff.tagEn}
+                      </span>
+                    </motion.button>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -1019,9 +1087,16 @@ Do NOT include markdown formatting or backticks.`;
                     <span className="text-xs font-mono font-semibold px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                       {currentQuestion.topicBadge || (category === 'custom-ai' ? aiTopic : (CATEGORIES.find(c => c.id === category)?.titles[lang] || CATEGORIES.find(c => c.id === category)?.titles['en'] || ''))}
                     </span>
-                    <span className="text-xs font-mono text-slate-400">
-                      • {currentQuestion.difficulty ? currentQuestion.difficulty.toUpperCase() : 'STANDARD'}
-                    </span>
+                    {/* Thematic Difficulty Badge */}
+                    {(() => {
+                      const diffObj = DIFFICULTY_CONFIG.find(d => d.id === (currentQuestion.difficulty || difficulty)) || DIFFICULTY_CONFIG[0];
+                      return (
+                        <span className={`text-[11px] font-mono font-bold px-2 py-0.5 rounded-lg border flex items-center gap-1 ${diffObj.badgeBg} ${diffObj.badgeBorder} ${diffObj.textColor}`}>
+                          <span>{diffObj.icon}</span>
+                          <span>{getTranslation(diffObj.labelKey, lang).toUpperCase()}</span>
+                        </span>
+                      );
+                    })()}
                   </div>
 
                   <div className="text-xs font-mono text-emerald-400 font-medium">
