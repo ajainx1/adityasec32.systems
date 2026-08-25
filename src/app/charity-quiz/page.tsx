@@ -55,6 +55,15 @@ export const metadata: Metadata = {
     'geo.position': '25.5941;85.1376',
     'ICBM': '25.5941, 85.1376',
   },
+  icons: {
+    icon: [
+      { url: '/charity_favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    shortcut: '/charity_favicon.svg',
+    apple: '/apple-touch-icon.png',
+  },
   manifest: '/manifest-quiz.json',
 };
 

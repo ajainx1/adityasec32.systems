@@ -66,6 +66,7 @@ export const metadata: Metadata = isCyberKarmaSite
         icon: [
           { url: "/charity_favicon.svg", type: "image/svg+xml" },
           { url: "/favicon.svg", type: "image/svg+xml" },
+          { url: "/favicon.ico", sizes: "any" },
         ],
         shortcut: "/charity_favicon.svg",
         apple: "/apple-touch-icon.png",
@@ -129,11 +130,12 @@ export const metadata: Metadata = isCyberKarmaSite
       },
       icons: {
         icon: [
+          { url: "/charity_favicon.svg", type: "image/svg+xml" },
           { url: "/favicon.svg", type: "image/svg+xml" },
           { url: "/icon.svg", type: "image/svg+xml" },
           { url: "/favicon.ico", sizes: "any" }
         ],
-        shortcut: "/favicon.svg",
+        shortcut: "/charity_favicon.svg",
         apple: "/apple-touch-icon.png",
       },
       other: {
@@ -251,8 +253,9 @@ export default function RootLayout({
         <meta name="theme-color" content="#0B0F0E" />
         <meta name="google-adsense-account" content="ca-pub-6072468142870937" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/svg+xml" href="/charity_favicon.svg" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.webmanifest" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
