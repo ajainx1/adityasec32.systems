@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Share2, Heart, Lightbulb, User, LogOut, ArrowLeft, Sun, Moon, Zap, Cpu, Award, Network, Activity, Server, ExternalLink } from 'lucide-react';
+import { Share2, Heart, Lightbulb, User, LogOut, ArrowLeft, Sun, Moon, Zap, Cpu, Award, Network, Activity, Server, ExternalLink, Volume2, VolumeX, Flame } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import { quizData, CategoryKey, Difficulty, Question } from './quizData';
 import { quizDataHindi, DAILY_FACTS_HI } from './quizDataHindi';
@@ -213,29 +213,89 @@ export default function CharityQuizClient() {
   const [isAudioMuted, setIsAudioMuted] = useState(false);
   const [showLuckyCrateModal, setShowLuckyCrateModal] = useState(false);
   const [luckyReward, setLuckyReward] = useState<{ text: string; grains: number } | null>(null);
+  const [showMealCelebration, setShowMealCelebration] = useState(false);
 
+  // High-Quality Web Audio Synthesizer (Pentatonic Harmonic Chimes)
   const playChimeSound = (streakCount: number) => {
     if (isAudioMuted || typeof window === 'undefined') return;
     try {
       const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
       if (!AudioCtx) return;
       const ctx = new AudioCtx();
-      const baseFreqs = [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50, 1174.66, 1318.51];
-      const noteIndex = Math.min(streakCount, baseFreqs.length - 1);
-      const freq = baseFreqs[noteIndex];
+      
+      // Pentatonic Major Scale: C4, D4, E4, G4, A4, C5, D5, E5, G5, A5, C6
+      const pentatonicScale = [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50, 1174.66, 1318.51, 1567.98, 1760.00, 2093.00];
+      const noteIndex = Math.min(streakCount, pentatonicScale.length - 1);
+      const fundamental = pentatonicScale[noteIndex];
 
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(freq * 1.5, ctx.currentTime + 0.12);
-      gain.gain.setValueAtTime(0.18, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+      // Primary Crystal Tone
+      const osc1 = ctx.createOscillator();
+      const gain1 = ctx.createGain();
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(fundamental, ctx.currentTime);
+      osc1.frequency.exponentialRampToValueAtTime(fundamental * 1.05, ctx.currentTime + 0.08);
+      gain1.gain.setValueAtTime(0.22, ctx.currentTime);
+      gain1.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+      osc1.connect(gain1);
+      gain1.connect(ctx.destination);
+      osc1.start();
+      osc1.stop(ctx.currentTime + 0.45);
 
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.35);
+      // Bell Harmonic Overtone (2nd Octave Harmonic)
+      const osc2 = ctx.createOscillator();
+      const gain2 = ctx.createGain();
+      osc2.type = 'triangle';
+      osc2.frequency.setValueAtTime(fundamental * 2, ctx.currentTime);
+      gain2.gain.setValueAtTime(0.08, ctx.currentTime);
+      gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+      osc2.connect(gain2);
+      gain2.connect(ctx.destination);
+      osc2.start();
+      osc2.stop(ctx.currentTime + 0.35);
+    } catch (e) {}
+  };
+
+  const playStreakMilestoneSound = () => {
+    if (isAudioMuted || typeof window === 'undefined') return;
+    try {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const notes = [523.25, 659.25, 783.99, 1046.50]; // C Major Triad
+      notes.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + (idx * 0.07));
+        gain.gain.setValueAtTime(0.18, ctx.currentTime + (idx * 0.07));
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (idx * 0.07) + 0.4);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + (idx * 0.07));
+        osc.stop(ctx.currentTime + (idx * 0.07) + 0.4);
+      });
+    } catch (e) {}
+  };
+
+  const playMealFundedSound = () => {
+    if (isAudioMuted || typeof window === 'undefined') return;
+    try {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const chord = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+      chord.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + (idx * 0.06));
+        gain.gain.setValueAtTime(0.2, ctx.currentTime + (idx * 0.06));
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (idx * 0.06) + 0.6);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + (idx * 0.06));
+        osc.stop(ctx.currentTime + (idx * 0.06) + 0.6);
+      });
     } catch (e) {}
   };
 
@@ -247,14 +307,15 @@ export default function CharityQuizClient() {
       const ctx = new AudioCtx();
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(150, ctx.currentTime);
-      gain.gain.setValueAtTime(0.12, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(220, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(140, ctx.currentTime + 0.18);
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.22);
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start();
-      osc.stop(ctx.currentTime + 0.25);
+      osc.stop(ctx.currentTime + 0.22);
     } catch (e) {}
   };
 
@@ -1093,18 +1154,47 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
     if (isCorrect) {
       // Correct
       const isPlanetBonus = (recipient === dailyPlanetBonus.targetRecipient);
-      let basePoints = isPlanetBonus ? 20 : 10;
+      const basePoints = isPlanetBonus ? 20 : 10;
       
-      // Combo Streak Multiplier
+      const newStreak = streak + 1;
+      
+      // Multi-tier Combo Streak Multiplier Engine
       let multiplier = 1;
-      if (streak >= 2) {
-        multiplier = 2; // 2x points for 3 or more correct answers in a row!
+      let streakBadgeText = '';
+      if (newStreak >= 10) {
+        multiplier = 3; // 3x GODLIKE
+        streakBadgeText = '👑 GODLIKE 3X MULTIPLIER!';
+      } else if (newStreak >= 5) {
+        multiplier = 2; // 2x MEGA
+        streakBadgeText = '⚡ MEGA STREAK 2X MULTIPLIER!';
+      } else if (newStreak >= 3) {
+        multiplier = 1.5; // 1.5x SUPER
+        streakBadgeText = '🔥 SUPER STREAK 1.5X MULTIPLIER!';
       }
       
-      const points = basePoints * multiplier;
+      const points = Math.round(basePoints * multiplier);
+      const prevScore = score;
+      const nextScore = prevScore + points;
       
-      saveScore(score + points);
-      setStreak(s => s + 1);
+      saveScore(nextScore);
+      setStreak(newStreak);
+      
+      // Check if unlocked a new 50-grain warm street meal!
+      const prevMeals = Math.floor(prevScore / 50);
+      const newMeals = Math.floor(nextScore / 50);
+      if (newMeals > prevMeals) {
+        setShowMealCelebration(true);
+        playMealFundedSound();
+        addToast(lang === 'hi' ? `🎉 बधाई! आपने पटना के बेजुबान कुत्तों के लिए 1 नया भोजन अनलॉक किया! 🐕🍲` : `🎉 Milestone Reached! You unlocked 1 Full Warm Meal for Stray Dogs in Patna! 🐕🍲`, 'success');
+        if ('vibrate' in navigator) navigator.vibrate([60, 80, 60, 80, 120]);
+      } else if (newStreak === 3 || newStreak === 5 || newStreak === 10) {
+        playStreakMilestoneSound();
+        if ('vibrate' in navigator) navigator.vibrate([40, 60, 40]);
+      } else {
+        playChimeSound(newStreak);
+        if ('vibrate' in navigator) navigator.vibrate(40);
+      }
+      
       setStakingNodes(prev => prev.map((node, idx) => {
         if (idx === 0) return { ...node, staked: node.staked + points };
         return node;
@@ -1115,21 +1205,40 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
       recordDailyActivity();
       
       if (multiplier > 1) {
-        setFeedback({ text: `🔥 COMBO STREAK! 2X MULTIPLIER! +${points} grains donated!`, type: 'success' });
+        setFeedback({ 
+          text: lang === 'hi' 
+            ? `${streakBadgeText} +${points} दाने अनाज दान!` 
+            : `${streakBadgeText} +${points} Grains Donated!`, 
+          type: 'success' 
+        });
       } else if (isPlanetBonus) {
-        setFeedback({ text: `Correct! +${points} grains of rice donated (PLANET BONUS 2X!).`, type: 'success' });
+        setFeedback({ 
+          text: lang === 'hi' 
+            ? `सही उत्तर! +${points} दाने अनाज दान (दैनिक ग्रह बोनस 2X!).` 
+            : `Correct! +${points} grains of rice donated (PLANET BONUS 2X!).`, 
+          type: 'success' 
+        });
       } else {
-        setFeedback({ text: `Correct! +${points} grains of rice donated.`, type: 'success' });
+        setFeedback({ 
+          text: lang === 'hi' 
+            ? `सही उत्तर! +${points} दाने अनाज दान हुए।` 
+            : `Correct! +${points} grains of rice donated.`, 
+          type: 'success' 
+        });
       }
       
-      triggerRiceAnimation();
-      
-      if ('vibrate' in navigator) navigator.vibrate(50);
+      triggerRiceAnimation(points);
     } else {
       // Incorrect
+      playIncorrectBuzz();
       setStreak(0);
-      setFeedback({ text: 'Incorrect. Try the next one!', type: 'error' });
-      if ('vibrate' in navigator) navigator.vibrate([50, 100, 50]);
+      setFeedback({ 
+        text: lang === 'hi' 
+          ? 'गलत उत्तर! अगले प्रश्न पर पुनः प्रयास करें।' 
+          : 'Incorrect. Try the next one!', 
+        type: 'error' 
+      });
+      if ('vibrate' in navigator) navigator.vibrate([60, 120, 60]);
     }
 
     if (nextQuestionTimeoutRef.current) {
@@ -1137,18 +1246,20 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
     }
     nextQuestionTimeoutRef.current = setTimeout(() => {
       advanceToNextQuestion();
-    }, 4500);
-  }, [recipient, dailyPlanetBonus, streak, score, category, advanceToNextQuestion]);
+    }, 4200);
+  }, [recipient, dailyPlanetBonus, streak, score, category, lang, advanceToNextQuestion]);
 
-  const triggerRiceAnimation = () => {
-    const grains = Array.from({ length: 6 }).map((_, i) => ({
+  const triggerRiceAnimation = (count = 10) => {
+    const particleCount = Math.min(Math.max(count, 8), 16);
+    const icons = ['🌾', '🍚', '✨', '⭐', '🌾'];
+    const grains = Array.from({ length: particleCount }).map((_, i) => ({
       id: Date.now() + i,
-      left: `calc(50% + ${(Math.random() - 0.5) * 80}px)`,
-      delay: `${Math.random() * 0.2}s`,
-      icon: recipientIcons[recipient]?.float === '✨' ? '🌾' : '🍚'
+      left: `calc(50% + ${(Math.random() - 0.5) * 160}px)`,
+      delay: `${(i * 0.04).toFixed(2)}s`,
+      icon: icons[i % icons.length]
     }));
     setRiceGrains(grains);
-    setTimeout(() => setRiceGrains([]), 1500);
+    setTimeout(() => setRiceGrains([]), 1800);
   };
 
   const handleUseHint = useCallback(() => {
@@ -1468,6 +1579,26 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
             {isDark ? <Sun size={15} /> : <Moon size={15} />}
           </button>
 
+          {/* Web Audio SFX Toggle */}
+          <button
+            onClick={() => {
+              const nextMuted = !isAudioMuted;
+              setIsAudioMuted(nextMuted);
+              addToast(nextMuted ? '🔇 Audio Chimes Muted' : '🔊 Pentatonic Audio Chimes Active!', 'info');
+            }}
+            className={`p-2 rounded-xl border transition-all cursor-pointer ${
+              isAudioMuted
+                ? 'bg-rose-500/20 border-rose-500/30 text-rose-300'
+                : isDark
+                  ? 'bg-slate-800/80 border-slate-700 text-emerald-300 hover:bg-slate-700 hover:text-emerald-200'
+                  : 'bg-slate-100 border-slate-300 text-emerald-700 hover:bg-slate-200 shadow-sm'
+            }`}
+            aria-label="Toggle Sound Effects"
+            title={isAudioMuted ? "Unmute Sound" : "Mute Sound"}
+          >
+            {isAudioMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
+          </button>
+
           {user ? (
             <div className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-mono ${
               isDark ? 'bg-slate-800/60 border-slate-700 text-slate-200' : 'bg-slate-100 border-slate-300 text-slate-800'
@@ -1574,7 +1705,7 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
       </AnimatePresence>
 
       {/* Main Content */}
-      <main className="flex-1 w-full max-w-6xl mx-auto px-4 py-8 relative z-10 flex flex-col gap-6">
+      <main className="flex-1 w-full max-w-6xl mx-auto px-3 sm:px-4 pt-4 sm:pt-8 pb-28 sm:pb-8 relative z-10 flex flex-col gap-6">
         
         {/* Highlighted Supreme Intro Banner */}
         <motion.div 
@@ -1945,8 +2076,23 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
-                      className={`w-full rounded-[32px] border p-6 sm:p-8 md:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-2xl relative overflow-hidden ${isDark ? 'bg-slate-900/80 border-white/10' : 'bg-white/90 border-white/80'}`}
+                      className={`w-full rounded-[32px] border p-4 sm:p-8 md:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-2xl relative overflow-hidden transition-all duration-500 ${
+                        streak >= 10
+                          ? 'border-yellow-400 shadow-[0_0_50px_rgba(234,179,8,0.45)] bg-slate-900/90'
+                          : streak >= 5
+                            ? 'border-violet-400 shadow-[0_0_40px_rgba(139,92,246,0.4)] bg-slate-900/90'
+                            : streak >= 3
+                              ? 'border-amber-500 shadow-[0_0_30px_rgba(249,115,22,0.35)] bg-slate-900/90'
+                              : isDark
+                                ? 'bg-slate-900/80 border-white/10'
+                                : 'bg-white/90 border-white/80'
+                      }`}
                     >
+                      {/* Streak Aura Top Accent Bar */}
+                      {streak >= 3 && (
+                        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-500 via-rose-500 to-yellow-400 animate-pulse" />
+                      )}
+
                       {/* Dynamic Question Visual Hero Showcase */}
                       {(() => {
                         const currentCategoryConfig = ALL_QUIZ_CATEGORIES.find(c => c.id === category);
@@ -1955,6 +2101,9 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                           : '/quiz/ai_hero.jpg';
                         const heroImageSrc = currentQuestion.image || categoryFallbackImage;
                         const categoryTitle = lang === 'hi' ? (currentCategoryConfig?.titleHi || 'प्रश्नोत्तरी') : (currentCategoryConfig?.titleEn || 'Trivia');
+
+                        const multiplierGrains = streak >= 10 ? 30 : streak >= 5 ? 20 : streak >= 3 ? 15 : 10;
+                        const multiplierLabel = streak >= 10 ? '👑 3X GODLIKE' : streak >= 5 ? '⚡ 2X MEGA' : streak >= 3 ? '🔥 1.5X SUPER' : '🌾 10 Grains';
 
                         return (
                           <div className="relative w-full h-44 sm:h-56 md:h-64 rounded-[22px] sm:rounded-[26px] overflow-hidden mb-6 border border-white/15 shadow-2xl group select-none bg-slate-950">
@@ -1973,17 +2122,25 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                             <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 z-10">
                               <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl backdrop-blur-xl bg-black/70 border border-white/20 text-white shadow-lg">
                                 <span className="text-sm">{currentCategoryConfig?.icon || '💡'}</span>
-                                <span className="text-xs font-bold font-title tracking-wide truncate max-w-[180px] sm:max-w-none">
-                                  {category === 'custom-ai' ? `🤖 AI: ${aiTopic}` : categoryTitle}
+                                <span className="text-xs font-bold font-title tracking-wide truncate max-w-[130px] sm:max-w-none">
+                                  {category === 'custom-ai' ? `🤖 ${aiTopic}` : categoryTitle}
                                 </span>
                                 <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded-md border border-emerald-500/30">
                                   {category === 'custom-ai' ? `Q${aiIndex + 1}/${aiQuestions.length}` : `Q#${questionHistoryRef.current.length + 1}`}
                                 </span>
                               </div>
 
-                              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl backdrop-blur-xl bg-emerald-950/80 border border-emerald-400/40 text-emerald-300 font-mono text-xs font-bold shadow-lg shadow-emerald-950/50">
-                                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                                <span>{lang === 'hi' ? '🌾 10 दाने दांव पर' : '🌾 10 Grains Pledged'}</span>
+                              <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl backdrop-blur-xl border font-mono text-xs font-bold shadow-lg transition-all ${
+                                streak >= 10 
+                                  ? 'bg-yellow-950/90 border-yellow-400 text-yellow-300 shadow-yellow-950/60 animate-bounce'
+                                  : streak >= 5
+                                    ? 'bg-purple-950/90 border-purple-400 text-purple-200 shadow-purple-950/60'
+                                    : streak >= 3
+                                      ? 'bg-amber-950/90 border-amber-400 text-amber-300 shadow-amber-950/60'
+                                      : 'bg-emerald-950/80 border-emerald-400/40 text-emerald-300 shadow-emerald-950/50'
+                              }`}>
+                                <span className="w-2 h-2 rounded-full bg-current animate-pulse" />
+                                <span>{lang === 'hi' ? `🌾 ${multiplierGrains} दाने दांव पर` : `${multiplierLabel} Pledged`}</span>
                               </div>
                             </div>
 
@@ -2237,7 +2394,7 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                   <motion.div
                     animate={riceGrains.length ? { scale: [1, 1.15, 1], rotate: [0, 3, -3, 0] } : {}}
                     className="text-7xl relative z-20 drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)] cursor-pointer select-none"
-                    onClick={triggerRiceAnimation}
+                    onClick={() => triggerRiceAnimation()}
                   >
                     🐕🥣
                   </motion.div>
@@ -2961,6 +3118,147 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                     {lang === 'hi' ? 'बंद करें (Esc)' : 'Close Preview'}
                   </button>
                 </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Sticky Mobile Bottom Floating Action HUD (Thumb-Friendly Mobile Ergonomics) */}
+      <aside aria-label="Mobile Game HUD" className="fixed bottom-3 left-3 right-3 z-40 sm:hidden">
+        <div className={`p-2.5 px-3.5 rounded-2xl border backdrop-blur-2xl shadow-2xl flex items-center justify-between gap-2 transition-all ${
+          isDark 
+            ? 'bg-slate-950/95 border-emerald-500/30 text-white shadow-[0_8px_32px_rgba(0,0,0,0.6)]' 
+            : 'bg-white/95 border-emerald-300 text-slate-900 shadow-xl'
+        }`}>
+          {/* Live Grains Counter */}
+          <div className="flex items-center gap-1.5 min-w-0">
+            <span className="text-base animate-bounce">🌾</span>
+            <div className="flex flex-col">
+              <span className="text-xs font-black font-title tracking-tight bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+                {score.toLocaleString()}
+              </span>
+              <span className="text-[9px] font-mono text-slate-400 -mt-0.5 leading-none">
+                {Math.floor(score / 50)} {lang === 'hi' ? 'भोजन' : 'Meals'}
+              </span>
+            </div>
+          </div>
+
+          {/* Combo Streak Multiplier Pill */}
+          <div className={`flex items-center gap-1 px-2.5 py-1 rounded-xl text-[10px] font-mono font-black border transition-all ${
+            streak >= 10
+              ? 'bg-yellow-500/20 border-yellow-400 text-yellow-300 animate-pulse'
+              : streak >= 5
+                ? 'bg-purple-500/20 border-purple-400 text-purple-300'
+                : streak >= 3
+                  ? 'bg-amber-500/20 border-amber-400 text-amber-300'
+                  : isDark ? 'bg-white/5 border-white/10 text-slate-400' : 'bg-slate-100 border-slate-200 text-slate-600'
+          }`}>
+            <Flame size={12} className={streak >= 3 ? 'text-amber-400 animate-bounce' : 'opacity-40'} />
+            <span>{streak}x {streak >= 10 ? '(3X)' : streak >= 5 ? '(2X)' : streak >= 3 ? '(1.5X)' : ''}</span>
+          </div>
+
+          {/* Quick Patna Meal Progress Mini-Bar */}
+          <div className="flex flex-col gap-0.5 w-16">
+            <div className="flex justify-between text-[8px] font-mono font-bold text-slate-400">
+              <span>🐕</span>
+              <span>{score % 50}/50</span>
+            </div>
+            <div className="w-full h-1.5 rounded-full overflow-hidden bg-black/40 border border-white/10">
+              <div 
+                className="h-full bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-full transition-all duration-300"
+                style={{ width: `${((score % 50) / 50) * 100}%` }}
+              />
+            </div>
+          </div>
+
+          {/* Quick Actions (Crate & SFX) */}
+          <div className="flex items-center gap-1 shrink-0">
+            <button
+              onClick={handleOpenLuckyCrate}
+              className="p-1.5 px-2 rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 text-slate-950 text-[10px] font-black font-mono shadow-md active:scale-95 transition-transform"
+              title="Open Daily Karma Crate"
+            >
+              🎁
+            </button>
+            <button
+              onClick={() => {
+                const nextM = !isAudioMuted;
+                setIsAudioMuted(nextM);
+                addToast(nextM ? '🔇 Audio Muted' : '🔊 Chimes Active!', 'info');
+              }}
+              className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 text-xs transition-colors"
+              title="Toggle Audio"
+            >
+              {isAudioMuted ? <VolumeX size={13} /> : <Volume2 size={13} />}
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      {/* Street Meal Unlocked Milestone Celebration Modal */}
+      <AnimatePresence>
+        {showMealCelebration && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[220] flex items-center justify-center p-4 bg-black/85 backdrop-blur-xl"
+            onClick={() => setShowMealCelebration(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.85, y: 30 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.85, y: 30 }}
+              onClick={e => e.stopPropagation()}
+              className="relative max-w-md w-full p-6 sm:p-8 rounded-3xl border border-emerald-400/40 bg-gradient-to-b from-slate-900 via-slate-950 to-black text-white shadow-2xl text-center space-y-5 overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 animate-pulse" />
+
+              <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-emerald-400 to-teal-500 text-slate-950 flex items-center justify-center text-4xl shadow-xl shadow-emerald-500/30 mx-auto animate-bounce">
+                🐕🍲
+              </div>
+
+              <div className="space-y-2">
+                <span className="text-[10px] font-mono font-black uppercase tracking-widest text-emerald-400 bg-emerald-500/20 px-3 py-1 rounded-full border border-emerald-500/30">
+                  🎉 {lang === 'hi' ? 'जीवन रक्षक उपलब्धि!' : 'Life-Saving Milestone!'}
+                </span>
+                <h3 className="text-xl sm:text-2xl font-black font-title">
+                  {lang === 'hi' ? '1 नया गर्म भोजन अनलॉक!' : '1 Full Street Meal Funded!'}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  {lang === 'hi' 
+                    ? <>आपने 50 दाने पूरे कर लिए हैं! पटना के बेसहारा श्वानों के लिए <strong>1 पौष्टिक गर्म भोजन</strong> सुरक्षित हो गया है।</>
+                    : <>You have accumulated 50 grains of rice! <strong>1 full bowl of nutritious warm food</strong> is now funded for rescue dogs in Patna, Bihar.</>}
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-around text-xs font-mono">
+                <div>
+                  <div className="text-[10px] text-slate-400">{lang === 'hi' ? 'कुल दान' : 'Total Donated'}</div>
+                  <div className="text-base font-bold text-emerald-400">🌾 {score.toLocaleString()}</div>
+                </div>
+                <div className="w-px h-8 bg-white/10" />
+                <div>
+                  <div className="text-[10px] text-slate-400">{lang === 'hi' ? 'कुल भोजन' : 'Total Meals'}</div>
+                  <div className="text-base font-bold text-teal-400">🍲 {Math.floor(score / 50)}</div>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+                <button
+                  onClick={() => setShowMealCelebration(false)}
+                  className="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-500 hover:brightness-110 text-slate-950 font-black font-mono text-xs shadow-lg transition-all cursor-pointer hover:scale-[1.02] active:scale-98"
+                >
+                  {lang === 'hi' ? 'प्रश्नोत्तरी जारी रखें 🐾' : 'Keep Playing & Feeding 🐾'}
+                </button>
+                <Link
+                  href="/impact"
+                  onClick={() => setShowMealCelebration(false)}
+                  className="w-full py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-slate-200 font-bold font-mono text-xs border border-white/15 transition-all text-center"
+                >
+                  {lang === 'hi' ? 'फील्ड प्रमाण देखें 📸' : 'View Field Proof 📸'}
+                </Link>
               </div>
             </motion.div>
           </motion.div>
