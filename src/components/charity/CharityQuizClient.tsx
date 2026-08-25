@@ -2262,8 +2262,11 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                   const isSelected = category === cat.id;
 
                   return (
-                    <button
+                    <motion.button
                       key={cat.id}
+                      whileHover={{ scale: 1.03, y: -2 }}
+                      whileTap={{ scale: 0.97 }}
+                      transition={{ type: 'spring', stiffness: 450, damping: 25 }}
                       onClick={() => {
                         if (cat.id === 'random') {
                           const keys: CategoryKey[] = ['animals', 'math', 'space', 'vocab', 'geography', 'science', 'gk', 'cybersecurity'];
@@ -2320,7 +2323,7 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                           {lang === 'hi' ? cat.subtitleHi : cat.subtitleEn}
                         </p>
                       </div>
-                    </button>
+                    </motion.button>
                   );
                 })}
               </div>
@@ -2526,19 +2529,22 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                           }
 
                           return (
-                            <button
+                            <motion.button
                               key={i}
                               disabled={isAnswered}
                               onClick={() => handleAnswer(i)}
+                              whileHover={!isAnswered ? { scale: 1.015, x: 4 } : {}}
+                              whileTap={!isAnswered ? { scale: 0.985 } : {}}
+                              transition={{ type: 'spring', stiffness: 450, damping: 25 }}
                               className={btnClass}
                             >
                               {/* 3D Tactile Keycap Pill with Keyboard Shortcut Indicator */}
-                              <div className={`w-9 h-9 rounded-xl flex items-center justify-center mr-4 shrink-0 text-sm font-black font-mono shadow-sm transition-transform ${isAnswered && i === currentQuestion.answer ? 'bg-slate-950 text-emerald-400' : isDark ? 'bg-slate-800 border border-white/15 text-slate-200' : 'bg-slate-100 border border-slate-300 text-slate-700'}`}>
+                              <div className={`w-9 h-9 rounded-xl flex items-center justify-center mr-4 shrink-0 text-sm font-black font-mono shadow-sm transition-transform ${isAnswered && i === currentQuestion.answer ? 'bg-slate-950 text-emerald-400 scale-110' : isDark ? 'bg-slate-800 border border-white/15 text-slate-200' : 'bg-slate-100 border border-slate-300 text-slate-700'}`}>
                                 {String.fromCharCode(65 + i)}
                               </div>
-                              <span className="flex-1">{opt}</span>
+                              <span className="flex-1 font-semibold">{opt}</span>
                               <span className="opacity-40 text-[10px] font-mono ml-2 hidden sm:inline">[{String.fromCharCode(65 + i)} / {i + 1}]</span>
-                            </button>
+                            </motion.button>
                           );
                         })}
                       </div>
