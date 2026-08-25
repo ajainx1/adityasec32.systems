@@ -1407,7 +1407,12 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
       if (newMeals > prevMeals) {
         setShowMealCelebration(true);
         playMealFundedSound();
-        addToast(lang === 'hi' ? `🎉 बधाई! आपने पटना के बेजुबान कुत्तों के लिए 1 नया भोजन अनलॉक किया! 🐕🍲` : `🎉 Milestone Reached! You unlocked 1 Full Warm Meal for Stray Dogs in Patna! 🐕🍲`, 'success');
+        addToast(
+          lang === 'hi' 
+            ? `🎉 मील का पत्थर! आपने कुल ${newMeals} पूरे भोजन कटोरे सुरक्षित किए (${nextScore} दाने)! 🐕🍲` 
+            : `🎉 Milestone Reached! You have funded ${newMeals} Full Warm Meals for Stray Dogs in Patna (${nextScore} Grains)! 🐕🍲`, 
+          'success'
+        );
         if ('vibrate' in navigator) navigator.vibrate([60, 80, 60, 80, 120]);
       } else if (newStreak === 3 || newStreak === 5 || newStreak === 10) {
         playStreakMilestoneSound();
@@ -3939,13 +3944,15 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                 <span className="text-[10px] font-mono font-black uppercase tracking-widest text-emerald-400 bg-emerald-500/20 px-3 py-1 rounded-full border border-emerald-500/30">
                   🎉 {lang === 'hi' ? 'जीवन रक्षक उपलब्धि!' : 'Life-Saving Milestone!'}
                 </span>
-                <h3 className="text-xl sm:text-2xl font-black font-title">
-                  {lang === 'hi' ? '1 नया गर्म भोजन अनलॉक!' : '1 Full Street Meal Funded!'}
+                <h3 className="text-xl sm:text-2xl font-black font-title text-white">
+                  {Math.floor(score / 50) <= 1
+                    ? (lang === 'hi' ? '1st गर्म भोजन अनलॉक!' : '1st Full Street Meal Funded!')
+                    : (lang === 'hi' ? `${Math.floor(score / 50)} पूरे गर्म भोजन कटोरे सुरक्षित!` : `${Math.floor(score / 50)} Full Street Meals Funded!`)}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                   {lang === 'hi' 
-                    ? <>आपने 50 दाने पूरे कर लिए हैं! पटना के बेसहारा श्वानों के लिए <strong>1 पौष्टिक गर्म भोजन</strong> सुरक्षित हो गया है।</>
-                    : <>You have accumulated 50 grains of rice! <strong>1 full bowl of nutritious warm food</strong> is now funded for rescue dogs in Patna, Bihar.</>}
+                    ? <>आपने कुल <strong>{score.toLocaleString()} दाने</strong> एकत्र कर लिए हैं! इससे पटना के बेसहारा श्वानों के लिए <strong>{Math.floor(score / 50)} पूरे पौष्टिक गर्म भोजन कटोरे</strong> सुरक्षित हो गए हैं।</>
+                    : <>You have accumulated <strong>{score.toLocaleString()} grains of rice</strong>! <strong>{Math.floor(score / 50)} full bowls</strong> of nutritious warm food are now funded for rescue dogs in Patna, Bihar.</>}
                 </p>
               </div>
 
