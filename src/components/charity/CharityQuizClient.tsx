@@ -432,7 +432,7 @@ export default function CharityQuizClient() {
     ];
   };
 
-  function createQ(difficulty: Difficulty, question: string, correct: string, w1: string, w2: string, w3: string, hint: string, explanation: string, badge: string): Question {
+  function createQ(difficulty: Difficulty, question: string, correct: string, w1: string, w2: string, w3: string, hint: string, explanation: string, badge: string, image = '/quiz/ai_hero.jpg'): Question {
     const options = [correct, w1, w2, w3];
     for (let i = options.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -445,7 +445,8 @@ export default function CharityQuizClient() {
       answer: options.indexOf(correct),
       hint,
       explanation,
-      topicBadge: badge
+      topicBadge: badge,
+      image
     };
   }
 
@@ -488,7 +489,8 @@ Do NOT include markdown formatting or backticks.`;
               answer: typeof item.answer === 'number' ? item.answer : 0,
               hint: item.hint || 'Consider the core concepts of this subject.',
               explanation: item.explanation || 'Mastering this topic strengthens understanding.',
-              topicBadge: selectedTopic
+              topicBadge: selectedTopic,
+              image: '/quiz/ai_hero.jpg'
             }));
           }
         }
@@ -833,6 +835,36 @@ Do NOT include markdown formatting or backticks.`;
                     +10 Grains
                   </div>
                 </div>
+
+                {/* Dynamic Question Visual Image Banner */}
+                {(() => {
+                  const fallbackHero = category === 'custom-ai' ? '/quiz/ai_hero.jpg' : `/quiz/${category === 'random' ? 'animals' : category}_hero.jpg`;
+                  const activeImage = currentQuestion.image || fallbackHero;
+                  return (
+                    <div className="w-full h-44 sm:h-52 rounded-2xl overflow-hidden relative group border border-slate-800/80 shadow-md">
+                      <img
+                        src={activeImage}
+                        alt={currentQuestion.topicBadge || 'Quiz Visual Illustration'}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="eager"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = fallbackHero;
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent pointer-events-none" />
+                      
+                      <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+                        <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md text-emerald-300 border border-emerald-500/30 shadow-sm flex items-center gap-1.5">
+                          <span>{CATEGORIES.find(c => c.id === category)?.icon || '💡'}</span>
+                          <span>{currentQuestion.topicBadge || CATEGORIES.find(c => c.id === category)?.titleEn}</span>
+                        </span>
+                        <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-md bg-amber-500/20 backdrop-blur-md text-amber-300 border border-amber-400/40 shadow-sm">
+                          🌾 +10 Grains
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })()}
 
                 {/* Question Headline */}
                 <h3 className="text-lg sm:text-xl font-bold font-title leading-relaxed">
