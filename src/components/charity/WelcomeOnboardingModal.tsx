@@ -80,18 +80,20 @@ export default function WelcomeOnboardingModal({
             ✕
           </button>
 
-          {/* Brand & Welcome Hero */}
-          <div className="text-center space-y-2 pt-1">
-            <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-emerald-400 to-teal-500 text-slate-950 flex items-center justify-center text-3xl mx-auto shadow-xl shadow-emerald-500/30 font-black animate-bounce">
-              🐕🥣
+          {/* Brand & Welcome Hero with Mascot Banner */}
+          <div className="text-center space-y-3 pt-1">
+            <div className="w-full rounded-2xl overflow-hidden border border-emerald-500/30 shadow-xl group">
+              <img 
+                src="/cyberkarma_hero_mascot.png" 
+                alt="CyberKarma Mascot: Play Free Quizzes, Feed Street Dogs"
+                className="w-full h-auto object-cover group-hover:scale-103 transition-transform duration-300"
+              />
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black font-title tracking-tight">
-              {lang === 'hi' ? 'साइबरकर्म में आपका स्वागत है!' : 'Welcome to CyberKarma!'}
-            </h2>
-            <p className={`text-xs sm:text-sm font-medium max-w-sm mx-auto leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+            
+            <p className={`text-xs sm:text-sm font-medium max-w-sm mx-auto leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
               {lang === 'hi'
                 ? 'निःशुल्क क्विज़ खेलें और पटना के बेसहारा कुत्तों के लिए 100% सत्यापित भोजन व उपचार दान करें।'
-                : 'Play free trivia to donate real bowls of rice and medical aid for rescue street dogs in Patna, Bihar.'}
+                : 'Play free family-friendly trivia to donate real bowls of rice and care for rescue dogs in Patna, Bihar.'}
             </p>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
               <span>🎁</span>

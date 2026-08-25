@@ -20,6 +20,7 @@ import SuggestionModal from './SuggestionModal';
 import LiveImpactCarousel from './LiveImpactCarousel';
 import WelcomeOnboardingModal from './WelcomeOnboardingModal';
 import ThreeDArtBackground from '@/components/3d/ThreeDArtBackground';
+import KarmaMascotCompanion from './KarmaMascotCompanion';
 
 // Initialize Supabase client
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://xkhgccximcrsdpdlskys.supabase.co';
@@ -1135,6 +1136,16 @@ Do NOT include markdown formatting or backticks.`;
           {/* Right Column: Clean Impact & Welfare Overview */}
           <div className="lg:col-span-4 space-y-6">
             
+            {/* Friendly Interactive Mascot Companion & 3-Step Guide */}
+            <KarmaMascotCompanion
+              score={score}
+              streak={streak}
+              isAnswered={isAnswered}
+              isCorrect={isAnswered && selectedAnswer === currentQuestion?.answer}
+              lang={lang}
+              isDark={isDark}
+            />
+
             {/* Impact Summary Card */}
             <div className={`p-6 rounded-3xl border space-y-5 ${
               isDark ? 'bg-slate-900/80 border-slate-800/80' : 'bg-white border-slate-200 shadow-sm'
