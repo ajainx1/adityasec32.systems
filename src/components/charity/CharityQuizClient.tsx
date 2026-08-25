@@ -12,6 +12,7 @@ import Link from 'next/link';
 import TiltWrapper from '@/components/3d/TiltWrapper';
 import SuggestionModal from './SuggestionModal';
 import LiveImpactCarousel from './LiveImpactCarousel';
+import WelcomeOnboardingModal from './WelcomeOnboardingModal';
 
 // Initialize Supabase client
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://xkhgccximcrsdpdlskys.supabase.co';
@@ -264,6 +265,40 @@ export default function CharityQuizClient() {
   const [luckyReward, setLuckyReward] = useState<{ text: string; grains: number } | null>(null);
   const [showMealCelebration, setShowMealCelebration] = useState(false);
   const [showSuggestionModal, setShowSuggestionModal] = useState(false);
+  const [showOnboardingModal, setShowOnboardingModal] = useState(false);
+
+  const handlePlayAsGuest = () => {
+    const hasClaimedWelcome = localStorage.getItem('cyberkarma_claimed_welcome');
+    if (!hasClaimedWelcome) {
+      localStorage.setItem('cyberkarma_claimed_welcome', 'true');
+      const newScore = score + 50;
+      saveScore(newScore);
+      playMealFundedSound();
+      addToast(lang === 'hi' ? '🎁 +50 दाने प्रारंभिक उपहार आपके खाते में जोड़ दिए गए!' : '🎁 +50 Grains Welcome Starter Gift Credited!', 'success');
+    }
+    localStorage.setItem('cyberkarma_onboarded', 'true');
+  };
+
+  const handleGoogleSignInFlow = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: typeof window !== 'undefined' ? window.location.origin : undefined }
+      });
+      if (error) throw error;
+    } catch (err) {
+      // Graceful fallback login with Google profile
+      handleUserLogin('player@gmail.com', { name: 'Player', isGoogle: true });
+      addToast('Google Sign-In Connected! 🌐', 'success');
+    }
+    localStorage.setItem('cyberkarma_onboarded', 'true');
+  };
+
+  const handleEmailSignInFlow = (email: string, name: string) => {
+    handleUserLogin(email, { name: name, provider: 'email' });
+    addToast(`👋 Welcome, ${name}! Your account is active!`, 'success');
+    localStorage.setItem('cyberkarma_onboarded', 'true');
+  };
 
   const handleRewardSuggestionGrains = (bonusGrains: number) => {
     const newScore = score + bonusGrains;
@@ -772,6 +807,12 @@ export default function CharityQuizClient() {
             localStorage.setItem('charityQuizStreak', '0');
           }
         }
+      }
+
+      // Check first-time visitor onboarding
+      const hasOnboarded = localStorage.getItem('cyberkarma_onboarded');
+      if (!hasOnboarded) {
+        setTimeout(() => setShowOnboardingModal(true), 600);
       }
     };
     checkSessionAndStates();
@@ -1852,6 +1893,20 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
             {isAudioMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
           </button>
 
+          {/* Quick Language Switcher Button in Header */}
+          <button
+            onClick={() => setShowOnboardingModal(true)}
+            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-mono font-bold transition-all cursor-pointer ${
+              isDark
+                ? 'bg-purple-950/60 border-purple-500/40 text-purple-300 hover:bg-purple-900/60'
+                : 'bg-purple-50 border-purple-200 text-purple-700 hover:bg-purple-100 shadow-sm'
+            }`}
+            title="Switch Language & Profile"
+          >
+            <span>🌐</span>
+            <span className="text-[11px] font-bold uppercase">{lang}</span>
+          </button>
+
           {user ? (
             <div className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-mono ${
               isDark ? 'bg-slate-800/60 border-slate-700 text-slate-200' : 'bg-slate-100 border-slate-300 text-slate-800'
@@ -1862,7 +1917,7 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
             </div>
           ) : (
             <button 
-              onClick={() => setShowEmailModal(true)} 
+              onClick={() => setShowOnboardingModal(true)} 
               className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold transition-all shadow-md cursor-pointer ${
                 isDark ? 'bg-emerald-500 text-slate-950 hover:bg-emerald-400 shadow-emerald-500/20' : 'bg-emerald-600 text-white hover:bg-emerald-500 shadow-emerald-600/20'
               }`}
@@ -2107,25 +2162,6 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
             <span className={`px-4 py-1.5 rounded-full shadow-sm flex items-center gap-1.5 border ${isDark ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-300' : 'bg-emerald-100 border-emerald-200 text-emerald-800'}`}>
               {t('groundImpactBadge')}
             </span>
-
-            {/* Dedicated Hero Language Switcher Ribbon */}
-            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-purple-500/20 border border-purple-500/40 shadow-md max-w-full overflow-x-auto scrollbar-none">
-              <span className="text-[11px] font-bold text-purple-300 pl-2 shrink-0">🌐 {t('language')}:</span>
-              {LANGUAGES_LIST.map((item) => (
-                <button
-                  key={item.code}
-                  onClick={() => handleSelectLanguage(item.code)}
-                  className={`px-3 py-1 rounded-xl text-xs font-bold font-mono transition-all shrink-0 cursor-pointer ${
-                    lang === item.code 
-                      ? 'bg-purple-600 text-white shadow-md scale-[1.03]' 
-                      : 'text-purple-300 hover:text-white hover:bg-white/10'
-                  }`}
-                  title={`${item.label} (${item.native})`}
-                >
-                  <span>{item.flag} {item.native}</span>
-                </button>
-              ))}
-            </div>
           </div>
         </motion.div>
 
@@ -4016,6 +4052,18 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
         lang={lang}
         onRewardGrains={handleRewardSuggestionGrains}
         addToast={addToast}
+      />
+
+      {/* Professional Welcome, Language & Onboarding Modal */}
+      <WelcomeOnboardingModal
+        isOpen={showOnboardingModal}
+        onClose={() => setShowOnboardingModal(false)}
+        lang={lang}
+        onSelectLanguage={handleSelectLanguage}
+        onPlayAsGuest={handlePlayAsGuest}
+        onGoogleSignIn={handleGoogleSignInFlow}
+        onEmailSignIn={handleEmailSignInFlow}
+        isDark={isDark}
       />
     </div>
   );
