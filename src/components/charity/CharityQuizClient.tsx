@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Share2, Heart, Lightbulb, User, LogOut, ArrowLeft, Sun, Moon, Zap, Cpu, Award, Network, Activity, Server, ExternalLink, Volume2, VolumeX, Flame } from 'lucide-react';
+import { Share2, Heart, Lightbulb, User, LogOut, ArrowLeft, Sun, Moon, Zap, Cpu, Award, Network, Activity, Server, ExternalLink, Volume2, VolumeX, Flame, ShieldCheck, CheckCircle2, FileText, Lock, Sparkles, MapPin, Calendar, HelpCircle, Camera } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import { quizData, CategoryKey, Difficulty, Question } from './quizData';
 import { quizDataHindi, DAILY_FACTS_HI } from './quizDataHindi';
@@ -2991,6 +2991,167 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* 100% Trust, Transparency & Financial Integrity Section */}
+      <section className="w-full max-w-6xl mx-auto px-4 mt-12 relative z-10">
+        <TiltWrapper tiltDeg={2} glare={true} className="w-full">
+          <div className={`p-8 sm:p-10 rounded-[36px] border shadow-2xl backdrop-blur-2xl transition-all relative overflow-hidden ${
+            isDark 
+              ? 'bg-gradient-to-br from-slate-900/95 via-emerald-950/20 to-slate-950/95 border-emerald-500/30 text-white shadow-[0_0_50px_rgba(16,185,129,0.1)]' 
+              : 'bg-white/98 border-2 border-emerald-200 text-slate-900 shadow-xl'
+          }`}>
+            
+            {/* Header with Verified Shield */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/10">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold mb-3">
+                  <ShieldCheck size={16} />
+                  <span>{lang === 'hi' ? '100% सार्वजनिक पारदर्शिता एवं प्रमाण' : '100% Public Transparency & Trust Guarantee'}</span>
+                </div>
+                <h2 className="text-2xl sm:text-4xl font-black font-title tracking-tight">
+                  {lang === 'hi' ? 'विश्वास और पारदर्शिता का हमारा संकल्प' : 'How Every Grain Is Real & Verified'}
+                </h2>
+                <p className={`text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                  {lang === 'hi'
+                    ? 'हम बिना किसी उपयोगकर्ता शुल्क के पारदर्शी रूप से कार्य करते हैं। आपका ज्ञान सीधे पटना (बिहार) में वास्तविक भोजन में परिवर्तित होता है।'
+                    : 'CyberKarma is a 100% free non-profit educational initiative. Zero credit cards, zero donor fees. Learn how your answers convert into verified ground feeding.'}
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <Link
+                  href="/impact"
+                  className="px-5 py-2.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs font-mono transition-all shadow-lg shadow-emerald-500/20 flex items-center gap-2 hover:scale-105"
+                >
+                  <Camera size={14} />
+                  <span>{lang === 'hi' ? '110+ ज़मीनी तस्वीरें देखें' : 'View 110+ Field Photos'}</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* 4 Pillars of Trust Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-8">
+              {[
+                {
+                  icon: '🛡️',
+                  titleEn: '100% Free Forever',
+                  titleHi: 'हमेशा 100% निःशुल्क',
+                  descEn: 'Zero donor fees, zero credit cards. We never ask for payments. Philanthropy through knowledge.',
+                  descHi: 'कोई शुल्क या क्रेडिट कार्ड नहीं। केवल प्रश्न हल करके बेसहारा पशुओं का पेट भरें।'
+                },
+                {
+                  icon: '📸',
+                  titleEn: 'Daily Field Timestamps',
+                  titleHi: 'दैनिक ज़मीनी प्रमाण',
+                  descEn: 'Every meal drive in Patna, Bihar is documented with date-stamped photos and GPS corridors.',
+                  descHi: 'पटना मंडल में प्रत्येक भोजन सेवा की वास्तविक तस्वीरें और दिनांक तुरंत अपलोड होते हैं।'
+                },
+                {
+                  icon: '🔍',
+                  titleEn: 'Open Source Audit',
+                  titleHi: 'खुला और पारदर्शी ऑडिट',
+                  descEn: 'All image assets and commit history are publicly inspectable on GitHub repository records.',
+                  descHi: 'सभी तस्वीरें और कोड गिटहब (GitHub) पर सार्वजनिक रूप से ऑडिट के लिए उपलब्ध हैं।'
+                },
+                {
+                  icon: '🐕',
+                  titleEn: 'Nutritious Safe Food',
+                  titleHi: 'सुरक्षित एवं पौष्टिक आहार',
+                  descEn: 'Staple boiled rice, boiled eggs & fresh broth. Non-splintering diet following AWBI guidelines.',
+                  descHi: 'उबले चावल और अंडे का सुरक्षित आहार, जो पशु कल्याण बोर्ड के मानकों के अनुरूप है।'
+                }
+              ].map((item, idx) => (
+                <div
+                  key={idx}
+                  className={`p-5 rounded-2xl border transition-all ${
+                    isDark ? 'bg-slate-950/60 border-white/10 hover:border-emerald-500/30' : 'bg-slate-50 border-slate-200 hover:border-emerald-400'
+                  }`}
+                >
+                  <div className="text-3xl mb-3">{item.icon}</div>
+                  <h3 className="text-sm font-bold font-title mb-1.5 text-emerald-400">
+                    {lang === 'hi' ? item.titleHi : item.titleEn}
+                  </h3>
+                  <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                    {lang === 'hi' ? item.descHi : item.descEn}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* 4-Step Transparent Conversion Flowchart */}
+            <div className={`p-6 rounded-3xl border mb-8 ${isDark ? 'bg-black/40 border-white/10' : 'bg-slate-100/80 border-slate-200'}`}>
+              <div className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 mb-4 flex items-center gap-2">
+                <CheckCircle2 size={16} />
+                <span>{lang === 'hi' ? 'पारदर्शी रूपांतरण प्रक्रिया: ज्ञान से भोजन तक' : 'Transparent Conversion Process: From Quiz to Food Bowl'}</span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+                {[
+                  { step: '1', titleEn: 'You Solve Quizzes', titleHi: 'आप प्रश्न हल करते हैं', textEn: 'Answer trivia to generate 10 grains of rice per correct answer.', textHi: 'प्रत्येक सही उत्तर पर 10 दाने अनाज अर्जित होते हैं।' },
+                  { step: '2', titleEn: 'Sponsors Fund Grains', titleHi: 'प्रायोजक दाने फंड करते हैं', textEn: 'Privacy-friendly ethical sponsors and founder pledges fund the rice.', textHi: 'नैतिक विज्ञापनदाता और संस्थापक सीधे भोजन का खर्च उठाते हैं।' },
+                  { step: '3', titleEn: 'Bulk Local Procurement', titleHi: 'स्थानीय अनाज खरीद', textEn: 'Rice, eggs, clean water bowls purchased wholesale in Patna.', textHi: 'पटना के स्थानीय बाजारों से थोक में ताज़ा अनाज व अंडे खरीदे जाते हैं।' },
+                  { step: '4', titleEn: 'Daily Field Feeding', titleHi: 'दैनिक भोजन वितरण', textEn: 'Served to street packs in Patna corridors with photo timestamps.', textHi: 'सड़क के श्वानों को दैनिक रूप से खिलाकर तस्वीरें अपलोड की जाती हैं।' },
+                ].map((st, i) => (
+                  <div key={i} className={`p-4 rounded-2xl border relative ${isDark ? 'bg-slate-900/60 border-white/10' : 'bg-white border-slate-200 shadow-sm'}`}>
+                    <div className="w-7 h-7 rounded-xl bg-emerald-500 text-slate-950 font-black font-mono text-xs flex items-center justify-center mb-2 shadow-md">
+                      {st.step}
+                    </div>
+                    <h4 className="text-xs font-bold font-title mb-1 text-white">
+                      {lang === 'hi' ? st.titleHi : st.titleEn}
+                    </h4>
+                    <p className={`text-[11px] leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                      {lang === 'hi' ? st.textHi : st.textEn}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Founder's Signed Commitment Note & Open Volunteer Invitation */}
+            <div className={`p-6 sm:p-8 rounded-3xl border flex flex-col md:flex-row items-center justify-between gap-6 ${
+              isDark ? 'bg-gradient-to-r from-emerald-950/40 via-slate-900/60 to-teal-950/40 border-emerald-500/30' : 'bg-emerald-50/90 border-emerald-200'
+            }`}>
+              <div className="flex items-start gap-4">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 text-slate-950 flex items-center justify-center text-2xl font-black font-title shadow-lg shrink-0">
+                  AJ
+                </div>
+                <div className="space-y-1 text-left">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold font-title text-white">Aditya (Founder & Ground Volunteer)</span>
+                    <span className="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                      ✓ Verified Organizer
+                    </span>
+                  </div>
+                  <p className={`text-xs leading-relaxed italic ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                    "{lang === 'hi' 
+                      ? 'मैंने साइबरकर्म की शुरुआत इस विश्वास के साथ की थी कि ज्ञान से सीधे वास्तविक भूख मिटनी चाहिए। इस वेबसाइट पर दिखने वाला हर दाना पटना (बिहार) में बेसहारा श्वानों को मिलने वाले गर्म भोजन में तब्दील होता है। यदि आप पटना में हैं, तो आप हमारे साथ फील्ड ड्राइव में शामिल होने के लिए सादर आमंत्रित हैं!' 
+                      : 'I started CyberKarma with a simple conviction: digital curiosity should directly heal real-world hunger. Every grain shown on this scoreboard is backed by physical bowls of warm food served to street companions across Patna, Bihar. You are warmly invited to join our weekend feeding rounds!'}"
+                  </p>
+                  <div className="text-[11px] font-mono text-emerald-400 pt-1">
+                    📧 adityasec32@gmail.com • 📍 Patna Division, Bihar 800001
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full md:w-auto">
+                <a
+                  href="mailto:adityasec32@gmail.com?subject=Join%20CyberKarma%20Feeding%20Drive%20in%20Patna"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-mono font-bold border border-white/15 transition-all text-center"
+                >
+                  🤝 {lang === 'hi' ? 'वॉलंटियर के रूप में जुड़ें' : 'Join as Volunteer'}
+                </a>
+                <Link
+                  href="/impact"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-mono font-black transition-all shadow-md text-center"
+                >
+                  📸 {lang === 'hi' ? 'गैलरी व रसीदें' : 'Gallery & Proof'}
+                </Link>
+              </div>
+            </div>
+
+          </div>
+        </TiltWrapper>
+      </section>
 
       {/* 3D SEO FAQ & How It Works Educational Section */}
       <section className="w-full max-w-6xl mx-auto px-4 mt-12 mb-4 relative z-10">
