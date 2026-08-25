@@ -904,12 +904,36 @@ export default function CharityQuizClient() {
     }
   }, [score, addToast]);
 
-  // Smart Dynamic Fallback Generator for custom AI topics
+  // Fisher-Yates Random Option Shuffler to guarantee answer index is NEVER hardcoded to option 0
+  const shuffleQuestionOptions = (q: Question): Question => {
+    const originalOptions = [...q.options];
+    const originalAnswerIdx = q.answer >= 0 && q.answer < originalOptions.length ? q.answer : 0;
+    const correctAnswerText = originalOptions[originalAnswerIdx];
+
+    // Fisher-Yates Shuffle
+    const shuffledOptions = [...originalOptions];
+    for (let i = shuffledOptions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
+    }
+
+    // Identify the new position of the correct answer
+    let newAnswerIdx = shuffledOptions.indexOf(correctAnswerText);
+    if (newAnswerIdx === -1) newAnswerIdx = 0;
+
+    return {
+      ...q,
+      options: shuffledOptions,
+      answer: newAnswerIdx
+    };
+  };
+
+  // Smart Dynamic Fallback Generator for custom AI topics (10 Diverse Comprehensive Questions)
   const generateSmartAIQuiz = (topic: string, currentLang: Language): Question[] => {
     const cleanTopic = topic.trim();
     const isHi = currentLang === 'hi';
 
-    return [
+    const rawPool: Question[] = [
       {
         difficulty: 'intermediate',
         question: isHi 
@@ -942,18 +966,18 @@ export default function CharityQuizClient() {
           : `What is considered one of the most transformative impacts of advancements in "${cleanTopic}"?`,
         options: isHi
           ? [
-              `जटिल समस्याओं का कुशल, मापनीय और मानवीय समाधान`,
               `सूचना का अनावश्यक भ्रम उत्पन्न करना`,
+              `जटिल समस्याओं का कुशल, मापनीय और मानवीय समाधान`,
               `संसाधनों की बर्बादी में वृद्धि`,
               `सामूहिक ज्ञान के विकास को रोकना`
             ]
           : [
-              `Enabling scalable, efficient solutions to complex real-world challenges`,
               `Generating intentional informational noise and confusion`,
+              `Enabling scalable, efficient solutions to complex real-world challenges`,
               `Decreasing overall operational throughput and safety`,
               `Restricting collaborative innovation and learning`
             ],
-        answer: 0,
+        answer: 1,
         hint: isHi ? "यह सकारात्मक नवाचार और दक्षता से संबंधित है।" : "Focus on scalable positive efficiency and human progress.",
         scenario: isHi ? `प्रभाव और नवाचार: ${cleanTopic}` : `Real-World Impact: ${cleanTopic}`,
         explanation: isHi
@@ -967,18 +991,18 @@ export default function CharityQuizClient() {
           : `When professionals optimize systems within "${cleanTopic}", which critical vulnerability or pitfall do they prioritize mitigating?`,
         options: isHi
           ? [
-              `एकल बिंदु विफलता (Single Point of Failure) और अनियंत्रित विचलन`,
               `अत्यधिक सुरक्षा और गुणवत्ता परीक्षण`,
               `स्पष्ट दस्तावेज़ीकरण और खुला संचार`,
+              `एकल बिंदु विफलता (Single Point of Failure) और अनियंत्रित विचलन`,
               `नियमित फीडबैक लूप और सुधार`
             ]
           : [
-              `Single Point of Failure (SPOF) and unchecked cascading drift`,
               `Excessive safety audits and structured peer reviews`,
               `Transparent documentation and clear architectural standards`,
+              `Single Point of Failure (SPOF) and unchecked cascading drift`,
               `Regular feedback loops and empirical benchmarks`
             ],
-        answer: 0,
+        answer: 2,
         hint: isHi ? "ऐसी स्थिति जहाँ एक घटक के विफल होने से पूरी प्रणाली ठप हो जाए।" : "A structural bottleneck whose failure collapses the entire system.",
         scenario: isHi ? `जोखिम प्रबंधन: ${cleanTopic}` : `Risk Mitigation: ${cleanTopic}`,
         explanation: isHi
@@ -992,18 +1016,18 @@ export default function CharityQuizClient() {
           : `At an advanced level in "${cleanTopic}", which methodology provides the highest resilience and precision?`,
         options: isHi
           ? [
-              `मॉड्यूलर आर्किटेक्चर, स्वचालित निगरानी और अनुकूली नियंत्रण`,
               `सभी घटकों को एक साथ बिना अलगाव के जोड़ना`,
               `त्रुटि लॉग और टेलीमेट्री को रिकॉर्ड न करना`,
-              `परिवर्तनों का कभी भी बैकअप न रखना`
+              `परिवर्तनों का कभी भी बैकअप न रखना`,
+              `मॉड्यूलर आर्किटेक्चर, स्वचालित निगरानी और अनुकूली नियंत्रण`
             ]
           : [
-              `Modular architecture, automated telemetry & adaptive control loops`,
               `Tightly coupled monolithic design without separation of concerns`,
               `Suppression of diagnostic error telemetry and metrics`,
-              `Operating without versioning or rollback mechanisms`
+              `Operating without versioning or rollback mechanisms`,
+              `Modular architecture, automated telemetry & adaptive control loops`
             ],
-        answer: 0,
+        answer: 3,
         hint: isHi ? "मॉड्यूलर संरचना और निगरानी से प्रणाली मजबूत बनती है।" : "Decoupled components with real-time observability.",
         scenario: isHi ? `उन्नत आर्किटेक्चर: ${cleanTopic}` : `Advanced Engineering: ${cleanTopic}`,
         explanation: isHi
@@ -1017,25 +1041,152 @@ export default function CharityQuizClient() {
           : `How does systematic engagement with "${cleanTopic}" elevate cognitive and problem-solving capability?`,
         options: isHi
           ? [
-              `यह साक्ष्य-आधारित निर्णय लेने और गहन तार्किक विश्लेषण को सुदृढ़ करता है`,
               `यह तार्किक सोच को कमजोर करता है`,
+              `यह साक्ष्य-आधारित निर्णय लेने और गहन तार्किक विश्लेषण को सुदृढ़ करता है`,
               `यह जिज्ञासा और सीखने की इच्छा को समाप्त करता है`,
               `यह नए समाधान खोजने में बाधा डालता है`
             ]
           : [
-              `It strengthens first-principles reasoning and evidence-based decision making`,
               `It degrades logical discernment and structured analysis`,
+              `It strengthens first-principles reasoning and evidence-based decision making`,
               `It suppresses natural curiosity and intellectual agility`,
               `It restricts multidisciplinary problem synthesis`
             ],
-        answer: 0,
+        answer: 1,
         hint: isHi ? "प्रथम-सिद्धांतों (First Principles) पर आधारित सोच।" : "Think of first-principles reasoning and mental clarity.",
         scenario: isHi ? `संज्ञानात्मक लाभ: ${cleanTopic}` : `Cognitive Synthesis: ${cleanTopic}`,
         explanation: isHi
           ? `गहन विषयों का अध्ययन हमारे न्यूरोप्लास्टिसिटी और तार्किक विश्लेषण कौशल को नई ऊँचाई देता है।`
           : `Engaging with structured domains deepens neuroplastic connections and fosters rigorous first-principles problem-solving abilities.`
+      },
+      {
+        difficulty: 'beginner',
+        question: isHi
+          ? `"${cleanTopic}" में डेटा और जानकारी की सटीकता बनाए रखने के लिए सबसे प्रभावी अभ्यास क्या है?`
+          : `What is the most effective industry practice for maintaining data integrity and precision in "${cleanTopic}"?`,
+        options: isHi
+          ? [
+              `नियमित ऑडिट, पारदर्शी ट्रैकिंग और सहकर्मी समीक्षा (Peer Review)`,
+              `डेटा को बिना बैकअप के तुरंत मिटा देना`,
+              `केवल अनुमानों पर भरोसा करना`,
+              `गलतियों को छुपाना और लॉग न रखना`
+            ]
+          : [
+              `Regular audits, transparent version tracking, and peer reviews`,
+              `Deleting audit trails immediately without retention policies`,
+              `Relying entirely on subjective heuristics and intuition`,
+              `Concealing system exceptions and omitting diagnostics`
+            ],
+        answer: 0,
+        hint: isHi ? "पारदर्शिता और नियमित सहकर्मी समीक्षा।" : "Independent peer reviews and structured audit logs.",
+        scenario: isHi ? `सटीकता एवं मानक: ${cleanTopic}` : `Quality Standards: ${cleanTopic}`,
+        explanation: isHi
+          ? `पारदर्शी ट्रैकिंग और सहकर्मी समीक्षा से त्रुटियों की संभावना न्यूनतम हो जाती है।`
+          : `Peer review processes and immutable audit logs guarantee domain integrity and reproducible accuracy.`
+      },
+      {
+        difficulty: 'intermediate',
+        question: isHi
+          ? `"${cleanTopic}" के विकास में बहु-विषयक सहयोग (Multidisciplinary Collaboration) क्यों आवश्यक है?`
+          : `Why is cross-disciplinary collaboration essential for future breakthroughs in "${cleanTopic}"?`,
+        options: isHi
+          ? [
+              `यह निर्णय लेने की गति को अनावश्यक रूप से धीमा करता है`,
+              `यह केवल लागत बढ़ाने का एक माध्यम है`,
+              `विभिन्न क्षेत्रों के ज्ञान के समन्वय से नए दृष्टिकोण और समग्र समाधान विकसित होते हैं`,
+              `यह नवाचार की गुणवत्ता को घटाता है`
+            ]
+          : [
+              `It unnecessarily delays execution cycles without tangible benefits`,
+              `It serves merely as a cost-multiplying procedural hurdle`,
+              `Cross-pollination across diverse fields unlocks novel heuristics and holistic solutions`,
+              `It reduces domain precision and technical clarity`
+            ],
+        answer: 2,
+        hint: isHi ? "विभिन्न विषयों के समन्वय से नवाचार संभव होता है।" : "Synergies between adjacent scientific fields produce novel insights.",
+        scenario: isHi ? `सहयोग और नवाचार: ${cleanTopic}` : `Interdisciplinary Synergy: ${cleanTopic}`,
+        explanation: isHi
+          ? `जब विभिन्न विशेषज्ञ एक साथ काम करते हैं, तो वे जटिल समस्याओं के ऐसे पहलू देख पाते हैं जो अकेले संभव नहीं होते।`
+          : `Combining insights across fields breaks functional silos and creates robust, multidimensional innovations.`
+      },
+      {
+        difficulty: 'advanced',
+        question: isHi
+          ? `दीर्घकालिक स्थिरता सुनिश्चित करने के लिए "${cleanTopic}" में किस नैतिक विचार को सर्वोपरि माना जाता है?`
+          : `Which ethical framework is paramount to ensure long-term trust and sustainable adoption in "${cleanTopic}"?`,
+        options: isHi
+          ? [
+              `पारदर्शिता, मानवीय सुरक्षा, निष्पक्षता और जवाबदेही`,
+              `अल्पकालिक लाभ के लिए सुरक्षा मानकों की उपेक्षा करना`,
+              `उपयोगकर्ताओं से महत्वपूर्ण जानकारी छुपाना`,
+              `पर्यावरणीय और सामाजिक प्रभावों की अनदेखी करना`
+            ]
+          : [
+              `Transparency, human-centric safety, equity, and public accountability`,
+              `Bypassing safety baselines to prioritize rapid commercialization`,
+              `Concealing critical operational parameters from stakeholders`,
+              `Disregarding social and environmental sustainability metrics`
+            ],
+        answer: 0,
+        hint: isHi ? "मानवीय सुरक्षा, निष्पक्षता और पूर्ण जवाबदेही।" : "Focus on ethical governance, human safety, and accountability.",
+        scenario: isHi ? `नैतिक शासन: ${cleanTopic}` : `Ethical Governance: ${cleanTopic}`,
+        explanation: isHi
+          ? `नैतिक उत्तरदायित्व और पारदर्शिता किसी भी तकनीक या विषय की दीर्घकालिक विश्वसनीयता की आधारशिला हैं।`
+          : `Ethical governance safeguards user trust, prevents systemic bias, and ensures alignment with public welfare.`
+      },
+      {
+        difficulty: 'beginner',
+        question: isHi
+          ? `"${cleanTopic}" में नए शिक्षार्थी को शुरुआत में किस बात पर सबसे अधिक ध्यान देना चाहिए?`
+          : `For beginners exploring "${cleanTopic}", which initial strategy yields the strongest learning curve?`,
+        options: isHi
+          ? [
+              `बिना समझे केवल जटिल सूत्रों को रटना`,
+              `मूलभूत सिद्धांतों (Fundamentals) को समझना और व्यावहारिक अभ्यास करना`,
+              `सीखने के पहले ही दिन सबसे कठिन समस्याओं पर कूदना`,
+              `प्रश्नों और शंकाओं को कभी न पूछना`
+            ]
+          : [
+              `Rote memorization of advanced jargon without conceptual models`,
+              `Mastering core fundamentals through iterative hands-on application`,
+              `Skipping foundational concepts to attempt unguided advanced projects`,
+              `Avoiding active inquiry and never asking clarifying questions`
+            ],
+        answer: 1,
+        hint: isHi ? "मूल सिद्धांतों की समझ और अभ्यास।" : "Solid fundamentals combined with hands-on practice.",
+        scenario: isHi ? `अध्ययन रणनीति: ${cleanTopic}` : `Learning Fundamentals: ${cleanTopic}`,
+        explanation: isHi
+          ? `मजबूत नींव और निरंतर व्यावहारिक अभ्यास से किसी भी विषय में प्रवीणता प्राप्त होती है।`
+          : `Grounded fundamental knowledge accelerates retention and creates a resilient platform for advanced synthesis.`
+      },
+      {
+        difficulty: 'advanced',
+        question: isHi
+          ? `"${cleanTopic}" के भविष्य के रुझान (Future Trends) किस दिशा में अग्रसर हैं?`
+          : `Looking toward future horizons, which macro-trend is actively reshaping "${cleanTopic}"?`,
+        options: isHi
+          ? [
+              `पुरानी, अप्रचलित तकनीकों पर पूर्ण निर्भरता`,
+              `नवाचार और शोध को पूरी तरह बंद करना`,
+              `स्वचालन, बुद्धिमान विश्लेषण और वैश्विक ज्ञान साझाकरण का एकीकरण`,
+              `प्रणालियों को धीमा और अक्षम बनाना`
+            ]
+          : [
+              `Complete retreat into legacy, non-updatable methodologies`,
+              `Halting research and terminating academic exploration`,
+              `Integration of intelligent automation, predictive analytics, and open collaborative frameworks`,
+              `Intentionally compounding latency and system inefficiencies`
+            ],
+        answer: 2,
+        hint: isHi ? "बुद्धिमान स्वचालन और वैश्विक सहयोग।" : "Intelligent automation and distributed collaborative science.",
+        scenario: isHi ? `भविष्य की दिशा: ${cleanTopic}` : `Future Horizons: ${cleanTopic}`,
+        explanation: isHi
+          ? `आधुनिक तकनीक और विश्लेषणात्मक टूल्स का एकीकरण इस क्षेत्र को अभूतपूर्व गति और सटीकता प्रदान कर रहा है।`
+          : `Next-generation ecosystems leverage intelligent automation and global collaborative platforms to solve grand challenges.`
       }
     ];
+
+    return rawPool.map(shuffleQuestionOptions);
   };
 
   // Generate Custom AI Quiz using default Google Gemini API (never prompts visitor for key)
@@ -1048,20 +1199,22 @@ export default function CharityQuizClient() {
     setIsGeneratingAI(true);
     setFeedback(null);
 
-    const promptText = `Generate exactly 5 multiple choice questions on the topic: "${aiTopic}".
+    const promptText = `Generate exactly 10 multiple choice educational trivia questions on the topic: "${aiTopic}".
+Each question must have 4 distinct, plausible options.
+Crucial instruction: Ensure the correct answer index ("answer": 0, 1, 2, or 3) is randomly distributed across all options (do NOT always set answer to 0).
 Return the output ONLY as a valid JSON array matching the structure:
 [
   {
     "difficulty": "intermediate",
     "question": "question text",
     "options": ["option 1", "option 2", "option 3", "option 4"],
-    "answer": 0,
+    "answer": 2,
     "hint": "helpful hint",
     "scenario": "brief context",
     "explanation": "concise explanation of why this answer is correct and key insight"
   }
 ]
-Ensure the JSON output is raw, without any markdown formatting, backticks, or wrapping. Keep it strictly educational and correct.`;
+Ensure the JSON output is raw, without any markdown formatting, backticks, or wrapping. Keep it strictly educational, accurate, and respectful.`;
 
     let parsedQuestions: Question[] | null = null;
     const defaultApiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || (typeof window !== 'undefined' ? localStorage.getItem('GEMINI_API_KEY') : '') || '';
@@ -1098,6 +1251,9 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
     // Fallback to smart dynamic synthesis if direct API call is unconfigured or blocked
     if (!parsedQuestions || parsedQuestions.length === 0) {
       parsedQuestions = generateSmartAIQuiz(aiTopic, lang);
+    } else {
+      // Shuffle options to guarantee random answer position across A, B, C, D
+      parsedQuestions = parsedQuestions.map(shuffleQuestionOptions);
     }
 
     setAiQuestions(parsedQuestions);
@@ -1110,7 +1266,7 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
     setShowHint(false);
     setShowAIModal(false);
     setShowAICompletion(false);
-    addToast(lang === 'hi' ? `🤖 AI क्विज़ तैयार! विषय: ${aiTopic}` : `🤖 AI Quiz Ready on: ${aiTopic}!`, 'success');
+    addToast(lang === 'hi' ? `🤖 10 प्रश्नों की AI क्विज़ तैयार! विषय: ${aiTopic}` : `🤖 10-Question AI Quiz Ready on: ${aiTopic}!`, 'success');
     setIsGeneratingAI(false);
   };
 
@@ -2088,8 +2244,8 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                     <h3 className="text-2xl font-bold mb-3">{lang === 'hi' ? 'क्विज़ पूरा हुआ!' : 'Quiz Completed!'}</h3>
                     <p className="text-base opacity-80 mb-8">
                       {lang === 'hi' 
-                        ? <>आपने <strong>{aiTopic}</strong> पर 5 में से {aiCorrectCount} प्रश्नों के सही उत्तर दिए। <br/>आपने <strong>{aiCorrectCount * 10} दाने</strong> अनाज दान किया!</>
-                        : <>You answered {aiCorrectCount} of 5 questions correctly on <strong>{aiTopic}</strong>. <br/>You generated <strong>{aiCorrectCount * 10} grains</strong> of rice!</>}
+                        ? <>आपने <strong>{aiTopic}</strong> पर {aiQuestions.length} में से {aiCorrectCount} प्रश्नों के सही उत्तर दिए। <br/>आपने <strong>{aiCorrectCount * 10} दाने</strong> अनाज दान किया!</>
+                        : <>You answered {aiCorrectCount} of {aiQuestions.length} questions correctly on <strong>{aiTopic}</strong>. <br/>You generated <strong>{aiCorrectCount * 10} grains</strong> of rice!</>}
                     </p>
                     <div className="flex justify-center gap-4">
                       <button onClick={handleShareAIResult} className="px-6 py-3 rounded-full font-semibold bg-white text-slate-800 shadow-md hover:scale-105 transition-transform flex items-center gap-2">
