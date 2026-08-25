@@ -931,9 +931,9 @@ export default function CharityQuizClient() {
     setCurrentQuestion(selected);
     currentQuestionRef.current = selected;
     
-    // Add to history (keep up to 50 questions in history)
+    // Add to history (keep up to 95 questions in history so questions never repeat)
     questionHistoryRef.current.push(selected.question);
-    if (questionHistoryRef.current.length > 50) {
+    if (questionHistoryRef.current.length > 95) {
       questionHistoryRef.current.shift();
     }
     
