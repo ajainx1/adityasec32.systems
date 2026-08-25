@@ -29,26 +29,155 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 interface CategoryConfig {
   id: CategoryKey | 'random' | 'custom-ai';
   icon: string;
-  titleEn: string;
-  titleHi: string;
-  subtitleEn: string;
-  subtitleHi: string;
+  titles: Partial<Record<Language, string>>;
+  subtitles: Partial<Record<Language, string>>;
   tagEn?: string;
   tagHi?: string;
   goldSpecial?: boolean;
 }
 
 const CATEGORIES: CategoryConfig[] = [
-  { id: 'animals', icon: '🐾', titleEn: 'Animals & Rescue', titleHi: 'पशु संरक्षण', subtitleEn: 'Canine welfare & wildlife', subtitleHi: 'श्वान सेवा व जीव विज्ञान', tagEn: '⭐ 100% Impact', tagHi: '⭐ 100% सेवा', goldSpecial: true },
-  { id: 'cybersecurity', icon: '🛡️', titleEn: 'Cybersecurity', titleHi: 'साइबर सुरक्षा', subtitleEn: 'Ethical hacking & defense', subtitleHi: 'नेटवर्क व सुरक्षा', tagEn: '🔐 SecOps', tagHi: '🔐 सुरक्षा' },
-  { id: 'space', icon: '🚀', titleEn: 'Space & Cosmos', titleHi: 'अंतरिक्ष', subtitleEn: 'Astronomy & universe', subtitleHi: 'खगोलिकी व ब्रह्मांड', tagEn: '🪐 Cosmos', tagHi: '🪐 अंतरिक्ष' },
-  { id: 'science', icon: '🔬', titleEn: 'Natural Science', titleHi: 'विज्ञान', subtitleEn: 'Physics & biology', subtitleHi: 'भौतिकी व रसायन', tagEn: '🧪 Science', tagHi: '🧪 विज्ञान' },
-  { id: 'math', icon: '🧮', titleEn: 'Mathematics', titleHi: 'गणित', subtitleEn: 'Logic & number theory', subtitleHi: 'तर्क व अंकगणित', tagEn: '📐 Logic', tagHi: '📐 तर्क' },
-  { id: 'geography', icon: '🌍', titleEn: 'Geography', titleHi: 'भूगोल', subtitleEn: 'World maps & capitals', subtitleHi: 'विश्व राजधानियाँ व सागर', tagEn: '🗺️ Atlas', tagHi: '🗺️ मानचित्र' },
-  { id: 'vocab', icon: '📖', titleEn: 'Vocabulary', titleHi: 'शब्दावली', subtitleEn: 'Linguistics & words', subtitleHi: 'शब्द शक्ति व अर्थ', tagEn: '📚 Words', tagHi: '📚 शब्द' },
-  { id: 'gk', icon: '💡', titleEn: 'General Knowledge', titleHi: 'सामान्य ज्ञान', subtitleEn: 'History & discoveries', subtitleHi: 'इतिहास व आविष्कार', tagEn: '🏆 Trivia', tagHi: '🏆 ज्ञान' },
-  { id: 'random', icon: '🎲', titleEn: 'Random Mix', titleHi: 'रैंडम मिक्स', subtitleEn: 'All topics shuffled', subtitleHi: 'सभी विषयों का मिश्रण', tagEn: '✨ Shuffle', tagHi: '✨ मिश्रण' },
-  { id: 'custom-ai', icon: '🤖', titleEn: 'AI Custom Quiz', titleHi: 'AI कस्टम क्विज़', subtitleEn: 'Any topic of curiosity', subtitleHi: 'मनपसंद विषय जनरेटर', tagEn: '⚡ Gemini', tagHi: '⚡ AI' },
+  {
+    id: 'animals',
+    icon: '🐾',
+    titles: {
+      en: 'Animals & Rescue', hi: 'पशु संरक्षण', es: 'Animales y Rescate', fr: 'Animaux & Secours', de: 'Tiere & Rettung',
+      bn: 'প্রাণী ও উদ্ধার', ta: 'விலங்குகள் நலன்', te: 'జంతు సంరక్షణ', ja: '動物＆レスキュー', ar: 'الحيوانات والإنقاذ'
+    },
+    subtitles: {
+      en: 'Canine welfare & wildlife', hi: 'श्वान सेवा व जीव विज्ञान', es: 'Bienestar canino y fauna', fr: 'Protection canine & faune', de: 'Hundewohl & Tierwelt',
+      bn: 'পথপশু ও বন্যপ্রাণী', ta: 'நாய் பராமரிப்பு', te: 'శునక సేవ & వన్యప్రాణులు', ja: '保護犬と野生動物', ar: 'رعاية الكلاب والحياة البرية'
+    },
+    tagEn: '⭐ 100% Impact',
+    tagHi: '⭐ 100% सेवा',
+    goldSpecial: true
+  },
+  {
+    id: 'cybersecurity',
+    icon: '🛡️',
+    titles: {
+      en: 'Cybersecurity', hi: 'साइबर सुरक्षा', es: 'Ciberseguridad', fr: 'Cybersécurité', de: 'Cybersicherheit',
+      bn: 'সাইবার নিরাপত্তা', ta: 'சைபர் பாதுகாப்பு', te: 'సైబర్ భద్రత', ja: 'サイバーセキュリティ', ar: 'الأمن السيبراني'
+    },
+    subtitles: {
+      en: 'Ethical hacking & defense', hi: 'नेटवर्क व सुरक्षा', es: 'Hacking ético y defensa', fr: 'Piratage éthique & défense', de: 'Ethisches Hacken & Abwehr',
+      bn: 'হ্যাকিং ও নেটওয়ার্ক', ta: 'பாதுகாப்பு & நெட்வொர்க்', te: 'నెట్‌వర్క్ & రక్షణ', ja: 'ハッキングと防御', ar: 'القرصنة الأخلاقية والدفاع'
+    },
+    tagEn: '🔐 SecOps',
+    tagHi: '🔐 सुरक्षा'
+  },
+  {
+    id: 'space',
+    icon: '🚀',
+    titles: {
+      en: 'Space & Cosmos', hi: 'अंतरिक्ष', es: 'Espacio y Cosmos', fr: 'Espace & Cosmos', de: 'Raumfahrt & Kosmos',
+      bn: 'মহাকাশ ও বিশ্ব', ta: 'விண்வெளி', te: 'అంతరిక్షం', ja: '宇宙と天体', ar: 'الفضاء والكون'
+    },
+    subtitles: {
+      en: 'Astronomy & universe', hi: 'खगोलिकी व ब्रह्मांड', es: 'Astronomía y universo', fr: 'Astronomie & univers', de: 'Astronomie & Universum',
+      bn: 'জ্যোতির্বিদ্যা ও কসমস', ta: 'வானியல் & பிரபஞ்சம்', te: 'ఖగోళ శాస్త్రం', ja: '天文学と宇宙論', ar: 'علم الفلك والكون'
+    },
+    tagEn: '🪐 Cosmos',
+    tagHi: '🪐 अंतरिक्ष'
+  },
+  {
+    id: 'science',
+    icon: '🔬',
+    titles: {
+      en: 'Natural Science', hi: 'विज्ञान', es: 'Ciencias Naturales', fr: 'Sciences Naturelles', de: 'Naturwissenschaft',
+      bn: 'প্রাকৃতিক বিজ্ঞান', ta: 'இயற்கை அறிவியல்', te: 'సైన్స్', ja: '自然科学', ar: 'العلوم الطبيعية'
+    },
+    subtitles: {
+      en: 'Physics & biology', hi: 'भौतिकी व रसायन', es: 'Física y biología', fr: 'Physique & biologie', de: 'Physik & Biologie',
+      bn: 'পদার্থ ও রসায়ন', ta: 'இயற்பியல் & உயிரியல்', te: 'భౌతిక & జీవశాస్త్రం', ja: '物理と生物学', ar: 'الفيزياء والأحياء'
+    },
+    tagEn: '🧪 Science',
+    tagHi: '🧪 विज्ञान'
+  },
+  {
+    id: 'math',
+    icon: '🧮',
+    titles: {
+      en: 'Mathematics', hi: 'गणित', es: 'Matemáticas', fr: 'Mathématiques', de: 'Mathematik',
+      bn: 'গণিত', ta: 'கணிதம்', te: 'గణితం', ja: '数学と論理', ar: 'الرياضيات'
+    },
+    subtitles: {
+      en: 'Logic & number theory', hi: 'तर्क व अंकगणित', es: 'Lógica y números', fr: 'Logique & nombres', de: 'Logik & Zahlentheorie',
+      bn: 'যুক্তি ও সংখ্যাতত্ত্ব', ta: 'தர்க்கம் & எண்கள்', te: 'లాజిక్ & సంఖ్యలు', ja: '数論と幾何学', ar: 'المنطق ونظرية الأعداد'
+    },
+    tagEn: '📐 Logic',
+    tagHi: '📐 तर्क'
+  },
+  {
+    id: 'geography',
+    icon: '🌍',
+    titles: {
+      en: 'Geography', hi: 'भूगोल', es: 'Geografía', fr: 'Géographie', de: 'Geographie',
+      bn: 'ভূগোল', ta: 'புவியியல்', te: 'భూగోళశాస్త్రం', ja: '世界地理', ar: 'الجغرافيا'
+    },
+    subtitles: {
+      en: 'World maps & capitals', hi: 'विश्व राजधानियाँ व सागर', es: 'Mapas y capitales', fr: 'Cartes & capitales', de: 'Weltkarten & Hauptstädte',
+      bn: 'বিশ্ব মানচিত্র ও রাজধানী', ta: 'நாடுகள் & தலைநகரங்கள்', te: 'ప్రపంచ పటాలు', ja: '世界の首都と海', ar: 'خرائط وعواصم العالم'
+    },
+    tagEn: '🗺️ Atlas',
+    tagHi: '🗺️ मानचित्र'
+  },
+  {
+    id: 'vocab',
+    icon: '📖',
+    titles: {
+      en: 'Vocabulary', hi: 'शब्दावली', es: 'Vocabulario', fr: 'Vocabulaire', de: 'Wortschatz',
+      bn: 'শব্দভাণ্ডার', ta: 'சொற்களஞ்சியம்', te: 'పదజాలం', ja: '語彙と文学', ar: 'المفردات اللغوية'
+    },
+    subtitles: {
+      en: 'Linguistics & words', hi: 'शब्द शक्ति व अर्थ', es: 'Lingüística y palabras', fr: 'Linguistique & mots', de: 'Linguistik & Sprache',
+      bn: 'ভাষা ও ব্যুৎপত্তি', ta: 'மொழி & சொற்கள்', te: 'భాషాశాస్త్రం', ja: '言語学と言葉', ar: 'علم اللغة والمعاني'
+    },
+    tagEn: '📚 Words',
+    tagHi: '📚 शब्द'
+  },
+  {
+    id: 'gk',
+    icon: '💡',
+    titles: {
+      en: 'General Knowledge', hi: 'सामान्य ज्ञान', es: 'Cultura General', fr: 'Culture Générale', de: 'Allgemeinwissen',
+      bn: 'সাধারণ জ্ঞান', ta: 'பொது அறிவு', te: 'సాధారణ జ్ఞానం', ja: '一般教養', ar: 'المعلومات العامة'
+    },
+    subtitles: {
+      en: 'History & discoveries', hi: 'इतिहास व आविष्कार', es: 'Historia y descubrimientos', fr: 'Histoire & découvertes', de: 'Geschichte & Entdeckungen',
+      bn: 'ইতিহাস ও আবিষ্কার', ta: 'வரலாறு & கண்டுபிடிப்புகள்', te: 'చరిత్ర & ఆవిష్కరణలు', ja: '歴史的発見と偉人', ar: 'التاريخ والاكتشافات'
+    },
+    tagEn: '🏆 Trivia',
+    tagHi: '🏆 ज्ञान'
+  },
+  {
+    id: 'random',
+    icon: '🎲',
+    titles: {
+      en: 'Random Mix', hi: 'रैंडम मिक्स', es: 'Mezcla Aleatoria', fr: 'Mélange Aléatoire', de: 'Zufallsmischung',
+      bn: 'মিশ্র কুইজ', ta: 'கலவை வினாடி வினா', te: 'యాదృచ్ఛిక మిశ్రమం', ja: 'ランダムミックス', ar: 'خليط عشوائي'
+    },
+    subtitles: {
+      en: 'All topics shuffled', hi: 'सभी विषयों का मिश्रण', es: 'Todos los temas', fr: 'Tous les sujets', de: 'Alle Themen gemischt',
+      bn: 'সকল বিষয়ের সমন্বয়', ta: 'அனைத்து தலைப்புகளும்', te: 'అన్ని అంశాలు', ja: '全ジャンルから出題', ar: 'جميع المواضيع مدمجة'
+    },
+    tagEn: '✨ Shuffle',
+    tagHi: '✨ मिश्रण'
+  },
+  {
+    id: 'custom-ai',
+    icon: '🤖',
+    titles: {
+      en: 'AI Custom Quiz', hi: 'AI कस्टम क्विज़', es: 'Quiz de IA Personalizado', fr: 'Quiz IA Personnalisé', de: 'Individuelles KI-Quiz',
+      bn: 'AI কাস্টম কুইজ', ta: 'AI தனிப்பயன் வினாடி வினா', te: 'AI అనుకూల క్విజ్', ja: 'AIカスタムクイズ', ar: 'اختبار مخصص بالذكاء الاصطناعي'
+    },
+    subtitles: {
+      en: 'Any topic of curiosity', hi: 'मनपसंद विषय जनरेटर', es: 'Cualquier tema de interés', fr: 'Tout sujet au choix', de: 'Jedes beliebige Thema',
+      bn: 'যে কোনো পছন্দের বিষয়', ta: 'விருப்பமான தலைப்பு', te: 'ఏదైనా ఆసక్తికర అంశం', ja: '興味のあるトピックを自由に', ar: 'أي موضوع حسب رغبتك'
+    },
+    tagEn: '⚡ Gemini',
+    tagHi: '⚡ AI'
+  },
 ];
 
 const CURATED_AI_TOPICS = [
@@ -62,23 +191,23 @@ const CURATED_AI_TOPICS = [
   { topic: 'Renaissance Art & Inventions', topicHi: 'पुनर्जागरण काल के आविष्कार', icon: '🎨' },
 ];
 
-/* ── Rotating Hero: "From Patna → to the World" ── */
-const ROTATING_LOCATIONS_EN = [
-  { text: 'Patna.', emoji: '📍' },
-  { text: 'Bihar.', emoji: '🏛️' },
-  { text: 'India.', emoji: '🇮🇳' },
-  { text: 'the World.', emoji: '🌍' },
-];
-const ROTATING_LOCATIONS_HI = [
-  { text: 'पटना।', emoji: '📍' },
-  { text: 'बिहार।', emoji: '🏛️' },
-  { text: 'भारत।', emoji: '🇮🇳' },
-  { text: 'विश्व।', emoji: '🌍' },
-];
+/* ── Rotating Hero: "From Patna → to the World" (10 Languages) ── */
+const ROTATING_LOCATIONS: Record<Language, { text: string; emoji: string }[]> = {
+  en: [{ text: 'Patna.', emoji: '📍' }, { text: 'Bihar.', emoji: '🏛️' }, { text: 'India.', emoji: '🇮🇳' }, { text: 'the World.', emoji: '🌍' }],
+  hi: [{ text: 'पटना।', emoji: '📍' }, { text: 'बिहार।', emoji: '🏛️' }, { text: 'भारत।', emoji: '🇮🇳' }, { text: 'विश्व।', emoji: '🌍' }],
+  es: [{ text: 'Patna.', emoji: '📍' }, { text: 'Bihar.', emoji: '🏛️' }, { text: 'India.', emoji: '🇮🇳' }, { text: 'el Mundo.', emoji: '🌍' }],
+  fr: [{ text: 'Patna.', emoji: '📍' }, { text: 'Bihar.', emoji: '🏛️' }, { text: "l'Inde.", emoji: '🇮🇳' }, { text: 'le Monde.', emoji: '🌍' }],
+  de: [{ text: 'Patna.', emoji: '📍' }, { text: 'Bihar.', emoji: '🏛️' }, { text: 'Indien.', emoji: '🇮🇳' }, { text: 'die Welt.', emoji: '🌍' }],
+  bn: [{ text: 'পাটনা।', emoji: '📍' }, { text: 'বিহার।', emoji: '🏛️' }, { text: 'ভারত।', emoji: '🇮🇳' }, { text: 'বিশ্ব।', emoji: '🌍' }],
+  ta: [{ text: 'பாட்னா.', emoji: '📍' }, { text: 'பீகார்.', emoji: '🏛️' }, { text: 'இந்தியா.', emoji: '🇮🇳' }, { text: 'உலகம்.', emoji: '🌍' }],
+  te: [{ text: 'పాట్నా.', emoji: '📍' }, { text: 'బీహార్.', emoji: '🏛️' }, { text: 'భారతదేశం.', emoji: '🇮🇳' }, { text: 'ప్రపంచం.', emoji: '🌍' }],
+  ja: [{ text: 'パトナ。', emoji: '📍' }, { text: 'ビハール。', emoji: '🏛️' }, { text: 'インド。', emoji: '🇮🇳' }, { text: '世界へ。', emoji: '🌍' }],
+  ar: [{ text: 'باتنا.', emoji: '📍' }, { text: 'بيهار.', emoji: '🏛️' }, { text: 'الهند.', emoji: '🇮🇳' }, { text: 'العالم.', emoji: '🌍' }]
+};
 
 function RotatingHero({ lang, isDark }: { lang: Language; isDark: boolean }) {
   const [locIndex, setLocIndex] = useState(0);
-  const locations = lang === 'hi' ? ROTATING_LOCATIONS_HI : ROTATING_LOCATIONS_EN;
+  const locations = ROTATING_LOCATIONS[lang] || ROTATING_LOCATIONS['en'];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -87,69 +216,34 @@ function RotatingHero({ lang, isDark }: { lang: Language; isDark: boolean }) {
     return () => clearInterval(timer);
   }, [locations.length]);
 
-  const current = locations[locIndex];
+  const current = locations[locIndex] || locations[0];
 
   return (
     <section className="text-center max-w-2xl mx-auto space-y-3 py-2">
       <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight font-title leading-snug">
-        {lang === 'hi' ? (
-          <>
-            प्रश्नों के उत्तर दें, जीवों को भोजन कराएं
-            <br />
-            <span className="inline-flex items-center gap-2">
-              <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>
-                —
-              </span>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={locIndex}
-                  initial={{ y: 20, opacity: 0, filter: 'blur(4px)' }}
-                  animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                  exit={{ y: -20, opacity: 0, filter: 'blur(4px)' }}
-                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  className={`inline-flex items-center gap-1.5 bg-clip-text text-transparent ${
-                    isDark 
-                      ? 'bg-gradient-to-r from-emerald-400 via-cyan-400 to-teal-400' 
-                      : 'bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600'
-                  }`}
-                >
-                  <span className="text-lg sm:text-2xl not-italic" style={{ WebkitTextFillColor: 'initial' }}>{current.emoji}</span>
-                  {current.text}
-                </motion.span>
-              </AnimatePresence>
-            </span>
-          </>
-        ) : (
-          <>
-            Play free trivia. Feed rescue dogs
-            <br />
-            <span className="inline-flex items-center gap-2">
-              <span className={isDark ? 'text-slate-500' : 'text-slate-400'}>in</span>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={locIndex}
-                  initial={{ y: 20, opacity: 0, filter: 'blur(4px)' }}
-                  animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                  exit={{ y: -20, opacity: 0, filter: 'blur(4px)' }}
-                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  className={`inline-flex items-center gap-1.5 bg-clip-text text-transparent ${
-                    isDark 
-                      ? 'bg-gradient-to-r from-emerald-400 via-cyan-400 to-teal-400' 
-                      : 'bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600'
-                  }`}
-                >
-                  <span className="text-lg sm:text-2xl not-italic" style={{ WebkitTextFillColor: 'initial' }}>{current.emoji}</span>
-                  {current.text}
-                </motion.span>
-              </AnimatePresence>
-            </span>
-          </>
-        )}
+        <span>{getTranslation('heroTagline', lang)}</span>{" "}
+        <span className="inline-flex items-center gap-2">
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={locIndex + lang}
+              initial={{ y: 16, opacity: 0, filter: 'blur(4px)' }}
+              animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+              exit={{ y: -16, opacity: 0, filter: 'blur(4px)' }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className={`inline-flex items-center gap-1.5 bg-clip-text text-transparent ${
+                isDark 
+                  ? 'bg-gradient-to-r from-emerald-400 via-cyan-400 to-teal-400' 
+                  : 'bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600'
+              }`}
+            >
+              <span className="text-lg sm:text-2xl not-italic" style={{ WebkitTextFillColor: 'initial' }}>{current.emoji}</span>
+              {current.text}
+            </motion.span>
+          </AnimatePresence>
+        </span>
       </h1>
       <p className={`text-sm leading-relaxed max-w-lg mx-auto ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-        {lang === 'hi'
-          ? 'प्रत्येक सही उत्तर पर 10 दाने अनाज दान होते हैं। 100% सत्यापित श्वान सेवा एवं प्राथमिक चिकित्सा।'
-          : 'Every correct answer donates 10 grains of rice to fund nutritious meals and veterinary first-aid.'}
+        {getTranslation('heroSubtext', lang)}
       </p>
     </section>
   );
@@ -373,13 +467,13 @@ export default function CharityQuizClient() {
       }
 
       setFeedback({
-        text: lang === 'hi' ? '✓ सही उत्तर! +10 दाने दान किए गए।' : '✓ Correct! +10 grains donated.',
+        text: getTranslation('correctAnswer', lang),
         type: 'success'
       });
     } else {
       setStreak(0);
       setFeedback({
-        text: lang === 'hi' ? 'गलत उत्तर। सही विकल्प नीचे देखें।' : 'Incorrect. See the correct answer below.',
+        text: getTranslation('incorrectAnswer', lang),
         type: 'error'
       });
     }
@@ -595,14 +689,14 @@ Do NOT include markdown formatting or backticks.`;
               isDark ? 'bg-slate-900 border-slate-800 text-emerald-400' : 'bg-slate-100 border-slate-200 text-emerald-700 font-semibold'
             }`}>
               <span>🌾</span>
-              <span><strong>{score.toLocaleString()}</strong> Grains</span>
+              <span><strong>{score.toLocaleString()}</strong> {getTranslation('grains', lang)}</span>
             </div>
 
             <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border ${
               isDark ? 'bg-slate-900 border-slate-800 text-slate-300' : 'bg-slate-100 border-slate-200 text-slate-700 font-semibold'
             }`}>
               <span>🥣</span>
-              <span><strong>{mealsFunded}</strong> Meals Funded</span>
+              <span><strong>{mealsFunded}</strong> {getTranslation('meals', lang)}</span>
             </div>
 
             {streak > 1 && (
@@ -696,9 +790,7 @@ Do NOT include markdown formatting or backticks.`;
               <button
                 onClick={() => setShowOnboardingModal(true)}
                 className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs shadow-sm transition-colors cursor-pointer"
-              >
-                Sign In
-              </button>
+              >{getTranslation('signIn', lang)}</button>
             )}
 
           </div>
@@ -715,7 +807,7 @@ Do NOT include markdown formatting or backticks.`;
         <section className="space-y-3">
           <div className="flex items-center justify-between gap-4">
             <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
-              {lang === 'hi' ? 'विषय चुनें:' : 'Select Category:'}
+              {getTranslation('selectCategory', lang)}
             </h2>
 
             {/* Difficulty Pills */}
@@ -733,7 +825,7 @@ Do NOT include markdown formatting or backticks.`;
                         : isDark ? 'text-slate-400 hover:text-slate-200' : 'text-slate-600 hover:text-slate-900'
                     }`}
                   >
-                    {d === 'beginner' ? 'Easy' : d === 'intermediate' ? 'Medium' : 'Hard'}
+                    {getTranslation(d === 'beginner' ? 'easy' : d === 'intermediate' ? 'medium' : 'hard', lang)}
                   </button>
                 ))}
               </div>
@@ -809,10 +901,10 @@ Do NOT include markdown formatting or backticks.`;
                         ? 'text-amber-300 font-extrabold' 
                         : cat.goldSpecial ? 'text-amber-300 font-bold' : ''
                     }`}>
-                      {lang === 'hi' ? cat.titleHi : cat.titleEn}
+                      {(cat.titles[lang] || cat.titles['en'] || cat.id)}
                     </div>
                     <div className="text-[10px] opacity-70 truncate font-mono">
-                      {lang === 'hi' ? cat.subtitleHi : cat.subtitleEn}
+                      {(cat.subtitles[lang] || cat.subtitles['en'] || '')}
                     </div>
                   </div>
                 </motion.button>
@@ -862,7 +954,7 @@ Do NOT include markdown formatting or backticks.`;
                 <div className="flex items-center justify-between gap-2 border-b pb-4 border-slate-800/40">
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-mono font-semibold px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                      {currentQuestion.topicBadge || (category === 'custom-ai' ? aiTopic : CATEGORIES.find(c => c.id === category)?.titleEn)}
+                      {currentQuestion.topicBadge || (category === 'custom-ai' ? aiTopic : (CATEGORIES.find(c => c.id === category)?.titles[lang] || CATEGORIES.find(c => c.id === category)?.titles['en'] || ''))}
                     </span>
                     <span className="text-xs font-mono text-slate-400">
                       • {currentQuestion.difficulty ? currentQuestion.difficulty.toUpperCase() : 'STANDARD'}
@@ -870,7 +962,7 @@ Do NOT include markdown formatting or backticks.`;
                   </div>
 
                   <div className="text-xs font-mono text-emerald-400 font-medium">
-                    +10 Grains
+                    {getTranslation('grainsReward', lang)}
                   </div>
                 </div>
 
@@ -894,10 +986,10 @@ Do NOT include markdown formatting or backticks.`;
                       <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
                         <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md text-emerald-300 border border-emerald-500/30 shadow-sm flex items-center gap-1.5">
                           <span>{CATEGORIES.find(c => c.id === category)?.icon || '💡'}</span>
-                          <span>{currentQuestion.topicBadge || CATEGORIES.find(c => c.id === category)?.titleEn}</span>
+                          <span>{currentQuestion.topicBadge || (CATEGORIES.find(c => c.id === category)?.titles[lang] || CATEGORIES.find(c => c.id === category)?.titles['en'] || '')}</span>
                         </span>
                         <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-md bg-amber-500/20 backdrop-blur-md text-amber-300 border border-amber-400/40 shadow-sm">
-                          🌾 +10 Grains
+                          🌾 {getTranslation('grainsReward', lang)}
                         </span>
                       </div>
                     </div>
@@ -977,13 +1069,11 @@ Do NOT include markdown formatting or backticks.`;
                       <div className="flex items-center gap-2 text-sm font-bold">
                         {selectedAnswer === currentQuestion.answer ? (
                           <span className="text-emerald-400 flex items-center gap-1.5 font-bold">
-                            <CheckCircle2 size={16} /> {lang === 'hi' ? 'सही उत्तर! +10 दाने दान' : 'Correct Answer! +10 Grains'}
+                            <CheckCircle2 size={16} /> {getTranslation('correctAnswer', lang)}
                           </span>
                         ) : (
                           <span className="text-rose-400 font-bold">
-                            {lang === 'hi' 
-                              ? `सही विकल्प: Option ${String.fromCharCode(65 + currentQuestion.answer)}`
-                              : `Correct: Option ${String.fromCharCode(65 + currentQuestion.answer)}`}
+                            {getTranslation('correctOptionIs', lang)} {String.fromCharCode(65 + currentQuestion.answer)}
                           </span>
                         )}
                       </div>
@@ -1065,7 +1155,7 @@ Do NOT include markdown formatting or backticks.`;
                   {score.toLocaleString()}
                 </div>
                 <div className="text-xs font-mono text-slate-400">
-                  Grains of rice generated
+                  {getTranslation('grains', lang)}
                 </div>
               </div>
 
@@ -1091,7 +1181,7 @@ Do NOT include markdown formatting or backticks.`;
                     isDark ? 'bg-slate-950 hover:bg-slate-800 border-slate-800 text-slate-200' : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700'
                   }`}
                 >
-                  <span>View 110+ Field Photos</span>
+                  <span>{getTranslation('viewImpactLedger', lang)}</span>
                   <ExternalLink size={12} />
                 </Link>
               </div>
@@ -1101,7 +1191,7 @@ Do NOT include markdown formatting or backticks.`;
                 onClick={() => setShowSuggestionModal(true)}
                 className="w-full text-center text-xs font-mono text-slate-400 hover:text-emerald-400 transition-colors cursor-pointer pt-1"
               >
-                + Submit a Question or Suggestion
+                {getTranslation('giveFeedback', lang)}
               </button>
 
             </div>
