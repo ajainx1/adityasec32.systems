@@ -11,6 +11,7 @@ import { useToast } from '../js/ToastContext';
 import Link from 'next/link';
 import TiltWrapper from '@/components/3d/TiltWrapper';
 import SuggestionModal from './SuggestionModal';
+import LiveImpactCarousel from './LiveImpactCarousel';
 
 // Initialize Supabase client
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://xkhgccximcrsdpdlskys.supabase.co';
@@ -2717,77 +2718,12 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
           </div>
         </div>
 
-        {/* Real-World Impact Drive Showcase Card */}
-        <div className="w-full mt-6">
-          <TiltWrapper tiltDeg={2} glare={true} className="w-full">
-            <div className={`p-8 sm:p-10 rounded-[36px] shadow-2xl backdrop-blur-2xl border overflow-hidden relative ${
-              isDark 
-                ? 'bg-gradient-to-br from-slate-900/90 via-rose-950/20 to-slate-950/90 border-rose-500/30 shadow-[0_0_40px_rgba(244,63,94,0.15)] text-white' 
-                : 'bg-white/98 border-2 border-rose-200 text-slate-900 shadow-xl'
-            }`}>
-              
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-white/10">
-                <div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="p-2 rounded-xl bg-rose-500/20 text-rose-500 border border-rose-500/30">
-                      <Heart size={22} className="fill-rose-500" />
-                    </span>
-                    <h2 className="text-2xl sm:text-3xl font-black tracking-tight font-title">
-                      {lang === 'hi' ? 'ज़मीनी स्तर पर सेवा एवं वास्तविक प्रमाण' : 'Real-World Impact & Field Proof'}
-                    </h2>
-                  </div>
-                  <p className={`text-sm max-w-2xl leading-relaxed font-medium ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                    {lang === 'hi' 
-                      ? 'प्रश्नोत्तरी के 100% अंक सीधे पटना मंडल (बिहार) में बेसहारा कुत्तों के दैनिक भोजन व उपचार में उपयोग होते हैं।'
-                      : '100% of quiz karma points directly fund verified stray dog feeding drives and medical rescues across Patna Division, Bihar.'}
-                  </p>
-                </div>
-                <Link
-                  href="/impact"
-                  className="px-6 py-3 rounded-full text-xs font-black font-title uppercase tracking-wider bg-rose-500 text-white hover:bg-rose-400 transition-all shadow-lg shadow-rose-500/25 flex items-center justify-center gap-2 shrink-0 hover:scale-105"
-                >
-                  <span>{lang === 'hi' ? '110+ तस्वीरें एवं बिल देखें' : 'Explore 110+ Field Photos'}</span>
-                  <span>&rarr;</span>
-                </Link>
-              </div>
-
-              {/* 3 Top Preview Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {STREET_FEEDING_DRIVE.slice(0, 3).map((item, idx) => (
-                  <Link
-                    key={idx}
-                    href="/impact"
-                    className="relative group rounded-2xl overflow-hidden shadow-md border border-white/15 bg-black/40 h-56 flex flex-col justify-end p-4 transition-transform hover:-translate-y-1"
-                  >
-                    <img
-                      src={item.src}
-                      alt={item.title}
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                    <div className="relative z-10 space-y-1">
-                      <span className="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider bg-rose-500 text-white">
-                        {item.tag}
-                      </span>
-                      <h4 className="text-xs font-bold text-white font-title truncate">{item.title}</h4>
-                      <p className="text-[10px] text-slate-300 font-mono truncate">📍 {item.location}</p>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-
-              <div className="mt-6 text-center pt-2">
-                <Link
-                  href="/impact"
-                  className="inline-flex items-center gap-2 text-xs font-mono font-bold text-rose-400 hover:text-rose-300 underline"
-                >
-                  <span>{lang === 'hi' ? 'समर्पित दान रिकॉर्ड पेज देखें (पटना सेक्टर व 81 अभिलेखागार) →' : 'View Dedicated Field Proof Page (August 2026 Drives, Patna Sectors & 81 Archive Records) →'}</span>
-                </Link>
-              </div>
-
-            </div>
-          </TiltWrapper>
-        </div>
+        {/* Real-World Impact Drive & Injured Dog Rescue Live Rotating Carousel */}
+        <LiveImpactCarousel
+          lang={lang}
+          isDark={isDark}
+          onOpenSuggestion={() => setShowSuggestionModal(true)}
+        />
       </main>
 
       {/* Daily Lucky Karma Crate Modal */}
