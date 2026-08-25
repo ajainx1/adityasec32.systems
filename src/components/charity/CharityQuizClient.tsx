@@ -10,6 +10,7 @@ import { Language, UI_TRANSLATIONS, getTranslation, LANGUAGES_LIST, LanguageMeta
 import { useToast } from '../js/ToastContext';
 import Link from 'next/link';
 import TiltWrapper from '@/components/3d/TiltWrapper';
+import SuggestionModal from './SuggestionModal';
 
 // Initialize Supabase client
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://xkhgccximcrsdpdlskys.supabase.co';
@@ -261,6 +262,13 @@ export default function CharityQuizClient() {
   const [showLuckyCrateModal, setShowLuckyCrateModal] = useState(false);
   const [luckyReward, setLuckyReward] = useState<{ text: string; grains: number } | null>(null);
   const [showMealCelebration, setShowMealCelebration] = useState(false);
+  const [showSuggestionModal, setShowSuggestionModal] = useState(false);
+
+  const handleRewardSuggestionGrains = (bonusGrains: number) => {
+    const newScore = score + bonusGrains;
+    saveScore(newScore);
+    playChimeSound(4);
+  };
 
   // High-Quality Web Audio Synthesizer (Pentatonic Harmonic Chimes)
   const playChimeSound = (streakCount: number) => {
@@ -1780,6 +1788,21 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
               <span>⚡ {lang === 'hi' ? 'ज्ञान' : 'Wisdom'} #{factIndex + 1}</span>
             </button>
           )}
+
+          {/* Community Suggestions & Feedback Button */}
+          <button
+            onClick={() => setShowSuggestionModal(true)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-bold border transition-all shadow-sm cursor-pointer hover:scale-105 ${
+              isDark
+                ? 'bg-amber-500/15 hover:bg-amber-500/25 border-amber-500/35 text-amber-300'
+                : 'bg-amber-50 hover:bg-amber-100 border-amber-300 text-amber-900 font-extrabold'
+            }`}
+            title="Submit a Suggestion or Question Idea (+25 Grains Bonus)"
+          >
+            <Lightbulb size={13} className="text-amber-400 animate-pulse" />
+            <span className="hidden sm:inline">{t('suggestionsBtn') || '💡 Suggestions'}</span>
+            <span className="sm:hidden">💡</span>
+          </button>
 
           {/* Theme Toggle Button */}
           <button 
@@ -3354,6 +3377,46 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
               </div>
             </div>
 
+            {/* Community Suggestions Welcome Deck */}
+            <div className={`mt-8 p-6 sm:p-8 rounded-3xl border flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden ${
+              isDark ? 'bg-gradient-to-r from-amber-950/30 via-slate-900/70 to-emerald-950/30 border-amber-500/30' : 'bg-amber-50/80 border-amber-200 shadow-md'
+            }`}>
+              <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="flex items-start gap-4 relative z-10">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-400 to-yellow-500 text-slate-950 flex items-center justify-center text-2xl shadow-lg shrink-0">
+                  💡
+                </div>
+                <div className="space-y-1.5 text-left">
+                  <div className="flex items-center gap-2">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-black uppercase tracking-widest bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                      {lang === 'hi' ? 'सुझावों का स्वागत है' : 'Suggestions Welcome'}
+                    </span>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                      🎁 +25 Grains Reward
+                    </span>
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-black font-title text-white">
+                    {lang === 'hi' ? 'आपके विचार एवं सुझाव सादर आमंत्रित हैं' : 'Suggestions, New Topics & Ideas Are Welcome!'}
+                  </h3>
+                  <p className={`text-xs leading-relaxed max-w-xl ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                    {lang === 'hi'
+                      ? 'क्या आपके पास कोई नया क्विज़ प्रश्न, पटना में बेसहारा श्वानों के भोजन स्थल की जानकारी या नई सुविधा का विचार है? अपना सुझाव साझा करें और 25 दाने अन्नदान बोनस पाएं।'
+                      : 'Have an idea for a new trivia category, question, local street dog pack location in Patna, or a new platform feature? Submit your suggestion and earn +25 grains bonus!'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="relative z-10 shrink-0 w-full md:w-auto">
+                <button
+                  onClick={() => setShowSuggestionModal(true)}
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-400 hover:brightness-110 text-slate-950 font-black font-title text-xs tracking-wide shadow-xl shadow-amber-500/25 flex items-center justify-center gap-2 cursor-pointer transition-all hover:scale-105 active:scale-95"
+                >
+                  <Lightbulb size={16} />
+                  <span>{lang === 'hi' ? 'सुझाव साझा करें (+25 दाने)' : 'Share Suggestion (+25 Grains)'}</span>
+                </button>
+              </div>
+            </div>
+
           </div>
         </TiltWrapper>
       </section>
@@ -3882,8 +3945,15 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
             </div>
           </div>
 
-          {/* Quick Actions (Crate & SFX) */}
+          {/* Quick Actions (Suggestions, Crate & SFX) */}
           <div className="flex items-center gap-1 shrink-0">
+            <button
+              onClick={() => setShowSuggestionModal(true)}
+              className="p-1.5 px-2 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 text-[10px] font-black font-mono shadow-md active:scale-95 transition-transform"
+              title="Submit Suggestion (+25 Grains)"
+            >
+              💡
+            </button>
             <button
               onClick={handleOpenLuckyCrate}
               className="p-1.5 px-2 rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 text-slate-950 text-[10px] font-black font-mono shadow-md active:scale-95 transition-transform"
@@ -3974,6 +4044,15 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Community Suggestions & Feedback Modal */}
+      <SuggestionModal
+        isOpen={showSuggestionModal}
+        onClose={() => setShowSuggestionModal(false)}
+        lang={lang}
+        onRewardGrains={handleRewardSuggestionGrains}
+        addToast={addToast}
+      />
     </div>
   );
 }
