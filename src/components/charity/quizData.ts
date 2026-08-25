@@ -48,18 +48,48 @@ export const quizData: Record<CategoryKey, CategoryData> = {
         answer: 0,
         hint: "They have lived alongside humans for over 15,000 years.",
         explanation: "Dogs are universally cherished for their unconditional loyalty, affection, and companionship.",
-        image: "/impact/dog-feed-3.jpeg",
+        image: "/impact/dog-feed-2.jpeg",
         topicBadge: "🐕 Companion Animal Care"
       },
       {
         difficulty: 'beginner',
-        question: "What is a group of lions called?",
-        options: ["A Pack", "A Herd", "A Pride", "A Flock"],
-        answer: 2,
-        hint: "It rhymes with 'stride'.",
-        explanation: "A family group of lions consisting of related females, their offspring, and resident males is called a pride.",
-        image: "/quiz/animals_hero.jpg",
-        topicBadge: "🦁 Wildlife Ecology"
+        question: "What is the primary benefit of daily street feeding drives for stray animals?",
+        options: ["Reduces hunger distress and prevents territorial aggression", "Makes dogs sleep all day", "Teaches them to hunt cars", "Changes their fur color"],
+        answer: 0,
+        hint: "Well-fed community animals are calm, friendly, and healthy.",
+        explanation: "Consistent community feeding ensures street dogs receive essential carbohydrates, protein, and hydration, reducing malnutrition and territory conflicts by over 85%.",
+        image: "/impact/dog-feed-3.jpeg",
+        topicBadge: "🍲 Community Feeding Welfare"
+      },
+      {
+        difficulty: 'beginner',
+        question: "What is the recommended staple diet for nourishing street dogs during feeding drives?",
+        options: ["Plain boiled rice, eggs, bone-free broth and dog food", "Spicy curries and sweets", "Raw onions and garlic", "Chocolates and milk candy"],
+        answer: 0,
+        hint: "Simple proteins, digestible carbohydrates, and clean water.",
+        explanation: "Boiled rice paired with boiled eggs or gentle broth provides easily digestible energy and vital amino acids for stray dogs.",
+        image: "/impact/dog-feed-4.jpeg",
+        topicBadge: "🍚 Street Canine Nutrition"
+      },
+      {
+        difficulty: 'intermediate',
+        question: "How are dogs able to see remarkably well in low-light and nighttime conditions?",
+        options: ["They possess a reflective layer called Tapetum Lucidum behind the retina", "They have built-in night vision lenses", "They only see in pure infrared heat", "Their eyes produce fluorescent light"],
+        answer: 0,
+        hint: "It reflects light back through the photoreceptor cells.",
+        explanation: "The tapetum lucidum acts like a retroreflector behind the retina, multiplying available photons so dogs navigate dim streets effortlessly.",
+        image: "/impact/dog-feed-5.jpeg",
+        topicBadge: "👁️ Canine Optical Physiology"
+      },
+      {
+        difficulty: 'intermediate',
+        question: "What is the maximum auditory frequency range that canines can detect?",
+        options: ["Up to 45,000 Hz to 65,000 Hz", "Up to 15,000 Hz", "Up to 5,000 Hz", "Only below 500 Hz"],
+        answer: 0,
+        hint: "Humans can only hear up to 20,000 Hz.",
+        explanation: "Dogs can hear ultrasound frequencies up to 45 kHz–65 kHz, allowing them to hear distant whistles and quiet steps long before humans notice.",
+        image: "/impact/dog-feed-6.jpeg",
+        topicBadge: "🔊 Auditory Bio-Acoustics"
       },
       {
         difficulty: 'intermediate',
@@ -70,6 +100,56 @@ export const quizData: Record<CategoryKey, CategoryData> = {
         explanation: "The Tasmanian Devil possesses the strongest bite force relative to body mass of any living mammalian land carnivore.",
         image: "/impact/dog-feed-7.jpeg",
         topicBadge: "🐾 Mammalian Anatomy"
+      },
+      {
+        difficulty: 'intermediate',
+        question: "What does a dog wagging its tail predominantly to the RIGHT indicate according to neuroscience?",
+        options: ["Positive, friendly emotions and approach motivation", "Fear and withdrawal", "Sleepiness", "Extreme anger"],
+        answer: 0,
+        hint: "The left hemisphere of the brain processes positive emotions and controls the right side of the body.",
+        explanation: "Studies in animal behavioral neuroscience show dogs wag right for positive stimuli (like friendly humans) and left for threatening stimuli.",
+        image: "/impact/dog-feed-8.jpeg",
+        topicBadge: "🧠 Animal Cognitive Science"
+      },
+      {
+        difficulty: 'intermediate',
+        question: "Do dogs experience Rapid Eye Movement (REM) sleep and dream similar to humans?",
+        options: ["Yes, their brainwave patterns show vivid dreaming and memory consolidation during REM", "No, dogs never enter REM sleep", "Only marine animals dream", "Dogs only dream during winter"],
+        answer: 0,
+        hint: "You may see their paws twitch and hear soft whimpers while sleeping.",
+        explanation: "EEG recordings confirm dogs cycle through REM sleep, replaying memories of daily activities, scents, and bonding experiences.",
+        image: "/impact/dog-feed-9.jpeg",
+        topicBadge: "💤 Canine Sleep Neuroscience"
+      },
+      {
+        difficulty: 'intermediate',
+        question: "Why is setting up clean water bowls crucial for street animals during summer and dry spells?",
+        options: ["Prevents fatal heatstroke and severe renal failure in street canines", "To wash their paws", "To attract migratory birds only", "It has no health effect"],
+        answer: 0,
+        hint: "Water is the single most vital element for thermal and metabolic survival.",
+        explanation: "Dehydration is a leading cause of organ failure in summer. Placing freshwater earthen bowls saves hundreds of animal lives each week.",
+        image: "/impact/dog-feed-10.jpeg",
+        topicBadge: "💧 Hydration & Heat Relief"
+      },
+      {
+        difficulty: 'advanced',
+        question: "What is the scientifically proven, humane method endorsed by WHO for managing street dog populations?",
+        options: ["Animal Birth Control (ABC) & Anti-Rabies Vaccination (ARV)", "Relocating dogs to forests", "Starving street animals", "Caging all dogs permanently"],
+        answer: 0,
+        hint: "Sterilization and vaccination stabilizes the population and creates herd immunity against rabies.",
+        explanation: "The ABC/ARV program humanely stabilizes street dog populations while creating vaccinated buffer zones that eliminate rabies risk for communities.",
+        image: "/impact/dog-feed-11.jpeg",
+        topicBadge: "🛡️ Public Health & ABC Welfare"
+      },
+      {
+        difficulty: 'advanced',
+        question: "Why is the compound Theobromine (found in chocolate) dangerously toxic to canines?",
+        options: ["Dogs metabolize theobromine extremely slowly, leading to cardiac arrhythmia and neurotoxicity", "It turns their teeth yellow", "It reduces their fur density", "It makes them temporarily colorblind"],
+        answer: 0,
+        hint: "Their hepatic enzymes cannot break down methylxanthines efficiently.",
+        explanation: "Theobromine stimulates the central nervous system and cardiovascular system excessively in dogs, which can lead to fatal seizures if ingested.",
+        image: "/impact/dog-feed-12.jpeg",
+        topicBadge: "🧪 Veterinary Pharmacology"
       },
       {
         difficulty: 'intermediate',
