@@ -58,6 +58,99 @@ const CURATED_AI_TOPICS = [
   { topic: 'Renaissance Art & Inventions', topicHi: 'पुनर्जागरण काल के आविष्कार', icon: '🎨' },
 ];
 
+/* ── Rotating Hero: "From Patna → to the World" ── */
+const ROTATING_LOCATIONS_EN = [
+  { text: 'Patna.', emoji: '📍' },
+  { text: 'Bihar.', emoji: '🏛️' },
+  { text: 'India.', emoji: '🇮🇳' },
+  { text: 'the World.', emoji: '🌍' },
+];
+const ROTATING_LOCATIONS_HI = [
+  { text: 'पटना।', emoji: '📍' },
+  { text: 'बिहार।', emoji: '🏛️' },
+  { text: 'भारत।', emoji: '🇮🇳' },
+  { text: 'विश्व।', emoji: '🌍' },
+];
+
+function RotatingHero({ lang, isDark }: { lang: Language; isDark: boolean }) {
+  const [locIndex, setLocIndex] = useState(0);
+  const locations = lang === 'hi' ? ROTATING_LOCATIONS_HI : ROTATING_LOCATIONS_EN;
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setLocIndex(prev => (prev + 1) % locations.length);
+    }, 2400);
+    return () => clearInterval(timer);
+  }, [locations.length]);
+
+  const current = locations[locIndex];
+
+  return (
+    <section className="text-center max-w-2xl mx-auto space-y-3 py-2">
+      <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight font-title leading-snug">
+        {lang === 'hi' ? (
+          <>
+            प्रश्नों के उत्तर दें, जीवों को भोजन कराएं
+            <br />
+            <span className="inline-flex items-center gap-2">
+              <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>
+                —
+              </span>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={locIndex}
+                  initial={{ y: 20, opacity: 0, filter: 'blur(4px)' }}
+                  animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+                  exit={{ y: -20, opacity: 0, filter: 'blur(4px)' }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className={`inline-flex items-center gap-1.5 bg-clip-text text-transparent ${
+                    isDark 
+                      ? 'bg-gradient-to-r from-emerald-400 via-cyan-400 to-teal-400' 
+                      : 'bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600'
+                  }`}
+                >
+                  <span className="text-lg sm:text-2xl not-italic" style={{ WebkitTextFillColor: 'initial' }}>{current.emoji}</span>
+                  {current.text}
+                </motion.span>
+              </AnimatePresence>
+            </span>
+          </>
+        ) : (
+          <>
+            Play free trivia. Feed rescue dogs
+            <br />
+            <span className="inline-flex items-center gap-2">
+              <span className={isDark ? 'text-slate-500' : 'text-slate-400'}>in</span>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={locIndex}
+                  initial={{ y: 20, opacity: 0, filter: 'blur(4px)' }}
+                  animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+                  exit={{ y: -20, opacity: 0, filter: 'blur(4px)' }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className={`inline-flex items-center gap-1.5 bg-clip-text text-transparent ${
+                    isDark 
+                      ? 'bg-gradient-to-r from-emerald-400 via-cyan-400 to-teal-400' 
+                      : 'bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600'
+                  }`}
+                >
+                  <span className="text-lg sm:text-2xl not-italic" style={{ WebkitTextFillColor: 'initial' }}>{current.emoji}</span>
+                  {current.text}
+                </motion.span>
+              </AnimatePresence>
+            </span>
+          </>
+        )}
+      </h1>
+      <p className={`text-sm leading-relaxed max-w-lg mx-auto ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+        {lang === 'hi'
+          ? 'प्रत्येक सही उत्तर पर 10 दाने अनाज दान होते हैं। 100% सत्यापित श्वान सेवा एवं प्राथमिक चिकित्सा।'
+          : 'Every correct answer donates 10 grains of rice to fund nutritious meals and veterinary first-aid.'}
+      </p>
+    </section>
+  );
+}
+
 export default function CharityQuizClient() {
   const [mounted, setMounted] = useState(false);
   const [lang, setLang] = useState<Language>('en');
@@ -596,17 +689,8 @@ Do NOT include markdown formatting or backticks.`;
       {/* Main Body Container */}
       <main className="max-w-6xl mx-auto px-4 sm:px-8 py-8 space-y-8">
         
-        {/* Crisp Inspiring Header */}
-        <section className="text-center max-w-2xl mx-auto space-y-2.5">
-          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight font-title">
-            {lang === 'hi' ? 'प्रश्नों के उत्तर दें, बेसहारा जीवों को भोजन कराएं।' : 'Play free trivia. Feed rescue dogs in Patna.'}
-          </h1>
-          <p className={`text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-            {lang === 'hi'
-              ? 'प्रत्येक सही उत्तर पर 10 दाने अनाज दान होते हैं। पटना, बिहार में 100% सत्यापित श्वान सेवा एवं प्राथमिक चिकित्सा।'
-              : 'Every correct answer donates 10 grains of rice to fund nutritious meals and veterinary first-aid across Patna, Bihar.'}
-          </p>
-        </section>
+        {/* Crisp Inspiring Header with Rotating Location */}
+        <RotatingHero lang={lang} isDark={isDark} />
 
         {/* Clean Category Navigation Deck */}
         <section className="space-y-3">
