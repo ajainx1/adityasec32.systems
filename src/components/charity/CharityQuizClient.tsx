@@ -5,6 +5,7 @@ import { Share2, Heart, Lightbulb, User, LogOut, ArrowLeft, Sun, Moon, Zap, Cpu,
 import { createClient } from '@supabase/supabase-js';
 import { quizData, CategoryKey, Difficulty, Question } from './quizData';
 import { quizDataHindi, DAILY_FACTS_HI } from './quizDataHindi';
+import { getQuizDataForLanguage, shuffleOptions } from './quizDataMulti';
 import { Language, UI_TRANSLATIONS, getTranslation, LANGUAGES_LIST, LanguageMeta } from './i18n';
 import { useToast } from '../js/ToastContext';
 import Link from 'next/link';
@@ -221,6 +222,33 @@ export default function CharityQuizClient() {
     setShowLangModal(false);
     const langMeta = LANGUAGES_LIST.find(l => l.code === targetLang);
     addToast(`🌐 ${langMeta?.flag || ''} ${langMeta?.label} (${langMeta?.native}) Active!`, 'info');
+
+    // Instantly update active question to match the new language
+    if (category !== 'custom-ai') {
+      const bank = getQuizDataForLanguage(targetLang);
+      const allQ = bank[category]?.questions || quizData[category]?.questions || [];
+      const filteredQ = allQ.filter(q => q.difficulty === difficulty);
+      const candidateList = filteredQ.length > 0 ? filteredQ : allQ;
+      if (candidateList.length > 0) {
+        const rand = Math.floor(Math.random() * candidateList.length);
+        const selected = shuffleOptions(candidateList[rand]);
+        setCurrentQuestion(selected);
+        currentQuestionRef.current = selected;
+        setIsAnswered(false);
+        setSelectedAnswer(null);
+        setFeedback(null);
+        setShowHint(false);
+      }
+    } else if (aiTopic.trim()) {
+      const localizedAI = generateSmartAIQuiz(aiTopic, targetLang);
+      setAiQuestions(localizedAI);
+      setAiIndex(0);
+      setCurrentQuestion(localizedAI[0]);
+      setIsAnswered(false);
+      setSelectedAnswer(null);
+      setFeedback(null);
+      setShowHint(false);
+    }
   };
 
   const t = (key: string) => getTranslation(key, lang);
@@ -818,7 +846,7 @@ export default function CharityQuizClient() {
   const loadNextQuestion = useCallback(() => {
     if (category === 'custom-ai') return; // Handled separately by AI state flow
     
-    const bank = lang === 'hi' ? quizDataHindi : quizData;
+    const bank = getQuizDataForLanguage(lang);
     const allQ = bank[category]?.questions || quizData[category]?.questions || [];
     const filteredQ = allQ.filter(q => q.difficulty === difficulty);
     const candidateList = filteredQ.length > 0 ? filteredQ : allQ;
@@ -844,7 +872,7 @@ export default function CharityQuizClient() {
     }
     
     const rand = Math.floor(Math.random() * pool.length);
-    const selected = pool[rand];
+    const selected = shuffleOptions(pool[rand]);
     
     setCurrentQuestion(selected);
     currentQuestionRef.current = selected;
