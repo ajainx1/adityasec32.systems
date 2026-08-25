@@ -5,7 +5,7 @@ import { Share2, Heart, Lightbulb, User, LogOut, ArrowLeft, Sun, Moon, Zap, Cpu,
 import { createClient } from '@supabase/supabase-js';
 import { quizData, CategoryKey, Difficulty, Question } from './quizData';
 import { quizDataHindi, DAILY_FACTS_HI } from './quizDataHindi';
-import { Language, UI_TRANSLATIONS, getTranslation } from './i18n';
+import { Language, UI_TRANSLATIONS, getTranslation, LANGUAGES_LIST, LanguageMeta } from './i18n';
 import { useToast } from '../js/ToastContext';
 import Link from 'next/link';
 import TiltWrapper from '@/components/3d/TiltWrapper';
@@ -178,11 +178,13 @@ export default function CharityQuizClient() {
   const [mounted, setMounted] = useState(false);
   // Language & Internationalization State
   const [lang, setLang] = useState<Language>('en');
+  const [showLangModal, setShowLangModal] = useState(false);
+  const [showLangDropdown, setShowLangDropdown] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     const saved = localStorage.getItem('cyberkarma_lang') as Language;
-    if (saved === 'en' || saved === 'hi') {
+    if (saved && LANGUAGES_LIST.some(l => l.code === saved)) {
       setLang(saved);
     }
     const savedTheme = localStorage.getItem('jumpstreet_theme');
@@ -197,11 +199,13 @@ export default function CharityQuizClient() {
     }
   }, []);
 
-  const toggleLanguage = () => {
-    const nextLang: Language = lang === 'en' ? 'hi' : 'en';
-    setLang(nextLang);
-    localStorage.setItem('cyberkarma_lang', nextLang);
-    addToast(nextLang === 'hi' ? '🌐 भाषा: हिंदी सक्रिय!' : '🌐 Language: English Active!', 'info');
+  const handleSelectLanguage = (targetLang: Language) => {
+    setLang(targetLang);
+    localStorage.setItem('cyberkarma_lang', targetLang);
+    setShowLangDropdown(false);
+    setShowLangModal(false);
+    const langMeta = LANGUAGES_LIST.find(l => l.code === targetLang);
+    addToast(`🌐 ${langMeta?.flag || ''} ${langMeta?.label} (${langMeta?.native}) Active!`, 'info');
   };
 
   const t = (key: string) => getTranslation(key, lang);
@@ -1521,44 +1525,47 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
             </div>
           )}
 
-          {/* 1-Click Dual Language Switcher Toggle */}
-          <div className={`flex items-center p-0.5 rounded-xl border shadow-sm ${
-            isDark ? 'bg-purple-500/20 border-purple-500/40' : 'bg-purple-50 border-purple-300'
-          }`}>
+          {/* Global Multi-Language Selector Dropdown */}
+          <div className="relative">
             <button
-              onClick={() => {
-                if (lang !== 'en') {
-                  setLang('en');
-                  localStorage.setItem('cyberkarma_lang', 'en');
-                  addToast('🌐 Language: English Active!', 'info');
-                }
-              }}
-              className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
-                lang === 'en' 
-                  ? 'bg-purple-600 text-white shadow-md' 
-                  : (isDark ? 'text-purple-300 hover:text-white' : 'text-purple-700 hover:text-purple-900')
+              onClick={() => setShowLangDropdown(!showLangDropdown)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono font-bold transition-all cursor-pointer ${
+                isDark 
+                  ? 'bg-purple-950/50 hover:bg-purple-900/60 border-purple-500/40 text-purple-200 shadow-sm' 
+                  : 'bg-purple-50 hover:bg-purple-100 border-purple-300 text-purple-900 shadow-sm'
               }`}
-              title="Switch to English"
+              title="Choose Language (10 Languages Available)"
             >
-              🇬🇧 EN
+              <span className="text-sm">{LANGUAGES_LIST.find(l => l.code === lang)?.flag || '🌐'}</span>
+              <span className="font-bold">{LANGUAGES_LIST.find(l => l.code === lang)?.native || 'English'}</span>
+              <span className="text-[9px] opacity-75">▼</span>
             </button>
-            <button
-              onClick={() => {
-                if (lang !== 'hi') {
-                  setLang('hi');
-                  localStorage.setItem('cyberkarma_lang', 'hi');
-                  addToast('🌐 भाषा: हिंदी सक्रिय!', 'info');
-                }
-              }}
-              className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
-                lang === 'hi' 
-                  ? 'bg-purple-600 text-white shadow-md' 
-                  : (isDark ? 'text-purple-300 hover:text-white' : 'text-purple-700 hover:text-purple-900')
-              }`}
-              title="हिंदी में खेलें (Switch to Hindi)"
-            >
-              🇮🇳 हिंदी
-            </button>
+
+            {/* Dropdown Menu */}
+            {showLangDropdown && (
+              <div className="absolute right-0 mt-2 w-60 p-2 rounded-2xl bg-slate-950/95 backdrop-blur-2xl border border-purple-500/30 shadow-2xl z-50 grid grid-cols-1 gap-1 max-h-80 overflow-y-auto">
+                <div className="px-3 py-1.5 text-[10px] font-mono font-bold text-purple-400 uppercase tracking-wider border-b border-white/10">
+                  🌐 Select Language (10)
+                </div>
+                {LANGUAGES_LIST.map((item) => (
+                  <button
+                    key={item.code}
+                    onClick={() => handleSelectLanguage(item.code)}
+                    className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      lang === item.code 
+                        ? 'bg-purple-600 text-white shadow-md' 
+                        : 'text-slate-200 hover:bg-white/10'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>{item.flag}</span>
+                      <span>{item.label}</span>
+                    </span>
+                    <span className="text-[11px] font-mono opacity-80">{item.native}</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {!isWisdomBannerVisible && (
@@ -1865,29 +1872,23 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
               {t('groundImpactBadge')}
             </span>
 
-            {/* Dedicated Hero Language Switcher Pill */}
-            <div className="flex items-center gap-1.5 p-1 rounded-full bg-purple-500/20 border border-purple-500/40 shadow-md">
-              <span className="text-[11px] font-bold text-purple-300 pl-2">🌐 {lang === 'hi' ? 'भाषा:' : 'Lang:'}</span>
-              <button
-                onClick={() => {
-                  setLang('en');
-                  localStorage.setItem('cyberkarma_lang', 'en');
-                  addToast('🌐 Language: English Active!', 'info');
-                }}
-                className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${lang === 'en' ? 'bg-purple-600 text-white shadow-md' : 'text-purple-300 hover:text-white'}`}
-              >
-                🇬🇧 English
-              </button>
-              <button
-                onClick={() => {
-                  setLang('hi');
-                  localStorage.setItem('cyberkarma_lang', 'hi');
-                  addToast('🌐 भाषा: हिंदी सक्रिय!', 'info');
-                }}
-                className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${lang === 'hi' ? 'bg-purple-600 text-white shadow-md' : 'text-purple-300 hover:text-white'}`}
-              >
-                🇮🇳 हिंदी
-              </button>
+            {/* Dedicated Hero Language Switcher Ribbon */}
+            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-purple-500/20 border border-purple-500/40 shadow-md max-w-full overflow-x-auto scrollbar-none">
+              <span className="text-[11px] font-bold text-purple-300 pl-2 shrink-0">🌐 {t('language')}:</span>
+              {LANGUAGES_LIST.map((item) => (
+                <button
+                  key={item.code}
+                  onClick={() => handleSelectLanguage(item.code)}
+                  className={`px-3 py-1 rounded-xl text-xs font-bold font-mono transition-all shrink-0 cursor-pointer ${
+                    lang === item.code 
+                      ? 'bg-purple-600 text-white shadow-md scale-[1.03]' 
+                      : 'text-purple-300 hover:text-white hover:bg-white/10'
+                  }`}
+                  title={`${item.label} (${item.native})`}
+                >
+                  <span>{item.flag} {item.native}</span>
+                </button>
+              ))}
             </div>
           </div>
         </motion.div>
@@ -1898,44 +1899,36 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
           {/* Left Column: Active Quiz Panel */}
           <div className="lg:col-span-8 space-y-6">
 
-            {/* Prominent Language Bar Above Quiz */}
-            <div className={`p-3.5 rounded-[24px] backdrop-blur-2xl shadow-lg border flex flex-wrap items-center justify-between gap-3 ${isDark ? 'bg-gradient-to-r from-purple-950/40 via-slate-900/60 to-purple-950/40 border-purple-500/30' : 'bg-gradient-to-r from-purple-50/90 via-white/90 to-indigo-50/90 border-purple-200'}`}>
+            {/* Prominent Multi-Language Ribbon Above Quiz */}
+            <div className={`p-3.5 rounded-[24px] backdrop-blur-2xl shadow-lg border flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${isDark ? 'bg-gradient-to-r from-purple-950/40 via-slate-900/60 to-purple-950/40 border-purple-500/30' : 'bg-gradient-to-r from-purple-50/90 via-white/90 to-indigo-50/90 border-purple-200'}`}>
               <div className="flex items-center gap-2">
                 <span className="text-lg">🌐</span>
                 <div>
                   <span className="text-xs font-black font-title tracking-tight text-purple-400 block">
-                    {lang === 'hi' ? 'प्रश्नोत्तरी की भाषा (Quiz Language):' : 'Select Quiz Language:'}
+                    {t('switchLang')}:
                   </span>
                   <span className="text-[10px] font-mono text-slate-400">
-                    {lang === 'hi' ? 'सभी प्रश्न और व्याख्याएँ हिंदी में' : 'Switch anytime between English & Hindi'}
+                    {lang === 'hi' ? '10 वैश्विक एवं भारतीय भाषाओं में उपलब्ध' : 'Available in 10 Global & Regional Languages'}
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => {
-                    setLang('en');
-                    localStorage.setItem('cyberkarma_lang', 'en');
-                    addToast('🌐 Language: English Active!', 'info');
-                  }}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold font-mono transition-all flex items-center gap-1.5 cursor-pointer ${lang === 'en' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-500/25 scale-[1.03]' : isDark ? 'bg-black/40 text-slate-300 hover:text-white border border-white/10' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}`}
-                >
-                  <span>🇬🇧 English</span>
-                  {lang === 'en' && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />}
-                </button>
-
-                <button
-                  onClick={() => {
-                    setLang('hi');
-                    localStorage.setItem('cyberkarma_lang', 'hi');
-                    addToast('🌐 भाषा: हिंदी सक्रिय!', 'info');
-                  }}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold font-mono transition-all flex items-center gap-1.5 cursor-pointer ${lang === 'hi' ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-500/25 scale-[1.03]' : isDark ? 'bg-black/40 text-slate-300 hover:text-white border border-white/10' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}`}
-                >
-                  <span>🇮🇳 हिंदी (Hindi)</span>
-                  {lang === 'hi' && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />}
-                </button>
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full scrollbar-none">
+                {LANGUAGES_LIST.map((item) => (
+                  <button
+                    key={item.code}
+                    onClick={() => handleSelectLanguage(item.code)}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold font-mono transition-all flex items-center gap-1 shrink-0 cursor-pointer ${
+                      lang === item.code 
+                        ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-500/25 scale-[1.03]' 
+                        : isDark ? 'bg-black/40 text-slate-300 hover:text-white border border-white/10' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                    }`}
+                  >
+                    <span>{item.flag}</span>
+                    <span>{item.native}</span>
+                    {lang === item.code && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />}
+                  </button>
+                ))}
               </div>
             </div>
             
@@ -3323,6 +3316,77 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Global 10-Language Selection Modal */}
+      <AnimatePresence>
+        {showLangModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowLangModal(false)}
+            className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={e => e.stopPropagation()}
+              className="relative max-w-lg w-full rounded-3xl overflow-hidden border border-purple-500/30 shadow-2xl bg-slate-950 p-6 space-y-5"
+            >
+              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-2xl">🌐</span>
+                  <div>
+                    <h3 className="text-lg font-black font-title text-white">
+                      {t('switchLang')}
+                    </h3>
+                    <p className="text-xs text-slate-400">
+                      Select your preferred language (10 available)
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowLangModal(false)}
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold cursor-pointer"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2.5 max-h-96 overflow-y-auto pr-1">
+                {LANGUAGES_LIST.map((item) => (
+                  <button
+                    key={item.code}
+                    onClick={() => handleSelectLanguage(item.code)}
+                    className={`p-3 rounded-2xl border text-left flex items-center gap-3 transition-all cursor-pointer ${
+                      lang === item.code
+                        ? 'bg-purple-600 border-purple-400 text-white shadow-lg shadow-purple-500/30'
+                        : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
+                    }`}
+                  >
+                    <span className="text-2xl">{item.flag}</span>
+                    <div>
+                      <div className="text-xs font-bold font-title">{item.label}</div>
+                      <div className="text-[11px] font-mono opacity-75">{item.native}</div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+
+              <div className="text-center pt-2">
+                <button
+                  onClick={() => setShowLangModal(false)}
+                  className="px-6 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-mono font-bold text-slate-300 cursor-pointer"
+                >
+                  Done
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
 
       {/* Sticky Mobile Bottom Floating Action HUD (Thumb-Friendly Mobile Ergonomics) */}
       <aside aria-label="Mobile Game HUD" className="fixed bottom-3 left-3 right-3 z-40 sm:hidden">

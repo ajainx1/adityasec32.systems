@@ -6,6 +6,8 @@ import { Heart, ArrowLeft, ExternalLink, ShieldCheck, MapPin, Calendar, Camera, 
 import Link from 'next/link';
 import TiltWrapper from '@/components/3d/TiltWrapper';
 
+import { Language, LANGUAGES_LIST } from './i18n';
+
 interface ImpactRecord {
   src: string;
   title: string;
@@ -19,18 +21,25 @@ export default function ImpactPageClient() {
   const [activeTab, setActiveTab] = useState<'august' | 'core' | 'archive'>('august');
   const [previewImage, setPreviewImage] = useState<ImpactRecord | null>(null);
   const [isDark, setIsDark] = useState(true);
-  const [lang, setLang] = useState<'en' | 'hi'>('en');
+  const [lang, setLang] = useState<Language>('en');
+  const [showLangDropdown, setShowLangDropdown] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('jumpstreet_theme');
     if (savedTheme === 'light') {
       setIsDark(false);
     }
-    const savedLang = localStorage.getItem('cyberkarma_lang');
-    if (savedLang === 'hi' || savedLang === 'en') {
+    const savedLang = localStorage.getItem('cyberkarma_lang') as Language;
+    if (savedLang && LANGUAGES_LIST.some(l => l.code === savedLang)) {
       setLang(savedLang);
     }
   }, []);
+
+  const handleSelectLanguage = (targetLang: Language) => {
+    setLang(targetLang);
+    localStorage.setItem('cyberkarma_lang', targetLang);
+    setShowLangDropdown(false);
+  };
 
   const toggleLanguage = () => {
     const nextLang = lang === 'en' ? 'hi' : 'en';
@@ -134,15 +143,43 @@ export default function ImpactPageClient() {
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Language Switcher */}
-            <button
-              onClick={toggleLanguage}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-bold bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/40 text-purple-300 transition-all shadow-md active:scale-95 cursor-pointer hover:scale-105"
-              title={lang === 'en' ? "हिंदी में देखें" : "Switch to English"}
-            >
-              <span className="text-sm">🌐</span>
-              <span>{lang === 'en' ? 'हिंदी' : 'English'}</span>
-            </button>
+            {/* Global Multi-Language Selector Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setShowLangDropdown(!showLangDropdown)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-bold bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/40 text-purple-300 transition-all shadow-md active:scale-95 cursor-pointer hover:scale-105"
+                title="Choose Language (10 Languages Available)"
+              >
+                <span className="text-sm">{LANGUAGES_LIST.find(l => l.code === lang)?.flag || '🌐'}</span>
+                <span>{LANGUAGES_LIST.find(l => l.code === lang)?.native || 'English'}</span>
+                <span className="text-[9px] opacity-75">▼</span>
+              </button>
+
+              {showLangDropdown && (
+                <div className="absolute right-0 mt-2 w-56 p-2 rounded-2xl bg-slate-950/95 backdrop-blur-2xl border border-purple-500/30 shadow-2xl z-50 grid grid-cols-1 gap-1 max-h-80 overflow-y-auto">
+                  <div className="px-3 py-1.5 text-[10px] font-mono font-bold text-purple-400 uppercase tracking-wider border-b border-white/10">
+                    🌐 Select Language (10)
+                  </div>
+                  {LANGUAGES_LIST.map((item) => (
+                    <button
+                      key={item.code}
+                      onClick={() => handleSelectLanguage(item.code)}
+                      className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        lang === item.code 
+                          ? 'bg-purple-600 text-white shadow-md' 
+                          : 'text-slate-200 hover:bg-white/10'
+                      }`}
+                    >
+                      <span className="flex items-center gap-2">
+                        <span>{item.flag}</span>
+                        <span>{item.label}</span>
+                      </span>
+                      <span className="text-[11px] font-mono opacity-80">{item.native}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
 
             <a
               href="https://adityasec32.systems"
