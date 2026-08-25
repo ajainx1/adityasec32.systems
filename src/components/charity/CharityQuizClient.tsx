@@ -181,16 +181,78 @@ const CATEGORIES: CategoryConfig[] = [
   },
 ];
 
-const CURATED_AI_TOPICS = [
-  { topic: 'Quantum Computing & Qubits', topicHi: 'क्वांटम कंप्यूटिंग', icon: '⚛️' },
-  { topic: 'Ancient Rome & Gladiators', topicHi: 'प्राचीन रोम साम्राज्य', icon: '🏛️' },
-  { topic: 'Neuroscience & Human Memory', topicHi: 'मस्तिष्क एवं याददाश्त', icon: '🧠' },
-  { topic: 'Apollo Moon Missions', topicHi: 'अपोलो मून मिशन', icon: '🚀' },
-  { topic: 'Canine Psychology & Empathy', topicHi: 'श्वान मनोविज्ञान', icon: '🐕' },
-  { topic: 'World War II Turning Points', topicHi: 'द्वितीय विश्व युद्ध', icon: '⚔️' },
-  { topic: 'Deep Ocean Bioluminescence', topicHi: 'गहरे समुद्र के जीव', icon: '🌊' },
-  { topic: 'Renaissance Art & Inventions', topicHi: 'पुनर्जागरण काल के आविष्कार', icon: '🎨' },
+interface TopicCategory {
+  labelEn: string;
+  labelHi: string;
+  icon: string;
+  topics: { topic: string; topicHi?: string; icon: string }[];
+}
+
+const DEMOGRAPHIC_AI_TOPICS: TopicCategory[] = [
+  {
+    labelEn: "🎒 Kids & Students",
+    labelHi: "🎒 बच्चों और छात्रों के लिए",
+    icon: "🎒",
+    topics: [
+      { topic: "Dinosaurs & Prehistoric Giants", topicHi: "डायनासोर और जीवाश्म", icon: "🦖" },
+      { topic: "Planets & Solar System Mysteries", topicHi: "सौरमंडल और ग्रह", icon: "🪐" },
+      { topic: "Marvel & DC Superheroes", topicHi: "सुपरहीरो और कॉमिक्स", icon: "🦸" },
+      { topic: "Minecraft & Gaming Lore", topicHi: "माइनक्राफ्ट और गेमिंग", icon: "🎮" },
+      { topic: "Ancient Egyptian Pyramids & Pharaohs", topicHi: "प्राचीन मिस्र और पिरामिड", icon: "🏺" },
+      { topic: "Animal Superpowers & Wildlife", topicHi: "जानवरों की अद्भुत शक्तियां", icon: "🦎" }
+    ]
+  },
+  {
+    labelEn: "🎮 Gaming, Anime & Movies",
+    labelHi: "🎮 गेमिंग, एनीमे और सिनेमा",
+    icon: "🎮",
+    topics: [
+      { topic: "Anime Legends (Dragon Ball, Naruto, One Piece)", topicHi: "प्रसिद्ध एनीमे", icon: "⚔️" },
+      { topic: "Studio Ghibli & Anime Films", topicHi: "स्टूडियो घिबली", icon: "🍃" },
+      { topic: "Star Wars & Sci-Fi Universes", topicHi: "स्टार वॉर्स और साई-फाई", icon: "🌌" },
+      { topic: "History of Video Games & Consoles", topicHi: "वीडियो गेम का इतिहास", icon: "🕹️" },
+      { topic: "Classic Rock & Music Legends", topicHi: "रॉक संगीत और गायक", icon: "🎸" }
+    ]
+  },
+  {
+    labelEn: "🔬 Science & Nature",
+    labelHi: "🔬 विज्ञान और प्रकृति",
+    icon: "🔬",
+    topics: [
+      { topic: "Human Brain, Memory & Neuroscience", topicHi: "मानव मस्तिष्क और याददाश्त", icon: "🧠" },
+      { topic: "Quantum Computing & Physics", topicHi: "क्वांटम कंप्यूटिंग", icon: "⚛️" },
+      { topic: "Deep Ocean & Marine Creatures", topicHi: "गहरे समुद्र के जीव", icon: "🌊" },
+      { topic: "Veterinary First Aid & Dog Biology", topicHi: "पशु चिकित्सा और स्वास्थ्य", icon: "🩺" },
+      { topic: "James Webb Telescope & Black Holes", topicHi: "जेम्स वेब और ब्लैक होल", icon: "🔭" }
+    ]
+  },
+  {
+    labelEn: "💻 Tech, Coding & Cyber",
+    labelHi: "💻 तकनीक, कोडिंग और AI",
+    icon: "💻",
+    topics: [
+      { topic: "Artificial Intelligence & Neural Networks", topicHi: "आर्टिफिशियल इंटेलिजेंस", icon: "🤖" },
+      { topic: "Ethical Hacking & Cyber Defense", topicHi: "एथिकल हैकिंग", icon: "🛡️" },
+      { topic: "SpaceX & Mars Colonization", topicHi: "मंगल ग्रह मिशन", icon: "🚀" },
+      { topic: "History of the Internet & Cryptography", topicHi: "इंटरनेट का इतिहास", icon: "🌐" }
+    ]
+  },
+  {
+    labelEn: "🏛️ History & World Lore",
+    labelHi: "🏛️ इतिहास और विश्व संस्कृति",
+    icon: "🏛️",
+    topics: [
+      { topic: "Ancient Rome, Gladiators & Colosseum", topicHi: "प्राचीन रोम और ग्लेडिएटर", icon: "🏛️" },
+      { topic: "Maurya Empire & Chanakya Wisdom", topicHi: "मौर्य साम्राज्य और चाणक्य", icon: "📜" },
+      { topic: "Samurai & Feudal Japan", topicHi: "समुराई और जापान", icon: "🗡️" },
+      { topic: "World War II Turning Points", topicHi: "द्वितीय विश्व युद्ध", icon: "🪖" },
+      { topic: "Canine Psychology & Dog Empathy", topicHi: "श्वान मनोविज्ञान व प्रेम", icon: "🐕" }
+    ]
+  }
 ];
+
+const ALL_CURATED_FLAT_TOPICS = DEMOGRAPHIC_AI_TOPICS.flatMap(c => c.topics);
+
 
 /* ── Rotating Hero: "From Patna → to the World" (10 Languages) ── */
 const ROTATING_LOCATIONS: Record<Language, { text: string; emoji: string }[]> = {
@@ -1244,7 +1306,7 @@ Do NOT include markdown formatting or backticks.`;
 
       </main>
 
-      {/* AI Quiz Generator Dialog */}
+      {/* Google Gemini AI Custom Quiz Generator Modal */}
       <AnimatePresence>
         {showAIModal && (
           <motion.div
@@ -1252,87 +1314,133 @@ Do NOT include markdown formatting or backticks.`;
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => !isGeneratingAI && setShowAIModal(false)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md overflow-y-auto"
           >
             <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
+              initial={{ scale: 0.94, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
+              exit={{ scale: 0.94, opacity: 0 }}
               onClick={e => e.stopPropagation()}
-              className={`relative max-w-lg w-full rounded-3xl border p-6 sm:p-8 space-y-5 shadow-2xl ${
+              className={`relative max-w-xl w-full my-auto rounded-3xl border p-6 sm:p-7 space-y-4 shadow-2xl ${
                 isDark ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'
               }`}
             >
+              {/* Header with Close */}
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="text-xl">🤖</span>
-                  <h3 className="text-lg font-bold font-title">Generate Custom AI Quiz</h3>
+                <div className="flex items-center gap-2.5">
+                  <span className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl font-bold border border-purple-500/30 shadow-sm">
+                    🤖
+                  </span>
+                  <div>
+                    <h3 className="text-lg font-bold font-title flex items-center gap-2">
+                      <span>{lang === 'hi' ? 'कस्टम AI क्विज़ जनरेटर' : 'Custom AI Quiz Generator'}</span>
+                      <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-400/30">
+                        Gemini 2.5
+                      </span>
+                    </h3>
+                    <p className="text-xs text-slate-400">
+                      {lang === 'hi'
+                        ? 'अपनी पसंद का कोई भी विषय लिखें या नीचे दिए गए विभिन्न क्षेत्रों में से चुनें!'
+                        : 'Play trivia on ANY topic you love — from Minecraft to Quantum Physics!'}
+                    </p>
+                  </div>
                 </div>
                 <button
                   onClick={() => setShowAIModal(false)}
-                  className="text-slate-400 hover:text-white text-sm cursor-pointer"
+                  className="w-8 h-8 rounded-full bg-slate-800/60 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center text-sm font-bold transition-all cursor-pointer"
                 >
                   ✕
                 </button>
               </div>
 
-              <p className="text-xs text-slate-400">
-                Enter any topic of curiosity to generate five tailored trivia questions.
-              </p>
+              {/* Input & Surprise Me Bar */}
+              <div className="space-y-2 pt-1">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={aiTopic}
+                    onChange={e => setAiTopic(e.target.value)}
+                    onKeyDown={e => e.key === 'Enter' && handleLaunchAIQuiz()}
+                    placeholder={lang === 'hi' ? 'उदा. सुपरहीरो, ब्लैक होल, प्राचीन भारत, वीडियो गेम...' : 'Type any topic: e.g. Dinosaurs, Anime, Neuroscience, Minecraft...'}
+                    className={`flex-1 px-4 py-3 rounded-xl border text-xs sm:text-sm font-mono outline-none transition-colors ${
+                      isDark ? 'bg-slate-950 border-slate-800 focus:border-purple-500 text-white' : 'bg-slate-50 border-slate-200 focus:border-purple-500'
+                    }`}
+                  />
 
-              {/* Topic Input */}
-              <div className="space-y-2">
-                <input
-                  type="text"
-                  value={aiTopic}
-                  onChange={e => setAiTopic(e.target.value)}
-                  onKeyDown={e => e.key === 'Enter' && handleLaunchAIQuiz()}
-                  placeholder="e.g. Quantum Physics, Roman Empire, Marine Biology..."
-                  className={`w-full px-4 py-3 rounded-xl border text-sm font-mono outline-none transition-colors ${
-                    isDark ? 'bg-slate-950 border-slate-800 focus:border-emerald-500 text-white' : 'bg-slate-50 border-slate-200 focus:border-emerald-500'
-                  }`}
-                />
+                  {/* 🎲 Surprise Me Button */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const randomPick = ALL_CURATED_FLAT_TOPICS[Math.floor(Math.random() * ALL_CURATED_FLAT_TOPICS.length)];
+                      const chosen = (lang === 'hi' && randomPick.topicHi) ? randomPick.topicHi : randomPick.topic;
+                      setAiTopic(chosen);
+                      handleLaunchAIQuiz(chosen);
+                    }}
+                    className="px-3.5 py-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/40 text-amber-300 text-xs font-mono font-bold flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
+                    title="Surprise me with a fun random topic!"
+                  >
+                    <span>🎲</span>
+                    <span className="hidden sm:inline">{lang === 'hi' ? 'रैंडम टॉपिक' : 'Surprise Me'}</span>
+                  </button>
+                </div>
               </div>
 
-              {/* Curated Suggestion Chips */}
-              <div className="space-y-2">
-                <span className="text-[11px] font-mono text-slate-400">Suggested Topics:</span>
-                <div className="flex flex-wrap gap-1.5">
-                  {CURATED_AI_TOPICS.map(item => (
-                    <button
-                      key={item.topic}
-                      onClick={() => {
-                        setAiTopic(item.topic);
-                        handleLaunchAIQuiz(item.topic);
-                      }}
-                      className={`px-2.5 py-1 rounded-lg text-xs font-mono border transition-colors cursor-pointer flex items-center gap-1 ${
-                        isDark ? 'bg-slate-950 border-slate-800 hover:border-slate-700 text-slate-300' : 'bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700'
-                      }`}
-                    >
-                      <span>{item.icon}</span>
-                      <span>{item.topic}</span>
-                    </button>
+              {/* Curated Demographic Categorized Tabs */}
+              <div className="space-y-3 pt-1">
+                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400">
+                  {lang === 'hi' ? '💡 सभी उम्र और रुचियों के लिए लोकप्रिय विषय:' : '💡 Popular Topics for Every Background:'}
+                </div>
+
+                <div className="space-y-3 max-h-56 overflow-y-auto pr-1 scrollbar-thin">
+                  {DEMOGRAPHIC_AI_TOPICS.map((group, gIdx) => (
+                    <div key={gIdx} className="space-y-1.5">
+                      <div className="text-[11px] font-bold text-slate-300 flex items-center gap-1">
+                        <span>{group.icon}</span>
+                        <span>{lang === 'hi' ? group.labelHi : group.labelEn}</span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {group.topics.map((item, tIdx) => {
+                          const topicLabel = (lang === 'hi' && item.topicHi) ? item.topicHi : item.topic;
+                          return (
+                            <button
+                              key={tIdx}
+                              onClick={() => {
+                                setAiTopic(topicLabel);
+                                handleLaunchAIQuiz(topicLabel);
+                              }}
+                              className={`px-2.5 py-1 rounded-xl text-[11px] font-mono border transition-all flex items-center gap-1 cursor-pointer ${
+                                isDark 
+                                  ? 'bg-slate-950/80 border-slate-800 hover:border-purple-400/50 hover:bg-purple-500/10 text-slate-300' 
+                                  : 'bg-slate-50 border-slate-200 hover:border-purple-300 hover:bg-purple-50 text-slate-700'
+                              }`}
+                            >
+                              <span>{item.icon}</span>
+                              <span>{topicLabel}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-3 pt-2">
+              <div className="flex items-center gap-3 pt-2 border-t border-slate-800/40">
                 <button
                   onClick={() => handleLaunchAIQuiz()}
                   disabled={isGeneratingAI || !aiTopic.trim()}
-                  className="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-medium text-xs transition-colors cursor-pointer shadow-sm"
+                  className="flex-1 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-lg shadow-purple-500/20"
                 >
-                  {isGeneratingAI ? 'Generating Questions...' : 'Start Quiz →'}
+                  <span>{isGeneratingAI ? 'Generating with AI...' : (lang === 'hi' ? 'AI क्विज़ शुरू करें 🚀' : 'Generate & Play AI Quiz 🚀')}</span>
                 </button>
                 <button
                   onClick={() => setShowAIModal(false)}
-                  className="px-4 py-3 rounded-xl border border-slate-800 hover:bg-slate-800 text-slate-300 text-xs font-medium cursor-pointer"
+                  className="px-4 py-3 rounded-xl border border-slate-800 hover:bg-slate-800 text-slate-400 text-xs font-medium cursor-pointer"
                 >
-                  Cancel
+                  {lang === 'hi' ? 'रद्द करें' : 'Cancel'}
                 </button>
               </div>
-
             </motion.div>
           </motion.div>
         )}
