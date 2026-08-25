@@ -33,53 +33,83 @@ export const quizData: Record<CategoryKey, CategoryData> = {
     questions: [
       {
         difficulty: 'beginner',
-        question: "How do dogs sweat to regulate their body temperature?",
-        options: ["Through their fur", "Through their paws and panting", "Through their ears", "Through their tail"],
-        answer: 1,
-        hint: "They have merocrine sweat glands on their paw pads and cool down via breath.",
-        explanation: "Dogs regulate heat primarily through evaporation during panting and through sweat glands located in their paw pads.",
+        question: "How do dogs primarily regulate their body temperature in warm weather?",
+        options: ["Through panting and sweat glands in paw pads", "Through their thick fur coat", "Through their ears", "Through their tail movements"],
+        answer: 0,
+        hint: "They have merocrine sweat glands on their paw pads and cool down via moisture evaporation.",
+        explanation: "Dogs regulate heat primarily through evaporation during panting and sweat glands located in their paw pads.",
         image: "/impact/dog-feed-1.jpeg",
-        topicBadge: "🐾 Animal Biology & Care"
+        topicBadge: "🐾 Animal Biology"
       },
       {
         difficulty: 'beginner',
-        question: "Which street animal is known as man's most loyal best friend?",
+        question: "Which community animal is universally celebrated as man's most loyal companion?",
         options: ["Domestic & Street Dogs", "Raccoons", "Squirrels", "Pigeons"],
         answer: 0,
-        hint: "They have lived alongside humans for over 15,000 years.",
-        explanation: "Dogs are universally cherished for their unconditional loyalty, affection, and companionship.",
+        hint: "They have lived and evolved alongside humans for over 15,000 years.",
+        explanation: "Dogs are recognized worldwide for their unconditional empathy, companionship, and guarding devotion.",
         image: "/impact/dog-feed-2.jpeg",
-        topicBadge: "🐕 Companion Animal Care"
+        topicBadge: "🐕 Companion Welfare"
       },
       {
         difficulty: 'beginner',
-        question: "What is the primary benefit of daily street feeding drives for stray animals?",
-        options: ["Reduces hunger distress and prevents territorial aggression", "Makes dogs sleep all day", "Teaches them to hunt cars", "Changes their fur color"],
+        question: "What is the primary benefit of consistent daily street feeding drives for community animals?",
+        options: ["Reduces hunger distress and prevents territorial aggression", "Makes dogs sleep all day", "Teaches dogs to chase vehicles", "Alters their coat color"],
         answer: 0,
-        hint: "Well-fed community animals are calm, friendly, and healthy.",
-        explanation: "Consistent community feeding ensures street dogs receive essential carbohydrates, protein, and hydration, reducing malnutrition and territory conflicts by over 85%.",
+        hint: "Well-fed community animals are calm, friendly, and significantly healthier.",
+        explanation: "Consistent community feeding ensures street dogs receive vital carbs and protein, reducing hunger conflicts by over 85%.",
         image: "/impact/dog-feed-3.jpeg",
-        topicBadge: "🍲 Community Feeding Welfare"
+        topicBadge: "🍲 Community Feeding"
       },
       {
         difficulty: 'beginner',
-        question: "What is the recommended staple diet for nourishing street dogs during feeding drives?",
-        options: ["Plain boiled rice, eggs, bone-free broth and dog food", "Spicy curries and sweets", "Raw onions and garlic", "Chocolates and milk candy"],
+        question: "What is the recommended staple diet for nourishing street dogs during community feeding drives in India?",
+        options: ["Boiled rice, boiled eggs, bone-free broth and dry kibble", "Spicy curries and sweets", "Raw onions, chocolate and garlic", "Milk candy and pastries"],
         answer: 0,
         hint: "Simple proteins, digestible carbohydrates, and clean water.",
-        explanation: "Boiled rice paired with boiled eggs or gentle broth provides easily digestible energy and vital amino acids for stray dogs.",
+        explanation: "Boiled rice with boiled eggs or gentle broth provides easily digestible energy and amino acids for stray animals.",
         image: "/impact/dog-feed-4.jpeg",
-        topicBadge: "🍚 Street Canine Nutrition"
+        topicBadge: "🍚 Street Nutrition"
+      },
+      {
+        difficulty: 'beginner',
+        question: "Why should chocolate and cocoa products never be fed to dogs?",
+        options: ["They contain theobromine which is toxic to canine metabolism", "Chocolate is too expensive", "It makes dogs run too fast", "It turns their fur brown"],
+        answer: 0,
+        hint: "Canines cannot metabolize this alkaloid compound safely.",
+        explanation: "Theobromine in chocolate causes cardiac stimulation and central nervous system toxicity in dogs.",
+        image: "/impact/dog-feed-5.jpeg",
+        topicBadge: "⚠️ Veterinary Care"
+      },
+      {
+        difficulty: 'beginner',
+        question: "How many teeth does an adult domestic dog typically possess?",
+        options: ["42 permanent teeth", "32 teeth", "28 teeth", "50 teeth"],
+        answer: 0,
+        hint: "Adult humans have 32, but dogs have 10 more.",
+        explanation: "Adult dogs have 42 permanent teeth designed for shearing, gripping, and grinding food.",
+        image: "/impact/dog-feed-6.jpeg",
+        topicBadge: "🦷 Canine Anatomy"
+      },
+      {
+        difficulty: 'beginner',
+        question: "Which sense is known to be a dog's most powerful sensory superpower?",
+        options: ["Sense of Smell (Olfaction)", "Color Vision", "Taste Sensitivity", "Thermal Detection"],
+        answer: 0,
+        hint: "They have up to 300 million olfactory receptors in their noses.",
+        explanation: "A dog's sense of smell is roughly 10,000 to 100,000 times more acute than that of an average human.",
+        image: "/impact/dog-feed-7.jpeg",
+        topicBadge: "👃 Sensory Biology"
       },
       {
         difficulty: 'intermediate',
         question: "How are dogs able to see remarkably well in low-light and nighttime conditions?",
-        options: ["They possess a reflective layer called Tapetum Lucidum behind the retina", "They have built-in night vision lenses", "They only see in pure infrared heat", "Their eyes produce fluorescent light"],
+        options: ["They possess a reflective layer called Tapetum Lucidum behind the retina", "They have built-in night vision lenses", "They only see in infrared heat", "Their eyes emit glow in the dark"],
         answer: 0,
         hint: "It reflects light back through the photoreceptor cells.",
         explanation: "The tapetum lucidum acts like a retroreflector behind the retina, multiplying available photons so dogs navigate dim streets effortlessly.",
-        image: "/impact/dog-feed-5.jpeg",
-        topicBadge: "👁️ Canine Optical Physiology"
+        image: "/impact/dog-feed-8.jpeg",
+        topicBadge: "👁️ Canine Optics"
       },
       {
         difficulty: 'intermediate',
@@ -87,455 +117,432 @@ export const quizData: Record<CategoryKey, CategoryData> = {
         options: ["Up to 45,000 Hz to 65,000 Hz", "Up to 15,000 Hz", "Up to 5,000 Hz", "Only below 500 Hz"],
         answer: 0,
         hint: "Humans can only hear up to 20,000 Hz.",
-        explanation: "Dogs can hear ultrasound frequencies up to 45 kHz–65 kHz, allowing them to hear distant whistles and quiet steps long before humans notice.",
-        image: "/impact/dog-feed-6.jpeg",
-        topicBadge: "🔊 Auditory Bio-Acoustics"
-      },
-      {
-        difficulty: 'intermediate',
-        question: "Which mammal is known to have the most powerful bite force relative to size?",
-        options: ["Tasmanian Devil", "Hippopotamus", "Hyena", "Grizzly Bear"],
-        answer: 0,
-        hint: "A marsupial native to an Australian island state.",
-        explanation: "The Tasmanian Devil possesses the strongest bite force relative to body mass of any living mammalian land carnivore.",
-        image: "/impact/dog-feed-7.jpeg",
-        topicBadge: "🐾 Mammalian Anatomy"
+        explanation: "Dogs can hear ultrasound frequencies up to 45 kHz–65 kHz, allowing them to hear distant whistles and quiet steps.",
+        image: "/impact/dog-feed-9.jpeg",
+        topicBadge: "🔊 Bio-Acoustics"
       },
       {
         difficulty: 'intermediate',
         question: "What does a dog wagging its tail predominantly to the RIGHT indicate according to neuroscience?",
-        options: ["Positive, friendly emotions and approach motivation", "Fear and withdrawal", "Sleepiness", "Extreme anger"],
+        options: ["Positive, friendly emotions and approach motivation", "Fear and withdrawal", "Sleepiness and fatigue", "Extreme territory aggression"],
         answer: 0,
         hint: "The left hemisphere of the brain processes positive emotions and controls the right side of the body.",
         explanation: "Studies in animal behavioral neuroscience show dogs wag right for positive stimuli (like friendly humans) and left for threatening stimuli.",
-        image: "/impact/dog-feed-8.jpeg",
-        topicBadge: "🧠 Animal Cognitive Science"
+        image: "/impact/dog-feed-10.jpeg",
+        topicBadge: "🧠 Animal Cognition"
       },
       {
         difficulty: 'intermediate',
         question: "Do dogs experience Rapid Eye Movement (REM) sleep and dream similar to humans?",
-        options: ["Yes, their brainwave patterns show vivid dreaming and memory consolidation during REM", "No, dogs never enter REM sleep", "Only marine animals dream", "Dogs only dream during winter"],
+        options: ["Yes, their brainwave patterns show vivid dreaming and memory consolidation during REM", "No, dogs never enter REM sleep", "Only dolphins dream", "Dogs only dream during winter"],
         answer: 0,
         hint: "You may see their paws twitch and hear soft whimpers while sleeping.",
         explanation: "EEG recordings confirm dogs cycle through REM sleep, replaying memories of daily activities, scents, and bonding experiences.",
-        image: "/impact/dog-feed-9.jpeg",
-        topicBadge: "💤 Canine Sleep Neuroscience"
-      },
-      {
-        difficulty: 'intermediate',
-        question: "Why is setting up clean water bowls crucial for street animals during summer and dry spells?",
-        options: ["Prevents fatal heatstroke and severe renal failure in street canines", "To wash their paws", "To attract migratory birds only", "It has no health effect"],
-        answer: 0,
-        hint: "Water is the single most vital element for thermal and metabolic survival.",
-        explanation: "Dehydration is a leading cause of organ failure in summer. Placing freshwater earthen bowls saves hundreds of animal lives each week.",
-        image: "/impact/dog-feed-10.jpeg",
-        topicBadge: "💧 Hydration & Heat Relief"
-      },
-      {
-        difficulty: 'advanced',
-        question: "What is the scientifically proven, humane method endorsed by WHO for managing street dog populations?",
-        options: ["Animal Birth Control (ABC) & Anti-Rabies Vaccination (ARV)", "Relocating dogs to forests", "Starving street animals", "Caging all dogs permanently"],
-        answer: 0,
-        hint: "Sterilization and vaccination stabilizes the population and creates herd immunity against rabies.",
-        explanation: "The ABC/ARV program humanely stabilizes street dog populations while creating vaccinated buffer zones that eliminate rabies risk for communities.",
         image: "/impact/dog-feed-11.jpeg",
-        topicBadge: "🛡️ Public Health & ABC Welfare"
-      },
-      {
-        difficulty: 'advanced',
-        question: "Why is the compound Theobromine (found in chocolate) dangerously toxic to canines?",
-        options: ["Dogs metabolize theobromine extremely slowly, leading to cardiac arrhythmia and neurotoxicity", "It turns their teeth yellow", "It reduces their fur density", "It makes them temporarily colorblind"],
-        answer: 0,
-        hint: "Their hepatic enzymes cannot break down methylxanthines efficiently.",
-        explanation: "Theobromine stimulates the central nervous system and cardiovascular system excessively in dogs, which can lead to fatal seizures if ingested.",
-        image: "/impact/dog-feed-12.jpeg",
-        topicBadge: "🧪 Veterinary Pharmacology"
+        topicBadge: "💤 Sleep Science"
       },
       {
         difficulty: 'intermediate',
-        question: "Why should you avoid feeding cooked chicken bones to stray dogs?",
-        options: ["They are too cold", "Cooked bones can splinter and puncture their stomach", "Dogs dislike the smell", "They contain too much water"],
-        answer: 1,
-        hint: "Cooking makes bird bones brittle and sharp.",
-        explanation: "Cooked bones easily splinter into needle-sharp shards that can cause severe internal throat and stomach punctures.",
-        image: "/impact/dog-feed-13.jpeg",
-        topicBadge: "🍖 Street Feeding Safety"
+        question: "Which unique organ located in the roof of a dog's mouth analyzes pheromones and chemical signals?",
+        options: ["Jacobson's Organ (Vomeronasal Organ)", "Thyroid Gland", "Parotid Gland", "Lachrymal Gland"],
+        answer: 0,
+        hint: "It helps animals interpret scents left by other animals.",
+        explanation: "The vomeronasal organ detects chemical cues and pheromones, allowing street dogs to understand social hierarchies.",
+        image: "/impact/dog-feed-12.jpeg",
+        topicBadge: "🧪 Chemical Olfaction"
       },
       {
         difficulty: 'advanced',
-        question: "Which sensory ability in dogs is estimated to be 10,000 to 100,000 times more acute than in humans?",
-        options: ["Taste", "Sense of Smell (Olfaction)", "Color Vision", "Depth Perception"],
-        answer: 1,
-        hint: "Dogs possess over 300 million olfactory receptors in their noses.",
-        explanation: "A dog's sense of smell is so extraordinarily powerful they can detect parts-per-trillion chemical traces across miles.",
+        question: "What is the primary objective of the Animal Birth Control (ABC) and Anti-Rabies Vaccination (ARV) rules in India?",
+        options: ["Humane sterilization, vaccination, and return of street dogs to their native territory", "Relocating dogs to forests", "Caging animals permanently", "Banning pet ownership"],
+        answer: 0,
+        hint: "Maintains a stable, rabies-free, and vaccinated community canine population.",
+        explanation: "The ABC program humanely controls population growth while ensuring community dogs are vaccinated against rabies and returned safely.",
+        image: "/impact/dog-feed-13.jpeg",
+        topicBadge: "📜 Animal Welfare Law"
+      },
+      {
+        difficulty: 'advanced',
+        question: "Which essential nutrient is critical for puppies and injured dogs to rebuild muscle and tissue?",
+        options: ["High-quality digestible protein and amino acids", "Pure sugar syrup", "Excessive fat oil", "Salt supplements"],
+        answer: 0,
+        hint: "Eggs, meat broth, and protein kibble provide the essential building blocks.",
+        explanation: "Proteins supply amino acids necessary for cellular repair, wound healing, and strong immune antibody production.",
         image: "/impact/dog-feed-14.jpeg",
-        topicBadge: "🐕 Canine Sensory Neuroscience"
+        topicBadge: "🥩 Recovery Nutrition"
+      },
+      {
+        difficulty: 'advanced',
+        question: "How should an open abrasion or minor puncture on a street dog be treated during first aid?",
+        options: ["Flush with saline, apply povidone-iodine (Betadine) and fly-repellent ointment", "Wash with hot soapy bleach", "Cover with airtight plastic tape", "Leave open to mud"],
+        answer: 0,
+        hint: "Gentle antiseptic cleansing prevents bacterial colonization and fly-strike (maggot) infestation.",
+        explanation: "Flushing wounds and applying Betadine with fly-repellent cream stops infection and promotes rapid granulation tissue formation.",
+        image: "/impact/dog-feed-1.jpeg",
+        topicBadge: "🩹 Street First-Aid"
       }
     ]
   },
-
-  math: {
-    title: "🧮 Math Wizards & Fast Arithmetic",
-    description: "Sharpen mental calculation, logic puzzles, and algebra tricks. Perfect for kids, students, and puzzle lovers.",
-    icon: "⚡",
-    ageGroup: "Students & Kids",
-    heroImage: "/quiz/math_hero.jpg",
+  cybersecurity: {
+    title: "🛡️ Cybersecurity & Purple Teaming",
+    description: "Master network security, enterprise firewalls, ethical hacking, and threat hunting.",
+    icon: "🛡️",
+    ageGroup: "Intermediate to Expert",
+    heroImage: "/quiz/cyber_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
-        question: "What is 15 × 8?",
-        options: ["110", "120", "130", "125"],
-        answer: 1,
-        hint: "10 × 8 = 80, 5 × 8 = 40. 80 + 40 = ?",
-        explanation: "15 multiplied by 8 equals 120."
+        question: "What is the fundamental security concept of the 'Principle of Least Privilege' (PoLP)?",
+        options: ["Granting users and processes only the bare minimum permissions needed to perform their job", "Granting full Domain Admin access to everyone", "Disabling multi-factor authentication", "Blocking all outbound web traffic permanently"],
+        answer: 0,
+        hint: "Limiting permissions reduces the blast radius if an account is compromised.",
+        explanation: "Least privilege minimizes the potential damage from compromised credentials by granting only essential privileges.",
+        image: "/impact/dog-feed-2.jpeg",
+        topicBadge: "🔐 Access Control"
       },
       {
         difficulty: 'beginner',
-        question: "What is the square root of 144?",
-        options: ["11", "12", "13", "14"],
-        answer: 1,
-        hint: "12 × 12 = ?",
-        explanation: "12 × 12 = 144."
+        question: "Which protocol provides encrypted, authenticated remote terminal access over TCP port 22?",
+        options: ["Secure Shell (SSH)", "Telnet", "FTP", "HTTP"],
+        answer: 0,
+        hint: "Replaced unencrypted Telnet in modern infrastructure.",
+        explanation: "SSH uses public-key cryptography to authenticate and encrypt terminal communications.",
+        image: "/impact/dog-feed-3.jpeg",
+        topicBadge: "🔒 Secure Protocols"
       },
       {
         difficulty: 'beginner',
-        question: "How many sides does a regular Hexagon have?",
-        options: ["5", "6", "7", "8"],
-        answer: 1,
-        hint: "'Hexa' means six in Greek.",
-        explanation: "A hexagon is a six-sided geometrical polygon."
+        question: "What does the 'C-I-A Triad' stand for in information security?",
+        options: ["Confidentiality, Integrity, and Availability", "Control, Intelligence, and Authentication", "Cyber, Internet, and Automation", "Cryptography, Inspection, and Access"],
+        answer: 0,
+        hint: "The three core pillars of data protection.",
+        explanation: "Confidentiality ensures privacy, Integrity ensures data accuracy, and Availability ensures authorized access.",
+        image: "/impact/dog-feed-4.jpeg",
+        topicBadge: "🛡️ Security Fundamentals"
+      },
+      {
+        difficulty: 'beginner',
+        question: "What is the primary function of Multi-Factor Authentication (MFA)?",
+        options: ["Requiring two or more distinct verification factors before granting access", "Encrypting the entire hard drive", "Speeding up internet browsing", "Generating random passwords automatically"],
+        answer: 0,
+        hint: "Something you know, something you have, and something you are.",
+        explanation: "MFA blocks over 99% of automated credential stuffing attacks by requiring multiple authentication proofs.",
+        image: "/impact/dog-feed-5.jpeg",
+        topicBadge: "🔑 Authentication"
       },
       {
         difficulty: 'intermediate',
-        question: "If a shirt costs $80 and is discounted by 25%, what is the final price?",
-        options: ["$55", "$60", "$65", "$70"],
-        answer: 1,
-        hint: "25% of 80 is 1/4 of 80 = 20. 80 - 20 = ?",
-        explanation: "80 - (0.25 × 80) = 80 - 20 = $60."
+        question: "In enterprise firewall architecture, what does 'Default-Deny' policy mean?",
+        options: ["All traffic is blocked by default unless explicitly permitted by an authorized rule", "All inbound traffic is allowed freely", "Firewalls only check source IP addresses", "Traffic is analyzed only once per week"],
+        answer: 0,
+        hint: "Zero Trust foundational rule at the perimeter.",
+        explanation: "Default-deny ensures that unapproved network flows cannot traverse network segments without explicit authorization.",
+        image: "/impact/dog-feed-6.jpeg",
+        topicBadge: "🧱 Firewall Architecture"
       },
       {
         difficulty: 'intermediate',
-        question: "What is the smallest positive prime number?",
-        options: ["0", "1", "2", "3"],
-        answer: 2,
-        hint: "It is also the only even prime number.",
-        explanation: "2 is the smallest prime number and the only even prime."
+        question: "What Active Directory attack technique requests service tickets (TGS) to crack service account passwords offline?",
+        options: ["Kerberoasting", "Pass-the-Hash", "DCSync", "AS-REP Roasting"],
+        answer: 0,
+        hint: "Targets accounts configured with Service Principal Names (SPNs).",
+        explanation: "Kerberoasting exploits Kerberos TGS ticket requests to extract hashes of SPN accounts for offline brute-forcing.",
+        image: "/impact/dog-feed-7.jpeg",
+        topicBadge: "⚔️ Active Directory Exploitation"
+      },
+      {
+        difficulty: 'intermediate',
+        question: "Which enterprise SIEM component collects, normalizes, and correlates security logs from distributed servers?",
+        options: ["Wazuh / Splunk Correlation Engine", "Network Interface Card", "DHCP Server", "BIOS Chip"],
+        answer: 0,
+        hint: "Analyzes telemetry across endpoints to detect anomalous indicators of compromise (IoCs).",
+        explanation: "SIEM platforms correlate events in real time to generate alerts for suspicious lateral movement and privilege escalation.",
+        image: "/impact/dog-feed-8.jpeg",
+        topicBadge: "📡 SIEM & SOC"
       },
       {
         difficulty: 'advanced',
-        question: "What is the value of 2^7 (2 to the power of 7)?",
-        options: ["64", "128", "256", "512"],
-        answer: 1,
-        hint: "2^6 = 64, double it.",
-        explanation: "2 × 2 × 2 × 2 × 2 × 2 × 2 = 128."
+        question: "What Active Directory replication protocol privilege is exploited by attackers during a DCSync attack?",
+        options: ["DS-Replication-Get-Changes-All (Replicating Directory Changes)", "Domain Join Permission", "Local Administrator Access", "Remote Desktop Access"],
+        answer: 0,
+        hint: "Mimics a Domain Controller using DRSUAPI to pull KRBTGT password hashes.",
+        explanation: "DCSync impersonates a Domain Controller to request password data from legitimate DCs via DRSUAPI replication calls.",
+        image: "/impact/dog-feed-9.jpeg",
+        topicBadge: "👑 Red Teaming Elite"
+      },
+      {
+        difficulty: 'advanced',
+        question: "Which cryptographic algorithm is widely used for modern asymmetric key exchange over the internet?",
+        options: ["Elliptic Curve Diffie-Hellman (ECDH)", "MD5 Hash", "DES Cipher", "ROT13"],
+        answer: 0,
+        hint: "Provides forward secrecy with compact key lengths.",
+        explanation: "ECDH allows two parties to establish a shared secret over an insecure channel using elliptic curve mathematics.",
+        image: "/impact/dog-feed-10.jpeg",
+        topicBadge: "🔐 Applied Cryptography"
       }
     ]
   },
-
   space: {
-    title: "🚀 Space Exploration & Astronomy",
-    description: "Explore planets, constellations, black holes, and space missions to unlock cosmic karma rice.",
-    icon: "🪐",
-    ageGroup: "Curious Minds",
+    title: "🚀 Astronomy & Space Exploration",
+    description: "Explore the cosmos, black holes, NASA rovers, and interstellar physics.",
+    icon: "🚀",
+    ageGroup: "All Ages",
     heroImage: "/quiz/space_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
-        question: "Which planet in our solar system is known as the 'Red Planet'?",
-        options: ["Venus", "Mars", "Jupiter", "Mercury"],
-        answer: 1,
-        hint: "Its rusty reddish color is caused by iron oxide on its surface.",
-        explanation: "Mars is called the Red Planet due to the prevalence of iron oxide (rust) across its dusty surface."
+        question: "Which planet in our Solar System is famously known as the 'Red Planet'?",
+        options: ["Mars", "Venus", "Jupiter", "Mercury"],
+        answer: 0,
+        hint: "Its surface is covered in iron oxide (rust) dust.",
+        explanation: "Mars appears reddish due to abundant iron oxide minerals across its surface rocks and regolith.",
+        image: "/impact/dog-feed-11.jpeg",
+        topicBadge: "🪐 Planetary Science"
       },
       {
         difficulty: 'beginner',
-        question: "What is the closest star to Earth?",
-        options: ["Alpha Centauri", "Sirius", "The Sun", "Betelgeuse"],
-        answer: 2,
-        hint: "It lights up our daytime sky!",
-        explanation: "The Sun is the star at the center of the Solar System, approximately 93 million miles from Earth."
+        question: "What is the name of our home spiral galaxy containing over 100 billion stars?",
+        options: ["Milky Way Galaxy", "Andromeda Galaxy", "Triangulum Galaxy", "Whirlpool Galaxy"],
+        answer: 0,
+        hint: "Named after the dim milky band of starlight visible in dark night skies.",
+        explanation: "The Milky Way is a barred spiral galaxy roughly 100,000 light-years in diameter.",
+        image: "/impact/dog-feed-12.jpeg",
+        topicBadge: "🌌 Galactic Astronomy"
+      },
+      {
+        difficulty: 'beginner',
+        question: "How long does it take for sunlight to travel across space and reach planet Earth?",
+        options: ["Approximately 8 minutes and 20 seconds", "8 seconds", "8 hours", "Instantly (0 seconds)"],
+        answer: 0,
+        hint: "The Earth is roughly 150 million kilometers away from the Sun.",
+        explanation: "Light traveling at 300,000 km/s takes ~499 seconds (8 minutes 19 seconds) to traverse 1 Astronomical Unit.",
+        image: "/impact/dog-feed-13.jpeg",
+        topicBadge: "☀️ Solar Physics"
       },
       {
         difficulty: 'intermediate',
-        question: "Which planet has the most extensive and visible ring system in the solar system?",
-        options: ["Uranus", "Neptune", "Saturn", "Jupiter"],
-        answer: 2,
-        hint: "The 6th planet from the Sun.",
-        explanation: "Saturn features the most spectacular and prominent ring system made of billions of ice and rock particles."
+        question: "What is the boundary surrounding a black hole beyond which nothing, not even light, can escape?",
+        options: ["Event Horizon", "Ergosphere", "Photon Sphere", "Accretion Disk"],
+        answer: 0,
+        hint: "The mathematical point of no return where escape velocity equals the speed of light.",
+        explanation: "The event horizon marks the gravitational boundary of a black hole where spacetime curvature prevents any particle from escaping.",
+        image: "/impact/dog-feed-14.jpeg",
+        topicBadge: "🕳️ Relativistic Astrophysics"
       },
       {
         difficulty: 'intermediate',
-        question: "How long does it take for light from the Sun to reach Earth?",
-        options: ["Instantaneous", "About 8 minutes and 20 seconds", "1 hour", "24 hours"],
-        answer: 1,
-        hint: "Light travels at 300,000 km/s across 150 million kilometers.",
-        explanation: "Sunlight takes approximately 8 minutes and 20 seconds (500 seconds) to travel across the distance to Earth."
+        question: "Which NASA space telescope observes the early universe primarily in the Infrared spectrum?",
+        options: ["James Webb Space Telescope (JWST)", "Hubble Space Telescope", "Chandra X-ray Observatory", "Kepler Telescope"],
+        answer: 0,
+        hint: "Equipped with a giant gold-coated beryllium mirror and positioned at Lagrange Point L2.",
+        explanation: "JWST observes infrared wavelengths, penetrating cosmic dust clouds to see the first galaxies formed after the Big Bang.",
+        image: "/impact/dog-feed-1.jpeg",
+        topicBadge: "🔭 Space Observatories"
       },
       {
         difficulty: 'advanced',
-        question: "What is the boundary around a black hole beyond which nothing, not even light, can escape?",
-        options: ["Singularity", "Photon Sphere", "Event Horizon", "Accretion Disk"],
-        answer: 2,
-        hint: "The point of no return.",
-        explanation: "The Event Horizon marks the outer gravitational boundary of a black hole where escape velocity equals the speed of light."
+        question: "What theoretical phenomenon causes black holes to slowly lose mass and evaporate over astronomical timescales?",
+        options: ["Hawking Radiation", "Synchrotron Emission", "Solar Wind", "Cosmic Microwave Background"],
+        answer: 0,
+        hint: "Derived by physicist Stephen Hawking using quantum field theory in curved spacetime.",
+        explanation: "Quantum vacuum fluctuations near the event horizon result in the emission of Hawking radiation, gradually evaporating the black hole.",
+        image: "/impact/dog-feed-2.jpeg",
+        topicBadge: "⚛️ Quantum Gravity"
       }
     ]
   },
-
-  vocab: {
-    title: "📚 English Vocabulary & Word Master",
-    description: "Boost your language fluency, SAT/GRE words, idioms, and synonyms while supporting rescue animals.",
-    icon: "📖",
-    ageGroup: "Students & Writers",
-    heroImage: "/quiz/vocab_hero.jpg",
+  math: {
+    title: "📐 Mathematics & Logic",
+    description: "Sharpen your mind with numerical constants, geometry, and number theory.",
+    icon: "🔢",
+    ageGroup: "All Ages",
+    heroImage: "/quiz/math_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
-        question: "What is the synonym of 'Benevolent'?",
-        options: ["Cruel", "Generous & Kind", "Lazy", "Timid"],
-        answer: 1,
-        hint: "'Bene' means good or well.",
-        explanation: "Benevolent means well-meaning, generous, charitable, and kind."
+        question: "What is the mathematical constant Pi (π) rounded to two decimal places?",
+        options: ["3.14", "3.16", "3.12", "3.18"],
+        answer: 0,
+        hint: "The ratio of a circle's circumference to its diameter.",
+        explanation: "Pi is an irrational number approximately equal to 3.14159265...",
+        image: "/impact/dog-feed-3.jpeg",
+        topicBadge: "🔢 Mathematical Constants"
       },
       {
         difficulty: 'beginner',
-        question: "What does the idiom 'Piece of Cake' mean?",
-        options: ["A sweet dessert", "Something very easy", "A difficult puzzle", "An expensive meal"],
-        answer: 1,
-        hint: "Used when a task requires little to no effort.",
-        explanation: "'A piece of cake' is an informal English idiom meaning something is simple and straightforward to accomplish."
-      },
-      {
-        difficulty: 'intermediate',
-        question: "Choose the word that means 'lasting for only a very short time':",
-        options: ["Permanent", "Ephemeral", "Infinite", "Perpetual"],
-        answer: 1,
-        hint: "Like morning dew or a fleeting rainbow.",
-        explanation: "Ephemeral means lasting for a very brief period of time; transitory or fleeting."
-      },
-      {
-        difficulty: 'intermediate',
-        question: "What is the antonym of 'Arrogant'?",
-        options: ["Humble", "Proud", "Boastful", "Haughty"],
+        question: "What is the only even prime number?",
+        options: ["2", "4", "0", "1"],
         answer: 0,
-        hint: "Modest and respectful.",
-        explanation: "Humble (modest, respectful) is the exact opposite of arrogant (overbearingly proud)."
+        hint: "The very first prime number in the natural numbers.",
+        explanation: "2 is the smallest prime number and the only even prime, as all other even numbers are divisible by 2.",
+        image: "/impact/dog-feed-4.jpeg",
+        topicBadge: "🧮 Number Theory"
+      },
+      {
+        difficulty: 'intermediate',
+        question: "What is the famous mathematical theorem stating that a² + b² = c² for a right-angled triangle?",
+        options: ["Pythagorean Theorem", "Fermat's Last Theorem", "Euler's Formula", "Binomial Theorem"],
+        answer: 0,
+        hint: "Named after an ancient Greek mathematician.",
+        explanation: "The Pythagorean theorem relates the lengths of the legs of a right triangle to its hypotenuse.",
+        image: "/impact/dog-feed-5.jpeg",
+        topicBadge: "📐 Geometry"
       },
       {
         difficulty: 'advanced',
-        question: "What does the word 'Ubiquitous' mean?",
-        options: ["Found everywhere", "Extremely rare", "Dangerous", "Ancient"],
+        question: "What is the value of the Golden Ratio (Phi, φ) to three decimal places?",
+        options: ["1.618", "1.414", "2.718", "3.141"],
         answer: 0,
-        hint: "Smartphones in modern society are described with this term.",
-        explanation: "Ubiquitous means present, appearing, or found everywhere simultaneously."
+        hint: "(1 + √5) / 2",
+        explanation: "The Golden Ratio φ = (1 + √5)/2 ≈ 1.6180339887... appears throughout natural spiral geometries.",
+        image: "/impact/dog-feed-6.jpeg",
+        topicBadge: "✨ Golden Ratio"
       }
     ]
   },
-
-  geography: {
-    title: "🌍 World Geography & Capitals",
-    description: "Travel the world, master countries, continents, mountain ranges, and ocean wonders.",
-    icon: "🗺️",
-    ageGroup: "Students & Explorers",
-    heroImage: "/quiz/geography_hero.jpg",
-    questions: [
-      {
-        difficulty: 'beginner',
-        question: "What is the capital city of Japan?",
-        options: ["Kyoto", "Tokyo", "Osaka", "Hiroshima"],
-        answer: 1,
-        hint: "The world's most populous metropolitan area.",
-        explanation: "Tokyo is the bustling capital city and economic hub of Japan."
-      },
-      {
-        difficulty: 'beginner',
-        question: "Which is the largest ocean on Earth?",
-        options: ["Atlantic Ocean", "Indian Ocean", "Pacific Ocean", "Arctic Ocean"],
-        answer: 2,
-        hint: "It covers more than 30% of the Earth's total surface.",
-        explanation: "The Pacific Ocean is by far the largest and deepest ocean basin on Earth."
-      },
-      {
-        difficulty: 'intermediate',
-        question: "Which is the longest river in the world?",
-        options: ["Amazon River", "Nile River", "Yangtze River", "Mississippi River"],
-        answer: 1,
-        hint: "Flows through northeastern Africa over 6,650 kilometers.",
-        explanation: "The Nile River in Africa is traditionally recognized as the longest river in the world."
-      },
-      {
-        difficulty: 'intermediate',
-        question: "In which mountain range is Mount Everest located?",
-        options: ["Andes", "Alps", "Himalayas", "Rockies"],
-        answer: 2,
-        hint: "Spans across Nepal, India, Bhutan, and China.",
-        explanation: "Mount Everest (8,848m) is situated in the Mahalangur Himal sub-range of the Himalayas."
-      },
-      {
-        difficulty: 'advanced',
-        question: "Which country has the most natural lakes in the world?",
-        options: ["Canada", "Russia", "United States", "Finland"],
-        answer: 0,
-        hint: "Has over 879,000 lakes, more than the rest of the world combined.",
-        explanation: "Canada contains more than 60% of all the natural lakes on Earth."
-      }
-    ]
-  },
-
   science: {
-    title: "🔬 Science & Biology Wonders",
-    description: "Unravel genetics, physics, chemistry, and environmental wonders through gamified learning.",
-    icon: "🧪",
-    ageGroup: "Curious Students",
+    title: "🔬 Natural Science & Physics",
+    description: "Unravel molecular biology, thermodynamics, optics, and chemistry.",
+    icon: "🔬",
+    ageGroup: "All Ages",
     heroImage: "/quiz/science_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
-        question: "What gas do green plants absorb from the air during photosynthesis?",
-        options: ["Oxygen", "Carbon Dioxide (CO2)", "Nitrogen", "Helium"],
-        answer: 1,
-        hint: "Humans exhale it, plants absorb it to make food.",
-        explanation: "Plants absorb carbon dioxide and water to produce glucose and release oxygen."
+        question: "What is the speed of light in a vacuum?",
+        options: ["Approximately 300,000 kilometers per second", "150,000 km/s", "1,000,000 km/s", "3,000 km/s"],
+        answer: 0,
+        hint: "Exactly 299,792,458 meters per second.",
+        explanation: "The speed of light (c) is the universal speed limit for all mass-less particles in the universe.",
+        image: "/impact/dog-feed-7.jpeg",
+        topicBadge: "⚡ Fundamental Physics"
       },
       {
         difficulty: 'beginner',
-        question: "What is the chemical formula for pure water?",
-        options: ["CO2", "H2O", "NaCl", "O2"],
-        answer: 1,
-        hint: "Two hydrogen atoms bound to one oxygen atom.",
-        explanation: "H2O is the universal chemical formula for water."
+        question: "Which organelle is universally referred to as the 'powerhouse of the cell'?",
+        options: ["Mitochondria", "Ribosome", "Golgi Apparatus", "Endoplasmic Reticulum"],
+        answer: 0,
+        hint: "Generates cellular ATP through aerobic respiration.",
+        explanation: "Mitochondria produce the chemical energy required for cellular survival and metabolic functions.",
+        image: "/impact/dog-feed-8.jpeg",
+        topicBadge: "🧬 Cell Biology"
       },
       {
         difficulty: 'intermediate',
-        question: "What is the powerhouse of the biological eukaryotic cell?",
-        options: ["Nucleus", "Ribosome", "Mitochondria", "Golgi Apparatus"],
-        answer: 2,
-        hint: "Generates most of the chemical energy needed to power the cell (ATP).",
-        explanation: "Mitochondria generate adenosine triphosphate (ATP), the primary energy currency of cells."
-      },
-      {
-        difficulty: 'intermediate',
-        question: "Which fundamental force keeps planets orbiting around the Sun?",
-        options: ["Electromagnetic Force", "Gravity", "Strong Nuclear Force", "Centrifugal Force"],
-        answer: 1,
-        hint: "Described by Isaac Newton and Albert Einstein.",
-        explanation: "Gravity is the attractive fundamental force exerted by mass that holds astronomical bodies in orbit."
+        question: "What element constitutes approximately 78% of Earth's breathable atmosphere?",
+        options: ["Nitrogen (N₂)", "Oxygen (O₂)", "Argon (Ar)", "Carbon Dioxide (CO₂)"],
+        answer: 0,
+        hint: "Oxygen makes up about 21%, while this gas dominates the rest.",
+        explanation: "Nitrogen makes up roughly 78.08% of Earth's atmosphere, providing atmospheric stability.",
+        image: "/impact/dog-feed-9.jpeg",
+        topicBadge: "💨 Atmospheric Chemistry"
       },
       {
         difficulty: 'advanced',
-        question: "What is the hardest naturally occurring mineral on Earth?",
-        options: ["Quartz", "Topaz", "Diamond", "Corundum"],
-        answer: 2,
-        hint: "Rated 10 on the Mohs hardness scale.",
-        explanation: "Diamond, composed of crystalline carbon, is the hardest naturally occurring substance on Earth."
+        question: "What fundamental quantum principle states that you cannot simultaneously know both the position and momentum of a particle with absolute precision?",
+        options: ["Heisenberg Uncertainty Principle", "Pauli Exclusion Principle", "Schrödinger Wave Equation", "Newton's Third Law"],
+        answer: 0,
+        hint: "Formulated by German physicist Werner Heisenberg in 1927.",
+        explanation: "The Heisenberg uncertainty principle states that precision in position fundamentally limits precision in momentum (Δx · Δp ≥ ℏ/2).",
+        image: "/impact/dog-feed-10.jpeg",
+        topicBadge: "⚛️ Quantum Mechanics"
       }
     ]
   },
-
+  geography: {
+    title: "🌍 World Geography & Capitals",
+    description: "Explore world continents, mountain ranges, oceans, and capitals.",
+    icon: "🌍",
+    ageGroup: "All Ages",
+    heroImage: "/quiz/geography_hero.jpg",
+    questions: [
+      {
+        difficulty: 'beginner',
+        question: "In which Indian state is the historic city of Patna located, where CyberKarma street feeding drives take place?",
+        options: ["Bihar", "Maharashtra", "Uttar Pradesh", "West Bengal"],
+        answer: 0,
+        hint: "Historically known as Pataliputra, along the banks of the sacred river Ganges.",
+        explanation: "Patna is the capital city of Bihar, where our volunteers conduct daily street animal rescue meals.",
+        image: "/impact/dog-feed-11.jpeg",
+        topicBadge: "📍 Indian Geography"
+      },
+      {
+        difficulty: 'beginner',
+        question: "What is the highest mountain peak on planet Earth above sea level?",
+        options: ["Mount Everest (8,848.86 m)", "K2 (Godwin-Austen)", "Kangchenjunga", "Lhotse"],
+        answer: 0,
+        hint: "Located in the Mahalangur Himal sub-range of the Himalayas.",
+        explanation: "Mount Everest rises 8,848.86 meters above sea level along the border of Nepal and China.",
+        image: "/impact/dog-feed-12.jpeg",
+        topicBadge: "🏔️ Topography"
+      },
+      {
+        difficulty: 'intermediate',
+        question: "Which is the longest river in the world?",
+        options: ["Nile River (or Amazon River)", "Yangtze River", "Mississippi River", "Danube River"],
+        answer: 0,
+        hint: "Flows northward through eastern Africa for over 6,650 kilometers.",
+        explanation: "The Nile River spans over 6,650 km, traversing eleven African nations.",
+        image: "/impact/dog-feed-13.jpeg",
+        topicBadge: "🌊 Hydrology"
+      }
+    ]
+  },
+  vocab: {
+    title: "📖 Global Vocabulary & Languages",
+    description: "Expand your linguistics, etymology, and compassionate vocabulary.",
+    icon: "📖",
+    ageGroup: "All Ages",
+    heroImage: "/quiz/vocab_hero.jpg",
+    questions: [
+      {
+        difficulty: 'beginner',
+        question: "What term defines the ability to understand and share the feelings and emotions of another being?",
+        options: ["Empathy", "Apathy", "Antipathy", "Sarcasm"],
+        answer: 0,
+        hint: "The fundamental foundation of animal care and human compassion.",
+        explanation: "Empathy allows individuals to resonate with the emotional experiences and pain of others.",
+        image: "/impact/dog-feed-14.jpeg",
+        topicBadge: "📚 Psychology"
+      },
+      {
+        difficulty: 'beginner',
+        question: "What word describes the selfless concern and action for the well-being of others?",
+        options: ["Altruism", "Egoism", "Pragmatism", "Solipsism"],
+        answer: 0,
+        hint: "The driving principle behind CyberKarma.",
+        explanation: "Altruism is the ethical practice of selflessly benefiting other living beings.",
+        image: "/impact/dog-feed-1.jpeg",
+        topicBadge: "🌟 Ethics"
+      }
+    ]
+  },
   gk: {
-    title: "💡 Inventions & General Knowledge",
-    description: "Test historical breakthroughs, world records, and great discoveries of human civilization.",
-    icon: "🏆",
+    title: "💡 General Knowledge & Inventions",
+    description: "Learn about historical breakthroughs, world heritage, and famous creators.",
+    icon: "💡",
     ageGroup: "All Ages",
     heroImage: "/quiz/gk_hero.jpg",
     questions: [
       {
         difficulty: 'beginner',
-        question: "Who is credited with inventing the modern telephone in 1876?",
-        options: ["Thomas Edison", "Alexander Graham Bell", "Nikola Tesla", "Guglielmo Marconi"],
-        answer: 1,
-        hint: "His famous first words were: 'Mr. Watson, come here, I want to see you.'",
-        explanation: "Alexander Graham Bell was awarded the first US patent for the telephone in March 1876."
-      },
-      {
-        difficulty: 'beginner',
-        question: "How many continents are there on planet Earth?",
-        options: ["5", "6", "7", "8"],
-        answer: 2,
-        hint: "Asia, Africa, North America, South America, Antarctica, Europe, Australia.",
-        explanation: "There are 7 recognized geographic continents on Earth."
-      },
-      {
-        difficulty: 'intermediate',
-        question: "Who discovered penicillin, the first modern antibiotic, in 1928?",
-        options: ["Louis Pasteur", "Alexander Fleming", "Marie Curie", "Edward Jenner"],
-        answer: 1,
-        hint: "Discovered from a mold culture contaminating a petri dish.",
-        explanation: "Sir Alexander Fleming discovered penicillin produced by Penicillium notatum mold."
-      },
-      {
-        difficulty: 'intermediate',
-        question: "Which ancient civilization constructed the Great Pyramids of Giza?",
-        options: ["Ancient Greeks", "Romans", "Ancient Egyptians", "Mayans"],
-        answer: 2,
-        hint: "Located along the banks of the Nile river.",
-        explanation: "The Great Pyramids were constructed by the Ancient Egyptians during the Old Kingdom era."
-      },
-      {
-        difficulty: 'advanced',
-        question: "In what year did the Apollo 11 mission land the first humans on the Moon?",
-        options: ["1965", "1969", "1972", "1975"],
-        answer: 1,
-        hint: "Neil Armstrong took 'one small step for man' in this landmark year.",
-        explanation: "Apollo 11 touched down on the Moon on July 20, 1969."
-      }
-    ]
-  },
-
-  cybersecurity: {
-    title: "🛡️ Cybersecurity & Purple Team",
-    description: "Crack offensive & defensive cyber trivia to fund real street animal meals and secure the digital frontier.",
-    icon: "💻",
-    ageGroup: "Tech & Adults",
-    heroImage: "/quiz/cybersecurity_hero.jpg",
-    questions: [
-      {
-        difficulty: 'beginner',
-        question: "What does 'EDR' stand for in enterprise security operations?",
-        options: ["Endpoint Detection and Response", "External Data Recovery", "Encrypted Directory Route", "Entity Defense Registry"],
+        question: "Who developed the movable-type mechanical printing press in Europe around 1440?",
+        options: ["Johannes Gutenberg", "Leonardo da Vinci", "Isaac Newton", "Galileo Galilei"],
         answer: 0,
-        hint: "It focuses on real-time behavior monitoring at the device level.",
-        explanation: "EDR (Endpoint Detection and Response) provides continuous endpoint monitoring and telemetry response."
-      },
-      {
-        difficulty: 'beginner',
-        question: "Which port is standard for encrypted web traffic (HTTPS)?",
-        options: ["Port 80", "Port 443", "Port 8080", "Port 22"],
-        answer: 1,
-        hint: "Port 80 is unencrypted HTTP; Port 443 is secure SSL/TLS.",
-        explanation: "TCP Port 443 is universally designated for SSL/TLS encrypted HTTPS traffic."
-      },
-      {
-        difficulty: 'beginner',
-        question: "What is a 'Zero-Day' vulnerability?",
-        options: ["A bug that takes zero days to patch", "A flaw with 0 known exploits", "A vulnerability unknown to the vendor with no official patch", "A flaw that only works at midnight"],
-        answer: 2,
-        hint: "The vendor has had 'zero days' to fix it before public discovery.",
-        explanation: "Zero-day vulnerabilities are software security holes known to attackers before the vendor has released a patch."
+        hint: "Sparked the rapid spread of knowledge and literacy across the world.",
+        explanation: "Gutenberg's printing press revolutionized the mass distribution of books and sparked the Renaissance.",
+        image: "/impact/dog-feed-2.jpeg",
+        topicBadge: "🏛️ Inventions"
       },
       {
         difficulty: 'intermediate',
-        question: "In Active Directory security, what is 'Kerberoasting' primarily targeting?",
-        options: ["Domain Controller root certificates", "Service Principal Names (SPN) user accounts", "DNS server records", "Local Administrator passwords"],
-        answer: 1,
-        hint: "Attackers request TGS service tickets for user accounts with SPNs to crack offline.",
-        explanation: "Kerberoasting abuses Kerberos ticket granting service (TGS) requests to crack service account passwords offline."
-      },
-      {
-        difficulty: 'intermediate',
-        question: "Which security model operates on the principle 'Never Trust, Always Verify'?",
-        options: ["Perimeter Defense", "Zero Trust Architecture", "Defense in Depth", "Open Authentication"],
-        answer: 1,
-        hint: "It assumes breaches are inevitable and validates all requests continuously.",
-        explanation: "Zero Trust Architecture (ZTA) requires strict identity and posture validation for every resource access."
-      },
-      {
-        difficulty: 'advanced',
-        question: "Which memory safety mitigation randomizes stack, heap, and library base addresses in memory?",
-        options: ["DEP (Data Execution Prevention)", "ASLR (Address Space Layout Randomization)", "Stack Canaries", "Control Flow Guard (CFG)"],
-        answer: 1,
-        hint: "It prevents attackers from predicting target function offsets in buffer overflows.",
-        explanation: "ASLR randomizes memory positions of executable binaries, stack, heap, and libraries to prevent reliable ROP/shellcode execution."
+        question: "Which scientist formulated the laws of motion and universal gravitation?",
+        options: ["Sir Isaac Newton", "Albert Einstein", "Nikola Tesla", "Thomas Edison"],
+        answer: 0,
+        hint: "Published in the landmark work 'Philosophiæ Naturalis Principia Mathematica' in 1687.",
+        explanation: "Isaac Newton laid the foundation for classical mechanics with his three laws of motion and gravitation.",
+        image: "/impact/dog-feed-3.jpeg",
+        topicBadge: "⚡ Scientific History"
       }
     ]
   }

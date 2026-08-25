@@ -857,20 +857,24 @@ export default function CharityQuizClient() {
     
     const bank = getQuizDataForLanguage(lang);
     const allQ = bank[category]?.questions || quizData[category]?.questions || [];
-    const filteredQ = allQ.filter(q => q.difficulty === difficulty);
-    const candidateList = filteredQ.length > 0 ? filteredQ : allQ;
-    if (candidateList.length === 0) {
+    if (allQ.length === 0) {
       setCurrentQuestion(null);
       return;
     }
+
+    const filteredQ = allQ.filter(q => q.difficulty === difficulty);
     
-    // Filter out recently seen questions from history
-    let pool = candidateList.filter(q => !questionHistoryRef.current.includes(q.question));
+    // 1. Try to find unseen questions in the current difficulty
+    let pool = filteredQ.filter(q => !questionHistoryRef.current.includes(q.question));
     
-    // If all questions in the category/difficulty have been seen, reset history for this pool
+    // 2. If all questions in this difficulty were seen, pull from ANY unseen questions in this category
     if (pool.length === 0) {
-      pool = candidateList;
-      // Keep only the last question in history to prevent back-to-back repeats
+      pool = allQ.filter(q => !questionHistoryRef.current.includes(q.question));
+    }
+    
+    // 3. Only if EVERY SINGLE question in the whole category has been seen, reset history
+    if (pool.length === 0) {
+      pool = allQ;
       const lastQ = currentQuestionRef.current;
       questionHistoryRef.current = lastQ ? [lastQ.question] : [];
     }
@@ -886,9 +890,9 @@ export default function CharityQuizClient() {
     setCurrentQuestion(selected);
     currentQuestionRef.current = selected;
     
-    // Add to history
+    // Add to history (keep up to 50 questions in history)
     questionHistoryRef.current.push(selected.question);
-    if (questionHistoryRef.current.length > 5) {
+    if (questionHistoryRef.current.length > 50) {
       questionHistoryRef.current.shift();
     }
     
@@ -1405,7 +1409,11 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
       const prevMeals = Math.floor(prevScore / 50);
       const newMeals = Math.floor(nextScore / 50);
       if (newMeals > prevMeals) {
-        setShowMealCelebration(true);
+        // Trigger celebration popup only on major milestones: 1st meal (50g), 5th meal (250g), 10th (500g), 20th, 50th...
+        const isMajorMilestone = (newMeals === 1 || newMeals === 5 || newMeals === 10 || newMeals === 20 || newMeals === 50 || newMeals % 25 === 0);
+        if (isMajorMilestone) {
+          setShowMealCelebration(true);
+        }
         playMealFundedSound();
         addToast(
           lang === 'hi' 
@@ -2332,11 +2340,21 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
                         ? <>आपने <strong>{aiTopic}</strong> पर {aiQuestions.length} में से {aiCorrectCount} प्रश्नों के सही उत्तर दिए। <br/>आपने <strong>{aiCorrectCount * 10} दाने</strong> अनाज दान किया!</>
                         : <>You answered {aiCorrectCount} of {aiQuestions.length} questions correctly on <strong>{aiTopic}</strong>. <br/>You generated <strong>{aiCorrectCount * 10} grains</strong> of rice!</>}
                     </p>
-                    <div className="flex justify-center gap-4">
-                      <button onClick={handleShareAIResult} className="px-6 py-3 rounded-full font-semibold bg-white text-slate-800 shadow-md hover:scale-105 transition-transform flex items-center gap-2">
+                    <div className="flex flex-wrap justify-center gap-3">
+                      <button 
+                        onClick={() => {
+                          setShowAICompletion(false);
+                          handleGenerateAIQuiz();
+                        }} 
+                        className="px-6 py-3 rounded-full font-bold bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white shadow-lg shadow-purple-500/30 hover:scale-105 transition-transform flex items-center gap-2 cursor-pointer"
+                      >
+                        <span>🚀</span>
+                        <span>{lang === 'hi' ? 'अगले 10 प्रश्न खेलें' : 'Next 10 Questions on this Topic'}</span>
+                      </button>
+                      <button onClick={handleShareAIResult} className="px-6 py-3 rounded-full font-semibold bg-white text-slate-800 shadow-md hover:scale-105 transition-transform flex items-center gap-2 cursor-pointer">
                         <Share2 size={18} /> {lang === 'hi' ? 'परिणाम साझा करें' : 'Share Result'}
                       </button>
-                      <button onClick={() => setShowAIModal(true)} className="px-6 py-3 rounded-full font-semibold bg-black/10 hover:bg-black/20 transition-colors">
+                      <button onClick={() => setShowAIModal(true)} className="px-6 py-3 rounded-full font-semibold bg-black/10 hover:bg-black/20 text-white border border-white/10 transition-colors cursor-pointer">
                         {lang === 'hi' ? 'नया विषय' : 'New Topic'}
                       </button>
                     </div>
@@ -3970,7 +3988,10 @@ Ensure the JSON output is raw, without any markdown formatting, backticks, or wr
 
               <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
                 <button
-                  onClick={() => setShowMealCelebration(false)}
+                  onClick={() => {
+                    setShowMealCelebration(false);
+                    advanceToNextQuestion();
+                  }}
                   className="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-500 hover:brightness-110 text-slate-950 font-black font-mono text-xs shadow-lg transition-all cursor-pointer hover:scale-[1.02] active:scale-98"
                 >
                   {lang === 'hi' ? 'प्रश्नोत्तरी जारी रखें 🐾' : 'Keep Playing & Feeding 🐾'}
