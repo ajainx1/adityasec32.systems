@@ -101,9 +101,8 @@ const CATEGORIES: CategoryConfig[] = [
       en: 'Canine welfare & wildlife', hi: 'श्वान सेवा व जीव विज्ञान', es: 'Bienestar canino y fauna', fr: 'Protection canine & faune', de: 'Hundewohl & Tierwelt',
       bn: 'পথপশু ও বন্যপ্রাণী', ta: 'நாய் பராமரிப்பு', te: 'శునక సేవ & వన్యప్రాణులు', ja: '保護犬と野生動物', ar: 'رعاية الكلاب والحياة البرية'
     },
-    tagEn: '⭐ 100% Impact',
-    tagHi: '⭐ 100% सेवा',
-    goldSpecial: true
+    tagEn: '🐾 Welfare',
+    tagHi: '🐾 सेवा'
   },
   {
     id: 'cybersecurity',
@@ -991,24 +990,16 @@ Do NOT include markdown formatting or backticks.`;
                   className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-2.5 relative overflow-hidden group ${
                     isSelected
                       ? isDark
-                        ? 'bg-gradient-to-br from-amber-500/20 via-amber-500/10 to-slate-900 border-amber-400 text-amber-200 shadow-[0_0_25px_rgba(245,158,11,0.35)]'
-                        : 'bg-gradient-to-br from-amber-100 via-amber-50 to-white border-amber-400 text-amber-950 shadow-[0_0_20px_rgba(245,158,11,0.25)] font-bold'
-                      : cat.goldSpecial
-                        ? isDark
-                          ? 'bg-gradient-to-br from-amber-950/40 to-slate-900/90 border-amber-500/50 text-amber-300 hover:border-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.25)]'
-                          : 'bg-amber-50/80 border-amber-300 text-amber-900 hover:border-amber-400 shadow-sm'
-                        : isDark
-                          ? 'bg-slate-900/70 border-slate-800 text-slate-300 hover:border-amber-500/40 hover:bg-slate-900'
-                          : 'bg-white border-slate-200 text-slate-700 hover:border-amber-400 shadow-sm'
+                        ? 'bg-gradient-to-br from-emerald-500/20 via-emerald-500/10 to-slate-900 border-emerald-400 text-emerald-200 shadow-[0_0_20px_rgba(16,185,129,0.3)] font-bold'
+                        : 'bg-gradient-to-br from-emerald-50 via-white to-emerald-50/60 border-emerald-500 text-emerald-950 shadow-md font-bold'
+                      : isDark
+                        ? 'bg-slate-900/70 border-slate-800 text-slate-300 hover:border-slate-700 hover:bg-slate-900'
+                        : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300 shadow-sm'
                   }`}
                 >
-                  {/* Top Golden Accent Line for Active & Gold Special */}
-                  {(isSelected || cat.goldSpecial) && (
-                    <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${
-                      isSelected
-                        ? 'from-amber-400 via-yellow-300 to-amber-500 shadow-[0_0_12px_rgba(245,158,11,0.8)]'
-                        : 'from-amber-500/60 via-yellow-400/40 to-amber-600/60'
-                    }`} />
+                  {/* Top Accent Line for Selected Category */}
+                  {isSelected && (
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 shadow-[0_0_10px_rgba(16,185,129,0.6)]" />
                   )}
 
                   <div className="flex items-center justify-between gap-1 w-full">
@@ -1017,8 +1008,8 @@ Do NOT include markdown formatting or backticks.`;
                     </span>
                     {cat.tagEn && (
                       <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full border ${
-                        isSelected || cat.goldSpecial
-                          ? 'bg-amber-500/20 text-amber-300 border-amber-400/40 shadow-sm'
+                        isSelected
+                          ? 'bg-emerald-500/20 text-emerald-300 border-emerald-400/40 shadow-sm'
                           : isDark ? 'bg-slate-800 text-slate-400 border-slate-700' : 'bg-slate-100 text-slate-600 border-slate-200'
                       }`}>
                         {lang === 'hi' ? (cat.tagHi || cat.tagEn) : cat.tagEn}
@@ -1028,9 +1019,7 @@ Do NOT include markdown formatting or backticks.`;
 
                   <div className="min-w-0">
                     <div className={`text-xs font-bold truncate ${
-                      isSelected 
-                        ? 'text-amber-300 font-extrabold' 
-                        : cat.goldSpecial ? 'text-amber-300 font-bold' : ''
+                      isSelected ? 'text-emerald-300 font-extrabold' : ''
                     }`}>
                       {(cat.titles[lang] || cat.titles['en'] || cat.id)}
                     </div>
