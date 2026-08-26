@@ -160,7 +160,7 @@ export default function ResumeSecurityChallengeModal({
     try {
       const link = document.createElement("a");
       link.href = "/resume.pdf";
-      link.setAttribute("download", "Aditya_Jain_Cybersecurity_Resume.pdf");
+      link.setAttribute("download", "Aditya_Jain_Cybersecurity_Engineer_Resume.pdf");
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
