@@ -1143,9 +1143,8 @@ Do NOT include markdown formatting or backticks.`;
                     </div>
                   </div>
 
-                  {/* Dynamic Contextual Question Visual Image Banner */}
+                  {/* Dynamic Contextual Question Visual Image Banner with 0ms Skeleton */}
                   {(() => {
-                    const fallbackHero = category === 'custom-ai' ? '/quiz/ai_hero.jpg' : `/quiz/${category === 'random' ? 'animals' : category}_hero.jpg`;
                     const activeImage = resolveContextualQuestionImage(
                       currentQuestion.question,
                       currentQuestion.topicBadge,
@@ -1154,20 +1153,25 @@ Do NOT include markdown formatting or backticks.`;
                       currentQuestion.image
                     );
                     return (
-                      <div className="w-full h-44 sm:h-52 rounded-2xl overflow-hidden relative group border border-slate-800/80 shadow-md">
+                      <div className="w-full h-44 sm:h-52 rounded-2xl overflow-hidden relative group border border-slate-800/80 shadow-md bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900">
+                        {/* Instant Animated Gradient Skeleton Shimmer */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/30 via-slate-800/40 to-emerald-950/30 animate-pulse pointer-events-none" />
+                        
                         <img
                           src={activeImage}
                           alt={currentQuestion.topicBadge || 'Quiz Visual Illustration'}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          className="w-full h-full object-cover relative z-10 transition-all duration-700 ease-out group-hover:scale-105"
                           loading="eager"
+                          fetchPriority="high"
+                          decoding="async"
                           onError={(e) => {
-                            (e.target as HTMLImageElement).src = fallbackHero;
+                            (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=640&q=70';
                           }}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent pointer-events-none" />
+                        <div className="absolute inset-0 z-20 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent pointer-events-none" />
                         
-                        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
-                          <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md text-emerald-300 border border-emerald-500/30 shadow-sm flex items-center gap-1.5">
+                        <div className="absolute bottom-3 left-3 right-3 z-30 flex items-center justify-between pointer-events-none">
+                          <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-md text-emerald-300 border border-emerald-500/30 shadow-sm flex items-center gap-1.5">
                             <span>{CATEGORIES.find(c => c.id === category)?.icon || '💡'}</span>
                             <span>{currentQuestion.topicBadge || (CATEGORIES.find(c => c.id === category)?.titles[lang] || CATEGORIES.find(c => c.id === category)?.titles['en'] || '')}</span>
                           </span>
