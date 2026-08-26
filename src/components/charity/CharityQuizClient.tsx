@@ -406,6 +406,16 @@ export default function CharityQuizClient() {
   const currentQuestionRef = useRef<Question | null>(null);
 
   // Animated Category Spotlight State
+    // Floating Particle Burst State
+  interface GrainParticle {
+    id: number;
+    x: number;
+    y: number;
+    emoji: string;
+    text?: string;
+  }
+  const [particles, setParticles] = useState<GrainParticle[]>([]);
+
   const [spotlightIdx, setSpotlightIdx] = useState(0);
 
   // Auto-advance Countdown State (3-second timer)
@@ -571,7 +581,16 @@ export default function CharityQuizClient() {
     const isCorrect = index === currentQuestion.answer;
     playChime(isCorrect);
 
-    if (isCorrect) {
+        if (isCorrect) {
+      const newParticles: GrainParticle[] = [
+        { id: Date.now() + 1, x: (Math.random() - 0.5) * 60, y: -45 - Math.random() * 35, emoji: '🌾', text: '+10 Grains!' },
+        { id: Date.now() + 2, x: (Math.random() - 0.5) * 100, y: -65 - Math.random() * 25, emoji: '✨' },
+        { id: Date.now() + 3, x: (Math.random() - 0.5) * 80, y: -55 - Math.random() * 25, emoji: '🥣' },
+        { id: Date.now() + 4, x: (Math.random() - 0.5) * 110, y: -75 - Math.random() * 30, emoji: '🐾' }
+      ];
+      setParticles(newParticles);
+      setTimeout(() => setParticles([]), 1300);
+
       const newScore = score + 10;
       saveScore(newScore);
       const newStreak = streak + 1;
@@ -1066,111 +1085,143 @@ Do NOT include markdown formatting or backticks.`;
                   </button>
                 </div>
               </div>
-            ) : currentQuestion ? (
-              <div className={`p-6 sm:p-8 rounded-3xl border space-y-6 transition-all ${
-                isDark ? 'bg-slate-900/90 border-slate-800/90 shadow-xl' : 'bg-white border-slate-200 shadow-sm'
-              }`}>
-                
-                {/* Question Metadata Header */}
-                <div className="flex items-center justify-between gap-2 border-b pb-4 border-slate-800/40">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono font-semibold px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                      {currentQuestion.topicBadge || (category === 'custom-ai' ? aiTopic : (CATEGORIES.find(c => c.id === category)?.titles[lang] || CATEGORIES.find(c => c.id === category)?.titles['en'] || ''))}
-                    </span>
-                    {/* Thematic Difficulty Badge */}
-                    {(() => {
-                      const diffObj = DIFFICULTY_CONFIG.find(d => d.id === (currentQuestion.difficulty || difficulty)) || DIFFICULTY_CONFIG[0];
-                      return (
-                        <span className={`text-[11px] font-mono font-bold px-2 py-0.5 rounded-lg border flex items-center gap-1 ${diffObj.badgeBg} ${diffObj.badgeBorder} ${diffObj.textColor}`}>
-                          <span>{diffObj.icon}</span>
-                          <span>{getTranslation(diffObj.labelKey, lang).toUpperCase()}</span>
-                        </span>
-                      );
-                    })()}
-                  </div>
-
-                  <div className="text-xs font-mono text-emerald-400 font-medium">
-                    {getTranslation('grainsReward', lang)}
-                  </div>
-                </div>
-
-                {/* Dynamic Question Visual Image Banner */}
-                {(() => {
-                  const fallbackHero = category === 'custom-ai' ? '/quiz/ai_hero.jpg' : `/quiz/${category === 'random' ? 'animals' : category}_hero.jpg`;
-                  const activeImage = currentQuestion.image || fallbackHero;
-                  return (
-                    <div className="w-full h-44 sm:h-52 rounded-2xl overflow-hidden relative group border border-slate-800/80 shadow-md">
-                      <img
-                        src={activeImage}
-                        alt={currentQuestion.topicBadge || 'Quiz Visual Illustration'}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        loading="eager"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).src = fallbackHero;
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent pointer-events-none" />
-                      
-                      <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
-                        <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md text-emerald-300 border border-emerald-500/30 shadow-sm flex items-center gap-1.5">
-                          <span>{CATEGORIES.find(c => c.id === category)?.icon || '💡'}</span>
-                          <span>{currentQuestion.topicBadge || (CATEGORIES.find(c => c.id === category)?.titles[lang] || CATEGORIES.find(c => c.id === category)?.titles['en'] || '')}</span>
-                        </span>
-                        <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-md bg-amber-500/20 backdrop-blur-md text-amber-300 border border-amber-400/40 shadow-sm">
-                          🌾 {getTranslation('grainsReward', lang)}
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })()}
-
-                {/* Question Headline */}
-                <h3 className="text-lg sm:text-xl font-bold font-title leading-relaxed">
-                  {currentQuestion.question}
-                </h3>
-
-                {/* 4 Interactive Option Buttons */}
-                <div className="grid grid-cols-1 gap-2.5">
-                  {currentQuestion.options.map((option, idx) => {
-                    const isSelected = selectedAnswer === idx;
-                    const isCorrect = isAnswered && idx === currentQuestion.answer;
-                    const isWrong = isAnswered && isSelected && idx !== currentQuestion.answer;
-
-                    let buttonStyle = isDark 
-                      ? 'bg-slate-950/70 border-slate-800/80 text-slate-200 hover:border-slate-700 hover:bg-slate-950'
-                      : 'bg-slate-50 border-slate-200 text-slate-800 hover:border-slate-300 hover:bg-slate-100';
-
-                    if (isAnswered) {
-                      if (isCorrect) {
-                        buttonStyle = 'bg-emerald-500/15 border-emerald-500 text-emerald-400 font-semibold';
-                      } else if (isWrong) {
-                        buttonStyle = 'bg-rose-500/15 border-rose-500/80 text-rose-300 line-through opacity-80';
-                      } else {
-                        buttonStyle = isDark ? 'bg-slate-950/40 border-slate-900 text-slate-500' : 'bg-slate-50 border-slate-200 text-slate-400';
-                      }
-                    }
-
-                    return (
-                      <button
-                        key={idx}
-                        disabled={isAnswered}
-                        onClick={() => handleAnswer(idx)}
-                        className={`w-full p-4 rounded-2xl border text-left transition-all flex items-center gap-3.5 cursor-pointer ${buttonStyle}`}
+                        ) : currentQuestion ? (
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentQuestion.question}
+                  initial={{ opacity: 0, y: 14, scale: 0.99 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -14, scale: 0.99 }}
+                  transition={{ duration: 0.3 }}
+                  className={`p-6 sm:p-8 rounded-3xl border space-y-6 transition-all relative overflow-hidden ${
+                    isDark ? 'bg-slate-900/90 border-slate-800/90 shadow-xl' : 'bg-white border-slate-200 shadow-sm'
+                  }`}
+                >
+                  {/* Floating Grain Particle Burst Canvas */}
+                  <AnimatePresence>
+                    {particles.map((p) => (
+                      <motion.div
+                        key={p.id}
+                        initial={{ opacity: 0, scale: 0.6, x: 0, y: 0 }}
+                        animate={{ opacity: [0, 1, 1, 0], scale: [0.8, 1.25, 1], x: p.x, y: p.y }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 1.1, ease: "easeOut" }}
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-40 font-bold text-amber-300 drop-shadow-lg text-sm sm:text-base flex items-center gap-1.5"
                       >
-                        <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-mono font-bold shrink-0 border ${
-                          isCorrect 
-                            ? 'bg-emerald-500 text-slate-950 border-emerald-400' 
-                            : isWrong 
-                              ? 'bg-rose-500 text-white border-rose-400'
-                              : isDark ? 'bg-slate-900 border-slate-800 text-slate-400' : 'bg-white border-slate-300 text-slate-600'
-                        }`}>
-                          {String.fromCharCode(65 + idx)}
-                        </span>
-                        <span className="flex-1 text-sm font-medium">{option}</span>
-                      </button>
+                        <span className="text-xl sm:text-2xl animate-bounce">{p.emoji}</span>
+                        {p.text && (
+                          <span className="font-mono bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-amber-400/60 shadow-xl text-xs sm:text-sm text-amber-300">
+                            {p.text}
+                          </span>
+                        )}
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+
+                  {/* Question Metadata Header */}
+                  <div className="flex items-center justify-between gap-2 border-b pb-4 border-slate-800/40">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-mono font-semibold px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        {currentQuestion.topicBadge || (category === 'custom-ai' ? aiTopic : (CATEGORIES.find(c => c.id === category)?.titles[lang] || CATEGORIES.find(c => c.id === category)?.titles['en'] || ''))}
+                      </span>
+                      {/* Thematic Difficulty Badge */}
+                      {(() => {
+                        const diffObj = DIFFICULTY_CONFIG.find(d => d.id === (currentQuestion.difficulty || difficulty)) || DIFFICULTY_CONFIG[0];
+                        return (
+                          <span className={`text-[11px] font-mono font-bold px-2 py-0.5 rounded-lg border flex items-center gap-1 ${diffObj.badgeBg} ${diffObj.badgeBorder} ${diffObj.textColor}`}>
+                            <span>{diffObj.icon}</span>
+                            <span>{getTranslation(diffObj.labelKey, lang).toUpperCase()}</span>
+                          </span>
+                        );
+                      })()}
+                    </div>
+
+                    <div className="text-xs font-mono text-emerald-400 font-medium">
+                      {getTranslation('grainsReward', lang)}
+                    </div>
+                  </div>
+
+                  {/* Dynamic Question Visual Image Banner */}
+                  {(() => {
+                    const fallbackHero = category === 'custom-ai' ? '/quiz/ai_hero.jpg' : `/quiz/${category === 'random' ? 'animals' : category}_hero.jpg`;
+                    const activeImage = currentQuestion.image || fallbackHero;
+                    return (
+                      <div className="w-full h-44 sm:h-52 rounded-2xl overflow-hidden relative group border border-slate-800/80 shadow-md">
+                        <img
+                          src={activeImage}
+                          alt={currentQuestion.topicBadge || 'Quiz Visual Illustration'}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading="eager"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = fallbackHero;
+                          }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent pointer-events-none" />
+                        
+                        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+                          <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md text-emerald-300 border border-emerald-500/30 shadow-sm flex items-center gap-1.5">
+                            <span>{CATEGORIES.find(c => c.id === category)?.icon || '💡'}</span>
+                            <span>{currentQuestion.topicBadge || (CATEGORIES.find(c => c.id === category)?.titles[lang] || CATEGORIES.find(c => c.id === category)?.titles['en'] || '')}</span>
+                          </span>
+                          <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-md bg-amber-500/20 backdrop-blur-md text-amber-300 border border-amber-400/40 shadow-sm">
+                            🌾 {getTranslation('grainsReward', lang)}
+                          </span>
+                        </div>
+                      </div>
                     );
-                  })}
-                </div>
+                  })()}
+
+                  {/* Question Headline */}
+                  <h3 className="text-lg sm:text-xl font-bold font-title leading-relaxed">
+                    {currentQuestion.question}
+                  </h3>
+
+                  {/* 4 Interactive Option Buttons with Physics */}
+                  <div className="grid grid-cols-1 gap-2.5">
+                    {currentQuestion.options.map((option, idx) => {
+                      const isSelected = selectedAnswer === idx;
+                      const isCorrect = isAnswered && idx === currentQuestion.answer;
+                      const isWrong = isAnswered && isSelected && idx !== currentQuestion.answer;
+
+                      let buttonStyle = isDark 
+                        ? 'bg-slate-950/70 border-slate-800/80 text-slate-200 hover:border-slate-700 hover:bg-slate-950'
+                        : 'bg-slate-50 border-slate-200 text-slate-800 hover:border-slate-300 hover:bg-slate-100';
+
+                      if (isAnswered) {
+                        if (isCorrect) {
+                          buttonStyle = 'bg-emerald-500/20 border-emerald-400 text-emerald-300 font-semibold shadow-[0_0_20px_rgba(16,185,129,0.35)]';
+                        } else if (isWrong) {
+                          buttonStyle = 'bg-rose-500/15 border-rose-500/80 text-rose-300 line-through opacity-80';
+                        } else {
+                          buttonStyle = isDark ? 'bg-slate-950/40 border-slate-900 text-slate-500' : 'bg-slate-50 border-slate-200 text-slate-400';
+                        }
+                      }
+
+                      return (
+                        <motion.button
+                          key={idx}
+                          disabled={isAnswered}
+                          onClick={() => handleAnswer(idx)}
+                          whileHover={!isAnswered ? { scale: 1.015, x: 4 } : {}}
+                          whileTap={!isAnswered ? { scale: 0.985 } : {}}
+                          animate={isCorrect ? { scale: [1, 1.02, 1] } : {}}
+                          transition={{ duration: 0.2 }}
+                          className={`w-full p-4 rounded-2xl border text-left transition-all flex items-center gap-3.5 cursor-pointer ${buttonStyle}`}
+                        >
+                          <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-mono font-bold shrink-0 border ${
+                            isCorrect 
+                              ? 'bg-emerald-500 text-slate-950 border-emerald-400 shadow-sm' 
+                              : isWrong 
+                                ? 'bg-rose-500 text-white border-rose-400'
+                                : isDark ? 'bg-slate-900 border-slate-800 text-slate-400' : 'bg-white border-slate-300 text-slate-600'
+                          }`}>
+                            {String.fromCharCode(65 + idx)}
+                          </span>
+                          <span className="flex-1 text-sm font-medium">{option}</span>
+                        </motion.button>
+                      );
+                    })}
+                  </div>
 
                 {/* Explanation Card & Auto-Advance Countdown Timer */}
                 {isAnswered && (
@@ -1255,8 +1306,9 @@ Do NOT include markdown formatting or backticks.`;
                   </div>
                 )}
 
-              </div>
-            ) : null}
+              </motion.div>
+            </AnimatePresence>
+          ) : null}
 
           </div>
 
