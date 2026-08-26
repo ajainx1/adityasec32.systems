@@ -22,6 +22,7 @@ import WelcomeOnboardingModal from './WelcomeOnboardingModal';
 import ThreeDArtBackground from '@/components/3d/ThreeDArtBackground';
 import KarmaMascotCompanion from './KarmaMascotCompanion';
 import TrustAndVerificationBadge from './TrustAndVerificationBadge';
+import AdSenseSlot from './AdSenseSlot';
 
 // Initialize Supabase client
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://xkhgccximcrsdpdlskys.supabase.co';
@@ -1404,6 +1405,9 @@ Do NOT include markdown formatting or backticks.`;
           </div>
 
         </div>
+
+        {/* Compliant AdSense Sponsor Slot */}
+        <AdSenseSlot isDark={isDark} label="PHILANTHROPIC SPONSOR" />
 
         {/* Live Impact Ground Proof Section */}
         <section className="pt-4 border-t border-slate-800/40 space-y-4">
