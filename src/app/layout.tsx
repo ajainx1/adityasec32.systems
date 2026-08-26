@@ -82,11 +82,13 @@ export const metadata: Metadata = isCyberKarmaSite
       },
     }
   : {
-      title: "Aditya Jain — Cybersecurity Engineer & Purple Teamer",
-      description: "Network Security & NGFW Architecture (Palo Alto · Check Point · Fortinet) · VAPT · SIEM/EDR · DFIR — securing 750+ government endpoints & Critical National Infrastructure.",
+      title: "Aditya Jain — Cybersecurity Engineer | Vulnerability Management & DevSecOps | VAPT · SIEM/EDR",
+      description: "Cybersecurity Engineer securing 750+ government endpoints & CNI. Vulnerability Management, DevSecOps automation, SIEM/EDR tuning, NGFW. Open to India, UAE, Singapore, UK, Germany, EU, US.",
       keywords: [
         "Aditya Jain",
         "Cybersecurity Engineer",
+        "Vulnerability Management",
+        "DevSecOps",
         "Purple Teamer",
         "SecOps",
         "Threat Hunting",
@@ -108,12 +110,12 @@ export const metadata: Metadata = isCyberKarmaSite
       },
       openGraph: {
         title: "Aditya Jain — Cybersecurity Engineer & Purple Teamer",
-        description: "Network Security & NGFW Architecture (Palo Alto · Check Point · Fortinet) · VAPT · SIEM/EDR · DFIR — securing 750+ government endpoints & Critical National Infrastructure.",
+        description: "750+ endpoints secured · 60% audit effort reduced · CNI threat hunter. Sanitized case studies & live engineering demos.",
         url: "https://adityasec32.systems",
         siteName: "AdityaSec Systems",
         images: [
           {
-            url: "/og_image.png",
+            url: "/og-image.jpg",
             width: 1200,
             height: 630,
             alt: "Aditya Jain — Cybersecurity Engineer & Purple Teamer",
@@ -125,8 +127,8 @@ export const metadata: Metadata = isCyberKarmaSite
       twitter: {
         card: "summary_large_image",
         title: "Aditya Jain — Cybersecurity Engineer & Purple Teamer",
-        description: "Network Security & NGFW Architecture (Palo Alto · Check Point · Fortinet) · VAPT · SIEM/EDR · DFIR — securing 750+ government endpoints & Critical National Infrastructure.",
-        images: ["/og_image.png"],
+        description: "750+ endpoints secured · 60% audit effort reduced · CNI threat hunter. Sanitized case studies & live engineering demos.",
+        images: ["/og-image.jpg"],
       },
       icons: {
         icon: [
@@ -154,7 +156,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    // 1. WebApplication / Software Schema with 4.96 Star Rating for Google Rich Snippets
+  // 1. WebApplication / Software Schema with 4.96 Star Rating for Google Rich Snippets
   const jsonLdApp = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -197,66 +199,42 @@ export default function RootLayout({
       "@type": "Person",
       "name": "Aditya Vardhan Jain",
       "jobTitle": "Founder & Cybersecurity Engineer",
+      "url": "https://adityasec32.systems",
       "sameAs": [
-        "https://adityasec32.systems",
-        "https://github.com/ajainx1",
-        "https://www.linkedin.com/in/ajainx1/"
+        "https://www.linkedin.com/in/ajainx1",
+        "https://github.com/ajainx1"
       ]
     },
-    "areaServed": {
-      "@type": "City",
-      "name": "Patna",
-      "containedInPlace": {
-        "@type": "State",
-        "name": "Bihar",
-        "containedInPlace": {
-          "@type": "Country",
-          "name": "India"
-        }
-      }
-    },
-    "sameAs": [
-      "https://cyberkarma.me",
-      "https://adityasec32.systems",
-      "https://jumpstreet.tech",
-      "https://github.com/ajainx1"
-    ]
+    "location": {
+      "@type": "Place",
+      "name": "Patna Division, Bihar, India"
+    }
   };
 
-  // 3. WebSite with Sitelinks Searchbox
+  // 3. WebSite with Sitelinks Searchbox Schema
   const jsonLdWebSite = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "CyberKarma",
+    "name": "CyberKarma Patna Animal Rescue",
     "url": "https://cyberkarma.me",
-    "alternateName": ["Cyber Free Rice", "CyberKarma Animal Rescue", "Play Trivia Feed Dogs"],
-    "description": "Free gamified trivia platform converting correct answers into verified meals for street animals in Patna, Bihar.",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://cyberkarma.me/?q={search_term_string}",
+      "target": "https://cyberkarma.me/charity-quiz?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   };
 
-  // 4. FAQPage Schema for Google Rich Accordion Results
+  // 4. FAQ Schema for Rich Results
   const jsonLdFAQ = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How does playing trivia on CyberKarma feed real street dogs?",
+        "name": "How does playing trivia donate real food to street animals in Patna?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Every time you answer a trivia question correctly, 10 grains of rice are pledged to our Patna feeding fund. Corporate sponsors and personal commitments finance the purchase of nutritious food, eggs, and veterinary supplies delivered directly to street animals in Patna, Bihar."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is CyberKarma completely free to play?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes! CyberKarma is 100% non-profit and completely free forever. You never pay a single cent. All donations are funded through educational engagement and corporate social responsibility sponsors."
+          "text": "CyberKarma partners with philanthropic sponsors and corporate donors. Every correct answer triggers 10 grains of rice pledged to our Patna on-ground feeding drives without requiring player payments."
         }
       },
       {

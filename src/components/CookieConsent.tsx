@@ -27,7 +27,7 @@ export default function CookieConsent() {
         <div className="space-y-1">
           <h4 className="text-xs font-bold font-title">Privacy & Cookie Notice</h4>
           <p className="text-xs text-slate-300 leading-relaxed font-mono">
-            This portfolio uses essential cookies and ethical partner networks to optimize security telemetry and ad compliance.
+            This portfolio uses essential cookies only for performance caching, terminal state persistence, and security telemetry. Zero personal tracking.
           </p>
         </div>
       </div>

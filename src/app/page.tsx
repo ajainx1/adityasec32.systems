@@ -1009,7 +1009,7 @@ export default function Home() {
               <div className="space-y-2">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-xs font-mono font-bold text-emerald-300">
                   <Globe className="w-3.5 h-3.5 text-emerald-400 animate-spin-slow" />
-                  <span>KEY SECURITY PROJECTS // CNI &amp; OBSERVABILITY MATRIX</span>
+                  <span>03 // Key Security Projects &amp; Planetary Matrix</span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-black font-title text-white tracking-tight">
                   Critical Infrastructure Portals &amp; Engineering Systems
@@ -1136,7 +1136,7 @@ export default function Home() {
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
               <Briefcase className="w-3.5 h-3.5" />
-              <span>03 // Professional Work History</span>
+              <span>04 // Professional Work History (4+ Years CNI)</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold font-title text-white">
               Enterprise SecOps Experience (4+ Years)
@@ -1239,7 +1239,7 @@ export default function Home() {
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
               <Compass className="w-3.5 h-3.5" />
-              <span>04 // Professional Development &amp; Coursework</span>
+              <span>05 // Credentials, Labs &amp; Academic Coursework</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold font-title text-white">
               Hands-On Security Labs &amp; Academic Coursework
@@ -1308,7 +1308,7 @@ export default function Home() {
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
               <Award className="w-3.5 h-3.5" />
-              <span>05 // Verified Credentials &amp; Certifications</span>
+              <span>05.1 // Verified Certifications Roadmap</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold font-title text-white">
               Professional Certifications &amp; Ongoing Roadmap
@@ -1344,7 +1344,7 @@ export default function Home() {
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
               <BookOpen className="w-3.5 h-3.5" />
-              <span>06 // Academic Higher Education</span>
+              <span>05.2 // Academic Higher Education</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold font-title text-white">
               Degrees &amp; Cybersecurity Qualifications
