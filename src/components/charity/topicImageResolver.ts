@@ -1,16 +1,26 @@
 /**
- * Topic Image Resolver (Optimized for Instant 0ms Zero-Lag Loading)
- * Accurately pairs trivia questions, topic badges, and custom AI subjects
- * with lightweight, high-performance, compressed contextual photography.
+ * Topic Image Resolver
+ * Provides reliable, lightweight imagery with guaranteed instant local fallbacks.
  */
 
+const LOCAL_CATEGORY_HEROES: Record<string, string> = {
+  animals: '/quiz/animals_hero.jpg',
+  cybersecurity: '/quiz/cybersecurity_hero.jpg',
+  space: '/quiz/space_hero.jpg',
+  science: '/quiz/science_hero.jpg',
+  math: '/quiz/math_hero.jpg',
+  geography: '/quiz/geography_hero.jpg',
+  vocab: '/quiz/vocab_hero.jpg',
+  gk: '/quiz/gk_hero.jpg',
+  'custom-ai': '/quiz/ai_hero.jpg'
+};
+
 const TOPIC_IMAGE_DICTIONARY: { keywords: string[]; url: string }[] = [
-  // 🦅 Birds & Ornithology (Exact match for user query)
+  // 🦅 Birds & Ornithology
   {
     keywords: ['ornithology', 'bird', 'hummingbird', 'avian', 'पक्षी', 'चिड़िया', 'flight', 'hovering', 'backward flight', 'swift', 'swallow', 'kingfisher', 'eagle', 'falcon', 'parrot', 'owl', 'feathers', 'beak'],
     url: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=640&q=70'
   },
-
   // 🐶 Canine & Animals
   {
     keywords: ['puppy', 'puppies', 'पिल्ला', 'litter', 'newborn', 'dog-feed-13'],
@@ -47,10 +57,6 @@ const TOPIC_IMAGE_DICTIONARY: { keywords: string[]; url: string }[] = [
   {
     keywords: ['cat', 'feline', 'kitten', 'बिल्ली', 'lion', 'cheetah', 'leopard'],
     url: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=640&q=70'
-  },
-  {
-    keywords: ['elephant', 'हाथी', 'wildlife', 'safari', 'mammal'],
-    url: 'https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=640&q=70'
   },
 
   // 🛡️ Cybersecurity & Tech
@@ -104,10 +110,6 @@ const TOPIC_IMAGE_DICTIONARY: { keywords: string[]; url: string }[] = [
     keywords: ['moon', 'chandrayaan', 'apollo', 'चन्द्रमा', 'lunar'],
     url: 'https://images.unsplash.com/photo-1522030299830-16b8d3d049fe?auto=format&fit=crop&w=640&q=70'
   },
-  {
-    keywords: ['galaxy', 'milky way', 'andromeda', 'nebula', 'आकाशगंगा', 'cosmos'],
-    url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=640&q=70'
-  },
 
   // 🔬 Science & Nature
   {
@@ -122,14 +124,6 @@ const TOPIC_IMAGE_DICTIONARY: { keywords: string[]; url: string }[] = [
     keywords: ['light', 'speed', '300,000', 'प्रकाश', 'निर्वात', 'physics', 'quantum', 'science_light'],
     url: 'https://images.unsplash.com/photo-1507499739999-097706ad8914?auto=format&fit=crop&w=640&q=70'
   },
-  {
-    keywords: ['brain', 'neuroscience', 'synapse', 'मस्तिष्क', 'दिमाग', 'memory'],
-    url: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=640&q=70'
-  },
-  {
-    keywords: ['plant', 'botany', 'photosynthesis', 'tree', 'forest', 'वनस्पति', 'पेड़', 'पौधे'],
-    url: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=640&q=70'
-  },
 
   // 🧮 Math & Geometry
   {
@@ -139,10 +133,6 @@ const TOPIC_IMAGE_DICTIONARY: { keywords: string[]; url: string }[] = [
   {
     keywords: ['prime number', '2', 'अभाज्य', 'संख्या', 'arithmetic', 'math_prime'],
     url: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=640&q=70'
-  },
-  {
-    keywords: ['pythagor', 'पाइथागोरस', 'hypotenuse', 'a2 + b2', 'math_pythagoras'],
-    url: 'https://images.unsplash.com/photo-1596495578065-6e0763fa1178?auto=format&fit=crop&w=640&q=70'
   },
 
   // 🌍 Geography
@@ -161,32 +151,6 @@ const TOPIC_IMAGE_DICTIONARY: { keywords: string[]; url: string }[] = [
   {
     keywords: ['pyramid', 'egypt', 'पिरामिड', 'मिस्र', 'pharaoh', 'sphinx'],
     url: 'https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=640&q=70'
-  },
-
-  // 📖 Vocab & Culture
-  {
-    keywords: ['altruis', 'kindness', 'परोपकार', 'दान', 'philanthropy', 'vocab_kind'],
-    url: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=640&q=70'
-  },
-  {
-    keywords: ['telephone', 'graham bell', 'टेलीफोन', 'invent', 'gk_bell'],
-    url: 'https://images.unsplash.com/photo-1520923642038-b4259acecbd7?auto=format&fit=crop&w=640&q=70'
-  },
-  {
-    keywords: ['minecraft', 'voxel', 'gaming', 'ब्लॉक', 'crafting'],
-    url: 'https://images.unsplash.com/photo-1587573089734-09cb69c0f2b4?auto=format&fit=crop&w=640&q=70'
-  },
-  {
-    keywords: ['superhero', 'marvel', 'avengers', 'सुपरहीरो', 'batman', 'superman'],
-    url: 'https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&w=640&q=70'
-  },
-  {
-    keywords: ['anime', 'naruto', 'dragon ball', 'manga', 'एनीमे', 'ghibli'],
-    url: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=640&q=70'
-  },
-  {
-    keywords: ['rome', 'gladiator', 'caesar', 'colosseum', 'रोमन', 'साम्राज्य'],
-    url: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=640&q=70'
   }
 ];
 
@@ -197,7 +161,8 @@ export function resolveContextualQuestionImage(
   customTopic?: string,
   providedImage?: string
 ): string {
-  if (providedImage && (providedImage.startsWith('http://') || providedImage.startsWith('https://'))) {
+  // If local file path provided and starts with slash, check or return
+  if (providedImage && providedImage.startsWith('/')) {
     return providedImage;
   }
 
@@ -211,26 +176,7 @@ export function resolveContextualQuestionImage(
     }
   }
 
-  // Fast optimized fallback based on category
+  // Guaranteed fast local category fallback
   const cat = categoryKey === 'random' ? 'animals' : (categoryKey || 'animals');
-  switch (cat) {
-    case 'animals':
-      return 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=640&q=70';
-    case 'cybersecurity':
-      return 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=640&q=70';
-    case 'space':
-      return 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=640&q=70';
-    case 'science':
-      return 'https://images.unsplash.com/photo-1507499739999-097706ad8914?auto=format&fit=crop&w=640&q=70';
-    case 'math':
-      return 'https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=640&q=70';
-    case 'geography':
-      return 'https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=640&q=70';
-    case 'vocab':
-      return 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=640&q=70';
-    case 'gk':
-      return 'https://images.unsplash.com/photo-1520923642038-b4259acecbd7?auto=format&fit=crop&w=640&q=70';
-    default:
-      return 'https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=640&q=70';
-  }
+  return LOCAL_CATEGORY_HEROES[cat] || '/quiz/animals_hero.jpg';
 }

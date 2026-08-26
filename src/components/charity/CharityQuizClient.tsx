@@ -1143,8 +1143,9 @@ Do NOT include markdown formatting or backticks.`;
                     </div>
                   </div>
 
-                  {/* Dynamic Contextual Question Visual Image Banner with 0ms Skeleton */}
+                  {/* Dynamic 0ms Zero-Lag Visual Banner with Thematic Vector Backdrop */}
                   {(() => {
+                    const fallbackHero = category === 'custom-ai' ? '/quiz/ai_hero.jpg' : `/quiz/${category === 'random' ? 'animals' : category}_hero.jpg`;
                     const activeImage = resolveContextualQuestionImage(
                       currentQuestion.question,
                       currentQuestion.topicBadge,
@@ -1152,30 +1153,52 @@ Do NOT include markdown formatting or backticks.`;
                       category === 'custom-ai' ? aiTopic : undefined,
                       currentQuestion.image
                     );
+                    const categoryObj = CATEGORIES.find(c => c.id === category);
+                    const topicTitle = currentQuestion.topicBadge || (categoryObj?.titles[lang] || categoryObj?.titles['en'] || '');
+                    const topicIcon = categoryObj?.icon || '💡';
+
                     return (
                       <div className="w-full h-44 sm:h-52 rounded-2xl overflow-hidden relative group border border-slate-800/80 shadow-md bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900">
-                        {/* Instant Animated Gradient Skeleton Shimmer */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/30 via-slate-800/40 to-emerald-950/30 animate-pulse pointer-events-none" />
-                        
+                        {/* 0ms Instant Thematic Vector Canvas (Always visible immediately) */}
+                        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-0 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950/40">
+                          <div className="text-4xl sm:text-5xl mb-2 opacity-85 group-hover:scale-110 transition-transform duration-300">
+                            {topicIcon}
+                          </div>
+                          <span className="text-sm sm:text-base font-bold font-title text-slate-200 tracking-tight">
+                            {topicTitle}
+                          </span>
+                          <span className="text-[11px] font-mono text-emerald-400 mt-1 font-semibold">
+                            🌾 Feed Animals in Patna
+                          </span>
+                        </div>
+
+                        {/* High-Res Visual Photo (Cross-fades over vector canvas when loaded) */}
                         <img
                           src={activeImage}
-                          alt={currentQuestion.topicBadge || 'Quiz Visual Illustration'}
-                          className="w-full h-full object-cover relative z-10 transition-all duration-700 ease-out group-hover:scale-105"
+                          alt={topicTitle || 'Quiz Visual Illustration'}
+                          className="w-full h-full object-cover absolute inset-0 z-10 transition-opacity duration-500 ease-out group-hover:scale-105"
                           loading="eager"
-                          fetchPriority="high"
-                          decoding="async"
                           onError={(e) => {
-                            (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=640&q=70';
+                            const img = e.target as HTMLImageElement;
+                            if (img.src !== fallbackHero && !img.src.endsWith(fallbackHero)) {
+                              img.src = fallbackHero;
+                            } else {
+                              // If even local hero fails, cleanly hide img to show instant vector canvas
+                              img.style.display = 'none';
+                            }
                           }}
                         />
-                        <div className="absolute inset-0 z-20 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent pointer-events-none" />
+
+                        {/* Gradient Scrim */}
+                        <div className="absolute inset-0 z-20 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent pointer-events-none" />
                         
+                        {/* Overlay Topic Pills */}
                         <div className="absolute bottom-3 left-3 right-3 z-30 flex items-center justify-between pointer-events-none">
-                          <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-md text-emerald-300 border border-emerald-500/30 shadow-sm flex items-center gap-1.5">
-                            <span>{CATEGORIES.find(c => c.id === category)?.icon || '💡'}</span>
-                            <span>{currentQuestion.topicBadge || (CATEGORIES.find(c => c.id === category)?.titles[lang] || CATEGORIES.find(c => c.id === category)?.titles['en'] || '')}</span>
+                          <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-black/80 backdrop-blur-md text-emerald-300 border border-emerald-500/30 shadow-sm flex items-center gap-1.5">
+                            <span>{topicIcon}</span>
+                            <span>{topicTitle}</span>
                           </span>
-                          <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-md bg-amber-500/20 backdrop-blur-md text-amber-300 border border-amber-400/40 shadow-sm">
+                          <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-md bg-amber-500/25 backdrop-blur-md text-amber-300 border border-amber-400/40 shadow-sm">
                             🌾 {getTranslation('grainsReward', lang)}
                           </span>
                         </div>
