@@ -1337,64 +1337,118 @@ Do NOT include markdown formatting or backticks.`;
               isDark={isDark}
             />
 
-            {/* Impact Summary Card */}
-            <div className={`p-6 rounded-3xl border space-y-5 ${
-              isDark ? 'bg-slate-900/80 border-slate-800/80' : 'bg-white border-slate-200 shadow-sm'
+            {/* 🌟 3D Gamified Philanthropic Impact Vault */}
+            <div className={`p-6 rounded-3xl border space-y-5 relative overflow-hidden transition-all shadow-xl ${
+              isDark 
+                ? 'bg-gradient-to-br from-slate-900/95 via-slate-900/90 to-slate-950 border-slate-800/90' 
+                : 'bg-gradient-to-br from-white via-slate-50/80 to-emerald-50/30 border-slate-200 shadow-md'
             }`}>
               
-              <div className="flex items-center justify-between border-b pb-3 border-slate-800/40">
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
-                  Your Impact
-                </span>
-                <span className="text-xs font-mono text-emerald-400 font-semibold">
-                  Patna, Bihar
-                </span>
-              </div>
+              {/* Top Vibrant Cyan-Emerald Accent Ribbon */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-400" />
 
-              {/* Total Donated Numbers */}
-              <div className="space-y-1">
-                <div className="text-4xl font-extrabold font-title text-emerald-400">
-                  {score.toLocaleString()}
+              {/* Header with Live Beacon */}
+              <div className="flex items-center justify-between border-b pb-3.5 border-slate-800/40">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
+                    {lang === 'hi' ? 'आपका व्यक्तिगत प्रभाव' : 'Your Live Impact'}
+                  </span>
                 </div>
-                <div className="text-xs font-mono text-slate-400">
-                  {getTranslation('grains', lang)}
-                </div>
-              </div>
-
-              {/* Progress to Next Bowl */}
-              <div className="space-y-2 pt-2 border-t border-slate-800/40">
-                <div className="flex justify-between text-xs font-mono">
-                  <span className="text-slate-400">Next Bowl Progress:</span>
-                  <span className="font-bold">{progressToNextMeal} / 50 grains</span>
-                </div>
-                <div className={`w-full h-2 rounded-full overflow-hidden ${isDark ? 'bg-slate-950' : 'bg-slate-100'}`}>
-                  <div 
-                    className="h-full bg-emerald-500 rounded-full transition-all duration-300"
-                    style={{ width: `${Math.min(100, Math.round((progressToNextMeal / 50) * 100))}%` }}
-                  />
+                <div className="flex items-center gap-1 text-[11px] font-mono text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">
+                  <MapPin size={11} />
+                  <span>Patna, Bihar</span>
                 </div>
               </div>
 
-              {/* Quick Link to Field Proof */}
-              <div className="pt-2">
+              {/* Dual Stat Split Grid (Grains Donated & Bowls Delivered) */}
+              <div className="grid grid-cols-2 gap-3">
+                {/* 🌾 Grains Stat Box */}
+                <div className={`p-4 rounded-2xl border flex flex-col justify-between space-y-1 relative overflow-hidden ${
+                  isDark ? 'bg-slate-950/80 border-slate-800/90' : 'bg-white border-emerald-100 shadow-sm'
+                }`}>
+                  <div className="flex items-center justify-between text-slate-400 text-xs font-mono">
+                    <span>{getTranslation('grains', lang)}</span>
+                    <span className="text-base animate-bounce">🌾</span>
+                  </div>
+                  <div className="text-3xl font-extrabold font-title text-emerald-400 drop-shadow-sm">
+                    {score.toLocaleString()}
+                  </div>
+                  <span className="text-[10px] text-slate-500 font-mono">+10 / correct answer</span>
+                </div>
+
+                {/* 🥣 Meals Funded Stat Box */}
+                <div className={`p-4 rounded-2xl border flex flex-col justify-between space-y-1 relative overflow-hidden ${
+                  isDark ? 'bg-slate-950/80 border-slate-800/90' : 'bg-white border-amber-100 shadow-sm'
+                }`}>
+                  <div className="flex items-center justify-between text-slate-400 text-xs font-mono">
+                    <span>{getTranslation('meals', lang)}</span>
+                    <span className="text-base animate-pulse">🥣</span>
+                  </div>
+                  <div className="text-3xl font-extrabold font-title text-amber-400 drop-shadow-sm">
+                    {mealsFunded}
+                  </div>
+                  <span className="text-[10px] text-slate-500 font-mono">50 grains = 1 meal</span>
+                </div>
+              </div>
+
+              {/* Interactive Bowl Progress Visualizer */}
+              <div className={`p-4 rounded-2xl border space-y-3 ${
+                isDark ? 'bg-slate-950/50 border-slate-800/60' : 'bg-emerald-50/40 border-emerald-100'
+              }`}>
+                <div className="flex justify-between items-center text-xs font-mono">
+                  <span className="text-slate-300 font-semibold flex items-center gap-1.5">
+                    <span>🥣</span>
+                    <span>{lang === 'hi' ? 'अगला कटोरा प्रगति:' : 'Next Meal Progress:'}</span>
+                  </span>
+                  <span className="font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                    {progressToNextMeal} / 50 grains ({Math.min(100, Math.round((progressToNextMeal / 50) * 100))}%)
+                  </span>
+                </div>
+
+                {/* Shimmer Liquid Progress Bar */}
+                <div className={`w-full h-3 rounded-full overflow-hidden relative ${isDark ? 'bg-slate-900 border border-slate-800' : 'bg-slate-200'}`}>
+                  <motion.div 
+                    className="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-amber-400 rounded-full relative overflow-hidden transition-all duration-300"
+                    style={{ width: `${Math.min(100, Math.max(5, Math.round((progressToNextMeal / 50) * 100)))}%` }}
+                  >
+                    {/* Animated High-Voltage Shimmer Wave */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/35 to-transparent animate-pulse" />
+                  </motion.div>
+                </div>
+
+                <div className="text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                  <span>🐕 {50 - progressToNextMeal} grains to deliver Bowl #{mealsFunded + 1}</span>
+                  <span className="text-emerald-400 font-bold">100% Direct Impact</span>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="space-y-2.5 pt-1">
                 <Link
                   href="/impact"
-                  className={`w-full py-2.5 rounded-xl border text-xs font-medium flex items-center justify-center gap-1.5 transition-colors ${
-                    isDark ? 'bg-slate-950 hover:bg-slate-800 border-slate-800 text-slate-200' : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700'
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 hover:from-emerald-500 to-teal-600 hover:to-teal-500 text-white text-xs font-bold font-title flex items-center justify-center gap-2 transition-all shadow-md shadow-emerald-900/20 hover:scale-[1.02] active:scale-[0.98] cursor-pointer text-center"
+                >
+                  <span>{lang === 'hi' ? '110+ जमीनी फ़ोटो व GPS प्रमाण देखें →' : 'View 110+ Field Photos & GPS Logs →'}</span>
+                  <ExternalLink size={13} />
+                </Link>
+
+                {/* Interactive Feedback & Suggestion Trigger */}
+                <button
+                  onClick={() => setShowSuggestionModal(true)}
+                  className={`w-full py-2.5 rounded-xl border text-xs font-mono font-medium flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                    isDark 
+                      ? 'bg-slate-950 hover:bg-slate-900 border-slate-800 text-slate-300 hover:text-emerald-400' 
+                      : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700 hover:text-emerald-600 shadow-sm'
                   }`}
                 >
-                  <span>{getTranslation('viewImpactLedger', lang)}</span>
-                  <ExternalLink size={12} />
-                </Link>
+                  <span>💡</span>
+                  <span>{getTranslation('giveFeedback', lang)}</span>
+                  <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-400/30">
+                    +25 Grains
+                  </span>
+                </button>
               </div>
-
-              {/* Feedback Button */}
-              <button
-                onClick={() => setShowSuggestionModal(true)}
-                className="w-full text-center text-xs font-mono text-slate-400 hover:text-emerald-400 transition-colors cursor-pointer pt-1"
-              >
-                {getTranslation('giveFeedback', lang)}
-              </button>
 
             </div>
 
