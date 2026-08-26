@@ -58,9 +58,9 @@ const COMMANDS: Record<string, string[]> = {
     "  whoami      - Executive profile summary & verified impact (JSON)",
     "  skills      - 5 Core Competencies & technical toolchains",
     "  exp         - 4+ Years enterprise employment history & CNI SecOps",
-    "  projects    - Key CNI defense systems & production tools",
-    "  labs        - Offensive security labs & academic coursework",
-    "  certs       - Active certifications & targeted roadmap",
+    "  projects    - Key CNI defense systems, DevSecOps pipelines & production tools",
+    "  labs        - DevSecOps labs, offensive security & academic coursework",
+    "  certs       - Active certifications (FCA, EC-Council) & targeted roadmap",
     "  education   - Academic degrees & MBA (Cybersecurity)",
     "  recruiter   - Fast-facts, mobility, languages & availability",
     "  ecosystem   - AdityaSec + JumpStreet + CyberKarma triad",
@@ -71,18 +71,20 @@ const COMMANDS: Record<string, string[]> = {
     "aditya@secops:~$ cat whoami.json",
     "{",
     '  "name": "Aditya Jain",',
-    '  "role": "Cybersecurity Engineer | Network Security & NGFW Architect",',
-    '  "sub_roles": "Purple Teamer | VAPT | SIEM/EDR | DFIR",',
-    '  "experience": "4+ Years Enterprise SecOps & CNI Defense",',
-    '  "current_role": "Security Administrator & NGFW Architect @ Ebix / NIC (MeitY Govt. of India)",',
-    '  "posting": "Patna, Bihar (On-site: NIC MeitY) | Employer HQ: Noida",',
+    '  "role": "Cybersecurity Engineer | Vulnerability Management & DevSecOps",',
+    '  "sub_roles": "VAPT · SIEM/EDR · Security Automation · CNI Defense",',
+    '  "experience": "4+ Years in Vulnerability Management, Remediation Orchestration & Security Automation",',
+    '  "current_role": "Security Administrator & Vulnerability Management Lead @ Ebix / NIC (MeitY Govt. of India)",',
+    '  "posting": "Patna, India (On-site: NIC MeitY) | Employer HQ: Noida",',
     '  "verified_impact": {',
-    '    "endpoints_secured": "750+ Government Endpoints",',
-    '    "audit_reduction": "60% Reduction in Manual Audit Cycles (KACE UEM)",',
-    '    "threat_detection": "+35% Elevation in True-Positive Alert Efficacy",',
-    '    "cni_nodes": "38 Regional Districts & SDC Linux Rack Servers"',
+    '    "endpoints_secured": "750+ Government Endpoints across 38 Districts",',
+    '    "compliance_baselines": "120+ Policy-as-Code Checks (KACE UEM / CMDB-aligned)",',
+    '    "audit_reduction": "60% Reduction in Manual Audit Cycles",',
+    '    "false_positive_reduction": "30% Cut in SIEM/EDR Alert Fatigue",',
+    '    "threat_detection_boost": "+35% True-Positive Detection Rate in 24x7 CNI Nuclear SOC"',
     '  },',
     '  "education": "MBA (Cybersecurity) in progress · B.Tech CSE (Manipal)",',
+    '  "mobility": "Delhi NCR, Bengaluru, Chennai, Hyderabad, Pune, Mumbai, Jaipur | International: UAE, Singapore, UK, Germany, EU, US",',
     '  "contact": {',
     '    "phone": "+91 74005 88896",',
     '    "email": "adityasec32@gmail.com / contact@adityasec32.systems",',
@@ -93,63 +95,66 @@ const COMMANDS: Record<string, string[]> = {
   ],
   skills: [
     "aditya@secops:~$ list-competencies --all",
-    "1. NETWORK SECURITY & FIREWALLS:",
-    "   • Palo Alto (Panorama, App-ID, Threat Prevention), Check Point, Fortinet",
-    "   • Default-Deny Architecture, ZTNA, OSPF, TACACS+/RADIUS, Network Segmentation, Wireshark",
-    "2. OFFENSIVE SECURITY & VAPT:",
-    "   • Web & Infra VAPT, OWASP Top 10",
-    "   • Active Directory Exploitation (BloodHound, Kerberoasting, AS-REP Roasting, DCSync, Pass-the-Hash, Delegation Abuse)",
-    "   • Tools: Impacket, Mimikatz, Rubeus, Hashcat, NetExec (CrackMapExec), PrivEsc (winPEAS/linPEAS), Metasploit, Burp Suite Pro, Nmap",
-    "3. SIEM, EDR & THREAT HUNTING:",
-    "   • Wazuh, Splunk, SentinelOne, Trend Micro Deep Security, Microsoft Sentinel, Kaspersky EDR, Snort",
-    "   • MITRE ATT&CK Framework, DFIR & RAM Dump Analysis",
-    "4. COMPLIANCE, CLOUD & SCRIPTING:",
-    "   • CERT-In Guidelines, CDAC Standards, NIST CSF, CIS Controls, ISO 27001 (familiar)",
-    "   • AWS/Azure Fundamentals, Linux (RHEL/Ubuntu), Python, Bash, PowerShell, Git",
-    "5. AI-AUGMENTED ENGINEERING & OPSEC:",
-    "   • Claude, Google Antigravity (agentic IDE), GitHub Copilot",
-    "   • OPSEC and anonymity-network research (Tor) for defensive threat intelligence"
+    "1. VULNERABILITY MANAGEMENT:",
+    "   • Infra & App Scanning (Nmap, Burp Suite Pro, Wazuh), CVE/CVSS/CWE, OWASP Top 10",
+    "   • De-dup & Contextual Tuning, Risk-Based Prioritization, Remediation Orchestration & SLA Tracking",
+    "2. DEVSECOPS & CI/CD SECURITY:",
+    "   • Shift-Left/Right Controls, SAST/DAST/SCA (Semgrep, OWASP ZAP, Trivy, Snyk)",
+    "   • GitHub Actions & Jenkins Workflows, Policy-as-Code Guardrails, IaC Checks (Checkov), Docker & Kubernetes Fundamentals",
+    "3. INTEGRATIONS & AUTOMATION:",
+    "   • CMDB/Asset Alignment (KACE UEM, 750+ nodes), Ticketing/Workflow Integration (NIC-CERT/SDC)",
+    "   • REST API Integrations, SOAR-Style Script Remediation, Python, Bash, PowerShell, Git",
+    "4. INFRASTRUCTURE & CLOUD SECURITY:",
+    "   • Palo Alto, Check Point, Fortinet (FCA Certified), Default-Deny, ZTNA, Network Segmentation",
+    "   • AWS/Azure Fundamentals, Linux (RHEL/Ubuntu), Secure-by-Design Patterns for Dev & Infra Teams",
+    "5. SIEM, EDR & DETECTION TUNING:",
+    "   • Wazuh, Splunk, SentinelOne, Trend Micro, Microsoft Sentinel, MITRE ATT&CK, DFIR",
+    "   • False-Positive Reduction via Contextual Analysis (+35% True-Positive Detection)"
   ],
   exp: [
     "aditya@secops:~$ get-history",
     "• Ebix Technologies (Client: NIC, MeitY Govt. of India) - Feb 2024 to Present",
-    "  Role: Security Administrator & NGFW Architect (Patna, India)",
-    "  - Architected default-deny policies on Palo Alto & Check Point clusters; secured Bihar SDC Linux rack servers.",
-    "  - Managed SentinelOne, Deep Security & Wazuh across 750+ endpoints; tuned correlation rules (-30% alert fatigue).",
-    "  - Primary CERT-In incident responder; automated 120+ CDAC/CERT-In checks via KACE UEM (60% audit cut).",
-    "  - Authored PoC exploits with NIC-CERT; executed Active Directory attack-path analysis.",
-    "  - Engineered Unified NOC Monitoring Suite (VC health, WAN latency, portal checks across 38 districts).",
-    "  - Delivered specialized NGFW/EDR/CERT-In security training to 60+ district FMS teams.",
+    "  Role: Security Administrator & Vulnerability Management Lead (Patna, India)",
+    "  - Vulnerability Management: Lead discovery, PoC validation, and de-dup across 750+ nodes; SLA tracking with NIC-CERT/SDC.",
+    "  - Policy-as-Code: Engineered Python/Bash automation for 120+ CDAC/CERT-In checks via KACE UEM (-60% audit effort).",
+    "  - CI/CD & Secure Change Control: Git-versioned configs with peer review; staging pre-prod validation (shift-left).",
+    "  - Detection Tuning: Managed SentinelOne, Trend Micro, Wazuh/Splunk; tuned correlation rules (-30% alert fatigue).",
+    "  - Integrations & Observability: Asset inventory, synthetic monitoring (VC health, WAN latency, portal checks across 38 districts).",
+    "  - NGFW Architecture: Default-deny Palo Alto & Check Point policies, Linux rack server hardening, secure-by-design patterns.",
     "• Independent Security Researcher - Aug 2023 to Jan 2024 (Remote)",
-    "  - Executed advanced AD exploitation labs (HTB, VulnLab multi-forest, Kerberoasting, DCSync, DC compromise).",
+    "  - Offensive Security & Vulnerability Validation: HTB & VulnLab multi-forest AD labs (Kerberoasting, DCSync, DC compromise).",
+    "  - MBA (Cybersecurity) coursework & certification trajectories (eJPT, CEH) bridging defense with offensive methodologies.",
     "• RRG Engineering Tech (Client: DAE Nuclear Fuel Complex) - Dec 2022 to Jul 2023 (Kota, India)",
-    "  Role: SOC Analyst – Threat Hunter (24x7 CNI SOC)",
-    "  - 24x7 threat hunting via Blu Sapphire SIEM & Splunk; +35% true-positive detection boost.",
-    "  - Behavioral malware analysis and sandbox reproduction to update detection signatures.",
+    "  Role: SOC Analyst – Threat Hunter & Detection Engineer (24x7 CNI SOC)",
+    "  - 24x7 CNI SOC operations; tuned SIEM correlation rules & EDR policies (+35% true-positive rate, reduced false positives).",
+    "  - Malware Analysis: Sandbox payload reproduction to reverse-engineer TTPs, validate vulnerabilities, and update signatures.",
     "• E2E Networks Limited - Aug 2022 to Oct 2022 (Vellore, India)",
-    "  Role: SOC Analyst – IDS & Signature Development (Snort/Wazuh custom signatures, AbuseIPDB feed automation).",
+    "  Role: SOC Analyst – IDS & Signature Development (Custom Snort/Wazuh IDS signatures, AbuseIPDB feed automation).",
     "• Teleperformance - Dec 2021 to May 2022 (Jaipur, India)",
-    "  Role: Technical Support Executive (Microsoft Enterprise support, strict SLA compliance)."
+    "  Role: Technical Support Executive (Microsoft Enterprise Tier-2 support via Rave ticketing, strict SLA compliance)."
   ],
   projects: [
     "aditya@secops:~$ list-projects --verified",
-    "1. State NOC Admin Portal (NIC Bihar)       - 38 district nodes, live traceroute diagnostics, Ollama LLM voice RAG",
-    "2. Real-Time Network Alert Dashboard        - 293 core routers, sub-second ping tracking, Web Speech voice alarms",
-    "3. Unified NOC Monitoring Suite (NIC Bihar) - Synthetic VC health, WAN speed-tests, portal checks, SLA reporting",
-    "4. LAN Asset Management Portal              - DHCP/PXE-based automated OS deployment, secure internal file sharing",
-    "5. CDAC / CERT-In Compliance Engine         - 750+ endpoints, 120+ checks, 60% audit cycle reduction",
-    "6. CyberKarma & JumpStreet Triad            - Free Rice trivia animal welfare + Orca6 algorithmic trading engine"
+    "1. DevSecOps CI/CD Security Pipeline (Lab)   - GitHub Actions embedding SAST (Semgrep), SCA (Trivy), IaC (Checkov), DAST (ZAP)",
+    "2. State NOC Admin Portal (NIC Bihar)        - 38 district nodes, live traceroute diagnostics, Ollama LLM voice RAG",
+    "3. Unified NOC Monitoring Suite (NIC Bihar)  - Synthetic VC health, district WAN speed-tests, portal availability, SLA reporting",
+    "4. LAN Asset Management Portal               - Python/Bash DHCP/PXE automated OS deployment, secure internal file distribution",
+    "5. CDAC / CERT-In Compliance Engine          - 750+ endpoints, 120+ checks, 60% audit cycle reduction via KACE UEM",
+    "6. CyberKarma & JumpStreet Triad             - Free Rice trivia animal welfare + Orca6 algorithmic trading architecture"
   ],
   labs: [
     "aditya@secops:~$ list-labs",
+    "[DevSecOps Labs]",
+    "• CI/CD Pipelines: GitHub Actions, Jenkins security gates, shift-left scanning",
+    "• Security Toolchains: SAST (Semgrep), DAST (OWASP ZAP), SCA/Containers (Trivy, Snyk), IaC (Checkov), Docker/K8s security",
     "[Offensive Security Labs]",
-    "• Hack The Box: Active Directory exploitation, privilege escalation",
-    "• VulnLab: Multi-forest AD, Domain Controller compromise",
+    "• Hack The Box: Active Directory exploitation, privilege escalation, pivoting",
+    "• VulnLab: Multi-forest AD, Domain Controller compromise, Kerberoasting, DCSync",
     "• OPSEC & Tor: Anonymity-network research for defensive threat intelligence",
     "[Academic Coursework]",
     "• Security Management & Governance (Royal Holloway, University of London)",
-    "• Introduction to Network Security (University of London)",
-    "• Mathematical Foundations for Cryptography (University of Colorado)"
+    "• Network Security (University of London)",
+    "• Cryptography Foundations (University of Colorado)"
   ],
   certs: [
     "aditya@secops:~$ list-certs",
@@ -172,27 +177,12 @@ const COMMANDS: Record<string, string[]> = {
   recruiter: [
     "aditya@secops:~$ show-recruiter-intel",
     "• Current Posting    : On-site at National Informatics Centre (MeitY), Patna (Employer HQ: Noida)",
-    "• Relocation Markets : Delhi NCR, Bengaluru, Hyderabad, Pune, Mumbai, Jaipur (family base)",
+    "• Relocation Markets : Delhi NCR, Bengaluru, Chennai, Hyderabad, Pune, Mumbai, Jaipur (family base)",
     "                       International: UAE, Singapore, UK, Germany (EU Blue Card pathway), EU, US",
-    "• Work Authorization : Indian citizen (Open to visa sponsorship for UAE, SG, UK, Germany, EU, US)",
+    "• Work Authorization : Indian citizen (Open to UAE, SG, UK, Germany, and EU roles with visa sponsorship; US requires sponsorship)",
     "• Languages          : English (Professional), Hindi (Native)",
     "• Availability       : 60 Days (Negotiable)",
     "• Direct Contact     : +91 74005 88896 | adityasec32@gmail.com / contact@adityasec32.systems"
-  ],
-  ecosystem: [
-    "aditya@secops:~$ cat ecosystem.map",
-    "• adityasec32.systems - Primary SecOps, Purple Teaming & CNI Defense Portfolio",
-    "• jumpstreet.tech     - Quantitative Trading, WebSocket Feeds & Orca6 Arbitrage Engine",
-    "• cyberkarma.me       - Gamified Free Rice Cybersecurity Trivia (Feeding Stray Animals in Patna)"
-  ],
-  contact: [
-    "aditya@secops:~$ show-contact",
-    "• Phone     : +91 74005 88896",
-    "• Email     : adityasec32@gmail.com / contact@adityasec32.systems",
-    "• LinkedIn  : https://www.linkedin.com/in/ajainx1/",
-    "• GitHub    : https://github.com/ajainx1",
-    "• Portfolio : https://adityasec32.systems",
-    "• PGP Key   : 4A8B 92C1 3E7F 8902 B5D4 1A9C 77E0 63F8"
   ]
 };
 
@@ -336,6 +326,22 @@ interface ProjectCard {
 
 const PROJECTS_DATA: ProjectCard[] = [
   {
+    id: "devsecops-pipeline",
+    title: "DevSecOps CI/CD Security Pipeline (Lab)",
+    category: "offensive",
+    categoryLabel: "DevSecOps & CI/CD",
+    orbitTag: "ORBIT: SHIFT-LEFT-01",
+    impactHighlight: "Embedded SAST, SCA, IaC & DAST automated security gates across build-test-deploy stages",
+    description: "Multi-stage automated CI/CD security pipeline built on GitHub Actions integrating Semgrep (SAST), Trivy (container/SCA), Checkov (IaC), and OWASP ZAP (DAST) for automated pull-request vulnerability triage.",
+    tags: ["GitHub Actions", "Semgrep", "Trivy", "Checkov", "OWASP ZAP", "Docker"],
+    isModal: true,
+    linkText: "View Pipeline Specs",
+    colorBorder: "border-emerald-500/25 hover:border-emerald-400",
+    colorGlow: "hover:shadow-emerald-500/20",
+    colorBadge: "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
+    colorText: "group-hover:text-emerald-400"
+  },
+  {
     id: "noc-admin-portal",
     title: "State NOC Admin Portal (NIC Bihar)",
     category: "sandbox",
@@ -436,68 +442,63 @@ const PROJECTS_DATA: ProjectCard[] = [
 // 5 Pillars of Core Competencies from Official Resume
 const SKILLS_PILLARS = [
   {
-    id: "network",
-    title: "Network Security & Firewalls",
+    id: "vuln_mgmt",
+    title: "Vulnerability Management",
     icon: Shield,
-    badge: "NGFW & ZTNA",
+    badge: "CVE/CVSS & SLA Tracking",
     skills: [
-      { name: "Palo Alto", details: "Panorama, App-ID, Threat Prevention, SSL Decryption" },
-      { name: "Check Point", details: "ClusterXL, SmartConsole, Threat Extraction" },
-      { name: "Fortinet FortiGate", details: "FCA Certified, FortiOS, SD-WAN, IPS Policies" },
-      { name: "Default-Deny Architecture", details: "Zero-Trust perimeter enforcement across SDC rack servers" },
-      { name: "Zero Trust (ZTNA)", details: "Identity-aware least privilege microsegmentation" },
-      { name: "Routing & Protocols", details: "OSPF, BGP, TACACS+, RADIUS, 802.1X" },
-      { name: "Packet Analysis", details: "Wireshark, TCPDump, NetFlow telemetry analysis" }
+      { name: "Infra & App Scanning", details: "Nmap, Burp Suite Pro, Wazuh, vulnerability validation (PoC)" },
+      { name: "Frameworks & Standards", details: "CVE, CVSS v3/v4, CWE, OWASP Top 10" },
+      { name: "De-dup & Contextual Tuning", details: "Asset criticality mapping, threat intel correlation" },
+      { name: "Remediation Orchestration", details: "Ticketing workflows (NIC-CERT / SDC), SLA tracking across 750+ nodes" }
     ]
   },
   {
-    id: "offensive",
-    title: "Offensive Security & VAPT",
-    icon: Crosshair,
-    badge: "VAPT & AD Exploitation",
+    id: "devsecops",
+    title: "DevSecOps & CI/CD Security",
+    icon: Cpu,
+    badge: "Shift-Left & Policy-as-Code",
     skills: [
-      { name: "Active Directory Exploitation", details: "BloodHound path analysis, Kerberoasting, AS-REP Roasting, DCSync, Pass-the-Hash, Delegation Abuse" },
-      { name: "Offensive Toolchains", details: "Impacket suite, Mimikatz, Rubeus, Hashcat, NetExec (CrackMapExec)" },
-      { name: "Privilege Escalation", details: "winPEAS, linPEAS, token manipulation, service abuse" },
-      { name: "Web & Infra VAPT", details: "Burp Suite Pro, OWASP Top 10, Metasploit, Nmap, PoC exploit authoring" },
-      { name: "Lab Mastery", details: "Hack The Box & VulnLab multi-forest Active Directory compromise" }
+      { name: "Shift-Left/Right Controls", details: "Pre-production staging validation, runtime policy guardrails" },
+      { name: "SAST / DAST / SCA", details: "Semgrep, OWASP ZAP, Trivy, Snyk automated scanners" },
+      { name: "CI/CD Pipeline Security", details: "GitHub Actions & Jenkins security workflows" },
+      { name: "IaC & Container Security", details: "Checkov IaC scanning, Docker & Kubernetes security fundamentals" }
     ]
   },
   {
-    id: "siem",
-    title: "SIEM, EDR & Threat Hunting",
+    id: "integrations",
+    title: "Integrations & Automation",
     icon: Zap,
+    badge: "KACE UEM & API Orchestration",
+    skills: [
+      { name: "CMDB & Asset Alignment", details: "KACE UEM orchestration across 750+ government endpoints" },
+      { name: "Ticketing Integration", details: "NIC-CERT / SDC workflow automation, FMS ticketing across 38 districts" },
+      { name: "Script Remediation", details: "Python, Bash, PowerShell SOAR-style automated remediation" },
+      { name: "Version Control", details: "Git-versioned automation and configuration artifacts with peer review" }
+    ]
+  },
+  {
+    id: "infra_cloud",
+    title: "Infrastructure & Cloud Security",
+    icon: Lock,
+    badge: "NGFW, ZTNA & Segmentation",
+    skills: [
+      { name: "Next-Gen Firewalls", details: "Palo Alto (App-ID, Panorama), Check Point, Fortinet (FCA Certified)" },
+      { name: "Zero Trust Architecture", details: "Default-Deny policies, ZTNA, microsegmentation, SDC Linux rack hardening" },
+      { name: "Cloud Fundamentals", details: "AWS & Azure Security Fundamentals" },
+      { name: "Linux Administration", details: "RHEL & Ubuntu server administration, secure-by-design patterns" }
+    ]
+  },
+  {
+    id: "siem_edr",
+    title: "SIEM, EDR & Detection Tuning",
+    icon: Crosshair,
     badge: "SOC & Detection Engineering",
     skills: [
-      { name: "Enterprise EDR", details: "SentinelOne, Trend Micro Deep Security, Kaspersky EDR" },
-      { name: "SIEM Stacks", details: "Wazuh, Splunk, Microsoft Sentinel, Blu Sapphire SIEM" },
-      { name: "Detection Engineering", details: "Custom Sigma rules, Wazuh XML decoders, Snort IDS signatures" },
-      { name: "Threat Hunting & DFIR", details: "MITRE ATT&CK mapping, RAM Dump Analysis (Volatility), Incident Triage" },
-      { name: "24x7 CNI SOC Operations", details: "SME threat hunting for Nuclear Fuel Complex (DAE) critical infrastructure" }
-    ]
-  },
-  {
-    id: "compliance",
-    title: "Compliance, Cloud & Scripting",
-    icon: FileCheck,
-    badge: "Govt. Baselines & Automation",
-    skills: [
-      { name: "Regulatory Compliance", details: "CERT-In Guidelines, CDAC Standards, NIST CSF, CIS Controls, ISO 27001 (familiar)" },
-      { name: "Automation & Scripting", details: "PowerShell automation, Python data pipelines, Bash shell scripting" },
-      { name: "Endpoint Orchestration", details: "KACE UEM modular agent orchestration (750+ government nodes)" },
-      { name: "Cloud & Systems", details: "AWS & Azure Fundamentals, Linux (RHEL/Ubuntu server administration), Git" }
-    ]
-  },
-  {
-    id: "ai_opsec",
-    title: "AI-Augmented Engineering & OPSEC",
-    icon: Bot,
-    badge: "Modern AI & Threat Intel",
-    skills: [
-      { name: "Agentic AI IDEs", details: "Google Antigravity IDE, Claude 3.5 Sonnet, GitHub Copilot" },
-      { name: "On-Premise LLM / RAG", details: "Local Ollama LLM integration for air-gapped NOC troubleshooting" },
-      { name: "OPSEC Research", details: "Anonymity-network research (Tor) for defensive threat intelligence" },
-      { name: "Security Architecture", details: "Pairing LLMs with SecOps automation for sub-second incident triage" }
+      { name: "Enterprise EDR Stacks", details: "SentinelOne, Trend Micro Deep Security, Microsoft Sentinel" },
+      { name: "SIEM & Telemetry", details: "Wazuh, Splunk, Blu Sapphire SIEM, Snort IDS" },
+      { name: "Detection Engineering", details: "Tuned correlation rules cutting false-positive fatigue by 30%" },
+      { name: "24x7 CNI SOC Operations", details: "Threat hunting SME for DAE Nuclear Fuel Complex (+35% true-positive rate)" }
     ]
   }
 ];
@@ -743,7 +744,7 @@ export default function Home() {
             {/* Top Purple Teamer Status Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-950/50 backdrop-blur-xl text-xs font-mono font-bold text-emerald-300 shadow-sm">
               <Shield className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-              <span>PURPLE TEAMER &bull; CNI THREAT HUNTER &bull; SECOPS ARCHITECT</span>
+              <span>VULNERABILITY MANAGEMENT &bull; DEVSECOPS &bull; CNI SECOPS LEAD</span>
             </div>
 
             {/* H1 & Master H2 Headline */}
@@ -753,12 +754,12 @@ export default function Home() {
               </h1>
               
               <h2 className="text-xl sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 font-title leading-snug">
-                Cybersecurity Engineer | Network Security &amp; NGFW Architecture | VAPT &bull; SIEM/EDR &bull; DFIR
+                Cybersecurity Engineer | Vulnerability Management &amp; DevSecOps | VAPT &bull; SIEM/EDR &bull; Security Automation
               </h2>
 
               {/* Verified Value Proposition */}
               <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl pt-1">
-                Results-driven Cybersecurity Engineer with <strong>4+ years of experience architecting default-deny NGFW estates and enterprise EDR/SIEM programs</strong> for government and Critical National Infrastructure (CNI) &mdash; reducing audit turnaround 60% and elevating true-positive detection 35%.
+                Results-driven Cybersecurity Engineer with <strong>4+ years in Vulnerability Management, remediation orchestration, and security automation for government and Critical National Infrastructure (CNI)</strong>. Proven record in vulnerability discovery, validation (PoC), and de-duplication; risk-based prioritization (CVSS + threat intelligence + asset criticality); and automating <strong>120+ compliance baselines as policy-as-code across 750+ endpoints, cutting audit effort by 60%</strong>.
               </p>
             </div>
 

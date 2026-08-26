@@ -36,6 +36,22 @@ interface Project {
 
 const ALL_PROJECTS: Project[] = [
   {
+    id: "devsecops-pipeline",
+    title: "DevSecOps CI/CD Security Pipeline (Lab)",
+    category: "Interactive",
+    badge: "Demo Available",
+    badgeColor: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+    desc: "Built automated GitHub Actions CI/CD pipelines embedding SAST (Semgrep), SCA & container scanning (Trivy), IaC checks (Checkov), and DAST (OWASP ZAP) across build-test-deploy stages of a Dockerized application.",
+    metrics: [
+      "Automated Shift-Left SAST/DAST/SCA security gates",
+      "Checkov IaC policy-as-code vulnerability scanning",
+      "Docker & Kubernetes security container checks",
+      "Automated pull-request blocking for High/Critical CVEs"
+    ],
+    tags: ["GitHub Actions", "Semgrep", "Trivy", "Checkov", "OWASP ZAP", "Docker"],
+    ctaText: "View Pipeline Architecture"
+  },
+  {
     id: "cert-in-compliance",
     title: "CDAC / CERT-In Compliance Automation Engine",
     category: "Case Study",

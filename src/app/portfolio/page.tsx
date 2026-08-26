@@ -28,53 +28,78 @@ import CyberResumeButton from "@/components/CyberResumeButton";
 const COMMANDS = {
   help: [
     "Available commands:",
-    "  whoami    - Display professional profile summary",
-    "  skills    - List core technical competencies",
-    "  exp       - List professional employment history",
-    "  certs     - List active and targeted certifications",
+    "  whoami    - Display professional profile summary & verified impact",
+    "  skills    - List 5 core technical competencies & toolchains",
+    "  exp       - List 4+ years enterprise employment history",
+    "  certs     - List active certifications & targeted roadmap",
+    "  education - Academic degrees & MBA (Cybersecurity)",
+    "  recruiter - Fast-facts, mobility, languages & availability",
     "  clear     - Clear terminal screen"
   ],
   whoami: [
     "aditya@secops:~$ cat whoami.json",
     "{",
-    "  \"name\": \"Aditya Jain\",",
-    "  \"role\": \"SME Cybersecurity Engineer\",",
-    "  \"exp\": \"4+ Years Enterprise SecOps\",",
-    "  \"location\": \"Patna, Bihar, India\",",
-    "  \"current\": \"Security Administrator @ National Informatics Centre (NIC)\",",
-    "  \"focus\": \"SecOps, Purple Teaming, Threat Hunting\"",
+    '  "name": "Aditya Jain",',
+    '  "role": "Cybersecurity Engineer | Vulnerability Management & DevSecOps",',
+    '  "sub_roles": "VAPT · SIEM/EDR · Security Automation · CNI Defense",',
+    '  "experience": "4+ Years Enterprise SecOps & Vulnerability Remediation",',
+    '  "location": "Patna, India (On-site: NIC MeitY) | Employer HQ: Noida",',
+    '  "mobility": "Delhi NCR, Bengaluru, Chennai, Hyderabad, Pune, Mumbai, Jaipur | International: UAE, Singapore, UK, Germany, EU, US",',
+    '  "current": "Security Administrator & Vulnerability Management Lead @ Ebix / NIC",',
+    '  "focus": "Vulnerability Discovery & Remediation, Policy-as-Code (KACE UEM), CI/CD Security, SIEM/EDR Detection Tuning"',
     "}"
   ],
   skills: [
     "aditya@secops:~$ list-skills --verbose",
-    "• SIEM/EDR: Wazuh, Blu Sapphire, SentinelOne, Trend Micro, Kaspersky EDR",
-    "• Offensive: Metasploit, Nmap, Burp Suite Pro, BloodHound, Impacket, Mimikatz",
-    "• Network: Check Point NGFW, Fortinet FortiGate, Sophos, Cisco AnyConnect, OSPF",
-    "• Scripting: Python, PowerShell, Bash, Git",
-    "• Compliance: NIST CSF, OWASP Top 10, CERT-In, RAM Dump Analysis"
+    "• Vulnerability Management: Nmap, Burp Suite Pro, Wazuh, CVE/CVSS, OWASP Top 10, Remediation Orchestration & SLA Tracking",
+    "• DevSecOps & CI/CD: Semgrep (SAST), OWASP ZAP (DAST), Trivy (SCA/Container), Checkov (IaC), GitHub Actions, Docker & K8s",
+    "• Automation & Integrations: KACE UEM (750+ endpoints), NIC-CERT/SDC workflow integration, Python, Bash, PowerShell, Git",
+    "• Infrastructure & Cloud: Palo Alto, Check Point, Fortinet (FCA Certified), Default-Deny, ZTNA, AWS/Azure Fundamentals, Linux RHEL",
+    "• SIEM, EDR & Tuning: Wazuh, Splunk, SentinelOne, Trend Micro, Microsoft Sentinel, MITRE ATT&CK (+35% true-positive boost, -30% alert fatigue)"
   ],
   exp: [
     "aditya@secops:~$ get-history",
-    "• Ebix Technologies / NIC (Security Administrator) - Feb 2024 to Present",
-    "  - Managed SentinelOne/Deep Security EDR across 750+ offices",
-    "  - Built compliance automation scripts (120+ checks) saving 60% cycle effort",
-    "• RRG Engineering / Nuclear Fuel Complex (SOC Threat Hunter) - Dec 2022 to Jul 2023",
-    "  - 24x7 CNI nuclear SOC monitoring, +35% SIEM detection boost",
-    "• E2E Networks (SOC Analyst - IDS) - Aug 2022 to Oct 2022",
-    "  - Wazuh & Snort custom signature development"
+    "• Ebix Technologies / NIC (Security Administrator & Vulnerability Lead) - Feb 2024 to Present",
+    "  - Lead vulnerability discovery, validation (PoC), and remediation orchestration across 750+ nodes with NIC-CERT/SDC",
+    "  - Engineered Python/Bash policy-as-code enforcing 120+ CDAC/CERT-In baselines via KACE UEM (-60% audit cycle effort)",
+    "  - Managed SentinelOne, Trend Micro, Wazuh/Splunk; tuned correlation rules (-30% alert fatigue)",
+    "  - Shift-left CI/CD configuration management; default-deny Palo Alto/Check Point firewall architecture",
+    "• Independent Security Researcher (Offensive Security Focus) - Aug 2023 to Jan 2024",
+    "  - Advanced Active Directory exploitation (Hack The Box, VulnLab multi-forest, Kerberoasting, DCSync, DC compromise)",
+    "• RRG Engineering / Nuclear Fuel Complex (SOC Analyst – Threat Hunter) - Dec 2022 to Jul 2023",
+    "  - 24x7 CNI nuclear SOC threat hunting; tuned SIEM/EDR rules (+35% true-positive rate)",
+    "  - Sandbox malware payload analysis to reverse-engineer TTPs and update signatures",
+    "• E2E Networks Limited (SOC Analyst – IDS & Signature Development) - Aug 2022 to Oct 2022",
+    "  - Authored custom Snort and Wazuh IDS signatures; automated AbuseIPDB feed ingestion",
+    "• Teleperformance (Technical Support Executive - Microsoft Enterprise) - Dec 2021 to May 2022",
+    "  - Tier-2 Microsoft enterprise support via Rave ticketing, maintaining strict SLA compliance"
   ],
   certs: [
     "aditya@secops:~$ list-certs",
-    "[Completed]",
-    "• Fortinet Certified Associate (FCA) in Cybersecurity",
-    "• Red Hat Certified System Administrator (RHCSA)",
-    "• In the Trenches: SOC - EC-Council",
-    "• Autopsy Basics (Digital Forensics) - BasisTech",
-    "[In Progress / Targeted]",
+    "[Earned & Verified]",
+    "• Fortinet Certified Associate (FCA) in Cybersecurity (Jan 2026)",
+    "• EC-Council: In the Trenches - SOC",
+    "[In Progress & Targeted Roadmap]",
     "• eJPT (Target: Q4 2026)",
-    "• CEH v13 / CompTIA Security+ (2026)",
+    "• CEH v13 (Target: 2026)",
     "• CISSP (Target: Q3 2027)",
-    "• OSCP / PEN-200"
+    "• OSCP (OffSec Certified Professional - Target: 2027+)",
+    "• MBA in Cybersecurity (Chitkara University - Expected Jul 2027)"
+  ],
+  education: [
+    "aditya@secops:~$ get-education",
+    "• Chitkara University (Punjab, India) - MBA in Cybersecurity (In Progress, Expected Jul 2027)",
+    "• Manipal University Jaipur (Rajasthan, India) - B.Tech in Computer Science & Engineering (2019 - 2022)",
+    "• Hindu College of Engineering (Haryana, India) - Diploma in Computer Science & Engineering (2013 - 2018)"
+  ],
+  recruiter: [
+    "aditya@secops:~$ show-recruiter-intel",
+    "• Location & Posting: Patna, India (On-site: NIC MeitY) | Employer HQ: Noida",
+    "• Relocation Markets: Delhi NCR, Bengaluru, Chennai, Hyderabad, Pune, Mumbai, Jaipur (family base)",
+    "                      International: UAE, Singapore, UK, Germany (EU Blue Card pathway), EU, US",
+    "• Work Authorization: Indian citizen (Open to visa sponsorship)",
+    "• Languages         : English (Professional), Hindi (Native)",
+    "• Availability      : 60 Days (Negotiable)"
   ]
 };
 
