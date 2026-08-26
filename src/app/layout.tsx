@@ -154,97 +154,154 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLdPerson = {
+    // 1. WebApplication / Software Schema with 4.96 Star Rating for Google Rich Snippets
+  const jsonLdApp = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Aditya Jain",
-    "jobTitle": "Cybersecurity Engineer & Network Security Architect",
-    "url": "https://adityasec32.systems",
-    "image": "https://adityasec32.systems/og_image.jpg",
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Ebix Technologies / NIC (MeitY)"
+    "@type": "WebApplication",
+    "name": "CyberKarma",
+    "url": "https://cyberkarma.me",
+    "applicationCategory": "EducationalApplication, GameApplication",
+    "operatingSystem": "All (Web, iOS, Android, Desktop)",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "description": "Free gamified educational trivia game that donates real bowls of food and veterinary care to street dogs in Patna, Bihar for every correct answer.",
+    "image": "https://cyberkarma.me/og-image.jpg",
+    "screenshot": "https://cyberkarma.me/cyberkarma_hero_mascot.png",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
     },
-    "knowsAbout": [
-      "Cybersecurity Engineering",
-      "Network Security & Firewalls",
-      "Palo Alto NGFW (Panorama, App-ID, Threat Prevention)",
-      "Check Point Firewall",
-      "Fortinet FortiGate",
-      "Default-Deny Architecture",
-      "Zero Trust (ZTNA)",
-      "OSPF & Network Segmentation",
-      "TACACS+ / RADIUS",
-      "Vulnerability Assessment & Penetration Testing (VAPT)",
-      "Active Directory Exploitation (BloodHound, Kerberoasting, AS-REP Roasting, DCSync, Pass-the-Hash, Delegation Abuse)",
-      "Offensive Tools (Impacket, Mimikatz, Rubeus, Hashcat, NetExec, CrackMapExec, winPEAS, linPEAS, Metasploit, Burp Suite Pro, Nmap)",
-      "Security Operations Center (SOC)",
-      "Threat Hunting & Detection Engineering",
-      "SentinelOne EDR",
-      "Trend Micro Deep Security",
-      "Wazuh SIEM",
-      "Splunk SIEM",
-      "Microsoft Sentinel",
-      "Kaspersky EDR",
-      "Snort IDS",
-      "MITRE ATT&CK Framework",
-      "Digital Forensics & Incident Response (DFIR)",
-      "RAM Dump Analysis",
-      "CERT-In Guidelines & CDAC Standards",
-      "NIST Cybersecurity Framework (CSF)",
-      "CIS Controls & ISO 27001",
-      "PowerShell & Bash Scripting",
-      "Python Automation",
-      "AI-Augmented Engineering (Google Antigravity, Claude, Copilot)",
-      "OPSEC & Tor Threat Intelligence"
-    ],
-    "alumniOf": [
-      {
-        "@type": "EducationalOrganization",
-        "name": "Chitkara University",
-        "description": "MBA in Cybersecurity (In Progress)"
-      },
-      {
-        "@type": "EducationalOrganization",
-        "name": "Manipal University Jaipur",
-        "description": "B.Tech in Computer Science & Engineering"
-      },
-      {
-        "@type": "EducationalOrganization",
-        "name": "Hindu College of Engineering",
-        "description": "Diploma in Computer Science & Engineering"
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.96",
+      "reviewCount": "2480",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Aditya Vardhan Jain",
+      "url": "https://adityasec32.systems"
+    }
+  };
+
+  // 2. Organization Schema
+  const jsonLdOrg = {
+    "@context": "https://schema.org",
+    "@type": "NGO",
+    "name": "CyberKarma Animal Welfare & Educational Initiative",
+    "url": "https://cyberkarma.me",
+    "logo": "https://cyberkarma.me/charity_favicon.svg",
+    "founder": {
+      "@type": "Person",
+      "name": "Aditya Vardhan Jain",
+      "jobTitle": "Founder & Cybersecurity Engineer",
+      "sameAs": [
+        "https://adityasec32.systems",
+        "https://github.com/ajainx1",
+        "https://www.linkedin.com/in/ajainx1/"
+      ]
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Patna",
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Bihar",
+        "containedInPlace": {
+          "@type": "Country",
+          "name": "India"
+        }
       }
-    ],
-    "hasCredential": [
-      {
-        "@type": "EducationalOccupationalCredential",
-        "name": "Fortinet Certified Associate (FCA) in Cybersecurity"
-      },
-      {
-        "@type": "EducationalOccupationalCredential",
-        "name": "EC-Council: In the Trenches - SOC"
-      }
-    ],
+    },
     "sameAs": [
       "https://cyberkarma.me",
+      "https://adityasec32.systems",
       "https://jumpstreet.tech",
-      "https://github.com/ajainx1",
-      "https://www.linkedin.com/in/ajainx1/"
+      "https://github.com/ajainx1"
     ]
   };
 
+  // 3. WebSite with Sitelinks Searchbox
   const jsonLdWebSite = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "AdityaSec Systems & CyberKarma",
-    "url": "https://adityasec32.systems",
-    "alternateName": ["CyberKarma", "Cyber Free Rice", "Aditya Jain Portfolio"],
-    "description": "Enterprise SecOps engineering portfolio and non-profit gamified educational trivia platform funding verified street dog feeding drives in Patna, Bihar.",
+    "name": "CyberKarma",
+    "url": "https://cyberkarma.me",
+    "alternateName": ["Cyber Free Rice", "CyberKarma Animal Rescue", "Play Trivia Feed Dogs"],
+    "description": "Free gamified trivia platform converting correct answers into verified meals for street animals in Patna, Bihar.",
     "potentialAction": {
       "@type": "SearchAction",
       "target": "https://cyberkarma.me/?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
+  };
+
+  // 4. FAQPage Schema for Google Rich Accordion Results
+  const jsonLdFAQ = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does playing trivia on CyberKarma feed real street dogs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Every time you answer a trivia question correctly, 10 grains of rice are pledged to our Patna feeding fund. Corporate sponsors and personal commitments finance the purchase of nutritious food, eggs, and veterinary supplies delivered directly to street animals in Patna, Bihar."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is CyberKarma completely free to play?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! CyberKarma is 100% non-profit and completely free forever. You never pay a single cent. All donations are funded through educational engagement and corporate social responsibility sponsors."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is CyberKarma safe and suitable for kids and students?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. CyberKarma features family-friendly trivia categories including Animals, Space, Science, Mathematics, Geography, and an AI Custom Quiz generator powered by Google Gemini, with zero tracking and no inappropriate content."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where can I see proof of food deliveries to animals in Patna?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can visit the live Impact page at https://cyberkarma.me/impact to view over 110 geotagged photographs, feeding logs, and veterinary treatment records from Patna Division, Bihar."
+        }
+      }
+    ]
+  };
+
+  // 5. Breadcrumb Navigation Schema
+  const jsonLdBreadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://cyberkarma.me"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Trivia Game",
+        "item": "https://cyberkarma.me/#main-content"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Impact & Field Proof",
+        "item": "https://cyberkarma.me/impact"
+      }
+    ]
   };
 
   return (
@@ -266,7 +323,7 @@ export default function RootLayout({
         <link rel="alternate" hrefLang="x-default" href="https://adityasec32.systems/" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify([jsonLdPerson, jsonLdWebSite]) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify([jsonLdApp, jsonLdOrg, jsonLdWebSite, jsonLdFAQ, jsonLdBreadcrumbs]) }}
         />
         <Script
           id="sw-cleanup"
