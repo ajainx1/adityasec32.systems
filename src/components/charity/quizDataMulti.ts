@@ -1,5 +1,7 @@
 import { quizData, CategoryKey, CategoryData, Question } from './quizData';
-import { quizDataHindi } from './quizDataHindi';
+import { HINDI_QUESTIONS } from './quizDataHindiFull';
+import { SPANISH_QUESTIONS } from './quizDataSpanishFull';
+import { FRENCH_QUESTIONS } from './quizDataFrenchFull';
 import { Language } from './i18n';
 
 export function shuffleOptions(q: Question): Question {
@@ -21,8 +23,14 @@ export function shuffleOptions(q: Question): Question {
 }
 
 export function getQuizDataForLanguage(lang: Language): Record<CategoryKey, CategoryData> {
-  if (lang === 'hi') {
-    return quizDataHindi;
+  switch (lang) {
+    case 'hi':
+      return HINDI_QUESTIONS as unknown as Record<CategoryKey, CategoryData>;
+    case 'es':
+      return SPANISH_QUESTIONS as unknown as Record<CategoryKey, CategoryData>;
+    case 'fr':
+      return FRENCH_QUESTIONS as unknown as Record<CategoryKey, CategoryData>;
+    default:
+      return quizData;
   }
-  return quizData;
 }
