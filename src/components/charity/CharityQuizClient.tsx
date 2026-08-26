@@ -21,6 +21,7 @@ import LiveImpactCarousel from './LiveImpactCarousel';
 import WelcomeOnboardingModal from './WelcomeOnboardingModal';
 import ThreeDArtBackground from '@/components/3d/ThreeDArtBackground';
 import KarmaMascotCompanion from './KarmaMascotCompanion';
+import TrustAndVerificationBadge from './TrustAndVerificationBadge';
 
 // Initialize Supabase client
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://xkhgccximcrsdpdlskys.supabase.co';
@@ -1332,6 +1333,9 @@ Do NOT include markdown formatting or backticks.`;
               </button>
 
             </div>
+
+            {/* Trust & Transparency Guarantee Card */}
+            <TrustAndVerificationBadge lang={lang} isDark={isDark} />
 
             {/* Daily Wisdom / Interesting Fact Card */}
             <div className={`p-5 rounded-3xl border space-y-2 text-xs leading-relaxed ${
