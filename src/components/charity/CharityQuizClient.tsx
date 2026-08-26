@@ -23,6 +23,7 @@ import ThreeDArtBackground from '@/components/3d/ThreeDArtBackground';
 import KarmaMascotCompanion from './KarmaMascotCompanion';
 import TrustAndVerificationBadge from './TrustAndVerificationBadge';
 import AdSenseSlot from './AdSenseSlot';
+import { resolveContextualQuestionImage } from './topicImageResolver';
 
 // Initialize Supabase client
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://xkhgccximcrsdpdlskys.supabase.co';
@@ -1142,10 +1143,16 @@ Do NOT include markdown formatting or backticks.`;
                     </div>
                   </div>
 
-                  {/* Dynamic Question Visual Image Banner */}
+                  {/* Dynamic Contextual Question Visual Image Banner */}
                   {(() => {
                     const fallbackHero = category === 'custom-ai' ? '/quiz/ai_hero.jpg' : `/quiz/${category === 'random' ? 'animals' : category}_hero.jpg`;
-                    const activeImage = currentQuestion.image || fallbackHero;
+                    const activeImage = resolveContextualQuestionImage(
+                      currentQuestion.question,
+                      currentQuestion.topicBadge,
+                      category,
+                      category === 'custom-ai' ? aiTopic : undefined,
+                      currentQuestion.image
+                    );
                     return (
                       <div className="w-full h-44 sm:h-52 rounded-2xl overflow-hidden relative group border border-slate-800/80 shadow-md">
                         <img
