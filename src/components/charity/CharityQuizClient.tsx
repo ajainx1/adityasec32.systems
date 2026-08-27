@@ -223,15 +223,15 @@ const CATEGORIES: CategoryConfig[] = [
     id: 'custom-ai',
     icon: '🤖',
     titles: {
-      en: 'AI Custom Quiz', hi: 'AI कस्टम क्विज़', es: 'Quiz de IA Personalizado', fr: 'Quiz IA Personnalisé', de: 'Individuelles KI-Quiz',
-      bn: 'AI কাস্টম কুইজ', ta: 'AI தனிப்பயன் வினாடி வினா', te: 'AI అనుకూల క్విజ్', ja: 'AIカスタムクイズ', ar: 'اختبار مخصص بالذكاء الاصطناعي'
+      en: 'Instant AI Topic Quiz', hi: 'कस्टम AI टॉपिक क्विज़', es: 'Quiz de IA Personalizado', fr: 'Quiz IA Personnalisé', de: 'Individuelles KI-Quiz',
+      bn: 'AI কাস্টম টপিক কুইজ', ta: 'AI தனிப்பயன் வினாடி வினா', te: 'AI కస్టమ్ టాపిక్ క్విజ్', ja: 'AIトピッククイズ', ar: 'اختبار الذكاء الاصطناعي الفوري'
     },
     subtitles: {
-      en: 'Any topic of curiosity', hi: 'मनपसंद विषय जनरेटर', es: 'Cualquier tema de interés', fr: 'Tout sujet au choix', de: 'Jedes beliebige Thema',
-      bn: 'যে কোনো পছন্দের বিষয়', ta: 'விருப்பமான தலைப்பு', te: 'ఏదైనా ఆసక్తికర అంశం', ja: '興味のあるトピックを自由に', ar: 'أي موضوع حسب رغبتك'
+      en: 'Type any topic & play instantly', hi: 'मनपसंद विषय पर तुरंत खेलें', es: 'Juega cualquier tema al instante', fr: 'Jouez sur n\'importe quel sujet', de: 'Jedes Thema sofort spielen',
+      bn: 'যে কোনো পছন্দের বিষয় খেলুন', ta: 'விருப்பமான தலைப்பில் விளையாடுங்கள்', te: 'మీకు ఇష్టమైన అంశంపై ఆడండి', ja: 'お好きなテーマですぐ挑戦', ar: 'اكتب أي موضوع والعب فوراً'
     },
-    tagEn: '⚡ Gemini',
-    tagHi: '⚡ AI'
+    tagEn: '✨ AI STUDIO',
+    tagHi: '✨ AI स्टूडियो'
   },
 ];
 
@@ -1010,18 +1010,30 @@ Do NOT include markdown formatting or backticks.`;
                     }
                   }}
                   className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-2.5 relative overflow-hidden group ${
-                    isSelected
-                      ? isDark
-                        ? 'bg-gradient-to-br from-emerald-500/20 via-emerald-500/10 to-slate-900 border-emerald-400 text-emerald-200 shadow-[0_0_20px_rgba(16,185,129,0.3)] font-bold'
-                        : 'bg-gradient-to-br from-emerald-50 via-white to-emerald-50/60 border-emerald-500 text-emerald-950 shadow-md font-bold'
-                      : isDark
-                        ? 'bg-slate-900/70 border-slate-800 text-slate-300 hover:border-slate-700 hover:bg-slate-900'
-                        : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300 shadow-sm'
+                    cat.id === 'custom-ai'
+                      ? isSelected
+                        ? isDark
+                          ? 'bg-gradient-to-br from-purple-500/25 via-indigo-500/15 to-slate-900 border-purple-400 text-purple-200 shadow-[0_0_25px_rgba(168,85,247,0.35)] font-bold'
+                          : 'bg-gradient-to-br from-purple-50 via-white to-purple-50/80 border-purple-500 text-purple-950 shadow-md font-bold'
+                        : isDark
+                          ? 'bg-gradient-to-br from-purple-950/40 via-slate-900/90 to-slate-950 border-purple-500/40 text-purple-200 hover:border-purple-400 hover:shadow-[0_0_20px_rgba(168,85,247,0.25)]'
+                          : 'bg-gradient-to-br from-purple-50/60 via-white to-indigo-50/40 border-purple-300 text-purple-950 hover:border-purple-400 shadow-sm'
+                      : isSelected
+                        ? isDark
+                          ? 'bg-gradient-to-br from-emerald-500/20 via-emerald-500/10 to-slate-900 border-emerald-400 text-emerald-200 shadow-[0_0_20px_rgba(16,185,129,0.3)] font-bold'
+                          : 'bg-gradient-to-br from-emerald-50 via-white to-emerald-50/60 border-emerald-500 text-emerald-950 shadow-md font-bold'
+                        : isDark
+                          ? 'bg-slate-900/70 border-slate-800 text-slate-300 hover:border-slate-700 hover:bg-slate-900'
+                          : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300 shadow-sm'
                   }`}
                 >
                   {/* Top Accent Line for Selected Category */}
                   {isSelected && (
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 shadow-[0_0_10px_rgba(16,185,129,0.6)]" />
+                    <div className={`absolute top-0 left-0 right-0 h-1 ${
+                      cat.id === 'custom-ai'
+                        ? 'bg-gradient-to-r from-purple-400 via-indigo-400 to-cyan-400 shadow-[0_0_10px_rgba(168,85,247,0.6)]'
+                        : 'bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 shadow-[0_0_10px_rgba(16,185,129,0.6)]'
+                    }`} />
                   )}
 
                   <div className="flex items-center justify-between gap-1 w-full">
@@ -1030,9 +1042,11 @@ Do NOT include markdown formatting or backticks.`;
                     </span>
                     {cat.tagEn && (
                       <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full border ${
-                        isSelected
-                          ? 'bg-emerald-500/20 text-emerald-300 border-emerald-400/40 shadow-sm'
-                          : isDark ? 'bg-slate-800 text-slate-400 border-slate-700' : 'bg-slate-100 text-slate-600 border-slate-200'
+                        cat.id === 'custom-ai'
+                          ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white border-purple-400/50 shadow-sm shadow-purple-500/30'
+                          : isSelected
+                            ? 'bg-emerald-500/20 text-emerald-300 border-emerald-400/40 shadow-sm'
+                            : isDark ? 'bg-slate-800 text-slate-400 border-slate-700' : 'bg-slate-100 text-slate-600 border-slate-200'
                       }`}>
                         {lang === 'hi' ? (cat.tagHi || cat.tagEn) : cat.tagEn}
                       </span>
@@ -1041,11 +1055,13 @@ Do NOT include markdown formatting or backticks.`;
 
                   <div className="min-w-0">
                     <div className={`text-xs font-bold truncate ${
-                      isSelected ? 'text-emerald-300 font-extrabold' : ''
+                      cat.id === 'custom-ai'
+                        ? 'text-purple-300 font-extrabold'
+                        : isSelected ? 'text-emerald-300 font-extrabold' : ''
                     }`}>
                       {(cat.titles[lang] || cat.titles['en'] || cat.id)}
                     </div>
-                    <div className="text-[10px] opacity-70 truncate font-mono">
+                    <div className="text-[10px] opacity-75 truncate font-mono">
                       {(cat.subtitles[lang] || cat.subtitles['en'] || '')}
                     </div>
                   </div>
