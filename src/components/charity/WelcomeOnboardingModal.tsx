@@ -136,35 +136,50 @@ export default function WelcomeOnboardingModal({
               <span>{lang === 'hi' ? '2. खेलने का तरीका चुनें:' : '2. Choose How to Play:'}</span>
             </label>
 
-            {/* Option A: Play as Guest (Instant 1-Click) */}
-            <button
-              onClick={() => {
-                onPlayAsGuest();
-                onClose();
-              }}
-              className="w-full p-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black font-title text-sm tracking-wide shadow-xl shadow-emerald-500/25 flex items-center justify-between transition-all hover:scale-[1.02] active:scale-98 cursor-pointer group"
-            >
-              <div className="flex items-center gap-3 text-left">
-                <span className="p-2 rounded-xl bg-slate-950/20 text-xl">⚡</span>
-                <div>
-                  <div className="font-black text-sm text-slate-950">
-                    {lang === 'hi' ? 'अतिथि के रूप में खेलें (तुरंत शुरू)' : 'Play as Guest (Instant Play)'}
+            {/* Option A: Play as Guest (Instant 1-Click - HIGH-IMPACT HIGHLIGHTED HERO) */}
+            <div className="relative group">
+              {/* Pulsing ambient neon glow behind button */}
+              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 opacity-70 group-hover:opacity-100 blur-md transition-all duration-300 animate-pulse" />
+              
+              <button
+                onClick={() => {
+                  onPlayAsGuest();
+                  onClose();
+                }}
+                className="relative w-full p-4.5 rounded-2xl bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 hover:from-emerald-300 hover:via-teal-200 hover:to-cyan-300 text-slate-950 font-black font-title text-sm tracking-wide ring-2 ring-emerald-300 shadow-[0_0_30px_rgba(16,185,129,0.4)] flex items-center justify-between transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+              >
+                <div className="flex items-center gap-3.5 text-left">
+                  <div className="w-11 h-11 rounded-xl bg-slate-950/20 border border-slate-950/20 flex items-center justify-center text-2xl shadow-inner shrink-0">
+                    ⚡
                   </div>
-                  <div className="text-[11px] font-mono opacity-80 font-semibold">
-                    {lang === 'hi' ? 'कोई खाता आवश्यक नहीं • ब्राउज़र में सुरक्षित' : 'No Signup Required • Saves to Browser'}
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-black text-[15px] text-slate-950">
+                        {lang === 'hi' ? 'अतिथि के रूप में खेलें (तुरंत शुरू)' : 'Play as Guest (Instant Play)'}
+                      </span>
+                      <span className="px-2 py-0.5 rounded-full bg-slate-950 text-emerald-300 font-mono text-[9px] font-black uppercase tracking-wider border border-emerald-400/40">
+                        {lang === 'hi' ? 'अनुशंसित' : 'RECOMMENDED'}
+                      </span>
+                    </div>
+                    <div className="text-[11.5px] font-mono text-slate-900/90 font-bold mt-0.5">
+                      {lang === 'hi' ? 'कोई खाता आवश्यक नहीं • ब्राउज़र में सुरक्षित' : 'No Signup Required • Saves to Browser'}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </button>
+                <div className="w-8 h-8 rounded-full bg-slate-950/15 flex items-center justify-center group-hover:bg-slate-950/25 transition-colors">
+                  <ArrowRight size={18} className="text-slate-950 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </button>
+            </div>
 
-            {/* Divider */}
-            <div className="flex items-center gap-3 my-2">
-              <div className="flex-1 h-[1px] bg-white/10" />
-              <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">
-                {lang === 'hi' ? 'या क्लाउड सिंक हेतु साइन इन करें' : 'Or Sign In For Cloud Streaks'}
-              </span>
-              <div className="flex-1 h-[1px] bg-white/10" />
+            {/* Distinct Divider with Highlighted Cloud Streaks Badge */}
+            <div className="flex items-center gap-2 my-3">
+              <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-purple-500/40 to-purple-500/60" />
+              <div className="px-3 py-1 rounded-full bg-purple-950/60 border border-purple-400/40 text-purple-300 font-mono text-[10.5px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm shadow-purple-500/20">
+                <span>☁️</span>
+                <span>{lang === 'hi' ? 'या क्लाउड सिंक हेतु साइन इन करें' : 'Or Sign In For Cloud Streaks'}</span>
+              </div>
+              <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent via-purple-500/40 to-purple-500/60" />
             </div>
 
             {/* Option B: Continue with Google */}
@@ -173,7 +188,7 @@ export default function WelcomeOnboardingModal({
                 onGoogleSignIn();
                 onClose();
               }}
-              className="w-full py-3.5 px-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs uppercase tracking-wider font-title flex items-center justify-center gap-3 transition-all shadow-md hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+              className="w-full py-3.5 px-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs uppercase tracking-wider font-title flex items-center justify-center gap-3 transition-all border border-slate-200 shadow-md hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
