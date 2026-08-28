@@ -66,7 +66,6 @@ export const metadata: Metadata = isCyberKarmaSite
         icon: [
           { url: "/charity_favicon.svg", type: "image/svg+xml" },
           { url: "/favicon.svg", type: "image/svg+xml" },
-          { url: "/favicon.ico", sizes: "any" },
         ],
         shortcut: "/charity_favicon.svg",
         apple: "/apple-touch-icon.png",
@@ -132,12 +131,10 @@ export const metadata: Metadata = isCyberKarmaSite
       },
       icons: {
         icon: [
-          { url: "/charity_favicon.svg", type: "image/svg+xml" },
           { url: "/favicon.svg", type: "image/svg+xml" },
           { url: "/icon.svg", type: "image/svg+xml" },
-          { url: "/favicon.ico", sizes: "any" }
         ],
-        shortcut: "/charity_favicon.svg",
+        shortcut: "/favicon.svg",
         apple: "/apple-touch-icon.png",
       },
       other: {
