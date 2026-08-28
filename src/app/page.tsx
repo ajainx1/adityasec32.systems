@@ -1461,7 +1461,12 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Side 1: CyberKarma */}
             <TiltWrapper tiltDeg={3}>
-              <div className="rounded-[24px] bg-slate-900/60 border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 flex flex-col justify-between backdrop-blur-xl h-full group hover:shadow-xl hover:shadow-amber-950/30 overflow-hidden">
+              <a 
+                href="https://cyberkarma.me"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-[24px] bg-slate-900 border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 flex flex-col justify-between h-full group hover:shadow-xl hover:shadow-amber-950/30 overflow-hidden cursor-pointer"
+              >
                 <div className="relative w-full h-44 overflow-hidden bg-slate-950">
                   <img 
                     src="/cyberkarma_banner.jpg" 
@@ -1493,31 +1498,26 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
-                    <a 
-                      href="https://cyberkarma.me" 
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-xs font-mono font-bold text-emerald-400 hover:text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 px-3 py-1.5 rounded-xl border border-emerald-500/30 transition-all"
-                    >
+                    <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-emerald-400 group-hover:text-emerald-300 bg-emerald-500/10 group-hover:bg-emerald-500/20 px-3 py-1.5 rounded-xl border border-emerald-500/30 transition-all">
                       <span>Play &amp; Feed Animals</span>
                       <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                    <a 
-                      href="https://cyberkarma.me" 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="text-[11px] font-mono font-bold text-amber-400 hover:text-amber-300"
-                    >
+                    </div>
+                    <div className="text-[11px] font-mono font-bold text-amber-400 group-hover:text-amber-300">
                       cyberkarma.me &rarr;
-                    </a>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </a>
             </TiltWrapper>
 
             {/* Side 2: JumpStreet */}
             <TiltWrapper tiltDeg={3}>
-              <div className="rounded-[24px] bg-slate-900/60 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 flex flex-col justify-between backdrop-blur-xl h-full group hover:shadow-xl hover:shadow-purple-950/30 overflow-hidden">
+              <a 
+                href="https://jumpstreet.tech"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-[24px] bg-slate-900 border border-purple-500/20 hover:border-purple-500/50 transition-all duration-300 flex flex-col justify-between h-full group hover:shadow-xl hover:shadow-purple-950/30 overflow-hidden cursor-pointer"
+              >
                 <div className="relative w-full h-44 overflow-hidden bg-slate-950">
                   <img 
                     src="/jumpstreet_banner.jpg" 
@@ -1549,26 +1549,16 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
-                    <a 
-                      href="https://jumpstreet.tech" 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="inline-flex items-center gap-2 text-xs font-mono font-bold text-purple-400 hover:text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 px-3 py-1.5 rounded-xl border border-purple-500/30 transition-all"
-                    >
+                    <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-purple-400 group-hover:text-purple-300 bg-purple-500/10 group-hover:bg-purple-500/20 px-3 py-1.5 rounded-xl border border-purple-500/30 transition-all">
                       <span>Visit jumpstreet.tech</span>
                       <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                    <a 
-                      href="https://jumpstreet.tech" 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="text-[11px] font-mono font-bold text-purple-400 hover:text-purple-300"
-                    >
+                    </div>
+                    <div className="text-[11px] font-mono font-bold text-purple-400 group-hover:text-purple-300">
                       jumpstreet.tech &rarr;
-                    </a>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </a>
             </TiltWrapper>
           </div>
         </section>
