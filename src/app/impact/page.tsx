@@ -3,8 +3,8 @@ import ImpactPageClient from '@/components/charity/ImpactPageClient';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Real-World Impact Ledger 🐕 — 110+ Verified Stray Animal Feeding Proofs | CyberKarma',
-  description: 'Inspect 110+ verified ground proof photos, sector timestamps, and geotagged drives of stray dog feeding and medical rescue across Patna Division, Bihar funded by CyberKarma quiz players.',
+  title: 'Impact Ledger — Verified Stray Animal Feeding Proofs | CyberKarma',
+  description: 'Inspect verified ground proof photos, timestamps, and geotagged drives of stray animal feeding and medical rescue across Patna Division, Bihar.',
   keywords: [
     'CyberKarma Impact',
     'Real World Animal Feeding Patna',
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   creator: 'Aditya Jain',
   publisher: 'CyberKarma Philanthropy',
   openGraph: {
-    title: 'Real-World Impact Ledger 🐕 — 110+ Verified Feeding Proofs',
-    description: 'Explore 110+ real-world photo proofs of stray dog feeding and medical rescue across Patna Division, Bihar funded directly by CyberKarma quiz players.',
+    title: 'Impact Ledger — Verified Stray Animal Feeding Proofs',
+    description: 'Explore verified photo proof and field logs of stray animal feeding and rescue work across Patna Division, Bihar.',
     url: 'https://cyberkarma.me/impact',
     siteName: 'CyberKarma Impact Ledger',
     images: [
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Real-World Impact Ledger 🐕 — 110+ Verified Feeding Proofs',
-    description: '100% verified field proof of stray animal feeding in Patna funded by quiz players.',
+    title: 'Impact Ledger — Verified Stray Animal Feeding Proofs',
+    description: 'Verified field proof of stray animal feeding and rescue work in Patna.',
     images: ['https://cyberkarma.me/cyberkarma_banner.jpg'],
     creator: '@adityasec32',
   },
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 
 const jsonLdImpact = {
   "@context": "https://schema.org",
-  "@type": "GovernmentPermit",
+  "@type": "CollectionPage",
   "name": "CyberKarma Verified Animal Relief Ledger",
   "description": "Transparent on-ground proof ledger documenting 110+ verified stray canine feeding drives in Patna Division, Bihar.",
   "provider": {

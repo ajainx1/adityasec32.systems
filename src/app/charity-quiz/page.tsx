@@ -4,8 +4,8 @@ import { ToastProvider } from '@/components/js/ToastContext';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Cyber Free Rice 🐾 — Play Free Trivia & Feed Stray Dogs | CyberKarma.me',
-  description: 'Play free cybersecurity, science, space, and general trivia quizzes to donate real bowls of rice and fund warm meals for stray dogs in Patna, Bihar. 100% Free, Unlimited AI Mode & Field-Verified Impact.',
+  title: 'Cyber Free Rice — Free Trivia Game for Stray Animal Support | CyberKarma',
+  description: 'Play free cybersecurity and general knowledge trivia on CyberKarma and explore the verified impact ledger for stray animal feeding in Patna.',
   keywords: [
     'Cyber Free Rice',
     'CyberKarma',
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
   creator: 'Aditya Jain',
   publisher: 'CyberKarma Philanthropy',
   openGraph: {
-    title: 'Cyber Free Rice 🐾 — Play Free Trivia & Feed Stray Dogs',
-    description: 'Every correct answer donates 10 grains of rice to feed real rescue animals and fund medical aid in Patna, Bihar. 100% Free, Unlimited AI Mode & Field-Verified Impact.',
+    title: 'Cyber Free Rice — Free Trivia Game for Stray Animal Support',
+    description: 'Play free trivia on CyberKarma and explore the verified impact ledger for stray animal feeding and rescue work in Patna.',
     url: 'https://cyberkarma.me',
     siteName: 'CyberKarma • Cyber Free Rice',
     images: [
@@ -45,8 +45,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cyber Free Rice 🐾 — Play Free Trivia & Feed Stray Dogs',
-    description: 'Answer cybersecurity & trivia questions to donate real bowls of food to street animals in Patna. 100% Free & Impactful.',
+    title: 'Cyber Free Rice — Free Trivia Game for Stray Animal Support',
+    description: 'Play free trivia on CyberKarma and explore the verified impact ledger.',
     images: ['https://cyberkarma.me/cyberkarma_banner.jpg'],
     creator: '@adityasec32',
   },
@@ -96,13 +96,6 @@ const jsonLdWebApp = {
     "@type": "Offer",
     "price": "0.00",
     "priceCurrency": "USD"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "ratingCount": "1437",
-    "bestRating": "5",
-    "worstRating": "1"
   },
   "description": "Gamified educational trivia platform where correct answers in cybersecurity, ecology, physics, and space generate real-world rice donations for stray dogs in Patna, Bihar.",
   "genre": ["Educational Game", "Trivia Game", "Charity Game"],

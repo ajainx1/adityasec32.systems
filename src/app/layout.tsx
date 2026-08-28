@@ -22,18 +22,16 @@ const isCyberKarmaSite = process.env.NEXT_PUBLIC_SITE_MODE === "cyberkarma";
 
 export const metadata: Metadata = isCyberKarmaSite
   ? {
-      title: "Cyber Free Rice 🐾 | Play Cybersecurity & Trivia Game to Feed Stray Animals",
-      description: "Answer cybersecurity, ethical hacking, and general knowledge trivia to donate real bowls of rice and fund warm meals for stray dogs in Patna. 100% free gamified charity.",
+      title: "Cyber Free Rice — Free Trivia Game for Stray Animal Support",
+      description: "Play free cybersecurity and general knowledge trivia on CyberKarma, then review the verified impact ledger for stray animal feeding and rescue work in Patna.",
       keywords: [
         "Cyber Free Rice",
-        "Free Rice Game",
-        "Play Trivia Feed Animals",
-        "Cybersecurity Quiz Game",
-        "Play to Donate",
-        "Charity Trivia Game",
-        "Stray Animal Feeding Patna",
-        "Gamified Ethical Hacking Quiz",
-        "CyberKarma"
+        "CyberKarma",
+        "Free trivia game",
+        "Cybersecurity quiz",
+        "Charity game",
+        "Stray animal support",
+        "Patna animal welfare",
       ],
       manifest: "/manifest-quiz.json",
       metadataBase: new URL("https://cyberkarma.me"),
@@ -58,8 +56,8 @@ export const metadata: Metadata = isCyberKarmaSite
       },
       twitter: {
         card: "summary_large_image",
-        title: "Cyber Free Rice 🐾 — Play Trivia, Feed Real Stray Animals",
-        description: "Answer cybersecurity & trivia questions to donate real bowls of food to street animals. 100% Free & Impactful.",
+        title: "Cyber Free Rice — Free Trivia Game for Stray Animal Support",
+        description: "Play free trivia on CyberKarma and review the verified impact ledger.",
         images: ["/cyberkarma_banner.jpg"],
       },
       icons: {
@@ -81,8 +79,8 @@ export const metadata: Metadata = isCyberKarmaSite
       },
     }
   : {
-      title: "Aditya Jain — Cybersecurity Engineer | Vulnerability Management & DevSecOps | VAPT · SIEM/EDR",
-      description: "Cybersecurity Engineer securing 750+ government endpoints & CNI. Vulnerability Management, DevSecOps automation, SIEM/EDR tuning, NGFW. Open to India, UAE, Singapore, UK, Germany, EU, US.",
+    title: "Aditya Jain — Cybersecurity Engineer",
+    description: "Cybersecurity portfolio covering vulnerability management, DevSecOps, SIEM/EDR tuning, threat hunting, and enterprise security engineering.",
       keywords: [
         "Aditya Jain",
         "Cybersecurity Engineer",
@@ -108,8 +106,8 @@ export const metadata: Metadata = isCyberKarmaSite
         canonical: "https://adityasec32.systems",
       },
       openGraph: {
-        title: "Aditya Jain — Cybersecurity Engineer & Purple Teamer",
-        description: "750+ endpoints secured · 60% audit effort reduced · CNI threat hunter. Sanitized case studies & live engineering demos.",
+        title: "Aditya Jain — Cybersecurity Engineer",
+        description: "Cybersecurity portfolio with engineering case studies, demos, and project highlights.",
         url: "https://adityasec32.systems",
         siteName: "AdityaSec Systems",
         images: [
@@ -125,8 +123,8 @@ export const metadata: Metadata = isCyberKarmaSite
       },
       twitter: {
         card: "summary_large_image",
-        title: "Aditya Jain — Cybersecurity Engineer & Purple Teamer",
-        description: "750+ endpoints secured · 60% audit effort reduced · CNI threat hunter. Sanitized case studies & live engineering demos.",
+        title: "Aditya Jain — Cybersecurity Engineer",
+        description: "Cybersecurity portfolio with engineering case studies, demos, and project highlights.",
         images: ["/og-image.jpg"],
       },
       icons: {
@@ -289,13 +287,13 @@ export default function RootLayout({
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.webmanifest" />
+        <link rel="manifest" href={isCyberKarmaSite ? "/manifest-quiz.json" : "/manifest.json"} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
-        <link rel="alternate" hrefLang="en" href="https://adityasec32.systems/" />
-        <link rel="alternate" hrefLang="hi" href="https://adityasec32.systems/" />
-        <link rel="alternate" hrefLang="x-default" href="https://adityasec32.systems/" />
+        <link rel="alternate" hrefLang="en" href={isCyberKarmaSite ? "https://cyberkarma.me/" : "https://adityasec32.systems/"} />
+        <link rel="alternate" hrefLang="hi" href={isCyberKarmaSite ? "https://cyberkarma.me/?lang=hi" : "https://adityasec32.systems/"} />
+        <link rel="alternate" hrefLang="x-default" href={isCyberKarmaSite ? "https://cyberkarma.me/" : "https://adityasec32.systems/"} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify([jsonLdApp, jsonLdOrg, jsonLdWebSite, jsonLdFAQ, jsonLdBreadcrumbs]) }}
