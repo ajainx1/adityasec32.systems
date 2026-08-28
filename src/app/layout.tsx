@@ -22,8 +22,8 @@ const isCyberKarmaSite = process.env.NEXT_PUBLIC_SITE_MODE === "cyberkarma";
 
 export const metadata: Metadata = isCyberKarmaSite
   ? {
-      title: "Cyber Free Rice — Free Trivia Game for Stray Animal Support",
-      description: "Play free cybersecurity and general knowledge trivia on CyberKarma, then review the verified impact ledger for stray animal feeding and rescue work in Patna.",
+      title: "Cyber Free Rice — Trivia for Animal Welfare",
+      description: "Play free cybersecurity and general knowledge trivia on CyberKarma and review the impact ledger for animal welfare work in Patna.",
       keywords: [
         "Cyber Free Rice",
         "CyberKarma",
@@ -39,8 +39,8 @@ export const metadata: Metadata = isCyberKarmaSite
         canonical: "https://cyberkarma.me",
       },
       openGraph: {
-        title: "Cyber Free Rice 🐾 — Play Trivia, Feed Real Stray Animals",
-        description: "Every correct answer generates free rice grains and funds warm street animal meals in Patna. Level up, build streaks, and play to make a real-world difference!",
+        title: "Cyber Free Rice — Trivia for Animal Welfare",
+        description: "Free trivia platform with an impact ledger for animal welfare work in Patna.",
         url: "https://cyberkarma.me",
         siteName: "Cyber Free Rice & CyberKarma",
         images: [
@@ -56,8 +56,8 @@ export const metadata: Metadata = isCyberKarmaSite
       },
       twitter: {
         card: "summary_large_image",
-        title: "Cyber Free Rice — Free Trivia Game for Stray Animal Support",
-        description: "Play free trivia on CyberKarma and review the verified impact ledger.",
+        title: "Cyber Free Rice — Trivia for Animal Welfare",
+        description: "Free trivia platform with an impact ledger for animal welfare work in Patna.",
         images: ["/cyberkarma_banner.jpg"],
       },
       icons: {
@@ -151,7 +151,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // 1. WebApplication / Software Schema with 4.96 Star Rating for Google Rich Snippets
   const jsonLdApp = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -160,7 +159,7 @@ export default function RootLayout({
     "applicationCategory": "EducationalApplication, GameApplication",
     "operatingSystem": "All (Web, iOS, Android, Desktop)",
     "browserRequirements": "Requires JavaScript. Requires HTML5.",
-    "description": "Free gamified educational trivia game that donates real bowls of food and veterinary care to street dogs in Patna, Bihar for every correct answer.",
+    "description": "Free gamified educational trivia platform with an impact ledger for animal welfare work in Patna, Bihar.",
     "image": "https://cyberkarma.me/og-image.jpg",
     "screenshot": "https://cyberkarma.me/cyberkarma_hero_mascot.png",
     "offers": {
@@ -169,13 +168,6 @@ export default function RootLayout({
       "priceCurrency": "USD",
       "availability": "https://schema.org/InStock"
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.96",
-      "reviewCount": "2480",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
     "author": {
       "@type": "Person",
       "name": "Aditya Vardhan Jain",
@@ -183,7 +175,6 @@ export default function RootLayout({
     }
   };
 
-  // 2. Organization Schema
   const jsonLdOrg = {
     "@context": "https://schema.org",
     "@type": "NGO",
@@ -206,11 +197,10 @@ export default function RootLayout({
     }
   };
 
-  // 3. WebSite with Sitelinks Searchbox Schema
   const jsonLdWebSite = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "CyberKarma Patna Animal Rescue",
+    "name": "CyberKarma",
     "url": "https://cyberkarma.me",
     "potentialAction": {
       "@type": "SearchAction",
@@ -219,39 +209,37 @@ export default function RootLayout({
     }
   };
 
-  // 4. FAQ Schema for Rich Results
   const jsonLdFAQ = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How does playing trivia donate real food to street animals in Patna?",
+        "name": "How does CyberKarma support animal welfare?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "CyberKarma partners with philanthropic sponsors and corporate donors. Every correct answer triggers 10 grains of rice pledged to our Patna on-ground feeding drives without requiring player payments."
+          "text": "CyberKarma uses trivia as a participation layer for animal welfare initiatives and links to an impact ledger for transparency."
         }
       },
       {
         "@type": "Question",
-        "name": "Is CyberKarma safe and suitable for kids and students?",
+        "name": "Is CyberKarma free to use?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Absolutely. CyberKarma features family-friendly trivia categories including Animals, Space, Science, Mathematics, Geography, and an AI Custom Quiz generator powered by Google Gemini, with zero tracking and no inappropriate content."
+          "text": "Yes. CyberKarma is free to use and includes educational trivia categories and a separate impact page."
         }
       },
       {
         "@type": "Question",
-        "name": "Where can I see proof of food deliveries to animals in Patna?",
+        "name": "Where can I find the impact page?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "You can visit the live Impact page at https://cyberkarma.me/impact to view over 110 geotagged photographs, feeding logs, and veterinary treatment records from Patna Division, Bihar."
+          "text": "Visit https://cyberkarma.me/impact to review the impact ledger."
         }
       }
     ]
   };
 
-  // 5. Breadcrumb Navigation Schema
   const jsonLdBreadcrumbs = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -265,7 +253,7 @@ export default function RootLayout({
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "Trivia Game",
+        "name": "Home",
         "item": "https://cyberkarma.me/#main-content"
       },
       {

@@ -4,16 +4,16 @@ import { ToastProvider } from '@/components/js/ToastContext';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Cyber Free Rice — Free Trivia Game for Stray Animal Support | CyberKarma',
-  description: 'Play free cybersecurity and general knowledge trivia on CyberKarma and explore the verified impact ledger for stray animal feeding in Patna.',
+  title: 'Cyber Free Rice — Trivia for Animal Welfare | CyberKarma',
+  description: 'Play free cybersecurity and general knowledge trivia on CyberKarma and review the impact ledger for animal welfare work in Patna.',
   keywords: [
     'Cyber Free Rice',
     'CyberKarma',
     'Free Rice Game',
     'Play Trivia Feed Animals',
     'Free Cybersecurity Quiz Game',
-    'Feed Stray Dogs Patna',
-    'Play to Donate Rice',
+    'Animal welfare trivia',
+    'Free educational game',
     'Ethical Hacking Quiz',
     'Zero Trust Trivia',
     'Non-Profit Educational Game',
@@ -22,14 +22,14 @@ export const metadata: Metadata = {
     'Free Rice Trivia Online',
     'Play Trivia Donate Food',
     'Gamified Philanthropy',
-    'Injured Stray Dog First Aid Patna'
+    'Impact ledger',
   ],
   authors: [{ name: 'Aditya Jain', url: 'https://adityasec32.systems' }],
   creator: 'Aditya Jain',
   publisher: 'CyberKarma Philanthropy',
   openGraph: {
-    title: 'Cyber Free Rice — Free Trivia Game for Stray Animal Support',
-    description: 'Play free trivia on CyberKarma and explore the verified impact ledger for stray animal feeding and rescue work in Patna.',
+    title: 'Cyber Free Rice — Trivia for Animal Welfare',
+    description: 'Free trivia platform with an impact ledger for animal welfare work in Patna.',
     url: 'https://cyberkarma.me',
     siteName: 'CyberKarma • Cyber Free Rice',
     images: [
@@ -45,8 +45,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cyber Free Rice — Free Trivia Game for Stray Animal Support',
-    description: 'Play free trivia on CyberKarma and explore the verified impact ledger.',
+    title: 'Cyber Free Rice — Trivia for Animal Welfare',
+    description: 'Free trivia platform with an impact ledger for animal welfare work in Patna.',
     images: ['https://cyberkarma.me/cyberkarma_banner.jpg'],
     creator: '@adityasec32',
   },
@@ -97,7 +97,7 @@ const jsonLdWebApp = {
     "price": "0.00",
     "priceCurrency": "USD"
   },
-  "description": "Gamified educational trivia platform where correct answers in cybersecurity, ecology, physics, and space generate real-world rice donations for stray dogs in Patna, Bihar.",
+  "description": "Gamified educational trivia platform with an impact ledger for animal welfare work in Patna, Bihar.",
   "genre": ["Educational Game", "Trivia Game", "Charity Game"],
   "author": {
     "@type": "Person",
@@ -112,7 +112,7 @@ const jsonLdOrganization = {
   "name": "CyberKarma Philanthropy",
   "url": "https://cyberkarma.me",
   "logo": "https://cyberkarma.me/icon.svg",
-  "description": "Decentralized ethical philanthropy and stray animal rescue initiative funding daily hot meals for street dogs across Patna Division, Bihar.",
+  "description": "Animal welfare initiative with a public impact ledger and educational trivia experience.",
   "location": {
     "@type": "Place",
     "address": {
@@ -142,7 +142,7 @@ const jsonLdFaq = {
       "name": "How does Cyber Free Rice feed real stray animals?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "For every question you answer correctly on CyberKarma, 10 grains of rice are pledged. Our on-ground volunteers in Patna Division, Bihar purchase fresh rice, nutritional broth, and veterinary supplements to prepare and distribute warm feeding bowls directly to street animals."
+        "text": "CyberKarma links educational trivia with an animal welfare impact ledger."
       }
     },
     {
@@ -155,18 +155,18 @@ const jsonLdFaq = {
     },
     {
       "@type": "Question",
-      "name": "Where can I view verified field proof photos?",
+      "name": "Where can I view the impact ledger?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "You can visit our dedicated Real-World Impact Ledger at https://cyberkarma.me/impact to inspect over 110+ verified ground photos, sector timestamps, and geotagged drives across Patna (Rajbansi Nagar, Boring Road, Kankarbagh, Bailey Road, etc.)."
+        "text": "You can visit https://cyberkarma.me/impact to inspect the impact ledger."
       }
     },
     {
       "@type": "Question",
-      "name": "How does the Unlimited AI Quiz generator work?",
+      "name": "How does the quiz experience work?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "CyberKarma includes an intelligent multi-topic AI engine that generates limitless, custom-tailored quiz questions on any subject you choose—from Cyber Warfare and Zero Trust to Astrophysics and Ancient History—complete with 3D educational explanations for every answer."
+        "text": "CyberKarma includes educational trivia experiences across multiple topics."
       }
     },
     {
@@ -239,7 +239,7 @@ const jsonLdHowTo = {
 const jsonLdSocialEvent = {
   "@context": "https://schema.org",
   "@type": "Event",
-  "name": "Daily Street Dog Rescue & Feeding Drives in Patna",
+  "name": "Animal Welfare Drives in Patna",
   "startDate": "2026-08-01T17:00:00+05:30",
   "endDate": "2026-12-31T21:00:00+05:30",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
