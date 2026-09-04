@@ -4,6 +4,7 @@ import "./globals.css";
 import Background3D from "@/components/3d/Background3D";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import TelegramVisitorLogger from "@/components/TelegramVisitorLogger";
+import WelcomeBanner from "@/components/WelcomeBanner";
 import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
 import Script from "next/script";
@@ -22,18 +23,16 @@ const isCyberKarmaSite = process.env.NEXT_PUBLIC_SITE_MODE === "cyberkarma";
 
 export const metadata: Metadata = isCyberKarmaSite
   ? {
-      title: "Cyber Free Rice 🐾 | Play Cybersecurity & Trivia Game to Feed Stray Animals",
-      description: "Answer cybersecurity, ethical hacking, and general knowledge trivia to donate real bowls of rice and fund warm meals for stray dogs in Patna. 100% free gamified charity.",
+      title: "Cyber Free Rice — Trivia for Animal Welfare",
+      description: "Play free cybersecurity and general knowledge trivia on CyberKarma and review the impact ledger for animal welfare work in Patna.",
       keywords: [
         "Cyber Free Rice",
-        "Free Rice Game",
-        "Play Trivia Feed Animals",
-        "Cybersecurity Quiz Game",
-        "Play to Donate",
-        "Charity Trivia Game",
-        "Stray Animal Feeding Patna",
-        "Gamified Ethical Hacking Quiz",
-        "CyberKarma"
+        "CyberKarma",
+        "Free trivia game",
+        "Cybersecurity quiz",
+        "Charity game",
+        "Stray animal support",
+        "Patna animal welfare",
       ],
       manifest: "/manifest-quiz.json",
       metadataBase: new URL("https://cyberkarma.me"),
@@ -41,8 +40,8 @@ export const metadata: Metadata = isCyberKarmaSite
         canonical: "https://cyberkarma.me",
       },
       openGraph: {
-        title: "Cyber Free Rice 🐾 — Play Trivia, Feed Real Stray Animals",
-        description: "Every correct answer generates free rice grains and funds warm street animal meals in Patna. Level up, build streaks, and play to make a real-world difference!",
+        title: "Cyber Free Rice — Trivia for Animal Welfare",
+        description: "Free trivia platform with an impact ledger for animal welfare work in Patna.",
         url: "https://cyberkarma.me",
         siteName: "Cyber Free Rice & CyberKarma",
         images: [
@@ -58,8 +57,8 @@ export const metadata: Metadata = isCyberKarmaSite
       },
       twitter: {
         card: "summary_large_image",
-        title: "Cyber Free Rice 🐾 — Play Trivia, Feed Real Stray Animals",
-        description: "Answer cybersecurity & trivia questions to donate real bowls of food to street animals. 100% Free & Impactful.",
+        title: "Cyber Free Rice — Trivia for Animal Welfare",
+        description: "Free trivia platform with an impact ledger for animal welfare work in Patna.",
         images: ["/cyberkarma_banner.jpg"],
       },
       icons: {
@@ -81,8 +80,8 @@ export const metadata: Metadata = isCyberKarmaSite
       },
     }
   : {
-      title: "Aditya Jain — Cybersecurity Engineer | Vulnerability Management & DevSecOps | VAPT · SIEM/EDR",
-      description: "Cybersecurity Engineer securing 750+ government endpoints & CNI. Vulnerability Management, DevSecOps automation, SIEM/EDR tuning, NGFW. Open to India, UAE, Singapore, UK, Germany, EU, US.",
+    title: "Aditya Jain — Cybersecurity Engineer",
+    description: "Cybersecurity portfolio covering vulnerability management, DevSecOps, SIEM/EDR tuning, threat hunting, and enterprise security engineering.",
       keywords: [
         "Aditya Jain",
         "Cybersecurity Engineer",
@@ -108,8 +107,8 @@ export const metadata: Metadata = isCyberKarmaSite
         canonical: "https://adityasec32.systems",
       },
       openGraph: {
-        title: "Aditya Jain — Cybersecurity Engineer & Purple Teamer",
-        description: "750+ endpoints secured · 60% audit effort reduced · CNI threat hunter. Sanitized case studies & live engineering demos.",
+        title: "Aditya Jain — Cybersecurity Engineer",
+        description: "Cybersecurity portfolio with engineering case studies, demos, and project highlights.",
         url: "https://adityasec32.systems",
         siteName: "AdityaSec Systems",
         images: [
@@ -125,8 +124,8 @@ export const metadata: Metadata = isCyberKarmaSite
       },
       twitter: {
         card: "summary_large_image",
-        title: "Aditya Jain — Cybersecurity Engineer & Purple Teamer",
-        description: "750+ endpoints secured · 60% audit effort reduced · CNI threat hunter. Sanitized case studies & live engineering demos.",
+        title: "Aditya Jain — Cybersecurity Engineer",
+        description: "Cybersecurity portfolio with engineering case studies, demos, and project highlights.",
         images: ["/og-image.jpg"],
       },
       icons: {
@@ -153,7 +152,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // 1. WebApplication / Software Schema with 4.96 Star Rating for Google Rich Snippets
   const jsonLdApp = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -162,7 +160,7 @@ export default function RootLayout({
     "applicationCategory": "EducationalApplication, GameApplication",
     "operatingSystem": "All (Web, iOS, Android, Desktop)",
     "browserRequirements": "Requires JavaScript. Requires HTML5.",
-    "description": "Free gamified educational trivia game that donates real bowls of food and veterinary care to street dogs in Patna, Bihar for every correct answer.",
+    "description": "Free gamified educational trivia platform with an impact ledger for animal welfare work in Patna, Bihar.",
     "image": "https://cyberkarma.me/og-image.jpg",
     "screenshot": "https://cyberkarma.me/cyberkarma_hero_mascot.png",
     "offers": {
@@ -171,13 +169,6 @@ export default function RootLayout({
       "priceCurrency": "USD",
       "availability": "https://schema.org/InStock"
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.96",
-      "reviewCount": "2480",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
     "author": {
       "@type": "Person",
       "name": "Aditya Vardhan Jain",
@@ -185,7 +176,6 @@ export default function RootLayout({
     }
   };
 
-  // 2. Organization Schema
   const jsonLdOrg = {
     "@context": "https://schema.org",
     "@type": "NGO",
@@ -208,11 +198,10 @@ export default function RootLayout({
     }
   };
 
-  // 3. WebSite with Sitelinks Searchbox Schema
   const jsonLdWebSite = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "CyberKarma Patna Animal Rescue",
+    "name": "CyberKarma",
     "url": "https://cyberkarma.me",
     "potentialAction": {
       "@type": "SearchAction",
@@ -221,39 +210,37 @@ export default function RootLayout({
     }
   };
 
-  // 4. FAQ Schema for Rich Results
   const jsonLdFAQ = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How does playing trivia donate real food to street animals in Patna?",
+        "name": "How does CyberKarma support animal welfare?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "CyberKarma partners with philanthropic sponsors and corporate donors. Every correct answer triggers 10 grains of rice pledged to our Patna on-ground feeding drives without requiring player payments."
+          "text": "CyberKarma uses trivia as a participation layer for animal welfare initiatives and links to an impact ledger for transparency."
         }
       },
       {
         "@type": "Question",
-        "name": "Is CyberKarma safe and suitable for kids and students?",
+        "name": "Is CyberKarma free to use?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Absolutely. CyberKarma features family-friendly trivia categories including Animals, Space, Science, Mathematics, Geography, and an AI Custom Quiz generator powered by Google Gemini, with zero tracking and no inappropriate content."
+          "text": "Yes. CyberKarma is free to use and includes educational trivia categories and a separate impact page."
         }
       },
       {
         "@type": "Question",
-        "name": "Where can I see proof of food deliveries to animals in Patna?",
+        "name": "Where can I find the impact page?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "You can visit the live Impact page at https://cyberkarma.me/impact to view over 110 geotagged photographs, feeding logs, and veterinary treatment records from Patna Division, Bihar."
+          "text": "Visit https://cyberkarma.me/impact to review the impact ledger."
         }
       }
     ]
   };
 
-  // 5. Breadcrumb Navigation Schema
   const jsonLdBreadcrumbs = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -267,7 +254,7 @@ export default function RootLayout({
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "Trivia Game",
+        "name": "Home",
         "item": "https://cyberkarma.me/#main-content"
       },
       {
@@ -289,13 +276,13 @@ export default function RootLayout({
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.webmanifest" />
+        <link rel="manifest" href={isCyberKarmaSite ? "/manifest-quiz.json" : "/manifest.json"} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
-        <link rel="alternate" hrefLang="en" href="https://adityasec32.systems/" />
-        <link rel="alternate" hrefLang="hi" href="https://adityasec32.systems/" />
-        <link rel="alternate" hrefLang="x-default" href="https://adityasec32.systems/" />
+        <link rel="alternate" hrefLang="en" href={isCyberKarmaSite ? "https://cyberkarma.me/" : "https://adityasec32.systems/"} />
+        <link rel="alternate" hrefLang="hi" href={isCyberKarmaSite ? "https://cyberkarma.me/?lang=hi" : "https://adityasec32.systems/"} />
+        <link rel="alternate" hrefLang="x-default" href={isCyberKarmaSite ? "https://cyberkarma.me/" : "https://adityasec32.systems/"} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify([jsonLdApp, jsonLdOrg, jsonLdWebSite, jsonLdFAQ, jsonLdBreadcrumbs]) }}
@@ -325,6 +312,7 @@ export default function RootLayout({
             <strong>Aditya Jain SecOps Portfolio requires JavaScript.</strong> 4+ years Enterprise SecOps, EDR/SIEM SME, Purple Teaming & Threat Hunting.
           </div>
         </noscript>
+        <WelcomeBanner />
         {!isCyberKarmaSite && <Background3D />}
         {!isCyberKarmaSite && <div aria-hidden="true" className="h-1 w-full bg-gradient-to-r from-[#ff9933] via-white to-[#128807]"></div>}
         {children}
