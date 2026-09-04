@@ -4,6 +4,7 @@ import "./globals.css";
 import Background3D from "@/components/3d/Background3D";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import TelegramVisitorLogger from "@/components/TelegramVisitorLogger";
+import WelcomeBanner from "@/components/WelcomeBanner";
 import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
 import Script from "next/script";
@@ -311,6 +312,7 @@ export default function RootLayout({
             <strong>Aditya Jain SecOps Portfolio requires JavaScript.</strong> 4+ years Enterprise SecOps, EDR/SIEM SME, Purple Teaming & Threat Hunting.
           </div>
         </noscript>
+        <WelcomeBanner />
         {!isCyberKarmaSite && <Background3D />}
         {!isCyberKarmaSite && <div aria-hidden="true" className="h-1 w-full bg-gradient-to-r from-[#ff9933] via-white to-[#128807]"></div>}
         {children}

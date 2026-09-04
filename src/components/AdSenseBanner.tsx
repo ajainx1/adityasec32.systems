@@ -24,6 +24,22 @@ export default function AdSenseBanner({
 
     try {
       if (typeof window !== 'undefined') {
+        const consent = localStorage.getItem('adityasec_cookie_consent');
+        if (consent !== 'true') {
+          // wait for consent via storage event
+          const onStorage = (e: StorageEvent) => {
+            if (e.key === 'adityasec_cookie_consent' && e.newValue === 'true') {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const adsbygoogle = (window as any).adsbygoogle || [];
+              adsbygoogle.push({});
+              pushedRef.current = true;
+              window.removeEventListener('storage', onStorage);
+            }
+          };
+          window.addEventListener('storage', onStorage);
+          return;
+        }
+
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const adsbygoogle = (window as any).adsbygoogle || [];
         adsbygoogle.push({});
