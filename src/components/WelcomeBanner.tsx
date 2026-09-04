@@ -9,7 +9,12 @@ export default function WelcomeBanner() {
   useEffect(() => {
     try {
       const shown = localStorage.getItem('adityasec_welcome_shown');
-      if (!shown) setShow(true);
+      if (!shown) {
+        setShow(true);
+        // privacy-first local impression counter
+        const c = parseInt(localStorage.getItem('adityasec_welcome_impr') || '0', 10);
+        localStorage.setItem('adityasec_welcome_impr', String(c + 1));
+      }
     } catch (e) {
       setShow(true);
     }

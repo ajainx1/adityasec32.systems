@@ -18,6 +18,7 @@ export default function AdSenseBanner({
 }: AdSenseBannerProps) {
   const adRef = useRef<HTMLModElement>(null);
   const pushedRef = useRef(false);
+  const [showFallback, setShowFallback] = React.useState(false);
 
   useEffect(() => {
     if (pushedRef.current) return;
@@ -34,6 +35,7 @@ export default function AdSenseBanner({
               adsbygoogle.push({});
               pushedRef.current = true;
               window.removeEventListener('storage', onStorage);
+              monitorSlot();
             }
           };
           window.addEventListener('storage', onStorage);
@@ -44,9 +46,37 @@ export default function AdSenseBanner({
         const adsbygoogle = (window as any).adsbygoogle || [];
         adsbygoogle.push({});
         pushedRef.current = true;
+        monitorSlot();
       }
     } catch (err) {
       console.debug("AdSense load notice:", err);
+      // show fallback on error
+      setTimeout(() => setShowFallback(true), 1500);
+    }
+
+    // monitor the ins for an iframe added by AdSense and fallback if none
+    function monitorSlot() {
+      try {
+        const el = adRef.current as HTMLElement | null;
+        if (!el) return;
+        let checks = 0;
+        const interval = setInterval(() => {
+          checks++;
+          // AdSense injects an iframe; check for it
+          if (el.querySelector && el.querySelector('iframe')) {
+            clearInterval(interval);
+            setShowFallback(false);
+            return;
+          }
+          if (checks > 6) { // ~3s
+            clearInterval(interval);
+            setShowFallback(true);
+            return;
+          }
+        }, 500);
+      } catch (e) {
+        setShowFallback(true);
+      }
     }
   }, []);
 
@@ -74,11 +104,24 @@ export default function AdSenseBanner({
             data-full-width-responsive="true"
           />
         </div>
-
-        <div className="mt-2 text-center text-[9px] font-mono text-slate-400">
-          24/7 Managed SIEM, automated incident response, and purple team threat hunting.
-        </div>
-
+ 
+-        <div className="mt-2 text-center text-[9px] font-mono text-slate-400">
+-          24/7 Managed SIEM, automated incident response, and purple team threat hunting.
+-        </div>
++        <div className="mt-2 text-center text-[9px] font-mono text-slate-400">
++          24/7 Managed SIEM, automated incident response, and purple team threat hunting.
++        </div>
++
++        {showFallback && (
++          <div className="mt-3 p-3 rounded-lg bg-slate-800 text-slate-200 text-sm font-mono">
++            <strong>Sponsored</strong>
++            <div className="text-xs mt-1">Support from our partners helps keep tools free and educational content available.</div>
++          </div>
++        )}
+       </div>
+     </div>
+   );
+ }
       </div>
     </div>
   );
