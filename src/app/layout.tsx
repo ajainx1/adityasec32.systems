@@ -22,18 +22,29 @@ const isCyberKarmaSite = process.env.NEXT_PUBLIC_SITE_MODE === "cyberkarma";
 
 export const metadata: Metadata = isCyberKarmaSite
   ? {
-      title: "Cyber Free Rice 🐾 | Play Cybersecurity & Trivia Game to Feed Stray Animals",
-      description: "Answer cybersecurity, ethical hacking, and general knowledge trivia to donate real bowls of rice and fund warm meals for stray dogs in Patna. 100% free gamified charity.",
+      title: "Cyber Free Rice 🐾 | #1 Exam Prep & Trivia Game to Feed Stray Animals in Patna & Worldwide",
+      description: "Master BPSC, UPSC, SSC, Tech & General Trivia to donate real food and medical aid to street animals across Patna, Bihar. #1 Exam Skill Accelerator & 100% Free Gamified Philanthropy worldwide.",
       keywords: [
         "Cyber Free Rice",
-        "Free Rice Game",
+        "CyberKarma",
+        "Patna Stray Dog Feeding",
+        "Patna Animal Rescue NGO",
+        "Animal Welfare Patna Bihar",
+        "Free Rice Game Patna",
+        "BPSC Quiz Online Free",
+        "BPSC 70th Prelims Test Series",
+        "Bihar Special GK Quiz",
+        "UPSC GS MCQ Practice",
+        "SSC CGL General Awareness",
+        "Competitive Exam Prep Patna",
+        "Bihar Student Quiz Competition",
         "Play Trivia Feed Animals",
-        "Cybersecurity Quiz Game",
-        "Play to Donate",
-        "Charity Trivia Game",
-        "Stray Animal Feeding Patna",
+        "Worldwide Philanthropy Donations",
+        "Donate to Patna Animal Rescue",
         "Gamified Ethical Hacking Quiz",
-        "CyberKarma"
+        "Stray Animal Feeding Patna",
+        "Patna Non Profit Organisation",
+        "Free Education and Charity Patna"
       ],
       manifest: "/manifest-quiz.json",
       metadataBase: new URL("https://cyberkarma.me"),
@@ -41,8 +52,8 @@ export const metadata: Metadata = isCyberKarmaSite
         canonical: "https://cyberkarma.me",
       },
       openGraph: {
-        title: "Cyber Free Rice 🐾 — Play Trivia, Feed Real Stray Animals",
-        description: "Every correct answer generates free rice grains and funds warm street animal meals in Patna. Level up, build streaks, and play to make a real-world difference!",
+        title: "Cyber Free Rice 🐾 — #1 Exam Prep & Trivia to Feed Stray Dogs in Patna",
+        description: "Study for BPSC, UPSC, SSC & Tech competitions or play trivia to donate real bowls of rice and medical aid to street dogs in Patna, Bihar. 100% Free & Global Philanthropy.",
         url: "https://cyberkarma.me",
         siteName: "Cyber Free Rice & CyberKarma",
         images: [
@@ -50,7 +61,7 @@ export const metadata: Metadata = isCyberKarmaSite
             url: "/cyberkarma_banner.jpg",
             width: 1200,
             height: 630,
-            alt: "Cyber Free Rice — Gamified Trivia to Feed Animals",
+            alt: "Cyber Free Rice — Gamified Trivia and Exam Prep to Feed Animals in Patna",
           },
         ],
         locale: "en_US",
@@ -58,8 +69,8 @@ export const metadata: Metadata = isCyberKarmaSite
       },
       twitter: {
         card: "summary_large_image",
-        title: "Cyber Free Rice 🐾 — Play Trivia, Feed Real Stray Animals",
-        description: "Answer cybersecurity & trivia questions to donate real bowls of food to street animals. 100% Free & Impactful.",
+        title: "Cyber Free Rice 🐾 — #1 Exam Prep & Trivia to Feed Stray Dogs in Patna",
+        description: "Practice competitive exam MCQs (BPSC, UPSC, SSC, Coding) to donate real bowls of food to street animals in Patna. 100% Free & Impactful.",
         images: ["/cyberkarma_banner.jpg"],
       },
       icons: {
@@ -72,6 +83,10 @@ export const metadata: Metadata = isCyberKarmaSite
       other: {
         "google-adsense-account": "ca-pub-6072468142870937",
         "theme-color": "#0f0414",
+        "geo.region": "IN-BR",
+        "geo.placename": "Patna, Bihar, India",
+        "geo.position": "25.5941;85.1376",
+        "ICBM": "25.5941, 85.1376",
       },
       appleWebApp: {
         capable: true,
@@ -154,13 +169,14 @@ export default function RootLayout({
   // 1. WebApplication / Software Schema with 4.96 Star Rating for Google Rich Snippets
   const jsonLdApp = {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": ["WebApplication", "LearningResource"],
     "name": "CyberKarma",
     "url": "https://cyberkarma.me",
     "applicationCategory": "EducationalApplication, GameApplication",
+    "applicationSubCategory": "Competitive Exam Preparation & Philanthropic Quiz",
     "operatingSystem": "All (Web, iOS, Android, Desktop)",
     "browserRequirements": "Requires JavaScript. Requires HTML5.",
-    "description": "Free gamified educational trivia game that donates real bowls of food and veterinary care to street dogs in Patna, Bihar for every correct answer.",
+    "description": "Free gamified competitive exam preparation (BPSC, UPSC, SSC, Tech) and trivia game that donates real bowls of food and veterinary care to street dogs in Patna, Bihar for every correct answer.",
     "image": "https://cyberkarma.me/og-image.jpg",
     "screenshot": "https://cyberkarma.me/cyberkarma_hero_mascot.png",
     "offers": {
@@ -183,11 +199,12 @@ export default function RootLayout({
     }
   };
 
-  // 2. Organization Schema
+  // 2. Organization Schema with Patna Geo-Targeting & Global Reach
   const jsonLdOrg = {
     "@context": "https://schema.org",
-    "@type": "NGO",
+    "@type": ["NGO", "EducationalOrganization"],
     "name": "CyberKarma Animal Welfare & Educational Initiative",
+    "alternateName": "Cyber Free Rice Patna",
     "url": "https://cyberkarma.me",
     "logo": "https://cyberkarma.me/charity_favicon.svg",
     "founder": {
@@ -200,17 +217,39 @@ export default function RootLayout({
         "https://github.com/ajainx1"
       ]
     },
-    "location": {
-      "@type": "Place",
-      "name": "Patna Division, Bihar, India"
-    }
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Rajbansi Nagar & Boring Road Corridor",
+      "addressLocality": "Patna",
+      "addressRegion": "Bihar",
+      "postalCode": "800001",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "25.5941",
+      "longitude": "85.1376"
+    },
+    "areaServed": [
+      { "@type": "AdministrativeArea", "name": "Patna Division, Bihar, India" },
+      { "@type": "Country", "name": "India" },
+      { "@type": "Place", "name": "Worldwide" }
+    ],
+    "knowsAbout": [
+      "Stray Dog Rescue in Patna",
+      "BPSC Examination Preparation",
+      "UPSC General Studies",
+      "SSC CGL & Railway Preparation",
+      "Software Engineering & Cybersecurity",
+      "Gamified Philanthropy & Food Donation"
+    ]
   };
 
   // 3. WebSite with Sitelinks Searchbox Schema
   const jsonLdWebSite = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "CyberKarma Patna Animal Rescue",
+    "name": "CyberKarma Patna Animal Rescue & Competitive Exam Hub",
     "url": "https://cyberkarma.me",
     "potentialAction": {
       "@type": "SearchAction",
@@ -230,6 +269,22 @@ export default function RootLayout({
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "CyberKarma partners with philanthropic sponsors and corporate donors. Every correct answer triggers 10 grains of rice pledged to our Patna on-ground feeding drives without requiring player payments."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does CyberKarma help students preparing for BPSC, UPSC, and competitive exams in Patna and Bihar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "CyberKarma provides dedicated AI-powered mock tests and high-yield MCQs for BPSC (Bihar Special GK), UPSC General Studies, SSC CGL, Railways, and Software Engineering. Aspirants can test their speed and accuracy to rank #1 while directly funding food and medical aid for street animals in Patna."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can people outside India donate or support CyberKarma's animal rescue work in Patna?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! CyberKarma accepts international players and philanthropic donations worldwide. While our on-ground rescue operations and feeding drives are headquartered in Patna, Bihar, our donor and sponsor community spans the US, UK, Europe, UAE, and Asia."
         }
       },
       {

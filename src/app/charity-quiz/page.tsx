@@ -4,32 +4,38 @@ import { ToastProvider } from '@/components/js/ToastContext';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Cyber Free Rice 🐾 — Play Free Trivia & Feed Stray Dogs | CyberKarma.me',
-  description: 'Play free cybersecurity, science, space, and general trivia quizzes to donate real bowls of rice and fund warm meals for stray dogs in Patna, Bihar. 100% Free, Unlimited AI Mode & Field-Verified Impact.',
+  title: 'Cyber Free Rice 🐾 — #1 Competitive Exam Prep & Free Trivia to Feed Stray Dogs in Patna | CyberKarma.me',
+  description: 'Level up your skills to #1 in BPSC, UPSC, SSC, Tech & Science while donating real bowls of rice and vet care to stray dogs across Patna, Bihar. 100% Free AI Mock Tests, Worldwide Philanthropy & 110+ Verified Field Photos.',
   keywords: [
     'Cyber Free Rice',
     'CyberKarma',
     'Free Rice Game',
     'Play Trivia Feed Animals',
+    'BPSC 70th Prelims Mock Test Free',
+    'Bihar Special GK Quiz Online',
+    'UPSC GS Prelims MCQ Practice',
+    'SSC CGL Practice Quiz Patna',
+    'Bihar Police Daroga SI Exam Quiz',
     'Free Cybersecurity Quiz Game',
     'Feed Stray Dogs Patna',
     'Play to Donate Rice',
     'Ethical Hacking Quiz',
-    'Zero Trust Trivia',
     'Non-Profit Educational Game',
     'Stray Dog Rescue Bihar',
     'Patna Animal Welfare',
+    'Patna Philanthropy and Feeding Drives',
+    'Worldwide Animal Welfare Donations',
+    'Global Charity Quiz Online',
     'Free Rice Trivia Online',
-    'Play Trivia Donate Food',
-    'Gamified Philanthropy',
+    'Gamified Philanthropy Patna',
     'Injured Stray Dog First Aid Patna'
   ],
   authors: [{ name: 'Aditya Jain', url: 'https://adityasec32.systems' }],
   creator: 'Aditya Jain',
   publisher: 'CyberKarma Philanthropy',
   openGraph: {
-    title: 'Cyber Free Rice 🐾 — Play Free Trivia & Feed Stray Dogs',
-    description: 'Every correct answer donates 10 grains of rice to feed real rescue animals and fund medical aid in Patna, Bihar. 100% Free, Unlimited AI Mode & Field-Verified Impact.',
+    title: 'Cyber Free Rice 🐾 — #1 Competitive Exam Prep & Free Trivia to Feed Stray Dogs',
+    description: 'Prepare for BPSC, UPSC, SSC, and Tech competitions or play trivia to donate real bowls of rice and medical aid to street dogs in Patna, Bihar. 100% Free & Global Impact.',
     url: 'https://cyberkarma.me',
     siteName: 'CyberKarma • Cyber Free Rice',
     images: [
@@ -37,7 +43,7 @@ export const metadata: Metadata = {
         url: 'https://cyberkarma.me/cyberkarma_banner.jpg',
         width: 1200,
         height: 630,
-        alt: 'Cyber Free Rice & CyberKarma — Gamified Philanthropic Trivia Platform',
+        alt: 'Cyber Free Rice & CyberKarma — Gamified Philanthropic Exam Prep & Trivia Platform in Patna',
       },
     ],
     locale: 'en_US',
@@ -45,8 +51,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cyber Free Rice 🐾 — Play Free Trivia & Feed Stray Dogs',
-    description: 'Answer cybersecurity & trivia questions to donate real bowls of food to street animals in Patna. 100% Free & Impactful.',
+    title: 'Cyber Free Rice 🐾 — #1 Competitive Exam Prep & Free Trivia to Feed Stray Dogs',
+    description: 'Level up your exam skills to #1 in BPSC, UPSC, SSC, Tech & Science to fund hot street animal meals in Patna. 100% Free & Worldwide Philanthropy.',
     images: ['https://cyberkarma.me/cyberkarma_banner.jpg'],
     creator: '@adityasec32',
   },
@@ -68,7 +74,7 @@ export const metadata: Metadata = {
   },
   other: {
     'geo.region': 'IN-BR',
-    'geo.placename': 'Patna',
+    'geo.placename': 'Patna, Bihar, India',
     'geo.position': '25.5941;85.1376',
     'ICBM': '25.5941, 85.1376',
   },
@@ -86,10 +92,11 @@ export const metadata: Metadata = {
 
 const jsonLdWebApp = {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
+  "@type": ["WebApplication", "LearningResource"],
   "name": "Cyber Free Rice (CyberKarma)",
   "url": "https://cyberkarma.me",
   "applicationCategory": "EducationalApplication, GameApplication",
+  "applicationSubCategory": "Competitive Exam Preparation & Philanthropic Quiz",
   "operatingSystem": "All",
   "browserRequirements": "Requires JavaScript. Requires HTML5.",
   "offers": {
@@ -104,8 +111,8 @@ const jsonLdWebApp = {
     "bestRating": "5",
     "worstRating": "1"
   },
-  "description": "Gamified educational trivia platform where correct answers in cybersecurity, ecology, physics, and space generate real-world rice donations for stray dogs in Patna, Bihar.",
-  "genre": ["Educational Game", "Trivia Game", "Charity Game"],
+  "description": "Gamified educational trivia and competitive exam preparation platform where correct answers in BPSC, UPSC, SSC, cybersecurity, and science generate real-world rice donations for stray dogs in Patna, Bihar.",
+  "genre": ["Educational Game", "Trivia Game", "Charity Game", "Competitive Exam Preparation"],
   "author": {
     "@type": "Person",
     "name": "Aditya Jain",
@@ -113,13 +120,36 @@ const jsonLdWebApp = {
   }
 };
 
+const jsonLdExamResource = {
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "CyberKarma Competitive Exam & Skill Accelerator Hub",
+  "description": "Interactive mock exams and topic quizzes for BPSC (Bihar Special GK), UPSC CSE Prelims, SSC CGL, Railways, and Software Engineering.",
+  "learningResourceType": "Quiz, Assessment, Practice Test",
+  "educationalLevel": "Competitive Examination & Higher Education",
+  "assesses": "BPSC Bihar Special GK, Indian Polity, Modern History, General Science, Data Structures, Quantitative Aptitude",
+  "provider": {
+    "@type": "NGO",
+    "name": "CyberKarma Philanthropy Patna",
+    "url": "https://cyberkarma.me"
+  }
+};
+
 const jsonLdOrganization = {
   "@context": "https://schema.org",
-  "@type": "NGO",
+  "@type": ["NGO", "EducationalOrganization"],
   "name": "CyberKarma Philanthropy",
   "url": "https://cyberkarma.me",
   "logo": "https://cyberkarma.me/icon.svg",
-  "description": "Decentralized ethical philanthropy and stray animal rescue initiative funding daily hot meals for street dogs across Patna Division, Bihar.",
+  "description": "Decentralized ethical philanthropy and stray animal rescue initiative funding daily hot meals for street dogs across Patna Division, Bihar, supporting students worldwide.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rajbansi Nagar & Boring Road Corridor",
+    "addressLocality": "Patna",
+    "addressRegion": "Bihar",
+    "postalCode": "800001",
+    "addressCountry": "IN"
+  },
   "location": {
     "@type": "Place",
     "address": {
@@ -134,6 +164,11 @@ const jsonLdOrganization = {
       "longitude": "85.1376"
     }
   },
+  "areaServed": [
+    { "@type": "AdministrativeArea", "name": "Patna Division, Bihar, India" },
+    { "@type": "Country", "name": "India" },
+    { "@type": "Place", "name": "Worldwide" }
+  ],
   "sameAs": [
     "https://adityasec32.systems",
     "https://github.com/ajainx1/cyberkarma.me"
@@ -146,10 +181,26 @@ const jsonLdFaq = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How does Cyber Free Rice feed real stray animals?",
+      "name": "How does Cyber Free Rice feed real stray animals in Patna?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "For every question you answer correctly on CyberKarma, 10 grains of rice are pledged. Our on-ground volunteers in Patna Division, Bihar purchase fresh rice, nutritional broth, and veterinary supplements to prepare and distribute warm feeding bowls directly to street animals."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can students preparing for BPSC, UPSC, and SSC exams use CyberKarma?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aspirants studying for BPSC (Bihar Special GK), UPSC General Studies, SSC CGL, Railways, and Software Engineering can practice high-yield MCQs directly on CyberKarma. You sharpen your speed and master key concepts to rank #1, while every correct answer feeds rescue animals across Patna."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does CyberKarma accept international donations and support?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! CyberKarma welcomes players and donors from across the globe. While our physical feeding patrols and animal rescue hospital drives are based in Patna, Bihar, we accept philanthropic support worldwide to scale our reach."
       }
     },
     {
@@ -162,7 +213,7 @@ const jsonLdFaq = {
     },
     {
       "@type": "Question",
-      "name": "Where can I view verified field proof photos?",
+      "name": "Where can I view verified field proof photos in Patna?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "You can visit our dedicated Real-World Impact Ledger at https://cyberkarma.me/impact to inspect over 110+ verified ground photos, sector timestamps, and geotagged drives across Patna (Rajbansi Nagar, Boring Road, Kankarbagh, Bailey Road, etc.)."
@@ -173,15 +224,7 @@ const jsonLdFaq = {
       "name": "How does the Unlimited AI Quiz generator work?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "CyberKarma includes an intelligent multi-topic AI engine that generates limitless, custom-tailored quiz questions on any subject you choose—from Cyber Warfare and Zero Trust to Astrophysics and Ancient History—complete with 3D educational explanations for every answer."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I play Cyber Free Rice using keyboard shortcuts?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes! Press keys [A, B, C, D] or [1, 2, 3, 4] to select answers instantly, press [Space] or [Enter] to proceed to the next question, and press [H] to use a hint."
+        "text": "CyberKarma includes an intelligent multi-topic AI engine that generates limitless, custom-tailored quiz questions on any subject you choose—from BPSC Bihar History to Quantum Computing and Ancient Rome—complete with explanations for every answer."
       }
     }
   ]
@@ -223,7 +266,7 @@ const jsonLdHowTo = {
       "@type": "HowToStep",
       "position": 1,
       "name": "Choose a Subject or AI Category",
-      "text": "Select from Cybersecurity, Wildlife Care, Space, Science, Math, Geography, or create a custom AI topic.",
+      "text": "Select from BPSC Exam Prep, Cybersecurity, Wildlife Care, Space, Science, Math, Geography, or create a custom AI topic.",
       "url": "https://cyberkarma.me/"
     },
     {
@@ -276,6 +319,7 @@ export default function CharityQuizPage() {
     "@context": "https://schema.org",
     "@graph": [
       jsonLdWebApp,
+      jsonLdExamResource,
       jsonLdOrganization,
       jsonLdFaq,
       jsonLdBreadcrumb,

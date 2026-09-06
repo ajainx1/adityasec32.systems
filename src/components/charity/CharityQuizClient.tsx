@@ -302,6 +302,121 @@ const DEMOGRAPHIC_AI_TOPICS: TopicCategory[] = [
       { topic: "World War II Turning Points", topicHi: "द्वितीय विश्व युद्ध", icon: "🪖" },
       { topic: "Canine Psychology & Dog Empathy", topicHi: "श्वान मनोविज्ञान व प्रेम", icon: "🐕" }
     ]
+  },
+  {
+    labelEn: "🎯 Competitive Exams & Aspirants",
+    labelHi: "🎯 प्रतियोगी परीक्षाएं और सरकारी नौकरी",
+    icon: "🎯",
+    topics: [
+      { topic: "BPSC Prelims Bihar Special GK & Current Affairs", topicHi: "BPSC प्रीलिम्स और बिहार स्पेशल GK", icon: "🏛️" },
+      { topic: "UPSC Civil Services Indian Polity & Constitution", topicHi: "UPSC भारतीय राजव्यवस्था व संविधान", icon: "📜" },
+      { topic: "SSC CGL & Railway RRB General Awareness", topicHi: "SSC CGL और रेलवे सामान्य अध्ययन", icon: "🚆" },
+      { topic: "Bihar Police Daroga SI General Knowledge", topicHi: "बिहार दरोगा SI परीक्षा तैयारी", icon: "👮" },
+      { topic: "Software Engineering, DSA & System Design", topicHi: "सॉफ्टवेयर इंजीनियरिंग और कोडिंग", icon: "💻" },
+      { topic: "NEET Biology, Human Physiology & Genetics", topicHi: "NEET बायोलॉजी और मानव शरीर रचना", icon: "🩺" }
+    ]
+  }
+];
+
+export interface CompetitiveExamCard {
+  id: string;
+  titleEn: string;
+  titleHi: string;
+  badgeEn: string;
+  badgeHi: string;
+  icon: string;
+  gradient: string;
+  borderColor: string;
+  descEn: string;
+  descHi: string;
+  syllabusTopic: string;
+  tags: string[];
+}
+
+export const COMPETITIVE_EXAMS: CompetitiveExamCard[] = [
+  {
+    id: 'bpsc',
+    titleEn: 'BPSC & Bihar Special GK',
+    titleHi: 'BPSC व बिहार विशेष सामान्य ज्ञान',
+    badgeEn: '#1 Bihar Ranker',
+    badgeHi: '#1 बिहार रैंक',
+    icon: '🏛️',
+    gradient: 'from-amber-500/20 via-orange-500/10 to-amber-950/30',
+    borderColor: 'border-amber-500/40 hover:border-amber-400',
+    descEn: 'Bihar History, Geography, Budget & Economic Survey, Ancient Nalanda & Magadha.',
+    descHi: 'बिहार का इतिहास, भूगोल, आर्थिक सर्वेक्षण, प्राचीन नालंदा व मगध साम्राज्य।',
+    syllabusTopic: 'BPSC Prelims Bihar Special GK & Current Affairs',
+    tags: ['Bihar GK', 'History', 'Polity', 'Eco Survey']
+  },
+  {
+    id: 'upsc',
+    titleEn: 'UPSC Civil Services (GS)',
+    titleHi: 'UPSC सिविल सेवा (सामान्य अध्ययन)',
+    badgeEn: 'IAS / IPS Target',
+    badgeHi: 'IAS / IPS लक्ष्य',
+    icon: '📜',
+    gradient: 'from-blue-500/20 via-indigo-500/10 to-blue-950/30',
+    borderColor: 'border-blue-500/40 hover:border-blue-400',
+    descEn: 'Indian Constitution, Modern History, Macroeconomics, Environment & Ecology.',
+    descHi: 'भारतीय संविधान, आधुनिक इतिहास, अर्थशास्त्र और पर्यावरण एवं पारिस्थितिकी।',
+    syllabusTopic: 'UPSC Civil Services Indian Polity & Constitution',
+    tags: ['Polity', 'Modern History', 'Economy', 'Ecology']
+  },
+  {
+    id: 'ssc',
+    titleEn: 'SSC CGL & Railway RRB',
+    titleHi: 'SSC CGL और रेलवे भर्ती (RRB)',
+    badgeEn: 'Govt Job Track',
+    badgeHi: 'सरकारी नौकरी',
+    icon: '🚆',
+    gradient: 'from-emerald-500/20 via-teal-500/10 to-emerald-950/30',
+    borderColor: 'border-emerald-500/40 hover:border-emerald-400',
+    descEn: 'General Awareness, General Science, Static GK, History & Indian Geography.',
+    descHi: 'सामान्य अध्ययन, सामान्य विज्ञान, स्टैटिक GK और भारत का भूगोल।',
+    syllabusTopic: 'SSC CGL & Railway RRB General Awareness',
+    tags: ['Static GK', 'Gen Science', 'Polity', 'History']
+  },
+  {
+    id: 'tech',
+    titleEn: 'Software & Tech Placements',
+    titleHi: 'सॉफ्टवेयर इंजीनियरिंग व कोडिंग',
+    badgeEn: 'FAANG / Campus #1',
+    badgeHi: 'कैंपस प्लेसमेंट',
+    icon: '💻',
+    gradient: 'from-cyan-500/20 via-sky-500/10 to-cyan-950/30',
+    borderColor: 'border-cyan-500/40 hover:border-cyan-400',
+    descEn: 'Data Structures, Algorithms, System Design, Cybersecurity & Networks.',
+    descHi: 'डेटा स्ट्रक्चर (DSA), सिस्टम डिज़ाइन, साइबर सुरक्षा और कंप्यूटर नेटवर्क्स।',
+    syllabusTopic: 'Software Engineering, DSA & System Design',
+    tags: ['DSA', 'System Design', 'Cyber', 'Networks']
+  },
+  {
+    id: 'neet',
+    titleEn: 'NEET & Medical Aspirants',
+    titleHi: 'NEET व मेडिकल प्रवेश परीक्षा',
+    badgeEn: 'MBBS Target',
+    badgeHi: 'MBBS लक्ष्य',
+    icon: '🩺',
+    gradient: 'from-rose-500/20 via-pink-500/10 to-rose-950/30',
+    borderColor: 'border-rose-500/40 hover:border-rose-400',
+    descEn: 'Human Physiology, Genetics, Molecular Biology, Plant Kingdom & Organic Basics.',
+    descHi: 'मानव शरीर क्रिया विज्ञान, आनुवंशिकी, कोशिका जीव विज्ञान व जैव रसायन।',
+    syllabusTopic: 'NEET Biology, Human Physiology & Genetics',
+    tags: ['Physiology', 'Genetics', 'Cell Bio', 'Zoology']
+  },
+  {
+    id: 'daroga',
+    titleEn: 'Bihar Police & Daroga SI',
+    titleHi: 'बिहार पुलिस दरोगा SI परीक्षा',
+    badgeEn: 'Bihar Police Track',
+    badgeHi: 'बिहार पुलिस',
+    icon: '👮',
+    gradient: 'from-purple-500/20 via-violet-500/10 to-purple-950/30',
+    borderColor: 'border-purple-500/40 hover:border-purple-400',
+    descEn: 'Indian Constitution, Criminal Law basics, Bihar Police GK, Science & Reasoning.',
+    descHi: 'भारतीय संविधान, कानून के बुनियादी नियम, बिहार पुलिस GK व सामान्य विज्ञान।',
+    syllabusTopic: 'Bihar Police Daroga SI General Knowledge',
+    tags: ['Constitution', 'Bihar GK', 'Law Basics', 'Science']
   }
 ];
 
@@ -940,6 +1055,75 @@ export default function CharityQuizClient() {
   // Clean Fallback AI Quiz generator with realistic questions
   const generateCleanAIQuestions = (topicName: string): Question[] => {
     const clean = topicName.trim();
+    const lower = clean.toLowerCase();
+
+    // 1. BPSC & Bihar Special GK
+    if (lower.includes('bpsc') || lower.includes('bihar special') || lower.includes('bihar gk')) {
+      return [
+        createQ('intermediate', 'Which ancient university in Bihar was founded during the Gupta Empire by Kumaragupta I?', 'Nalanda University', 'Vikramashila University', 'Odantapuri University', 'Taxila University', 'It was a premier global center for Buddhist learning in ancient Magadha.', 'Nalanda University was established in the 5th century CE by Gupta emperor Kumaragupta I and revived globally today.', 'BPSC Bihar GK'),
+        createQ('beginner', 'Which perennial river is historically referred to as the "Sorrow of Bihar" due to its shifting course and annual floods?', 'Kosi River', 'Gandak River', 'Son River', 'Ghaghara River', 'This river originates in Tibet/Nepal and joins the Ganges near Kursela.', 'The Kosi river frequently shifts its course across North Bihar plains, causing severe floods.', 'BPSC Geography'),
+        createQ('intermediate', 'Who was the legendary freedom fighter who led the 1857 Indian uprising from Jagdishpur, Bihar?', 'Veer Kunwar Singh', 'Babu Amar Singh', 'Pir Ali Khan', 'Hare Krishna Singh', 'He fought the British colonial forces at the age of nearly 80.', 'Veer Kunwar Singh of Jagdishpur (Bhojpur) delivered heroic defeats to British battalions in 1857.', 'BPSC History'),
+        createQ('beginner', 'In which year was the province of Bihar separated from the Bengal Presidency?', '1912', '1905', '1936', '1947', 'It occurred following the Delhi Durbar proclamation by King George V.', 'Bihar and Orissa were carved out of Bengal Presidency on 22 March 1912 (celebrated as Bihar Diwas).', 'BPSC History'),
+        createQ('intermediate', 'Which is the sole Tiger Reserve and National Park situated in the state of Bihar?', 'Valmiki National Park', 'Bhimbandh Wildlife Sanctuary', 'Gautam Buddha Sanctuary', 'Kaimur Wildlife Sanctuary', 'Located in the foothills of the Terai Himalayas in West Champaran district.', 'Valmiki National Park & Tiger Reserve in West Champaran is Bihar\'s only dedicated tiger sanctuary.', 'BPSC Environment')
+      ];
+    }
+
+    // 2. UPSC Civil Services (GS)
+    if (lower.includes('upsc') || lower.includes('polity') || lower.includes('civil services')) {
+      return [
+        createQ('intermediate', 'Under which Article of the Indian Constitution is the right to constitutional remedies guaranteed, hailed by Dr. Ambedkar as its "Heart and Soul"?', 'Article 32', 'Article 21', 'Article 19', 'Article 14', 'It empowers citizens to directly approach the Supreme Court for writ enforcement.', 'Article 32 provides the right to move the Supreme Court via writs (Habeas Corpus, Mandamus, Quo Warranto, etc.).', 'UPSC Polity'),
+        createQ('intermediate', 'Which Constitutional Amendment Act added the Tenth Schedule (Anti-Defection Law) to the Indian Constitution?', '52nd Amendment Act, 1985', '42nd Amendment Act, 1976', '44th Amendment Act, 1978', '91st Amendment Act, 2003', 'Enacted under Rajiv Gandhi administration to curb political defections.', 'The 52nd Constitutional Amendment Act of 1985 introduced the 10th Schedule to disqualify defecting legislators.', 'UPSC Polity'),
+        createQ('intermediate', 'Who acts as the ex-officio Chairperson of India’s Monetary Policy Committee (MPC)?', 'Governor of the Reserve Bank of India', 'Union Finance Minister', 'Chief Economic Adviser', 'NITI Aayog Vice-Chairperson', 'The statutory head of India\'s central bank leads the interest rate setting panel.', 'The RBI Governor chairs the six-member Monetary Policy Committee responsible for setting benchmark repo rates.', 'UPSC Economy'),
+        createQ('beginner', 'The Ramsar Convention, an intergovernmental treaty for the conservation of wetlands, was signed in which country in 1971?', 'Iran', 'Switzerland', 'France', 'Egypt', 'Signed in a Caspian Sea coastal city.', 'The Ramsar Convention on Wetlands of International Importance was adopted in Ramsar, Iran in 1971.', 'UPSC Environment'),
+        createQ('intermediate', 'Which historic legislative enactment introduced "Provincial Autonomy" and abolished dyarchy in the British Indian provinces?', 'Government of India Act 1935', 'Morley-Minto Reforms 1909', 'Montagu-Chelmsford Reforms 1919', 'Indian Councils Act 1892', 'This legislation served as the primary administrative blueprint for the Indian Constitution.', 'The Government of India Act 1935 granted autonomy to provinces and laid down federal structures.', 'UPSC History')
+      ];
+    }
+
+    // 3. SSC CGL & Railways RRB
+    if (lower.includes('ssc') || lower.includes('railway') || lower.includes('rrb') || lower.includes('general awareness')) {
+      return [
+        createQ('beginner', 'Which cellular organelle is famously known as the "powerhouse of the cell" for synthesizing ATP?', 'Mitochondria', 'Ribosome', 'Golgi Apparatus', 'Endoplasmic Reticulum', 'It performs aerobic cellular respiration.', 'Mitochondria convert nutrients into adenosine triphosphate (ATP), powering cellular metabolism.', 'SSC Science'),
+        createQ('beginner', 'In which year took place the historic Battle of Plassey between Robert Clive and Nawab Siraj-ud-Daulah?', '1757', '1764', '1761', '1748', 'Fought in Bengal near the Bhagirathi River.', 'The Battle of Plassey on 23 June 1757 marked the start of formal British East India Company territorial rule.', 'SSC History'),
+        createQ('beginner', 'What is the standard SI unit of electrical current?', 'Ampere', 'Volt', 'Ohm', 'Coulomb', 'Named after the French physicist André-Marie Ampère.', 'The Ampere (A) is the base SI unit measuring electric charge flow rate per second.', 'SSC Physics'),
+        createQ('intermediate', 'Which is the highest peak in the ancient Aravalli mountain range in Rajasthan?', 'Guru Shikhar', 'Anamudi', 'Doda Betta', 'Dhupgarh', 'Located near the hill station of Mount Abu at 1,722 meters.', 'Guru Shikhar in Mount Abu is the summit peak of the Aravalli range.', 'SSC Geography'),
+        createQ('intermediate', 'The Right to Education was made a Fundamental Right under Article 21A by which Constitutional Amendment?', '86th Amendment Act, 2002', '44th Amendment Act, 1978', '73rd Amendment Act, 1992', '93rd Amendment Act, 2005', 'Guarantees free and compulsory education for ages 6 to 14.', 'The 86th Amendment Act of 2002 inserted Article 21A, ensuring education as a fundamental citizen right.', 'SSC Polity')
+      ];
+    }
+
+    // 4. Software Engineering & Tech
+    if (lower.includes('software') || lower.includes('tech') || lower.includes('dsa') || lower.includes('coding')) {
+      return [
+        createQ('beginner', 'What is the worst-case time complexity of Binary Search on a sorted array of size n?', 'O(log n)', 'O(n)', 'O(n log n)', 'O(1)', 'With each step, the search space is divided in half.', 'Binary search eliminates half the remaining elements per iteration, giving logarithmic O(log n) time.', 'Tech DSA'),
+        createQ('intermediate', 'In relational database ACID transactions, what does the "I" guarantee?', 'Isolation', 'Integrity', 'Immutability', 'Indexing', 'Concurrent transactions must not interfere with or see each other\'s intermediate state.', 'Isolation ensures transactions execute concurrently without dirty reads or phantom dependencies.', 'Tech Systems'),
+        createQ('beginner', 'Which cryptographic protocol provides privacy and authentication for HTTPS internet traffic?', 'TLS (Transport Layer Security)', 'FTP', 'Telnet', 'SNMP', 'Replaced legacy SSL for web socket and browser security.', 'TLS encrypts web communications to prevent man-in-the-middle tampering and interception.', 'Tech Security'),
+        createQ('intermediate', 'What is the primary architectural responsibility of an Operating System Kernel?', 'Mediating CPU scheduling, memory management, and hardware I/O', 'Rendering HTML web pages inside a browser', 'Formatting spreadsheet cells', 'Compiling JavaScript to bytecode', 'It is the core program that controls all physical computing resources.', 'The kernel bridges software applications with CPU, RAM, disk, and peripheral hardware.', 'Tech OS'),
+        createQ('beginner', 'In RESTful API design, which HTTP status code confirms successful creation of a new server resource?', '201 Created', '200 OK', '204 No Content', '301 Moved Permanently', 'Follows a successful POST request creating an entity.', 'HTTP 201 Created indicates the request succeeded and resulted in a new resource creation.', 'Tech APIs')
+      ];
+    }
+
+    // 5. NEET & Medical Aspirants
+    if (lower.includes('neet') || lower.includes('medical') || lower.includes('biology') || lower.includes('physiology')) {
+      return [
+        createQ('beginner', 'Which human blood group is considered the universal red blood cell donor because it lacks A, B, and Rh antigens?', 'O negative (O-)', 'AB positive (AB+)', 'O positive (O+)', 'A negative (A-)', 'Can be safely transfused to recipients of any ABO or Rh type.', 'O- red cells carry neither A/B antigens nor the Rh factor, avoiding antibody agglutination.', 'NEET Biology'),
+        createQ('intermediate', 'Which pancreatic peptide hormone facilitates cellular glucose uptake to reduce blood glycemic levels?', 'Insulin', 'Glucagon', 'Somatostatin', 'Epinephrine', 'Secreted by beta cells in the Islets of Langerhans.', 'Insulin stimulates liver, muscle, and adipose tissue to absorb glucose and synthesize glycogen.', 'NEET Physiology'),
+        createQ('beginner', 'What is the microscopic structural and functional filtration unit of the mammalian kidney?', 'Nephron', 'Neuron', 'Alveolus', 'Hepatic Lobule', 'Each human kidney contains roughly 1 million of these filtering tubes.', 'The nephron filters blood plasma, regulates water/electrolytes, and excretes nitrogenous urea.', 'NEET Anatomy'),
+        createQ('intermediate', 'Mendel\'s First Law, stating that the two alleles for each gene separate during gametogenesis, is known as:', 'Law of Segregation', 'Law of Independent Assortment', 'Law of Dominance', 'Law of Linkage', 'Explains why recessive traits can reappear in the F2 generation.', 'The Law of Segregation confirms each gamete receives only one allele from each parent pair.', 'NEET Genetics'),
+        createQ('intermediate', 'Which primary enzyme catalyzes transcription of genetic information from DNA into messenger RNA?', 'RNA Polymerase', 'DNA Ligase', 'Topoisomerase', 'DNA Helicase', 'Binds to the promoter region to synthesize RNA transcripts.', 'RNA Polymerase reads the template DNA strand 3\' to 5\' and constructs pre-mRNA 5\' to 3\'.', 'NEET Molecular Bio')
+      ];
+    }
+
+    // 6. Bihar Police & Daroga SI
+    if (lower.includes('daroga') || lower.includes('police') || lower.includes('si')) {
+      return [
+        createQ('intermediate', 'Under Indian criminal procedure (CrPC / BNSS), within what maximum duration must an arrested individual be produced before a Magistrate?', '24 hours (excluding journey time)', '12 hours', '48 hours', '72 hours', 'A fundamental constitutional safeguard against arbitrary detention.', 'Article 22(2) and procedural criminal law mandate presentation before a magistrate within 24 hours.', 'Bihar Police Law'),
+        createQ('beginner', 'Which ancient Magadha monarch transferred the imperial capital from Rajgir to Pataliputra (modern Patna)?', 'King Udayin', 'Bimbisara', 'Ajatashatru', 'Chandragupta Maurya', 'He was the son and successor of King Ajatashatru.', 'Udayin built a fort at the confluence of the Ganga and Son rivers, establishing Pataliputra as capital.', 'Bihar History'),
+        createQ('beginner', 'Who served as the distinguished first Chief Minister (Premier) of Bihar?', 'Dr. Sri Krishna Sinha', 'Anugrah Narayan Sinha', 'Karpoori Thakur', 'Daroga Prasad Rai', 'Affectionately known as "Bihar Kesari".', 'Dr. Sri Krishna Sinha (Bihar Kesari) led the state government of Bihar from 1937 to 1961.', 'Bihar Administration'),
+        createQ('intermediate', 'The historic Golghar monument in Patna was erected in 1786 following which catastrophic event?', 'The Great Bengal Famine of 1770', 'The Revolt of 1857', 'The 1934 Bihar Earthquake', 'The Anglo-Maratha Wars', 'Constructed by British authorities as a massive grain granary.', 'Golghar was engineered by Captain John Garstin to store grain reserves and avert future famine shortages.', 'Patna Heritage'),
+        createQ('beginner', 'How many administrative divisions and revenue districts make up the state of Bihar?', '9 Divisions and 38 Districts', '7 Divisions and 35 Districts', '10 Divisions and 40 Districts', '8 Divisions and 37 Districts', 'Patna Division is the administrative seat for 6 central districts.', 'Bihar is administratively divided into 9 Commissionary Divisions containing 38 Districts.', 'Bihar Polity')
+      ];
+    }
+
+    // Generic fallback for custom topics
     return [
       createQ('beginner', `What fundamental principle or breakthrough defines "${clean}"?`, `Core theoretical insight and evidence-based observation`, `Unverified speculation without peer review`, `Complete reliance on obsolete legacy models`, `Arbitrary assumptions without experimental testing`, `Understanding the foundations of ${clean} creates actionable insight.`, `Disciplined empirical methodology forms the bedrock of advancements in ${clean}.`, 'Fundamentals'),
       createQ('intermediate', `In modern research and development, what is a primary challenge facing "${clean}"?`, `Scaling efficiency while maintaining rigor and integrity`, `Eliminating all peer review processes`, `Preventing any interdisciplinary collaboration`, `Halting technological modernization`, `Scale and precision require balanced systems.`, `Balancing performance, verification, and sustainable standards is critical when scaling ${clean}.`, 'Modern Challenges'),
@@ -1336,6 +1520,121 @@ Do NOT include markdown formatting or backticks.`;
             ))}
           </div>
         </motion.div>
+
+        {/* 🎯 Competitive Exam & Skill Mastery Hub */}
+        <motion.section
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className={`rounded-3xl border p-5 sm:p-6 space-y-5 relative overflow-hidden transition-all ${
+            isDark
+              ? 'bg-gradient-to-br from-slate-900/90 via-slate-900/80 to-slate-950/90 border-yellow-500/25 shadow-[0_0_40px_rgba(234,179,8,0.08)]'
+              : 'bg-gradient-to-br from-amber-50 via-white to-orange-50/60 border-amber-200 shadow-md'
+          }`}
+        >
+          {/* Background ambient accent */}
+          <div className="absolute -bottom-10 -left-10 w-72 h-72 bg-amber-500/8 rounded-full blur-3xl pointer-events-none" />
+
+          {/* Section Header */}
+          <div className="flex items-center gap-3 relative z-10">
+            <div className={`w-11 h-11 rounded-2xl flex items-center justify-center text-xl shadow-md shrink-0 ${
+              isDark ? 'bg-gradient-to-br from-amber-500 to-orange-600 shadow-amber-500/30' : 'bg-gradient-to-br from-amber-400 to-orange-500 shadow-orange-300/40'
+            }`}>🎯</div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 flex-wrap mb-0.5">
+                <span className={`text-[10px] font-mono font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full border flex items-center gap-1 ${
+                  isDark ? 'bg-amber-500/15 text-amber-300 border-amber-500/35' : 'bg-amber-100 text-amber-700 border-amber-300'
+                }`}>🏆 Exam Hub</span>
+                <span className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full border ${
+                  isDark ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' : 'bg-emerald-100 text-emerald-700 border-emerald-300'
+                }`}>Patna | Worldwide 🌍</span>
+              </div>
+              <h2 className={`text-base sm:text-lg font-black font-title tracking-tight leading-tight ${
+                isDark ? 'text-white' : 'text-slate-900'
+              }`}>
+                {lang === 'hi'
+                  ? '🎯 प्रतियोगी परीक्षा तैयारी — #1 बनें, अंकों से जानवरों का खाना दान करें'
+                  : '🎯 Prep for Competitive Exams & Level Up to #1 — Feed Rescue Animals in Patna'}
+              </h2>
+              <p className={`text-xs mt-0.5 leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                {lang === 'hi'
+                  ? 'BPSC, UPSC, SSC, Tech या NEET — जो विषय आप चाहें उस पर इंस्टेंट MCQ खेलें। हर सही जवाब पटना के बेसहारा जानवरों को खाना खिलाता है।'
+                  : 'Pick your syllabus — BPSC, UPSC, SSC, Tech, or NEET. Every correct MCQ feeds real rescue dogs in Patna, Bihar. 100% Free.'}
+              </p>
+            </div>
+          </div>
+
+          {/* Exam Cards Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 relative z-10">
+            {COMPETITIVE_EXAMS.map((exam) => (
+              <motion.button
+                key={exam.id}
+                type="button"
+                whileHover={{ scale: 1.03, y: -1 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => {
+                  setAiTopic(exam.syllabusTopic);
+                  handleLaunchAIQuiz(exam.syllabusTopic);
+                }}
+                disabled={isGeneratingAI}
+                className={`relative text-left p-3 sm:p-3.5 rounded-2xl border bg-gradient-to-br cursor-pointer transition-all overflow-hidden group disabled:opacity-60 ${exam.gradient} ${exam.borderColor} ${
+                  isDark ? 'shadow-sm hover:shadow-md' : 'shadow-sm hover:shadow-md'
+                }`}
+              >
+                {/* Shine effect on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none" />
+
+                <div className="flex items-start gap-2 mb-1.5">
+                  <span className="text-xl">{exam.icon}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className={`text-[10px] font-mono font-black px-1.5 py-0.5 rounded-md inline-block mb-0.5 ${
+                      isDark ? 'bg-white/10 text-white/80' : 'bg-black/8 text-slate-700'
+                    }`}>
+                      {lang === 'hi' ? exam.badgeHi : exam.badgeEn}
+                    </div>
+                    <p className={`text-[11px] sm:text-xs font-black font-title leading-tight ${
+                      isDark ? 'text-white' : 'text-slate-900'
+                    }`}>
+                      {lang === 'hi' ? exam.titleHi : exam.titleEn}
+                    </p>
+                  </div>
+                </div>
+
+                <p className={`text-[10px] leading-snug mb-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                  {lang === 'hi' ? exam.descHi : exam.descEn}
+                </p>
+
+                <div className="flex flex-wrap gap-1">
+                  {exam.tags.slice(0, 2).map((tag) => (
+                    <span key={tag} className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-md ${
+                      isDark ? 'bg-white/8 text-white/60' : 'bg-black/8 text-slate-600'
+                    }`}>{tag}</span>
+                  ))}
+                </div>
+
+                {/* Bottom CTA */}
+                <div className={`flex items-center gap-1 mt-2 text-[10px] font-black font-title ${
+                  isDark ? 'text-amber-400' : 'text-amber-600'
+                }`}>
+                  <span>⚡ {lang === 'hi' ? 'अभी खेलें' : 'Play Now'}</span>
+                  <ArrowRight size={10} />
+                </div>
+              </motion.button>
+            ))}
+          </div>
+
+          {/* Patna Philanthropy Footer Note */}
+          <div className={`flex items-center gap-2 text-[10px] font-mono rounded-xl px-3 py-2 relative z-10 ${
+            isDark ? 'bg-emerald-500/8 text-emerald-400 border border-emerald-500/20' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+          }`}>
+            <span>🐾</span>
+            <span>
+              {lang === 'hi'
+                ? '100% स्कोर पटना के बेसहारा जानवरों के लिए खाना और दवाएं खरीदने में जाता है — Worldwide donors स्वागत है!'
+                : '100% of your scores fund real dog food & vet care across Patna. Players & donors welcomed from worldwide 🌍'}
+            </span>
+          </div>
+        </motion.section>
 
         {/* Clean Category Navigation Deck */}
         <section className="space-y-3">
