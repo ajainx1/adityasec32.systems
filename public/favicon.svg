@@ -1,99 +1,64 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
   <defs>
-    <!-- Rich Background Radial Gradient -->
-    <radialGradient id="bgGlow" cx="50%" cy="40%" r="60%">
+    <radialGradient id="secBg" cx="50%" cy="40%" r="60%">
       <stop offset="0%" stop-color="#0f172a" />
-      <stop offset="60%" stop-color="#050811" />
-      <stop offset="100%" stop-color="#020408" />
+      <stop offset="60%" stop-color="#020617" />
+      <stop offset="100%" stop-color="#010307" />
     </radialGradient>
-
-    <!-- Emerald Cyber Border Gradient -->
-    <linearGradient id="emeraldBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="secEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#34d399" />
       <stop offset="50%" stop-color="#10b981" />
-      <stop offset="100%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#06b6d4" />
     </linearGradient>
-
-    <!-- Golden Rice Grain Gradient -->
-    <linearGradient id="riceGold" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#fef08a" />
-      <stop offset="40%" stop-color="#f59e0b" />
-      <stop offset="100%" stop-color="#b45309" />
+    <linearGradient id="purpleAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#6366f1" />
     </linearGradient>
-
-    <!-- Paw Compassion Rose Gradient -->
-    <linearGradient id="pawPink" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fda4af" />
-      <stop offset="50%" stop-color="#f43f5e" />
-      <stop offset="100%" stop-color="#e11d48" />
-    </linearGradient>
-
-    <!-- Ceramic Bowl Gradient -->
-    <linearGradient id="bowlGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#064e3b" />
-      <stop offset="50%" stop-color="#022c22" />
-      <stop offset="100%" stop-color="#011812" />
-    </linearGradient>
-
-    <!-- High-Impact Glow Filters -->
-    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#10b981" flood-opacity="0.6" />
-    </filter>
-
-    <filter id="riceGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="4" stdDeviation="10" flood-color="#fbbf24" flood-opacity="0.75" />
+    <filter id="secGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#10b981" flood-opacity="0.65" />
     </filter>
   </defs>
 
-  <!-- Squircle Base Frame -->
-  <rect width="512" height="512" rx="124" fill="url(#bgGlow)" />
-  <rect width="496" height="496" x="8" y="8" rx="116" fill="none" stroke="url(#emeraldBorder)" stroke-width="12" stroke-opacity="0.85" filter="url(#softGlow)" />
+  <rect width="512" height="512" rx="124" fill="url(#secBg)" />
+  <rect width="496" height="496" x="8" y="8" rx="116" fill="none" stroke="url(#secEmerald)" stroke-width="12" stroke-opacity="0.75" />
 
-  <!-- Outer Karma Energy Orbital Arc -->
-  <circle cx="256" cy="256" r="220" fill="none" stroke="url(#emeraldBorder)" stroke-width="8" stroke-dasharray="28 14" stroke-opacity="0.5" />
-
-  <!-- 1. Feeding Ceramic Bowl (Bold, Clean Silhouette) -->
-  <path d="M100 280 C100 405 200 440 256 440 C312 440 412 405 412 280 Z" 
-        fill="url(#bowlGrad)" 
-        stroke="url(#emeraldBorder)" 
-        stroke-width="18" 
+  <!-- Tactical Cyber Shield -->
+  <path d="M256 50 L424 118 C424 305 256 462 256 462 C256 462 88 305 88 118 Z"
+        fill="#020617"
+        stroke="url(#secEmerald)"
+        stroke-width="20"
         stroke-linejoin="round"
-        filter="url(#softGlow)" />
+        filter="url(#secGlow)" />
 
-  <!-- Bowl Base / Pedestal -->
-  <path d="M190 440 L170 470 H342 L322 440 Z" 
-        fill="url(#emeraldBorder)" 
-        stroke="#34d399" 
-        stroke-width="4" />
+  <!-- Inner Defense Plate -->
+  <path d="M256 85 L390 138 C390 288 256 422 256 422 C256 422 122 288 122 138 Z"
+        fill="none"
+        stroke="url(#purpleAccent)"
+        stroke-width="8"
+        stroke-dasharray="16 8"
+        stroke-opacity="0.7" />
 
-  <!-- 2. Mountain of Golden Rice Grains (Lush Mound) -->
-  <path d="M118 280 C130 190 200 140 256 140 C312 140 382 190 394 280 Z" 
-        fill="url(#riceGold)" 
-        filter="url(#riceGlow)" />
+  <!-- Central 'AJ' Monogram & Cyber Chevrons -->
+  <path d="M192 340 L256 160 L278 215"
+        fill="none"
+        stroke="#ffffff"
+        stroke-width="28"
+        stroke-linecap="round"
+        stroke-linejoin="round" />
+  
+  <path d="M202 290 L288 290"
+        fill="none"
+        stroke="url(#secEmerald)"
+        stroke-width="22"
+        stroke-linecap="round" />
 
-  <!-- Top Rim Highlight of Bowl -->
-  <ellipse cx="256" cy="280" rx="146" ry="18" fill="#047857" fill-opacity="0.6" stroke="#34d399" stroke-width="4" />
+  <path d="M318 165 V310 C318 355 280 375 245 375 C218 375 198 362 188 350"
+        fill="none"
+        stroke="url(#secEmerald)"
+        stroke-width="28"
+        stroke-linecap="round"
+        stroke-linejoin="round" />
 
-  <!-- 3. Floating Karmic Grains of Rice -->
-  <!-- Top Center Main Grain -->
-  <path d="M256 50 C268 50 278 78 256 112 C234 78 244 50 256 50 Z" fill="#fef08a" filter="url(#riceGlow)" />
-  <!-- Left Accent Grain -->
-  <path d="M195 85 C204 80 216 100 204 128 C190 106 188 90 195 85 Z" fill="#fbbf24" />
-  <!-- Right Accent Grain -->
-  <path d="M317 85 C324 90 322 106 308 128 C296 100 308 80 317 85 Z" fill="#fbbf24" />
-
-  <!-- 4. Embossed Dog Rescue Paw Print (Sharp, High-Contrast) -->
-  <!-- Main Paw Pad -->
-  <path d="M256 345 C232 345 218 368 226 392 C234 408 278 408 286 392 C294 368 280 345 256 345 Z" 
-        fill="url(#pawPink)" 
-        stroke="#ffffff" 
-        stroke-width="3" />
-  <!-- 4 Toe Beans -->
-  <circle cx="212" cy="332" r="15" fill="url(#pawPink)" stroke="#ffffff" stroke-width="3" />
-  <circle cx="240" cy="310" r="16" fill="url(#pawPink)" stroke="#ffffff" stroke-width="3" />
-  <circle cx="272" cy="310" r="16" fill="url(#pawPink)" stroke="#ffffff" stroke-width="3" />
-  <circle cx="300" cy="332" r="15" fill="url(#pawPink)" stroke="#ffffff" stroke-width="3" />
-
-  <!-- Top Karma Divine Sparkle -->
-  <circle cx="256" cy="50" r="6" fill="#ffffff" />
+  <circle cx="256" cy="112" r="14" fill="#34d399" />
+  <circle cx="256" cy="112" r="7" fill="#ffffff" />
 </svg>
