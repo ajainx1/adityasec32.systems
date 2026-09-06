@@ -81,7 +81,7 @@ export const metadata: Metadata = isCyberKarmaSite
         apple: "/apple-touch-icon.png",
       },
       other: {
-        "google-adsense-account": "ca-pub-6072468142870937",
+        "google-adsense-account": "ca-pub-7048440851332657",
         "theme-color": "#0f0414",
         "geo.region": "IN-BR",
         "geo.placename": "Patna, Bihar, India",
@@ -151,7 +151,7 @@ export const metadata: Metadata = isCyberKarmaSite
         apple: "/apple-touch-icon.png",
       },
       other: {
-        "google-adsense-account": "ca-pub-6072468142870937",
+        "google-adsense-account": "ca-pub-7048440851332657",
         "theme-color": "#020617",
       },
       appleWebApp: {
@@ -336,7 +336,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
         <meta name="theme-color" content="#0B0F0E" />
-        <meta name="google-adsense-account" content="ca-pub-6072468142870937" />
+        <meta name="google-adsense-account" content="ca-pub-7048440851332657" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
         <link rel="icon" type="image/svg+xml" href="/charity_favicon.svg" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -360,11 +360,12 @@ export default function RootLayout({
             __html: `if ('serviceWorker' in navigator) { navigator.serviceWorker.getRegistrations().then(function(registrations) { for (var r of registrations) { r.unregister(); } }); }`
           }}
         />
-        <meta name="google-adsense-account" content="ca-pub-6072468142870937" />
+        <meta name="google-adsense-account" content="ca-pub-7048440851332657" />
         <script
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6072468142870937"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7048440851332657"
           crossOrigin="anonymous"
+          suppressHydrationWarning
         ></script>
       </head>
       <body
