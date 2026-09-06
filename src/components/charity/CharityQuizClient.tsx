@@ -6,7 +6,7 @@ import {
   User, LogOut, Sun, Moon, Volume2, VolumeX, Lightbulb, Share2, 
   Award, Heart, ShieldCheck, Sparkles, CheckCircle2, ArrowRight, 
   Globe, Flame, ExternalLink, HelpCircle, MessageSquarePlus, RefreshCw,
-  Compass, Lock, Zap, BookOpen, Atom, Calculator, MapPin
+  Compass, Lock, Zap, BookOpen, Atom, Calculator, MapPin, Mic, MicOff
 } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import { quizData, CategoryKey, Difficulty, Question, CategoryData } from './quizData';
@@ -425,6 +425,13 @@ export default function CharityQuizClient() {
   const [isTimerPaused, setIsTimerPaused] = useState<boolean>(false);
   const autoAdvanceRef = useRef<NodeJS.Timeout | null>(null);
 
+  // 🎙️ Professional AI Voice Host & Hearing State
+  const [isVoiceMode, setIsVoiceMode] = useState<boolean>(false);
+  const [voiceStatus, setVoiceStatus] = useState<'idle' | 'speaking' | 'listening' | 'replying'>('idle');
+  const [voiceTranscript, setVoiceTranscript] = useState<string>('');
+  const recognitionRef = useRef<any>(null);
+  const isSpeakingRef = useRef<boolean>(false);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setSpotlightIdx(prev => (prev + 1) % CATEGORIES.length);
@@ -666,6 +673,248 @@ export default function CharityQuizClient() {
     }
   }, [isAnswered, isTimerPaused, advanceToNextQuestion]);
 
+  // Safe Speech Synthesis with Natural Voice
+  const speakText = useCallback((text: string, onEnd?: () => void) => {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+      onEnd?.();
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.92;
+    utterance.pitch = 1.0;
+    utterance.lang = lang === 'hi' ? 'hi-IN' : 'en-US';
+
+    const voices = window.speechSynthesis.getVoices();
+    const targetLang = lang === 'hi' ? 'hi' : 'en';
+    const naturalVoice = voices.find(v => v.lang.startsWith(targetLang) && (v.name.includes('Natural') || v.name.includes('Premium') || v.name.includes('Google') || v.name.includes('Siri'))) || voices.find(v => v.lang.startsWith(targetLang));
+    if (naturalVoice) utterance.voice = naturalVoice;
+
+    utterance.onstart = () => {
+      isSpeakingRef.current = true;
+    };
+    utterance.onend = () => {
+      isSpeakingRef.current = false;
+      onEnd?.();
+    };
+    utterance.onerror = () => {
+      isSpeakingRef.current = false;
+      onEnd?.();
+    };
+
+    window.speechSynthesis.speak(utterance);
+  }, [lang]);
+
+  // Stop all voice activity
+  const stopVoiceAll = useCallback(() => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.abort();
+      } catch (e) {}
+      recognitionRef.current = null;
+    }
+    setVoiceStatus('idle');
+    setVoiceTranscript('');
+    isSpeakingRef.current = false;
+  }, []);
+
+  // Forward ref pointers for recursive voice cycle
+  const readQuestionOutLoudRef = useRef<(q: Question) => void>(() => {});
+  const startListeningRef = useRef<(q: Question) => void>(() => {});
+  const processVoiceCommandRef = useRef<(transcript: string, q: Question) => void>(() => {});
+
+  // Open Microphone and Listen for Player's Voice Reply
+  const startListening = useCallback((targetQuestion: Question) => {
+    if (typeof window === 'undefined') return;
+    const SpeechRec = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRec) {
+      setVoiceStatus('idle');
+      return;
+    }
+
+    if (recognitionRef.current) {
+      try { recognitionRef.current.abort(); } catch (e) {}
+    }
+
+    try {
+      const rec = new SpeechRec();
+      rec.lang = lang === 'hi' ? 'hi-IN' : 'en-US';
+      rec.continuous = false;
+      rec.interimResults = true;
+      rec.maxAlternatives = 3;
+
+      rec.onstart = () => {
+        setVoiceStatus('listening');
+      };
+
+      rec.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript.toLowerCase().trim();
+        setVoiceTranscript(transcript);
+
+        if (event.results[0].isFinal) {
+          rec.stop();
+          processVoiceCommandRef.current(transcript, targetQuestion);
+        }
+      };
+
+      rec.onerror = (event: any) => {
+        if (event.error === 'not-allowed') {
+          addToast(lang === 'hi' ? 'कृपया माइक्रोफ़ोन की अनुमति दें' : 'Please allow microphone access to use voice mode.', 'error');
+          setIsVoiceMode(false);
+          setVoiceStatus('idle');
+        } else if (event.error !== 'no-speech') {
+          setVoiceStatus('idle');
+        }
+      };
+
+      rec.onend = () => {
+        // Stay idle if finished
+      };
+
+      recognitionRef.current = rec;
+      rec.start();
+    } catch (err) {
+      console.warn('Speech recognition start failed', err);
+      setVoiceStatus('idle');
+    }
+  }, [lang, addToast]);
+
+  startListeningRef.current = startListening;
+
+  // Professional Voice Host: Read Question & Options Out Loud
+  const readQuestionOutLoud = useCallback((q: Question) => {
+    if (!q || typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+    setVoiceStatus('speaking');
+    setVoiceTranscript('');
+
+    const textToSpeak = lang === 'hi'
+      ? `प्रश्न: ${q.question}। विकल्प ए: ${q.options[0]}। विकल्प बी: ${q.options[1]}। विकल्प सी: ${q.options[2]}। विकल्प डी: ${q.options[3]}। कृपया अपना उत्तर बोलें।`
+      : `Question: ${q.question}. Option A: ${q.options[0]}. Option B: ${q.options[1]}. Option C: ${q.options[2]}. Option D: ${q.options[3]}. Your microphone is open. Please speak Option A, B, C, or D.`;
+
+    speakText(textToSpeak, () => {
+      startListeningRef.current(q);
+    });
+  }, [lang, speakText]);
+
+  readQuestionOutLoudRef.current = readQuestionOutLoud;
+
+  // Process Spoken Response
+  const processVoiceCommand = useCallback((transcript: string, q: Question) => {
+    const text = transcript.toLowerCase();
+
+    // Check voice control commands
+    if (text.includes('repeat') || text.includes('again') || text.includes('दोबारा') || text.includes('फिर से')) {
+      readQuestionOutLoudRef.current(q);
+      return;
+    }
+    if (text.includes('hint') || text.includes('संकेत') || text.includes('मदद')) {
+      setShowHint(true);
+      const hintSpeech = lang === 'hi'
+        ? `संकेत है: ${q.hint || 'ध्यान से विकल्पों को पढ़ें'}। अब अपना उत्तर बोलें।`
+        : `Here is your hint: ${q.hint || 'Review the core concepts carefully'}. What is your answer?`;
+      speakText(hintSpeech, () => startListeningRef.current(q));
+      return;
+    }
+    if (text.includes('skip') || text.includes('next') || text.includes('अगला')) {
+      speakText(lang === 'hi' ? 'अगला प्रश्न लोड हो रहा है।' : 'Advancing to the next question.', () => advanceToNextQuestion());
+      return;
+    }
+
+    // Match Option Letter or Number
+    let chosenIdx = -1;
+    if (/\b(option a|choice a|first option|option 1|number 1|\ba\b|one)\b/i.test(text)) chosenIdx = 0;
+    else if (/\b(option b|choice b|second option|option 2|number 2|\bb\b|two)\b/i.test(text)) chosenIdx = 1;
+    else if (/\b(option c|choice c|third option|option 3|number 3|\bc\b|three)\b/i.test(text)) chosenIdx = 2;
+    else if (/\b(option d|choice d|fourth option|option 4|number 4|\bd\b|four)\b/i.test(text)) chosenIdx = 3;
+
+    // Fuzzy matching on option contents if no letter mentioned
+    if (chosenIdx === -1) {
+      for (let i = 0; i < q.options.length; i++) {
+        const optWords = q.options[i].toLowerCase().split(/\s+/).filter(w => w.length > 3);
+        const matchCount = optWords.filter(w => text.includes(w)).length;
+        if (matchCount >= 2 || (optWords.length === 1 && text.includes(optWords[0]))) {
+          chosenIdx = i;
+          break;
+        }
+      }
+    }
+
+    if (chosenIdx !== -1) {
+      handleAnswer(chosenIdx);
+      setVoiceStatus('replying');
+      setIsTimerPaused(true);
+
+      const letters = ['A', 'B', 'C', 'D'];
+      const isCorrect = chosenIdx === q.answer;
+      const explanation = q.explanation ? (q.explanation.length > 140 ? q.explanation.slice(0, 140) + '...' : q.explanation) : '';
+
+      let replySpeech = '';
+      if (lang === 'hi') {
+        replySpeech = isCorrect
+          ? `शानदार! विकल्प ${letters[chosenIdx]} बिल्कुल सही उत्तर है। दस दाने अन्नदान पटना के श्वानों के लिए जुड़ गए हैं। ${explanation}`
+          : `माफ़ कीजिए, यह उत्तर गलत है। सही उत्तर था विकल्प ${letters[q.answer]}: ${q.options[q.answer]}। ${explanation}`;
+      } else {
+        replySpeech = isCorrect
+          ? `Spot on! Option ${letters[chosenIdx]} is correct. Ten grains of rice have been credited to the Patna rescue drive. ${explanation}`
+          : `That is incorrect. The correct answer was Option ${letters[q.answer]}: ${q.options[q.answer]}. ${explanation}`;
+      }
+
+      speakText(replySpeech, () => {
+        setTimeout(() => {
+          advanceToNextQuestion();
+        }, 1200);
+      });
+    } else {
+      const retrySpeech = lang === 'hi'
+        ? `मुझे ${transcript} सुनाई दिया। कृपया विकल्प ए, बी, सी, या डी बोलें, या दोबारा सुनने के लिए 'रिपीट' कहें।`
+        : `I heard "${transcript}". Please clearly say Option A, B, C, or D, or say "Repeat".`;
+      speakText(retrySpeech, () => startListeningRef.current(q));
+    }
+  }, [lang, speakText, handleAnswer, advanceToNextQuestion]);
+
+  processVoiceCommandRef.current = processVoiceCommand;
+
+  // Toggle Voice Mode
+  const toggleVoiceMode = () => {
+    if (isVoiceMode) {
+      stopVoiceAll();
+      setIsVoiceMode(false);
+      if (typeof window !== 'undefined') localStorage.setItem('cyberkarma_voice_mode', 'false');
+      addToast(lang === 'hi' ? 'वॉयस मोड बंद कर दिया गया।' : 'Voice Mode disabled.', 'info');
+    } else {
+      if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+        addToast(lang === 'hi' ? 'आपका ब्राउज़र स्पीच का समर्थन नहीं करता।' : 'Your browser does not support Speech Synthesis.', 'error');
+        return;
+      }
+      setIsVoiceMode(true);
+      if (typeof window !== 'undefined') localStorage.setItem('cyberkarma_voice_mode', 'true');
+      addToast(lang === 'hi' ? '🎙️ वॉयस मोड चालू! AI होस्ट प्रश्न पढ़ेगा और आपका उत्तर सुनेगा।' : '🎙️ Voice Mode Enabled! AI Host will speak questions and listen for your answer.', 'success');
+      if (currentQuestion && !isAnswered) {
+        readQuestionOutLoud(currentQuestion);
+      }
+    }
+  };
+
+  // Trigger voice read when question changes
+  useEffect(() => {
+    if (isVoiceMode && currentQuestion && !isAnswered) {
+      const timer = setTimeout(() => {
+        readQuestionOutLoud(currentQuestion);
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, [currentQuestion, isVoiceMode, isAnswered, readQuestionOutLoud]);
+
+  // Clean up voice on unmount
+  useEffect(() => {
+    return () => {
+      stopVoiceAll();
+    };
+  }, [stopVoiceAll]);
+
   // Keyboard shortcut listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -892,6 +1141,27 @@ Do NOT include markdown formatting or backticks.`;
                 </div>
               )}
             </div>
+
+            {/* Voice Mode Interactive Host Toggle */}
+            <button
+              onClick={toggleVoiceMode}
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-mono font-bold transition-all cursor-pointer ${
+                isVoiceMode
+                  ? 'bg-rose-500/20 border-rose-400 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.35)]'
+                  : isDark
+                    ? 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
+                    : 'bg-slate-100 border-slate-200 text-slate-600 hover:bg-slate-200'
+              }`}
+              aria-label="Toggle Voice Host"
+              title={isVoiceMode ? "Voice Mode ON: Questions are read out loud & Mic listens" : "Turn ON Voice Mode (Hands-Free Speech Quiz)"}
+            >
+              {isVoiceMode ? <Mic size={14} className="text-rose-400 animate-pulse" /> : <MicOff size={14} />}
+              <span className="hidden sm:inline">
+                {isVoiceMode 
+                  ? (voiceStatus === 'listening' ? '🔴 Listening...' : voiceStatus === 'speaking' ? '🔊 Speaking...' : '🎙️ Voice ON') 
+                  : (lang === 'hi' ? '🎙️ बोलकर खेलें' : '🎙️ Voice Mode')}
+              </span>
+            </button>
 
             {/* Sound Toggle */}
             <button
@@ -1286,6 +1556,58 @@ Do NOT include markdown formatting or backticks.`;
                       {getTranslation('grainsReward', lang)}
                     </div>
                   </div>
+
+                  {/* Voice Mode Live Audio Indicator HUD */}
+                  {isVoiceMode && (
+                    <motion.div 
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      className={`p-3 rounded-2xl border flex items-center justify-between gap-3 text-xs font-mono transition-all ${
+                        voiceStatus === 'listening'
+                          ? 'bg-rose-500/15 border-rose-500/40 text-rose-300 shadow-[0_0_20px_rgba(244,63,94,0.25)]'
+                          : voiceStatus === 'speaking'
+                            ? 'bg-purple-500/15 border-purple-500/40 text-purple-300'
+                            : voiceStatus === 'replying'
+                              ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300'
+                              : 'bg-slate-950/60 border-slate-800 text-slate-400'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${voiceStatus === 'listening' ? 'bg-rose-500 animate-ping' : voiceStatus === 'speaking' ? 'bg-purple-400 animate-pulse' : 'bg-emerald-400'}`} />
+                        <span className="font-bold shrink-0">
+                          {voiceStatus === 'listening' && (lang === 'hi' ? '🎙️ आपकी आवाज़ सुन रहे हैं:' : '🎙️ Microphone Open (Speak Now):')}
+                          {voiceStatus === 'speaking' && (lang === 'hi' ? '🔊 AI प्रश्न पढ़ रहा है:' : '🔊 AI Host Speaking:')}
+                          {voiceStatus === 'replying' && (lang === 'hi' ? '✨ AI उत्तर की समीक्षा:' : '✨ Professional AI Confirmation:')}
+                          {voiceStatus === 'idle' && (lang === 'hi' ? '🎙️ वॉयस मोड तैयार:' : '🎙️ Voice Host Ready:')}
+                        </span>
+                        <span className="truncate italic opacity-90">
+                          {voiceTranscript 
+                            ? `"${voiceTranscript}"` 
+                            : voiceStatus === 'listening' 
+                              ? (lang === 'hi' ? 'बोलें "विकल्प A", "B", "C", "D" या "रिपीट" / "हिंट"' : 'Say "Option A", "B", "C", "D" or "Repeat" / "Hint"') 
+                              : ''}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => currentQuestion && readQuestionOutLoud(currentQuestion)}
+                          className="px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-[10px] font-bold cursor-pointer transition-colors"
+                          title="Read question out loud again"
+                        >
+                          🔄 {lang === 'hi' ? 'दोबारा' : 'Repeat'}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => currentQuestion && startListening(currentQuestion)}
+                          className="px-2 py-1 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-[10px] font-bold cursor-pointer transition-colors"
+                          title="Open microphone"
+                        >
+                          🎤 {lang === 'hi' ? 'माइक' : 'Listen'}
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
 
                   {/* Dynamic 0ms Zero-Lag Visual Banner with Thematic Vector Backdrop */}
                   {(() => {
