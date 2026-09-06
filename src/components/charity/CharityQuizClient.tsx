@@ -939,6 +939,134 @@ Do NOT include markdown formatting or backticks.`;
         {/* Crisp Inspiring Header with Rotating Location */}
         <RotatingHero lang={lang} isDark={isDark} />
 
+        {/* 🤖 ✨ AI STUDIO — Choose Your Own Topic Feature Console */}
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={`p-4 sm:p-5 rounded-3xl border transition-all relative overflow-hidden shadow-lg ${
+            isDark
+              ? 'bg-gradient-to-br from-purple-950/60 via-slate-900/90 to-indigo-950/50 border-purple-500/40 shadow-[0_0_35px_rgba(168,85,247,0.18)]'
+              : 'bg-gradient-to-br from-purple-50 via-white to-indigo-50/60 border-purple-200 shadow-md'
+          }`}
+        >
+          {/* Subtle Ambient Glow */}
+          <div className="absolute -top-10 -right-10 w-64 h-64 bg-purple-500/15 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 relative z-10">
+            {/* Title & Tag Info */}
+            <div className="flex items-start sm:items-center gap-3.5">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 text-white flex items-center justify-center text-2xl shadow-md shadow-purple-500/30 shrink-0">
+                🤖
+              </div>
+              <div className="space-y-0.5">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-[10px] font-mono font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/40 shadow-sm flex items-center gap-1">
+                    <span>✨</span>
+                    <span>AI STUDIO</span>
+                  </span>
+                  <span className="text-[11px] font-mono text-purple-400 font-bold">
+                    {lang === 'hi' ? 'अपना विषय खुद चुनें (Choose Your Own Topic)' : 'Choose Your Own Topic'}
+                  </span>
+                </div>
+                <h3 className="text-lg sm:text-xl font-black font-title tracking-tight flex items-center gap-2">
+                  <span>{lang === 'hi' ? 'इंस्टेंट AI टॉपिक क्विज़' : 'Instant AI Topic Quiz'}</span>
+                  <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 hidden sm:inline">
+                    Gemini 2.5
+                  </span>
+                </h3>
+                <p className="text-xs text-slate-400">
+                  {lang === 'hi' ? 'कोई भी विषय टाइप करें और तुरंत खेलें — डायनासोर, विज्ञान, वीडियो गेम, इतिहास...' : 'Type any topic & play instantly — Dinosaurs, Space, Anime, Cybersecurity, Cricket...'}
+                </p>
+              </div>
+            </div>
+
+            {/* Interactive Input Bar & Quick Action */}
+            <div className="flex items-center gap-2 w-full lg:w-auto lg:min-w-[440px]">
+              <div className="relative flex-1">
+                <input
+                  type="text"
+                  value={aiTopic}
+                  onChange={e => setAiTopic(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && handleLaunchAIQuiz(aiTopic)}
+                  placeholder={lang === 'hi' ? 'उदा. सुपरहीरो, ब्लैक होल, प्राचीन भारत...' : 'Type any topic (e.g. Cricket, AI, Anime, Dinosaurs)...'}
+                  className={`w-full px-4 py-2.5 rounded-xl border text-xs font-mono outline-none transition-all ${
+                    isDark
+                      ? 'bg-slate-950/80 border-purple-500/30 focus:border-purple-400 text-white placeholder-slate-500'
+                      : 'bg-white border-purple-200 focus:border-purple-500 text-slate-900 placeholder-slate-400 shadow-inner'
+                  }`}
+                />
+              </div>
+
+              {/* ⚡ Play Button */}
+              <button
+                type="button"
+                onClick={() => handleLaunchAIQuiz(aiTopic)}
+                disabled={isGeneratingAI}
+                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-black font-title tracking-wide transition-all shadow-md shadow-purple-600/30 flex items-center gap-1.5 shrink-0 cursor-pointer active:scale-95 disabled:opacity-50"
+              >
+                {isGeneratingAI ? (
+                  <>
+                    <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <span>{lang === 'hi' ? 'बना रहे हैं...' : 'Generating...'}</span>
+                  </>
+                ) : (
+                  <>
+                    <span>⚡</span>
+                    <span>{lang === 'hi' ? 'शुरू करें' : 'Play Now'}</span>
+                  </>
+                )}
+              </button>
+
+              {/* 🎲 Surprise / Browse Button */}
+              <button
+                type="button"
+                onClick={() => setShowAIModal(true)}
+                className={`px-3 py-2.5 rounded-xl border text-xs font-mono font-bold flex items-center gap-1 shrink-0 transition-all cursor-pointer ${
+                  isDark
+                    ? 'bg-purple-950/40 hover:bg-purple-900/50 border-purple-500/30 text-purple-300'
+                    : 'bg-purple-50 hover:bg-purple-100 border-purple-200 text-purple-700'
+                }`}
+                title={lang === 'hi' ? '30+ विषय देखें या रैंडम चुनें' : 'Browse 30+ curated topics or roll a random topic'}
+              >
+                <span>🎲</span>
+                <span className="hidden sm:inline">{lang === 'hi' ? 'सभी 30+ विषय' : 'Browse 30+'}</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Quick Pill Suggestions */}
+          <div className="flex items-center gap-1.5 pt-3 overflow-x-auto scrollbar-thin relative z-10">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-purple-400/80 shrink-0">
+              {lang === 'hi' ? 'ट्रेंडिंग विषय:' : 'Try instantly:'}
+            </span>
+            {[
+              { labelEn: "🦖 Dinosaurs", labelHi: "🦖 डायनासोर", topic: "Dinosaurs & Prehistoric Giants" },
+              { labelEn: "🧠 Human Brain", labelHi: "🧠 मस्तिष्क विज्ञान", topic: "Human Brain, Memory & Neuroscience" },
+              { labelEn: "🪐 Solar System", labelHi: "🪐 सौरमंडल", topic: "Planets & Solar System Mysteries" },
+              { labelEn: "🛡️ Cyber Defense", labelHi: "🛡️ साइबर सुरक्षा", topic: "Ethical Hacking & Cyber Defense" },
+              { labelEn: "🎮 Gaming Lore", labelHi: "🎮 वीडियो गेम", topic: "Minecraft & Gaming Lore" },
+              { labelEn: "🐕 Dog Psychology", labelHi: "🐕 श्वान मनोविज्ञान", topic: "Canine Psychology & Dog Empathy" },
+              { labelEn: "🗡️ Feudal Japan", labelHi: "🗡️ समुराई इतिहास", topic: "Samurai & Feudal Japan" },
+            ].map((pill, pIdx) => (
+              <button
+                key={pIdx}
+                type="button"
+                onClick={() => {
+                  setAiTopic(pill.topic);
+                  handleLaunchAIQuiz(pill.topic);
+                }}
+                className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all shrink-0 cursor-pointer border ${
+                  isDark
+                    ? 'bg-purple-900/30 hover:bg-purple-800/40 border-purple-500/25 text-purple-300 hover:text-white'
+                    : 'bg-purple-100/70 hover:bg-purple-200 border-purple-200 text-purple-800'
+                }`}
+              >
+                {lang === 'hi' ? pill.labelHi : pill.labelEn}
+              </button>
+            ))}
+          </div>
+        </motion.div>
+
         {/* Clean Category Navigation Deck */}
         <section className="space-y-3">
           <div className="flex items-center justify-between gap-4">
