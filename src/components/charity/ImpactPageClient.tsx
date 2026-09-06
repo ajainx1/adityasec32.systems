@@ -89,6 +89,11 @@ export default function ImpactPageClient() {
     { src: '/impact/dog-feed-12.jpeg', title: 'Evening Rescue Feeding Station', location: 'Patna Division, Bihar', date: '22 Aug 2026 • 07:13 PM', tag: 'Rescue Care', description: 'Nutritious meal bowl serving local pack.' },
     { src: '/impact/dog-feed-13.jpeg', title: 'Afternoon Street Puppy Meal', location: 'Market Hub, Patna', date: '23 Aug 2026 • 05:01 PM', tag: 'Puppy Care', description: 'High-energy puppy and street companion meal distribution.' },
     { src: '/impact/dog-feed-14.jpeg', title: 'Sunset Rice Bowl Meal Drive', location: 'Rajbansi Nagar Alley, Patna', date: '23 Aug 2026 • 05:46 PM', tag: 'Sunset Drive', description: 'Sunset verified animal feeding round funded by CyberKarma quiz players.' },
+    { src: '/impact/dog-feed-15.jpeg', title: 'Bicycle Stand Alley Feeding & Care', location: 'Rajbansi Nagar Division, Patna', date: '06 Sep 2026 • 01:25 PM', tag: 'Direct Lunch', description: 'Fresh warm rice & protein mash served in clean bowl beside alley bike stall.' },
+    { src: '/impact/dog-feed-16.jpeg', title: 'Night Market Emergency Broth & Nutrition', location: 'Boring Road Market Stall, Patna', date: '05 Sep 2026 • 09:15 PM', tag: 'Night Relief', description: 'Immediate clean broth and nutrition provided after market closure.' },
+    { src: '/impact/dog-feed-17.jpeg', title: 'Monsoon Hydration & Calcium Support', location: 'Railway Perimeter, Patna', date: '05 Sep 2026 • 08:40 PM', tag: 'Clean Hydration', description: 'Safe freshwater & calcium electrolyte broth preventing contaminated puddle drinking.' },
+    { src: '/impact/dog-feed-18.jpeg', title: 'Severe Malnutrition Rehabilitation', location: 'Danapur Division Perimeter, Patna', date: '04 Sep 2026 • 12:30 PM', tag: 'Critical Nutrition', description: 'Dedicated soft high-calorie meal for senior stray dog recovering from extreme starvation.' },
+    { src: '/impact/dog-feed-19.jpeg', title: 'Late-Night Alley Patrol & Clean Meal', location: 'Kankarbagh Alleyway, Patna', date: '03 Sep 2026 • 10:10 PM', tag: 'Midnight Patrol', description: 'Warm comforting dinner delivered to isolated street dog seeking shelter.' },
   ];
 
   // 2. Core Field Drives (9 High-Res Records)
