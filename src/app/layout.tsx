@@ -360,12 +360,12 @@ export default function RootLayout({
             __html: `if ('serviceWorker' in navigator) { navigator.serviceWorker.getRegistrations().then(function(registrations) { for (var r of registrations) { r.unregister(); } }); }`
           }}
         />
-        <Script
-          id="adsbygoogle-init"
-          strategy="lazyOnload"
-          crossOrigin="anonymous"
+        <meta name="google-adsense-account" content="ca-pub-6072468142870937" />
+        <script
+          async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6072468142870937"
-        />
+          crossOrigin="anonymous"
+        ></script>
       </head>
       <body
         className={`${inter.variable} ${outfit.variable} ${mono.variable} antialiased bg-slate-950 text-slate-100`}
