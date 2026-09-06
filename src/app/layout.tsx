@@ -378,6 +378,27 @@ export default function RootLayout({
             <strong>Aditya Jain SecOps Portfolio requires JavaScript.</strong> 4+ years Enterprise SecOps, EDR/SIEM SME, Purple Teaming & Threat Hunting.
           </div>
         </noscript>
+        
+        {/* Google Analytics 4 */}
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${isCyberKarmaSite ? "G-QVFPKVC8H9" : "G-7GN4CXGG53"}`}
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${isCyberKarmaSite ? "G-QVFPKVC8H9" : "G-7GN4CXGG53"}', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
+        
         {!isCyberKarmaSite && <Background3D />}
         {!isCyberKarmaSite && <div aria-hidden="true" className="h-1 w-full bg-gradient-to-r from-[#ff9933] via-white to-[#128807]"></div>}
         {children}
