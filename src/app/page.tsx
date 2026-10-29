@@ -326,6 +326,22 @@ interface ProjectCard {
 
 const PROJECTS_DATA: ProjectCard[] = [
   {
+    id: "uptime-kuma-10-133-22-8",
+    title: "Bihar State NOC Telemetry Host (10.133.22.8)",
+    category: "cni",
+    categoryLabel: "CNI Infrastructure & Telemetry",
+    orbitTag: "ORBIT: HOST-10.133.22.8",
+    impactHighlight: "Dedicated state surveillance host monitoring 38 district WAN links & SDC e-governance portals",
+    description: "Production monitoring engine deployed on 10.133.22.8 running high-concurrency Node.js / Uptime Kuma with an automated Python watchdog daemon. Enforces sub-second synthetic heartbeats, packet latency profiling, and zero external network leakage within the State Data Centre perimeter.",
+    tags: ["Host 10.133.22.8", "Uptime Kuma", "Python Daemon", "Node.js", "State NOC", "CERT-In Hardened"],
+    link: "/docs/Bihar_State_NOC_Uptime_Kuma_Executive_Dossier.pdf",
+    linkText: "View Watermarked Technical Dossier",
+    colorBorder: "border-sky-500/25 hover:border-sky-400",
+    colorGlow: "hover:shadow-sky-500/20",
+    colorBadge: "bg-sky-500/10 text-sky-300 border-sky-500/30",
+    colorText: "group-hover:text-sky-400"
+  },
+  {
     id: "devsecops-pipeline",
     title: "DevSecOps CI/CD Security Pipeline (Lab)",
     category: "offensive",
@@ -1115,8 +1131,8 @@ export default function Home() {
                     ) : (
                       <a
                         href={project.link}
-                        target={project.link?.startsWith("http") ? "_blank" : "_self"}
-                        rel={project.link?.startsWith("http") ? "noopener noreferrer" : ""}
+                        target={project.link?.startsWith("http") || project.link?.endsWith(".pdf") ? "_blank" : "_self"}
+                        rel={project.link?.startsWith("http") || project.link?.endsWith(".pdf") ? "noopener noreferrer" : undefined}
                         className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-cyan-400 hover:text-cyan-300"
                       >
                         <span>{project.linkText}</span>

@@ -535,6 +535,15 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
+                title: "Bihar State NOC Telemetry Engine (Host: 10.133.22.8)",
+                status: "State Production (Sanitized)",
+                desc: "High-concurrency Uptime Kuma and automated Python watchdog engine on 10.133.22.8 surveilling 38 district router nodes and critical State Data Centre portals (KhananSoft, EPDS, RTPS) with zero cloud data egress.",
+                tags: ["Host 10.133.22.8", "Uptime Kuma", "Python", "Node.js", "CERT-In"],
+                badge: "State NOC Infrastructure",
+                link: "/docs/Bihar_State_NOC_Uptime_Kuma_Executive_Dossier.pdf",
+                color: "bg-sky-50 text-sky-700 border-sky-200"
+              },
+              {
                 title: "CDAC/CERT-In Compliance Engine",
                 status: "NIC Production (Classified)",
                 desc: "Engineered a PowerShell & Python framework executing 120+ automated system configuration checks mapped to NIST standards across 750+ government nodes via KACE UEM.",

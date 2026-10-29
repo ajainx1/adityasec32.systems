@@ -36,6 +36,58 @@ interface Project {
 
 const ALL_PROJECTS: Project[] = [
   {
+    id: "uptime-kuma-10-133-22-8",
+    title: "Bihar State NOC - Uptime Kuma Telemetry Engine (Host: 10.133.22.8)",
+    category: "Enterprise",
+    badge: "Government Case Study (Sanitized)",
+    badgeColor: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
+    desc: "Mission-critical surveillance and SLA tracking infrastructure hosted on dedicated state server 10.133.22.8. Continuously monitors 38 district core WAN routers and State Data Centre (SDC) e-governance portals (KhananSoft, EPDS, RTPS) with sub-second heartbeats, automated watchdog recovery, and zero external network leakage.",
+    metrics: [
+      "Target Host: 10.133.22.8 (Node.js Port 3001 & Watchdog Engine)",
+      "38/38 District Router WAN Nodes & SDC e-Governance Portals Monitored",
+      "Autonomous Python Recovery Daemon (2-min Windows Scheduler)",
+      "Air-Gapped Sovereign Data Security — Zero Cloud/External Telemetry",
+      "Executive Dossier with Official Watermarked Architectural Blueprints"
+    ],
+    tags: ["Host 10.133.22.8", "Uptime Kuma", "Python Daemon", "Node.js Kernel", "State NOC", "CERT-In Hardened", "Zero Egress"],
+    link: "/docs/Bihar_State_NOC_Uptime_Kuma_Executive_Dossier.pdf",
+    ctaText: "View Watermarked Technical Dossier (PDF)"
+  },
+  {
+    id: "nodejs-kernel-architecture-10-133-22-8",
+    title: "High-Concurrency Node.js Kernel & Socket.IO Telemetry (10.133.22.8)",
+    category: "Case Study",
+    badge: "Government Case Study (Sanitized)",
+    badgeColor: "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/20",
+    desc: "Detailed architectural dossier analyzing the low-latency Node.js kernel operating on host 10.133.22.8. Evaluates event-loop non-blocking I/O for 200+ concurrent ICMP/HTTP synthetic probes, real-time Socket.IO broadcasts to NOC video walls, and memory-safe process isolation under high district packet burst.",
+    metrics: [
+      "200+ parallel synthetic probes with sub-second event loop latency",
+      "Socket.IO bi-directional streaming directly to NOC operations wall",
+      "SQLite WAL journaling & memory-safe concurrency isolation",
+      "Hardened against local loopback exhaustion & socket descriptor leaks"
+    ],
+    tags: ["Node.js Kernel", "Socket.IO", "Event Loop", "Host 10.133.22.8", "NOC Video Wall", "Architecture Blueprint"],
+    link: "/docs/Bihar_NOC_NodeJS_Kernel_Architecture.pdf",
+    ctaText: "View Kernel Architecture Specs (PDF)"
+  },
+  {
+    id: "wan-ping-timing-matrix-10-133-22-8",
+    title: "State NOC 38-District WAN Latency & Telemetry Timing Matrix",
+    category: "Case Study",
+    badge: "Government Case Study (Sanitized)",
+    badgeColor: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20",
+    desc: "Comprehensive network latency calibration blueprint executed from 10.133.22.8 across all 38 district collectorate endpoints. Standardizes synthetic ping cadences (20s - 60s), jitter filtering algorithms, false-positive dampening thresholds, and MTU fragmentation analysis across dual-homed BSNL/SWAN links.",
+    metrics: [
+      "Calibrated across 38 District Headquarters & SDC Backbone",
+      "Dynamic jitter filtering & 3-stage failure verification",
+      "Dual-homed BSNL / SWAN route flap discrimination",
+      "Pre-alert suppression for transient micro-bursts (<300ms)"
+    ],
+    tags: ["WAN Architecture", "ICMP Latency", "38 Districts", "Host 10.133.22.8", "SLA Engine", "Network Telemetry"],
+    link: "/docs/Bihar_State_NOC_Ping_Timing_and_Architecture.pdf",
+    ctaText: "View Latency Timing Matrix (PDF)"
+  },
+  {
     id: "devsecops-pipeline",
     title: "DevSecOps CI/CD Security Pipeline (Lab)",
     category: "Interactive",
@@ -341,7 +393,7 @@ export default function ProjectsPage() {
                 <div className="pt-4 border-t border-slate-800/60 flex items-center justify-between">
                   {project.link ? (
                     <a
-                      href={project.link}
+                      href={project.link} target={project.link.endsWith(".pdf") || project.link.startsWith("http") ? "_blank" : "_self"} rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-xs font-mono font-bold text-emerald-400 hover:text-emerald-300 hover:underline"
                     >
                       <span>{project.ctaText}</span>

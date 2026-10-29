@@ -607,9 +607,10 @@ function AppContent() {
           </p>
           <div className="flex flex-wrap justify-center gap-6 sm:gap-10 text-[10px] uppercase tracking-widest font-bold text-slate-400">
             {[
-              { label: 'Developer Profile', href: '/portfolio' },
+              { label: 'Developer Profile', href: 'https://adityasec32.systems' },
               { label: 'Primary Portal', href: '/' },
-              { label: 'Terms of Service', href: '#' },
+              { label: 'Privacy Policy', href: '/privacy' },
+              { label: 'Terms of Service', href: '/terms' },
             ].map(link => (
               <Link key={link.label} href={link.href} className="hover:text-blue-600 transition-colors">
                 {link.label}
