@@ -761,19 +761,28 @@ export default function Home() {
       </div>
 
       {/* CISO / Recruiter Sanitization Trust Banner */}
-      <div className="w-full bg-emerald-950/80 border-b border-emerald-500/25 py-2 px-4 text-center text-[11px] font-mono font-semibold text-emerald-300 backdrop-blur-xl relative z-50 shadow-sm">
-        <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 flex-wrap">
+      <div className="w-full bg-slate-950/95 border-b border-emerald-500/25 py-2.5 px-4 text-center text-[11px] font-mono font-semibold text-emerald-300 backdrop-blur-2xl relative z-50 shadow-sm">
+        <div className="max-w-7xl mx-auto flex items-center justify-center gap-2.5 flex-wrap">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
           <Shield className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
-          <span>All government case studies &amp; project demos are sanitized recordings &amp; mock telemetry; zero live state infrastructure is exposed.</span>
+          <span className="tracking-wide">CLASSIFIED CNI CASE STUDIES SANITIZED FOR RECRUITER &amp; PEER REVIEW &bull; ZERO LIVE STATE INFRASTRUCTURE EXPOSED &bull; HOST 10.133.22.8 BLUEPRINT INCLUDED</span>
         </div>
       </div>
 
       {/* Sticky Navigation Header */}
       <header className="sticky top-0 z-40 w-full border-b border-emerald-500/15 bg-[#020617]/90 backdrop-blur-2xl shadow-lg shadow-black/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 font-title font-bold text-lg tracking-tight hover:opacity-90 transition-opacity">
-            <span className="bg-gradient-to-br from-emerald-400 to-cyan-500 text-slate-950 shadow-md shadow-emerald-500/25 px-2.5 py-0.5 rounded-lg text-sm font-black font-mono">AJ</span>
-            <span className="text-white">Aditya<span className="text-emerald-400">.</span>Jain</span>
+          <Link href="/" className="flex items-center gap-3 font-title font-bold text-lg tracking-tight hover:opacity-95 transition-all">
+            <div className="w-8 h-8 rounded-xl overflow-hidden shadow-md shadow-emerald-500/25 border border-emerald-500/30 flex items-center justify-center bg-slate-950">
+              <img src="/favicon.svg" alt="AdityaSec Logo" className="w-full h-full object-cover" />
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-white text-base sm:text-lg font-black tracking-tight">Aditya<span className="text-emerald-400">Sec</span></span>
+              <span className="hidden sm:inline-block px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-emerald-500/10 text-emerald-300 border border-emerald-500/30">SYSTEMS</span>
+            </div>
           </Link>
           
           {/* Navigation Links */}
@@ -802,7 +811,7 @@ export default function Home() {
               className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 hover:text-white hover:bg-rose-500/25 transition-all text-xs font-mono font-bold"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
-              <span>🐾 Free Rice (हिं/EN)</span>
+              <span>🐾 CyberKarma (Quiz)</span>
             </Link>
           </nav>
 
@@ -831,7 +840,7 @@ export default function Home() {
             <a href="#labs" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Labs &bull; Coursework</a>
             <a href="#writeups" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Write-Ups</a>
             <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Contact</a>
-            <Link href="/charity-quiz" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-rose-400 font-bold">🐾 Free Rice Quiz (हिं/EN)</Link>
+            <Link href="/charity-quiz" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-rose-400 font-bold">🐾 CyberKarma Exam Quiz</Link>
           </div>
         )}
       </header>
@@ -1916,6 +1925,86 @@ export default function Home() {
         </section>
 
       </main>
+
+      {/* EXECUTIVE ENTERPRISE FOOTER */}
+      <footer className="w-full border-t border-slate-800/80 bg-slate-950/90 text-slate-400 font-sans text-xs relative z-20 backdrop-blur-2xl mt-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+            
+            {/* Col 1 & 2: Brand & Mission */}
+            <div className="lg:col-span-2 space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-xl overflow-hidden shadow-md shadow-emerald-500/20 border border-emerald-500/30 flex items-center justify-center bg-slate-950">
+                  <img src="/favicon.svg" alt="AdityaSec Logo" className="w-full h-full object-cover" />
+                </div>
+                <span className="text-white text-lg font-black tracking-tight font-title">
+                  Aditya<span className="text-emerald-400">Sec</span> Systems
+                </span>
+              </div>
+              <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
+                Engineering resilient infrastructure, sovereign network telemetry (Host 10.133.22.8), purple team defenses, and shift-left automation for critical government and institutional environments.
+              </p>
+              <div className="flex items-center gap-2 pt-1 font-mono text-[11px] text-emerald-400">
+                <span className="relative flex h-2 w-2">
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                </span>
+                <span>Operational Status: All Systems Nominal</span>
+              </div>
+            </div>
+
+            {/* Col 3: Navigation */}
+            <div className="space-y-3 font-mono">
+              <div className="text-[11px] font-bold uppercase tracking-widest text-white">Navigation</div>
+              <ul className="space-y-2 text-xs text-slate-400">
+                <li><a href="#home" className="hover:text-emerald-400 transition-colors">Command Center</a></li>
+                <li><a href="#skills" className="hover:text-emerald-400 transition-colors">Skills &amp; Toolchains</a></li>
+                <li><a href="#projects" className="hover:text-emerald-400 transition-colors">CNI Projects &amp; Dossiers</a></li>
+                <li><a href="#experience" className="hover:text-emerald-400 transition-colors">Enterprise Experience</a></li>
+                <li><a href="#writeups" className="hover:text-emerald-400 transition-colors">Field Blueprints</a></li>
+                <li><a href="#contact" className="hover:text-emerald-400 transition-colors">Direct Reach</a></li>
+              </ul>
+            </div>
+
+            {/* Col 4: Legal & Policies */}
+            <div className="space-y-3 font-mono">
+              <div className="text-[11px] font-bold uppercase tracking-widest text-white">Compliance &amp; Legal</div>
+              <ul className="space-y-2 text-xs text-slate-400">
+                <li><Link href="/privacy" className="hover:text-emerald-400 transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="hover:text-emerald-400 transition-colors">Terms of Service</Link></li>
+                <li><a href="/.well-known/security.txt" className="hover:text-emerald-400 transition-colors">security.txt Policy</a></li>
+                <li><span className="text-slate-500">Sanitized CNI Clearance</span></li>
+                <li><span className="text-slate-500">PGP Fingerprint Verified</span></li>
+              </ul>
+            </div>
+
+            {/* Col 5: Ecosystem */}
+            <div className="space-y-3 font-mono">
+              <div className="text-[11px] font-bold uppercase tracking-widest text-white">Ecosystem Portals</div>
+              <ul className="space-y-2 text-xs text-slate-400">
+                <li><a href="https://cyberkarma.me" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors">🐾 CyberKarma (Free Rice)</a></li>
+                <li><a href="https://jumpstreet.tech" target="_blank" rel="noopener noreferrer" className="hover:text-purple-400 transition-colors">⚡ Jumpstreet Platform</a></li>
+                <li><a href="https://github.com/ajainx1" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">💻 GitHub Codebase</a></li>
+                <li><a href="https://www.linkedin.com/in/ajainx1/" target="_blank" rel="noopener noreferrer" className="hover:text-sky-400 transition-colors">👔 LinkedIn Executive</a></li>
+              </ul>
+            </div>
+
+          </div>
+
+          {/* Bottom Sub-Bar */}
+          <div className="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-slate-500">
+            <div>
+              &copy; {new Date().getFullYear()} Aditya Jain &bull; All Rights Reserved.
+            </div>
+            <div className="flex items-center gap-4 flex-wrap">
+              <span>Host 10.133.22.8 Sovereign Blueprint</span>
+              <span>&bull;</span>
+              <span>Next.js App Router Architecture</span>
+              <span>&bull;</span>
+              <a href="#home" className="text-emerald-400 hover:underline">Back to top &uarr;</a>
+            </div>
+          </div>
+        </div>
+      </footer>
 
       {/* Technical Write-Up Deep Dive Reader Modal */}
       <AnimatePresence>
