@@ -1,64 +1,110 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
   <defs>
-    <radialGradient id="secBg" cx="50%" cy="40%" r="60%">
+    <!-- Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="35%" r="70%">
       <stop offset="0%" stop-color="#0f172a" />
-      <stop offset="60%" stop-color="#020617" />
-      <stop offset="100%" stop-color="#010307" />
+      <stop offset="70%" stop-color="#030712" />
+      <stop offset="100%" stop-color="#02040a" />
     </radialGradient>
-    <linearGradient id="secEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#34d399" />
+
+    <!-- Emerald to Cyan Cyber Gradient -->
+    <linearGradient id="cyberNeon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f5a0" />
       <stop offset="50%" stop-color="#10b981" />
       <stop offset="100%" stop-color="#06b6d4" />
     </linearGradient>
-    <linearGradient id="purpleAccent" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#c084fc" />
-      <stop offset="100%" stop-color="#6366f1" />
+
+    <!-- Core Glow Gradient -->
+    <linearGradient id="coreGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="40%" stop-color="#a7f3d0" />
+      <stop offset="100%" stop-color="#00f5a0" />
     </linearGradient>
-    <filter id="secGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#10b981" flood-opacity="0.65" />
+
+    <!-- Outer Ring Gradient -->
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#06b6d4" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#0284c7" stop-opacity="0.8" />
+    </linearGradient>
+
+    <!-- High-Impact Drop Shadow / Glow -->
+    <filter id="cyberGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="intenseGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="18" result="blur" />
+      <feColorMatrix type="matrix" values="0 0 0 0 0.06   0 0 0 0 0.96   0 0 0 0 0.63  0 0 0 0.75 0" />
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
     </filter>
   </defs>
 
-  <rect width="512" height="512" rx="124" fill="url(#secBg)" />
-  <rect width="496" height="496" x="8" y="8" rx="116" fill="none" stroke="url(#secEmerald)" stroke-width="12" stroke-opacity="0.75" />
+  <!-- Squircle Canvas (iOS / Modern Web Standard) -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+  <rect width="500" height="500" x="6" y="6" rx="106" fill="none" stroke="url(#borderGrad)" stroke-width="4" stroke-opacity="0.6" />
 
-  <!-- Tactical Cyber Shield -->
-  <path d="M256 50 L424 118 C424 305 256 462 256 462 C256 462 88 305 88 118 Z"
-        fill="#020617"
-        stroke="url(#secEmerald)"
-        stroke-width="20"
+  <!-- Outer Cyber Defense Shield -->
+  <path d="M256 68
+           L420 128
+           C420 280 340 388 256 444
+           C172 388 92 280 92 128
+           Z"
+        fill="#040914"
+        stroke="url(#cyberNeon)"
+        stroke-width="16"
         stroke-linejoin="round"
-        filter="url(#secGlow)" />
-
-  <!-- Inner Defense Plate -->
-  <path d="M256 85 L390 138 C390 288 256 422 256 422 C256 422 122 288 122 138 Z"
-        fill="none"
-        stroke="url(#purpleAccent)"
-        stroke-width="8"
-        stroke-dasharray="16 8"
-        stroke-opacity="0.7" />
-
-  <!-- Central 'AJ' Monogram & Cyber Chevrons -->
-  <path d="M192 340 L256 160 L278 215"
-        fill="none"
-        stroke="#ffffff"
-        stroke-width="28"
         stroke-linecap="round"
+        filter="url(#intenseGlow)" />
+
+  <!-- Inner High-Tech Guard Plate -->
+  <path d="M256 102
+           L386 150
+           C386 266 322 356 256 404
+           C190 356 126 266 126 150
+           Z"
+        fill="#020617"
+        stroke="#06b6d4"
+        stroke-width="4"
+        stroke-opacity="0.4"
         stroke-linejoin="round" />
-  
-  <path d="M202 290 L288 290"
-        fill="none"
-        stroke="url(#secEmerald)"
-        stroke-width="22"
+
+  <!-- Bold Geometric 'A' Apex & Terminal Defense Chevron -->
+  <!-- Left Pillar -->
+  <path d="M256 142 L172 344"
+        stroke="url(#coreGrad)"
+        stroke-width="32"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        filter="url(#cyberGlow)" />
+
+  <!-- Right Pillar -->
+  <path d="M256 142 L340 344"
+        stroke="url(#cyberNeon)"
+        stroke-width="32"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        filter="url(#cyberGlow)" />
+
+  <!-- Horizontal Crossbar / Cyber Terminal Vector -->
+  <path d="M202 284 L310 284"
+        stroke="#00f5a0"
+        stroke-width="26"
         stroke-linecap="round" />
 
-  <path d="M318 165 V310 C318 355 280 375 245 375 C218 375 198 362 188 350"
-        fill="none"
-        stroke="url(#secEmerald)"
-        stroke-width="28"
-        stroke-linecap="round"
-        stroke-linejoin="round" />
+  <!-- High-Precision Center Quantum Core (Diamond / Node) -->
+  <polygon points="256,186 274,212 256,238 238,212"
+           fill="#ffffff"
+           filter="url(#cyberGlow)" />
 
-  <circle cx="256" cy="112" r="14" fill="#34d399" />
-  <circle cx="256" cy="112" r="7" fill="#ffffff" />
+  <!-- Status Ping Diode (Sub-Second Active Heartbeat) -->
+  <circle cx="256" cy="358" r="16" fill="#00f5a0" filter="url(#cyberGlow)" />
+  <circle cx="256" cy="358" r="8" fill="#ffffff" />
 </svg>
