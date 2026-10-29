@@ -322,6 +322,11 @@ interface ProjectCard {
   colorGlow: string;
   colorBadge: string;
   colorText: string;
+  modalDetails?: {
+    challenge: string;
+    architecture: string;
+    keyDeliverables: string[];
+  };
 }
 
 const PROJECTS_DATA: ProjectCard[] = [
@@ -333,13 +338,23 @@ const PROJECTS_DATA: ProjectCard[] = [
     orbitTag: "ORBIT: HOST-10.133.22.8",
     impactHighlight: "Dedicated state surveillance host monitoring 38 district WAN links & SDC e-governance portals",
     description: "Production monitoring engine deployed on 10.133.22.8 running high-concurrency Node.js / Uptime Kuma with an automated Python watchdog daemon. Enforces sub-second synthetic heartbeats, packet latency profiling, and zero external network leakage within the State Data Centre perimeter.",
-    tags: ["Host 10.133.22.8", "Uptime Kuma", "Python Daemon", "Node.js", "State NOC", "CERT-In Hardened"],
+    tags: ["Host 10.133.22.8", "Uptime Kuma", "Python Daemon", "Node.js", "State NOC", "CERT-In Hardened", "Zero Egress"],
     link: "/docs/Bihar_State_NOC_Uptime_Kuma_Executive_Dossier.pdf",
-    linkText: "View Watermarked Technical Dossier",
-    colorBorder: "border-sky-500/25 hover:border-sky-400",
-    colorGlow: "hover:shadow-sky-500/20",
-    colorBadge: "bg-sky-500/10 text-sky-300 border-sky-500/30",
-    colorText: "group-hover:text-sky-400"
+    linkText: "View Watermarked Dossier (PDF)",
+    colorBorder: "border-sky-500/35 hover:border-sky-400",
+    colorGlow: "hover:shadow-sky-500/25",
+    colorBadge: "bg-sky-500/15 text-sky-300 border-sky-500/35",
+    colorText: "group-hover:text-sky-300",
+    modalDetails: {
+      challenge: "Mission-critical state portals (KhananSoft, EPDS, RTPS) and 38 district core WAN routers required 24/7 sub-second observability with zero tolerance for external cloud telemetry egress.",
+      architecture: "Deployed dedicated server 10.133.22.8 with high-concurrency Node.js kernel on port 3001, SQLite WAL persistence, and a 2-minute recurring Python failover watchdog (portal_monitor_daemon.py) scheduled locally.",
+      keyDeliverables: [
+        "Continuous synthetic ping and HTTP heartbeat surveillance across 38 district core router nodes",
+        "Air-gapped telemetry architecture ensuring 100% sovereign data confinement inside the State WAN",
+        "Automated watchdog recovery daemon guaranteeing 99.99% monitoring uptime with instant crash failover",
+        "Official watermarked executive dossiers and Node.js kernel architectural specifications"
+      ]
+    }
   },
   {
     id: "devsecops-pipeline",
@@ -352,10 +367,20 @@ const PROJECTS_DATA: ProjectCard[] = [
     tags: ["GitHub Actions", "Semgrep", "Trivy", "Checkov", "OWASP ZAP", "Docker"],
     isModal: true,
     linkText: "View Pipeline Specs",
-    colorBorder: "border-emerald-500/25 hover:border-emerald-400",
-    colorGlow: "hover:shadow-emerald-500/20",
-    colorBadge: "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
-    colorText: "group-hover:text-emerald-400"
+    colorBorder: "border-emerald-500/35 hover:border-emerald-400",
+    colorGlow: "hover:shadow-emerald-500/25",
+    colorBadge: "bg-emerald-500/15 text-emerald-300 border-emerald-500/35",
+    colorText: "group-hover:text-emerald-300",
+    modalDetails: {
+      challenge: "Eliminate vulnerable third-party libraries and misconfigured infrastructure before deploying to production environments.",
+      architecture: "Orchestrated multi-stage GitHub Actions pipeline enforcing shift-left security gates, policy-as-code linting with Checkov, Semgrep static analysis, and Docker container vulnerability scanning.",
+      keyDeliverables: [
+        "Automated blocking of pull requests introducing High or Critical CVSS vulnerabilities",
+        "Trivy container image scanning preventing vulnerable base image layers",
+        "Checkov policy-as-code scanning enforcing Terraform and Kubernetes hardening",
+        "OWASP ZAP automated baseline DAST scans against staging web endpoints"
+      ]
+    }
   },
   {
     id: "noc-admin-portal",
@@ -368,10 +393,20 @@ const PROJECTS_DATA: ProjectCard[] = [
     tags: ["Next.js", "Ollama LLM", "PHP API", "Three.js", "RAG"],
     link: "/noc/",
     linkText: "Launch NOC Portal Demo",
-    colorBorder: "border-cyan-500/25 hover:border-cyan-400",
-    colorGlow: "hover:shadow-cyan-500/20",
-    colorBadge: "bg-cyan-500/10 text-cyan-300 border-cyan-500/30",
-    colorText: "group-hover:text-cyan-400"
+    colorBorder: "border-cyan-500/35 hover:border-cyan-400",
+    colorGlow: "hover:shadow-cyan-500/25",
+    colorBadge: "bg-cyan-500/15 text-cyan-300 border-cyan-500/35",
+    colorText: "group-hover:text-cyan-300",
+    modalDetails: {
+      challenge: "State NOC operators needed immediate visual status of 38 district collectorates and instant AI-assisted troubleshooting during fiber cut incidents.",
+      architecture: "Full-stack dashboard combining interactive Three.js 3D district topologies, sub-second PHP/Node.js telemetry APIs, and an on-premise Ollama RAG model trained on state WAN documentation.",
+      keyDeliverables: [
+        "Sub-second packet loss visualization for all 38 district collectorate edge units",
+        "Voice-activated on-premise Ollama assistant for instant diagnostic lookups",
+        "Automated outage escalation tickets mapped to district nodal officers",
+        "Zero-latency WebSockets telemetry streaming for NOC video wall displays"
+      ]
+    }
   },
   {
     id: "network-alert-dashboard",
@@ -384,10 +419,20 @@ const PROJECTS_DATA: ProjectCard[] = [
     tags: ["JavaScript", "Chart.js", "Web Speech API", "Glassmorphic"],
     link: "/alert/",
     linkText: "Launch Voice Alert Grid",
-    colorBorder: "border-blue-500/25 hover:border-blue-400",
-    colorGlow: "hover:shadow-blue-500/20",
-    colorBadge: "bg-blue-500/10 text-blue-300 border-blue-500/30",
-    colorText: "group-hover:text-blue-400"
+    colorBorder: "border-blue-500/35 hover:border-blue-400",
+    colorGlow: "hover:shadow-blue-500/25",
+    colorBadge: "bg-blue-500/15 text-blue-300 border-blue-500/35",
+    colorText: "group-hover:text-blue-300",
+    modalDetails: {
+      challenge: "NOC duty officers required instant audible and visual alerts for high packet loss without sensory overload from transient flapping.",
+      architecture: "Pure client-side high-efficiency telemetry grid with Indian English Web Speech voice synthesis, rolling sparkline charts, and configurable threshold filters.",
+      keyDeliverables: [
+        "Sub-second ICMP ping latency and loss telemetry across 293 nodes",
+        "Custom Web Speech API integration announcing critical link drops audibly",
+        "Glassmorphic high-density visual matrix for NOC operations screens",
+        "Noise-reduction threshold filters suppressing false positive alert fatigue"
+      ]
+    }
   },
   {
     id: "unified-noc-suite",
@@ -400,10 +445,20 @@ const PROJECTS_DATA: ProjectCard[] = [
     tags: ["Synthetic Probes", "QoS Analysis", "WAN Latency", "SLA Engine"],
     link: "/speed/",
     linkText: "Run Diagnostics Suite",
-    colorBorder: "border-indigo-500/25 hover:border-indigo-400",
-    colorGlow: "hover:shadow-indigo-500/20",
-    colorBadge: "bg-indigo-500/10 text-indigo-300 border-indigo-500/30",
-    colorText: "group-hover:text-indigo-400"
+    colorBorder: "border-indigo-500/35 hover:border-indigo-400",
+    colorGlow: "hover:shadow-indigo-500/25",
+    colorBadge: "bg-indigo-500/15 text-indigo-300 border-indigo-500/35",
+    colorText: "group-hover:text-indigo-300",
+    modalDetails: {
+      challenge: "Ensure flawless QoS for high-level government video conferences across 38 districts while auditing ISP SLA commitments.",
+      architecture: "Synthetic probe engine executing scheduled speed tests, Panasonic VC codec QoS ping audits, and automated ISP uptime scorecards.",
+      keyDeliverables: [
+        "Automated QoS diagnostics for district video-conferencing suites",
+        "Automated WAN speed-test benchmarking comparing BSNL vs RailTel links",
+        "SLA availability calculation powering monthly telecom vendor performance audits",
+        "Severity-tiered alerting notifying field engineers upon packet jitter spikes"
+      ]
+    }
   },
   {
     id: "lan-asset-management",
@@ -416,10 +471,20 @@ const PROJECTS_DATA: ProjectCard[] = [
     tags: ["Python", "Bash", "DHCP/PXE", "Asset Inventory", "Linux RHEL"],
     isModal: true,
     linkText: "View Architecture Specs",
-    colorBorder: "border-teal-500/25 hover:border-teal-400",
-    colorGlow: "hover:shadow-teal-500/20",
-    colorBadge: "bg-teal-500/10 text-teal-300 border-teal-500/30",
-    colorText: "group-hover:text-teal-400"
+    colorBorder: "border-teal-500/35 hover:border-teal-400",
+    colorGlow: "hover:shadow-teal-500/25",
+    colorBadge: "bg-teal-500/15 text-teal-300 border-teal-500/35",
+    colorText: "group-hover:text-teal-300",
+    modalDetails: {
+      challenge: "Standardizing OS installations and tracking 750+ hardware assets across district departments without internet connectivity.",
+      architecture: "TFTP/PXE boot server with custom Kickstart scripts for unattended Linux/Windows deployments, paired with cryptographic file mirrors.",
+      keyDeliverables: [
+        "Zero-touch automated operating system deployment via LAN PXE network booting",
+        "Automated MAC-to-Department asset mapping stored in tamper-evident database",
+        "Cryptographically signed internal update repository preventing unauthorized binaries",
+        "Saved 200+ engineering hours during major state infrastructure refresh cycles"
+      ]
+    }
   },
   {
     id: "cert-in-engine",
@@ -432,10 +497,20 @@ const PROJECTS_DATA: ProjectCard[] = [
     tags: ["PowerShell", "Python", "KACE UEM", "NIST CSF", "CERT-In"],
     isModal: true,
     linkText: "View Case Study Blueprint",
-    colorBorder: "border-emerald-500/25 hover:border-emerald-400",
-    colorGlow: "hover:shadow-emerald-500/20",
-    colorBadge: "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
-    colorText: "group-hover:text-emerald-400"
+    colorBorder: "border-emerald-500/35 hover:border-emerald-400",
+    colorGlow: "hover:shadow-emerald-500/25",
+    colorBadge: "bg-emerald-500/15 text-emerald-300 border-emerald-500/35",
+    colorText: "group-hover:text-emerald-300",
+    modalDetails: {
+      challenge: "Manual quarterly audits across 750+ government endpoints took 14 business days and left blind spots in USB port control and legacy protocols.",
+      architecture: "Automated PowerShell and Python inspection scripts executed in parallel via KACE UEM agent, validating 120+ NIST and CERT-In baselines.",
+      keyDeliverables: [
+        "Cut quarterly compliance audit cycles from 14 days to under 4 hours",
+        "Enforced automated registry hardening, disabling SMBv1 and weak ciphers",
+        "Strict USB storage lockout policy audit with automated remediation scripts",
+        "Automated compliance evidence export mapped to ISO 27001 requirements"
+      ]
+    }
   },
   {
     id: "cyberkarma-jumpstreet-triad",
@@ -448,10 +523,20 @@ const PROJECTS_DATA: ProjectCard[] = [
     tags: ["Next.js", "Web3/Charity", "Algorithmic Quant", "TypeScript"],
     link: "https://cyberkarma.me",
     linkText: "Explore cyberkarma.me",
-    colorBorder: "border-purple-500/25 hover:border-purple-400",
-    colorGlow: "hover:shadow-purple-500/20",
-    colorBadge: "bg-purple-500/10 text-purple-300 border-purple-500/30",
-    colorText: "group-hover:text-purple-400"
+    colorBorder: "border-purple-500/35 hover:border-purple-400",
+    colorGlow: "hover:shadow-purple-500/25",
+    colorBadge: "bg-purple-500/15 text-purple-300 border-purple-500/35",
+    colorText: "group-hover:text-purple-300",
+    modalDetails: {
+      challenge: "Bridge cybersecurity public education with tangible social philanthropy while demonstrating high-performance execution architecture.",
+      architecture: "CyberKarma gamifies security trivia on Next.js/Tailwind where player engagements fund real meals for street animals in Patna; JumpStreet provides low-latency trading infrastructure.",
+      keyDeliverables: [
+        "Over 10,000+ cybersecurity quiz questions served to student learners",
+        "Verified real-world meal donations for stray dog welfare drives in Patna",
+        "Sub-millisecond Windows VM cloud infrastructure for automated trading logic",
+        "Next.js App Router architecture with strict security headers and CDN caching"
+      ]
+    }
   }
 ];
 
@@ -554,6 +639,7 @@ export default function Home() {
   const [selectedWriteUp, setSelectedWriteUp] = useState<WriteUp | null>(null);
   const [activeWriteUpTab, setActiveWriteUpTab] = useState<"overview" | "methodology" | "takeaways" | "code">("overview");
   const [caseStudyModal, setCaseStudyModal] = useState<boolean>(false);
+  const [selectedProjectModal, setSelectedProjectModal] = useState<ProjectCard | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [contactMessage, setContactMessage] = useState<string>("");
   const [contactSent, setContactSent] = useState<boolean>(false);
@@ -1013,45 +1099,158 @@ export default function Home() {
           ))}
         </section>
 
-        {/* SECTION: KEY SECURITY PROJECTS & PLANETARY DEFENSE GRID */}
-        <section id="projects" className="space-y-10 pt-6">
+                {/* SECTION: KEY SECURITY PROJECTS & PLANETARY DEFENSE GRID */}
+        <section id="projects" className="space-y-12 pt-8">
           
-          {/* Top-Angle Orbital Command Banner */}
-          <div className="p-6 sm:p-8 rounded-[28px] bg-gradient-to-br from-slate-950 via-slate-900/95 to-emerald-950/40 border border-emerald-500/30 backdrop-blur-2xl shadow-2xl relative overflow-hidden space-y-6">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+          {/* Top Command Center Header */}
+          <div className="p-7 sm:p-10 rounded-[32px] bg-gradient-to-br from-slate-950 via-slate-900/95 to-slate-950 border border-emerald-500/30 backdrop-blur-2xl shadow-2xl relative overflow-hidden space-y-8">
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
-              <div className="space-y-2">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-xs font-mono font-bold text-emerald-300">
-                  <Globe className="w-3.5 h-3.5 text-emerald-400 animate-spin-slow" />
-                  <span>03 // Key Security Projects &amp; Planetary Matrix</span>
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-10">
+              <div className="space-y-3 max-w-3xl">
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-xs font-mono font-bold text-emerald-300">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span>ACTIVE SURVEILLANCE MATRIX // HOST: 10.133.22.8</span>
+                  </div>
+                  <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-cyan-500/10 text-cyan-300 border border-cyan-500/25">
+                    ● 38 DISTRICT HUBS ONLINE
+                  </span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-black font-title text-white tracking-tight">
-                  Critical Infrastructure Portals &amp; Engineering Systems
+
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black font-title text-white tracking-tight leading-tight">
+                  Critical Infrastructure &amp; Telemetry Engines
                 </h2>
-                <p className="text-sm text-slate-300 max-w-2xl leading-relaxed">
-                  Production monitoring platforms, synthetic diagnostic suites, and automated compliance engines built for government and enterprise operations.
+                <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+                  Enterprise-grade state surveillance backbones, sub-second synthetic diagnostic suites, autonomous watchdog daemons, and CERT-In compliance engines engineered for sovereign defense and zero external data egress.
                 </p>
               </div>
 
               {/* 4 Macroscopic Telemetry Pillars */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-emerald-500/25 text-center shadow-lg shadow-emerald-950/30">
-                  <div className="text-xl font-mono font-black text-emerald-400">38 / 38</div>
-                  <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mt-0.5">DHQ Loopbacks</div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-3 min-w-[280px]">
+                <div className="p-4 rounded-2xl bg-slate-900/90 border border-emerald-500/30 text-center shadow-lg shadow-emerald-950/40 relative overflow-hidden">
+                  <div className="text-2xl font-mono font-black text-emerald-400">38 / 38</div>
+                  <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mt-1">District Hubs (100% SLA)</div>
+                  <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-emerald-500/10 rounded-full blur-md" />
                 </div>
-                <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-cyan-500/25 text-center shadow-lg shadow-cyan-950/30">
-                  <div className="text-xl font-mono font-black text-cyan-400">293</div>
-                  <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mt-0.5">Monitored IPs</div>
+                <div className="p-4 rounded-2xl bg-slate-900/90 border border-sky-500/30 text-center shadow-lg shadow-sky-950/40 relative overflow-hidden">
+                  <div className="text-2xl font-mono font-black text-sky-400">10.133.22.8</div>
+                  <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mt-1">Surveillance Host</div>
+                  <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-sky-500/10 rounded-full blur-md" />
                 </div>
-                <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-blue-500/25 text-center shadow-lg shadow-blue-950/30">
-                  <div className="text-xl font-mono font-black text-blue-400">0.01%</div>
-                  <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mt-0.5">Firewall Drop</div>
+                <div className="p-4 rounded-2xl bg-slate-900/90 border border-cyan-500/30 text-center shadow-lg shadow-cyan-950/40 relative overflow-hidden">
+                  <div className="text-2xl font-mono font-black text-cyan-400">&lt; 1.2ms</div>
+                  <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mt-1">Kernel Ping Loop</div>
+                  <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-cyan-500/10 rounded-full blur-md" />
                 </div>
-                <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-indigo-500/25 text-center shadow-lg shadow-indigo-950/30">
-                  <div className="text-xl font-mono font-black text-indigo-400">60%</div>
-                  <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mt-0.5">Audit Time Cut</div>
+                <div className="p-4 rounded-2xl bg-slate-900/90 border border-indigo-500/30 text-center shadow-lg shadow-indigo-950/40 relative overflow-hidden">
+                  <div className="text-2xl font-mono font-black text-indigo-400">0% Egress</div>
+                  <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mt-1">Air-Gapped Telemetry</div>
+                  <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-indigo-500/10 rounded-full blur-md" />
+                </div>
+              </div>
+            </div>
+
+            {/* FLAGSHIP COMMAND SHOWCASE: HOST 10.133.22.8 */}
+            <div className="p-6 sm:p-8 rounded-[24px] bg-gradient-to-r from-slate-950/90 via-slate-900/90 to-sky-950/40 border border-sky-500/40 shadow-2xl relative overflow-hidden">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+                <div className="lg:col-span-7 space-y-4">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="px-3 py-1 rounded-md text-[11px] font-mono font-bold bg-sky-500/15 text-sky-300 border border-sky-500/30">
+                      ★ FLAGSHIP ARCHITECTURAL DEPLOYMENT
+                    </span>
+                    <span className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-300 border border-emerald-500/25">
+                      HOST: 10.133.22.8:3001
+                    </span>
+                  </div>
+
+                  <h3 className="text-2xl sm:text-3xl font-black font-title text-white">
+                    Bihar State NOC — Uptime Kuma Telemetry Engine
+                  </h3>
+
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    Surveillance node deployed on dedicated state host <strong>10.133.22.8</strong> running a high-concurrency Node.js kernel on port 3001. Continuously executes sub-second synthetic heartbeats across 38 district collectorate routers and mission-critical State Data Centre (SDC) e-governance backbones (<em>KhananSoft, EPDS, RTPS</em>). Features an autonomous 2-minute recurring Python failover watchdog (<code className="text-sky-300 bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800">portal_monitor_daemon.py</code>) and zero cloud data egress.
+                  </p>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
+                    <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-center">
+                      <div className="text-xs font-mono font-bold text-sky-400">Node.js Kernel</div>
+                      <div className="text-[10px] text-slate-400">Port 3001 Service</div>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-center">
+                      <div className="text-xs font-mono font-bold text-emerald-400">Python Watchdog</div>
+                      <div className="text-[10px] text-slate-400">2-Min Task Daemon</div>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-center">
+                      <div className="text-xs font-mono font-bold text-cyan-400">38 District Nodes</div>
+                      <div className="text-[10px] text-slate-400">WAN Loopbacks</div>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-center">
+                      <div className="text-xs font-mono font-bold text-indigo-400">Air-Gapped</div>
+                      <div className="text-[10px] text-slate-400">Zero Cloud Egress</div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-3 pt-2">
+                    <a
+                      href="/docs/Bihar_State_NOC_Uptime_Kuma_Executive_Dossier.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-slate-950 font-mono font-bold text-xs shadow-lg shadow-sky-500/25 transition-all cursor-pointer"
+                    >
+                      <Download className="w-4 h-4" />
+                      <span>Download Watermarked Dossier (PDF)</span>
+                    </a>
+                    <a
+                      href="/docs/Bihar_NOC_NodeJS_Kernel_Architecture.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-950/80 hover:bg-slate-900 border border-sky-500/30 text-sky-300 font-mono text-xs transition-colors"
+                    >
+                      <FileText className="w-3.5 h-3.5 text-sky-400" />
+                      <span>Node.js Kernel Blueprint</span>
+                    </a>
+                    <a
+                      href="/docs/Bihar_State_NOC_Ping_Timing_and_Architecture.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-950/80 hover:bg-slate-900 border border-sky-500/30 text-sky-300 font-mono text-xs transition-colors"
+                    >
+                      <FileCheck className="w-3.5 h-3.5 text-sky-400" />
+                      <span>Latency Timing Matrix</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Right Column: Visual Preview Card */}
+                <div className="lg:col-span-5">
+                  <div className="relative group rounded-2xl overflow-hidden border border-sky-500/30 bg-slate-950/80 shadow-2xl">
+                    <div className="h-48 sm:h-56 overflow-hidden relative">
+                      <img 
+                        src="/docs/Bihar_State_NOC_Uptime_Kuma_Executive_Dossier_preview.png"
+                        alt="Bihar State NOC 10.133.22.8 Technical Dossier Preview"
+                        className="w-full h-auto object-cover object-top filter contrast-105 group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+                      <div className="absolute top-3 right-3 px-2.5 py-1 rounded-md text-[9px] font-mono font-black bg-amber-500/90 text-slate-950 uppercase tracking-wider shadow-lg">
+                        CONFIDENTIAL // SANITIZED
+                      </div>
+                    </div>
+                    <div className="p-4 space-y-2 bg-slate-950/90 border-t border-slate-800">
+                      <div className="flex items-center justify-between text-xs font-mono">
+                        <span className="text-sky-300 font-bold">Dossier ID: CNI-NOC-10.133.22.8</span>
+                        <span className="text-slate-400">Architect: Aditya Jain</span>
+                      </div>
+                      <div className="text-[11px] font-mono text-slate-400">
+                        Official 2-Page Executive Technical Dossier with watermark stamp &amp; failover talking points.
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1063,8 +1262,9 @@ export default function Home() {
                 <span>Filter Grid:</span>
               </span>
               {[
-                { id: "all", label: "All Systems (6)" },
-                { id: "cni", label: "CNI & Observability" },
+                { id: "all", label: `All Systems (${PROJECTS_DATA.length})` },
+                { id: "cni", label: "CNI & Infrastructure" },
+                { id: "offensive", label: "DevSecOps & CI/CD" },
                 { id: "sandbox", label: "Live Sandboxes" },
                 { id: "social", label: "Karma & Quant Triad" }
               ].map((tab) => (
@@ -1072,9 +1272,9 @@ export default function Home() {
                   key={tab.id}
                   type="button"
                   onClick={() => setProjectFilter(tab.id as any)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-bold transition-all cursor-pointer ${
+                  className={`px-4 py-2 rounded-full text-xs font-mono font-bold transition-all cursor-pointer ${
                     projectFilter === tab.id
-                      ? "bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/30"
+                      ? "bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 shadow-md shadow-emerald-500/30 scale-105"
                       : "bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-emerald-500/30"
                   }`}
                 >
@@ -1088,21 +1288,21 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProjects.map((project) => (
               <TiltWrapper key={project.id} tiltDeg={3}>
-                <div className={`h-full p-7 rounded-[24px] bg-slate-900/70 border ${project.colorBorder} transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group hover:shadow-2xl ${project.colorGlow}`}>
-                  <div className="space-y-3.5">
-                    <div className="flex items-center justify-between">
+                <div className={`h-full p-7 rounded-[26px] bg-slate-900/80 border ${project.colorBorder} transition-all duration-300 flex flex-col justify-between space-y-6 backdrop-blur-xl group hover:shadow-2xl ${project.colorGlow} hover:border-opacity-80`}>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between gap-2">
                       <span className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold border ${project.colorBadge}`}>
                         {project.categoryLabel}
                       </span>
                       <span className="text-[10px] font-mono text-slate-400 font-bold">{project.orbitTag}</span>
                     </div>
 
-                    <h3 className={`text-xl font-bold font-title text-white ${project.colorText} transition-colors`}>
+                    <h3 className={`text-xl font-bold font-title text-white ${project.colorText} transition-colors leading-snug`}>
                       {project.title}
                     </h3>
 
-                    <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800/80 text-xs font-mono text-emerald-300">
-                      <strong>Impact:</strong> {project.impactHighlight}
+                    <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs font-mono text-emerald-300 leading-relaxed">
+                      <strong className="text-emerald-400">Impact:</strong> {project.impactHighlight}
                     </div>
 
                     <p className="text-xs text-slate-300 leading-relaxed">
@@ -1118,12 +1318,12 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-                    {project.isModal ? (
+                  <div className="pt-4 border-t border-slate-800 flex items-center justify-between gap-2">
+                    {project.isModal || project.modalDetails ? (
                       <button
                         type="button"
-                        onClick={() => setCaseStudyModal(true)}
-                        className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-400 hover:text-emerald-300 cursor-pointer"
+                        onClick={() => setSelectedProjectModal(project)}
+                        className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-400 hover:text-emerald-300 cursor-pointer min-h-[36px]"
                       >
                         <BookOpen className="w-3.5 h-3.5" />
                         <span>{project.linkText}</span>
@@ -1133,13 +1333,17 @@ export default function Home() {
                         href={project.link}
                         target={project.link?.startsWith("http") || project.link?.endsWith(".pdf") ? "_blank" : "_self"}
                         rel={project.link?.startsWith("http") || project.link?.endsWith(".pdf") ? "noopener noreferrer" : undefined}
-                        className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-cyan-400 hover:text-cyan-300"
+                        className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-cyan-400 hover:text-cyan-300 min-h-[36px]"
                       >
                         <span>{project.linkText}</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
+                        {project.link?.endsWith(".pdf") ? (
+                          <Download className="w-3.5 h-3.5" />
+                        ) : (
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        )}
                       </a>
                     )}
-                    <span className="text-[10px] font-mono text-slate-500">Sanitized Demo</span>
+                    <span className="text-[10px] font-mono text-slate-500 whitespace-nowrap">Sanitized Specs</span>
                   </div>
                 </div>
               </TiltWrapper>
@@ -1914,6 +2118,115 @@ export default function Home() {
                   type="button"
                   onClick={() => setCaseStudyModal(false)}
                   className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-mono font-bold text-white transition-colors min-h-[44px] cursor-pointer"
+                >
+                  Close Blueprint
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Universal Dynamic Project Case Study Modal */}
+      <AnimatePresence>
+        {selectedProjectModal && (
+          <div 
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setSelectedProjectModal(null);
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="w-full max-w-3xl bg-slate-900 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl font-sans text-slate-200 max-h-[90vh] overflow-y-auto"
+            >
+              <div className="flex items-start justify-between gap-4 border-b border-slate-800 pb-4">
+                <div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="px-3 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                      Sanitized Technical Dossier
+                    </span>
+                    <span className="text-xs font-mono text-slate-400">
+                      {selectedProjectModal.orbitTag}
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold font-title text-white mt-2">
+                    {selectedProjectModal.title}
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedProjectModal(null)}
+                  className="p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer flex-shrink-0"
+                  aria-label="Close Case Study"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="space-y-4 text-sm text-slate-300 leading-relaxed">
+                <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs font-mono text-emerald-300">
+                  <strong className="text-emerald-400">Verified Impact:</strong> {selectedProjectModal.impactHighlight}
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold">Operational Context &amp; Architecture</h4>
+                  <p>{selectedProjectModal.description}</p>
+                </div>
+
+                {selectedProjectModal.modalDetails && (
+                  <div className="space-y-4 pt-2">
+                    <div className="space-y-1.5">
+                      <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold">Challenge</h4>
+                      <p className="text-xs text-slate-300">{selectedProjectModal.modalDetails.challenge}</p>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold">Engineered Solution</h4>
+                      <p className="text-xs text-slate-300">{selectedProjectModal.modalDetails.architecture}</p>
+                    </div>
+
+                    <div className="space-y-2">
+                      <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold">Key Verification Deliverables</h4>
+                      <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2 font-mono text-xs text-emerald-300">
+                        {selectedProjectModal.modalDetails.keyDeliverables.map((item, idx) => (
+                          <div key={idx} className="flex items-start gap-2">
+                            <span className="text-emerald-400 flex-shrink-0">✓</span>
+                            <span>{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div className="flex flex-wrap gap-1.5 pt-2">
+                  {selectedProjectModal.tags.map((tag, i) => (
+                    <span key={i} className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold bg-slate-950 border border-slate-800 text-cyan-400">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-slate-800 flex items-center justify-between gap-3 flex-wrap">
+                {selectedProjectModal.link && (
+                  <a
+                    href={selectedProjectModal.link}
+                    target={selectedProjectModal.link.startsWith("http") || selectedProjectModal.link.endsWith(".pdf") ? "_blank" : "_self"}
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 text-xs font-mono font-bold transition-all cursor-pointer"
+                  >
+                    {selectedProjectModal.link.endsWith(".pdf") ? <Download className="w-4 h-4" /> : <ExternalLink className="w-4 h-4" />}
+                    <span>Open {selectedProjectModal.link.endsWith(".pdf") ? "Watermarked Blueprint (PDF)" : "Live Application"}</span>
+                  </a>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setSelectedProjectModal(null)}
+                  className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-mono font-bold text-white transition-colors min-h-[44px] cursor-pointer ml-auto"
                 >
                   Close Blueprint
                 </button>

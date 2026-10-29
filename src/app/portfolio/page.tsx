@@ -609,7 +609,7 @@ export default function Home() {
                       rel="noopener noreferrer" 
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 hover:-translate-y-0.5 transition-all shadow-md hover:shadow-lg"
                     >
-                      <span>Launch Project</span>
+                      <span>{project.link.endsWith('.pdf') ? 'View Watermarked Blueprint' : 'Launch Project'}</span>
                       <ExternalLink className="w-4 h-4" />
                     </a>
                   ) : (
