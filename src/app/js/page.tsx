@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {
   ShieldCheck, Terminal, TrendingUp, Radio, ExternalLink,
   FileCheck, Clock, Sliders, ShoppingCart, Menu, X,
-  MessageSquare, Sun, Moon, Eye, Server, ChevronUp, Zap, Phone
+  MessageSquare, Sun, Moon, Eye, Server, ChevronUp, Zap, Phone, Mail
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
