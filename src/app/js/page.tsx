@@ -41,7 +41,7 @@ function useScrollTop() {
 
 const TICKER_ITEMS = [
   '🚀 Orca6™ automated trading indicator package now live',
-  '📞 24/7 VIP Support Active: +91 98975 77 007',
+  '📞 24/7 VIP Support Active: contact@adityasec32.systems',
   '⚡ Sub-millisecond Windows Cloud VMs available 24/7',
   '🤖 Automated watchdogs pre-installed on all VMs',
   '💳 UPI, GPay & International Card payments accepted',
@@ -243,11 +243,11 @@ function AppContent() {
               </div>
             )}
             <a
-              href="tel:+919897577007"
+              href="mailto:contact@adityasec32.systems"
               className="hidden sm:flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase px-4 py-2.5 rounded-xl transition-all border border-blue-200 text-blue-600 bg-blue-50 hover:bg-blue-100 shadow-sm"
             >
-              <Phone size={14} className="animate-pulse" />
-              <span>+91 98975 77 007</span>
+              <Mail size={14} className="animate-pulse" />
+              <span>CONTACT SUPPORT</span>
             </a>
             <Link
               href="/portfolio"

@@ -86,7 +86,7 @@ const COMMANDS: Record<string, string[]> = {
     '  "education": "MBA (Cybersecurity) in progress · B.Tech CSE (Manipal)",',
     '  "mobility": "Delhi NCR, Bengaluru, Chennai, Hyderabad, Pune, Mumbai, Jaipur | International: UAE, Singapore, UK, Germany, EU, US",',
     '  "contact": {',
-    '    "phone": "+91 74005 88896",',
+    '    "contact": "adityasec32@gmail.com",',
     '    "email": "adityasec32@gmail.com / contact@adityasec32.systems",',
     '    "linkedin": "linkedin.com/in/ajainx1",',
     '    "github": "github.com/ajainx1"',
@@ -182,7 +182,7 @@ const COMMANDS: Record<string, string[]> = {
     "• Work Authorization : Indian citizen (Open to UAE, SG, UK, Germany, and EU roles with visa sponsorship; US requires sponsorship)",
     "• Languages          : English (Professional), Hindi (Native)",
     "• Availability       : 60 Days (Negotiable)",
-    "• Direct Contact     : +91 74005 88896 | adityasec32@gmail.com / contact@adityasec32.systems"
+    "• Direct Contact     : adityasec32@gmail.com / contact@adityasec32.systems"
   ]
 };
 
@@ -332,13 +332,13 @@ interface ProjectCard {
 const PROJECTS_DATA: ProjectCard[] = [
   {
     id: "uptime-kuma-10-133-22-8",
-    title: "Bihar State NOC Telemetry Host (10.133.22.8)",
+    title: "State NOC Telemetry Engine",
     category: "cni",
     categoryLabel: "CNI Infrastructure & Telemetry",
-    orbitTag: "ORBIT: HOST-10.133.22.8",
+    orbitTag: "ORBIT: CNI-NOC-GRID",
     impactHighlight: "Dedicated state surveillance host monitoring 38 district WAN links & SDC e-governance portals",
-    description: "Production monitoring engine deployed on 10.133.22.8 running high-concurrency Node.js / Uptime Kuma with an automated Python watchdog daemon. Enforces sub-second synthetic heartbeats, packet latency profiling, and zero external network leakage within the State Data Centre perimeter.",
-    tags: ["Host 10.133.22.8", "Uptime Kuma", "Python Daemon", "Node.js", "State NOC", "CERT-In Hardened", "Zero Egress"],
+    description: "Production monitoring engine deployed within sovereign NOC perimeter running high-concurrency Node.js / Uptime Kuma with an automated Python watchdog daemon. Enforces sub-second synthetic heartbeats, packet latency profiling, and zero external network leakage within the State Data Centre perimeter.",
+    tags: ["State NOC Perimeter", "Uptime Kuma", "Python Daemon", "Node.js", "State NOC", "CERT-In Hardened", "Zero Egress"],
     link: "/docs/Bihar_State_NOC_Uptime_Kuma_Executive_Dossier.pdf",
     linkText: "View Watermarked Dossier (PDF)",
     colorBorder: "border-sky-500/35 hover:border-sky-400",
@@ -346,8 +346,8 @@ const PROJECTS_DATA: ProjectCard[] = [
     colorBadge: "bg-sky-500/15 text-sky-300 border-sky-500/35",
     colorText: "group-hover:text-sky-300",
     modalDetails: {
-      challenge: "Mission-critical state portals (KhananSoft, EPDS, RTPS) and 38 district core WAN routers required 24/7 sub-second observability with zero tolerance for external cloud telemetry egress.",
-      architecture: "Deployed dedicated server 10.133.22.8 with high-concurrency Node.js kernel on port 3001, SQLite WAL persistence, and a 2-minute recurring Python failover watchdog (portal_monitor_daemon.py) scheduled locally.",
+      challenge: "Mission-critical state portals (Mission-Critical SDC Portals) and 38 district core WAN routers required 24/7 sub-second observability with zero tolerance for external cloud telemetry egress.",
+      architecture: "Deployed hardened on-premise NOC server running a high-concurrency Node.js telemetry kernel with SQLite WAL persistence and an automated Python watchdog failover daemon.",
       keyDeliverables: [
         "Continuous synthetic ping and HTTP heartbeat surveillance across 38 district core router nodes",
         "Air-gapped telemetry architecture ensuring 100% sovereign data confinement inside the State WAN",
@@ -768,7 +768,7 @@ export default function Home() {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
           <Shield className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
-          <span className="tracking-wide">CLASSIFIED CNI CASE STUDIES SANITIZED FOR RECRUITER &amp; PEER REVIEW &bull; ZERO LIVE STATE INFRASTRUCTURE EXPOSED &bull; HOST 10.133.22.8 BLUEPRINT INCLUDED</span>
+          <span className="tracking-wide">CLASSIFIED CNI CASE STUDIES SANITIZED FOR RECRUITER &amp; PEER REVIEW &bull; ZERO LIVE STATE INFRASTRUCTURE EXPOSED &bull; ARCHITECTURAL TELEMETRY BLUEPRINT INCLUDED</span>
         </div>
       </div>
 
@@ -1125,7 +1125,7 @@ export default function Home() {
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                     </span>
-                    <span>ACTIVE SURVEILLANCE MATRIX // HOST: 10.133.22.8</span>
+                    <span>ACTIVE SURVEILLANCE MATRIX // STATE NOC TELEMETRY</span>
                   </div>
                   <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-cyan-500/10 text-cyan-300 border border-cyan-500/25">
                     ● 38 DISTRICT HUBS ONLINE
@@ -1148,7 +1148,7 @@ export default function Home() {
                   <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-emerald-500/10 rounded-full blur-md" />
                 </div>
                 <div className="p-4 rounded-2xl bg-slate-900/90 border border-sky-500/30 text-center shadow-lg shadow-sky-950/40 relative overflow-hidden">
-                  <div className="text-2xl font-mono font-black text-sky-400">10.133.22.8</div>
+                  <div className="text-2xl font-mono font-black text-sky-400">AIR-GAPPED SDC</div>
                   <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mt-1">Surveillance Host</div>
                   <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-sky-500/10 rounded-full blur-md" />
                 </div>
@@ -1165,7 +1165,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* FLAGSHIP COMMAND SHOWCASE: HOST 10.133.22.8 */}
+            {/* FLAGSHIP COMMAND SHOWCASE: STATE NOC TELEMETRY */}
             <div className="p-6 sm:p-8 rounded-[24px] bg-gradient-to-r from-slate-950/90 via-slate-900/90 to-sky-950/40 border border-sky-500/40 shadow-2xl relative overflow-hidden">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
                 <div className="lg:col-span-7 space-y-4">
@@ -1174,7 +1174,7 @@ export default function Home() {
                       ★ FLAGSHIP ARCHITECTURAL DEPLOYMENT
                     </span>
                     <span className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-300 border border-emerald-500/25">
-                      HOST: 10.133.22.8:3001
+                      CNI-NOC-KERNEL // SECURE
                     </span>
                   </div>
 
@@ -1183,7 +1183,7 @@ export default function Home() {
                   </h3>
 
                   <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                    Surveillance node deployed on dedicated state host <strong>10.133.22.8</strong> running a high-concurrency Node.js kernel on port 3001. Continuously executes sub-second synthetic heartbeats across 38 district collectorate routers and mission-critical State Data Centre (SDC) e-governance backbones (<em>KhananSoft, EPDS, RTPS</em>). Features an autonomous 2-minute recurring Python failover watchdog (<code className="text-sky-300 bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800">portal_monitor_daemon.py</code>) and zero cloud data egress.
+                    Surveillance node deployed on dedicated state host <strong>INTERNAL-NOC-HOST</strong> running a high-concurrency Node.js kernel on port 3001. Continuously executes sub-second synthetic heartbeats across 38 district collectorate routers and mission-critical State Data Centre (SDC) e-governance backbones (<em>Mission-Critical SDC Portals</em>). Features an autonomous 2-minute recurring Python failover watchdog (<code className="text-sky-300 bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800">portal_monitor_daemon.py</code>) and zero cloud data egress.
                   </p>
 
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
@@ -1242,7 +1242,7 @@ export default function Home() {
                     <div className="h-48 sm:h-56 overflow-hidden relative">
                       <img 
                         src="/docs/Bihar_State_NOC_Uptime_Kuma_Executive_Dossier_preview.png"
-                        alt="Bihar State NOC 10.133.22.8 Technical Dossier Preview"
+                        alt="State NOC Telemetry Technical Dossier Preview"
                         className="w-full h-auto object-cover object-top filter contrast-105 group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
@@ -1252,7 +1252,7 @@ export default function Home() {
                     </div>
                     <div className="p-4 space-y-2 bg-slate-950/90 border-t border-slate-800">
                       <div className="flex items-center justify-between text-xs font-mono">
-                        <span className="text-sky-300 font-bold">Dossier ID: CNI-NOC-10.133.22.8</span>
+                        <span className="text-sky-300 font-bold">Dossier ID: CNI-NOC-TELEMETRY</span>
                         <span className="text-slate-400">Architect: Aditya Jain</span>
                       </div>
                       <div className="text-[11px] font-mono text-slate-400">
@@ -1942,7 +1942,7 @@ export default function Home() {
                 </span>
               </div>
               <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
-                Engineering resilient infrastructure, sovereign network telemetry (Host 10.133.22.8), purple team defenses, and shift-left automation for critical government and institutional environments.
+                Engineering resilient infrastructure, sovereign network telemetry (State Operations Grid), purple team defenses, and shift-left automation for critical government and institutional environments.
               </p>
               <div className="flex items-center gap-2 pt-1 font-mono text-[11px] text-emerald-400">
                 <span className="relative flex h-2 w-2">
@@ -1996,7 +1996,7 @@ export default function Home() {
               &copy; {new Date().getFullYear()} Aditya Jain &bull; All Rights Reserved.
             </div>
             <div className="flex items-center gap-4 flex-wrap">
-              <span>Host 10.133.22.8 Sovereign Blueprint</span>
+              <span>State NOC Sovereign Blueprint</span>
               <span>&bull;</span>
               <span>Next.js App Router Architecture</span>
               <span>&bull;</span>

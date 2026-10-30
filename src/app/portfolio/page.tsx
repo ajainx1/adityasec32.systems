@@ -535,10 +535,10 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
-                title: "Bihar State NOC Telemetry Engine (Host: 10.133.22.8)",
+                title: "State NOC Telemetry Engine",
                 status: "State Production (Sanitized)",
-                desc: "High-concurrency Uptime Kuma and automated Python watchdog engine on 10.133.22.8 surveilling 38 district router nodes and critical State Data Centre portals (KhananSoft, EPDS, RTPS) with zero cloud data egress.",
-                tags: ["Host 10.133.22.8", "Uptime Kuma", "Python", "Node.js", "CERT-In"],
+                desc: "High-concurrency Uptime Kuma and automated Python watchdog engine within sovereign perimeter surveilling 38 district router nodes and critical State Data Centre portals (State e-Governance Backbones) with zero cloud data egress.",
+                tags: ["State NOC Perimeter", "Uptime Kuma", "Python", "Node.js", "CERT-In"],
                 badge: "State NOC Infrastructure",
                 link: "/docs/Bihar_State_NOC_Uptime_Kuma_Executive_Dossier.pdf",
                 color: "bg-sky-50 text-sky-700 border-sky-200"
@@ -731,10 +731,6 @@ export default function Home() {
                   <a href="mailto:adityasec32@gmail.com" className="flex items-center gap-4 hover:text-blue-600 hover:bg-white transition-all p-4 bg-white/60 rounded-2xl border border-black/5 shadow-sm">
                     <Mail className="w-5 h-5 text-blue-600" />
                     <span>adityasec32@gmail.com</span>
-                  </a>
-                  <a href="tel:+917400588896" className="flex items-center gap-4 hover:text-blue-600 hover:bg-white transition-all p-4 bg-white/60 rounded-2xl border border-black/5 shadow-sm">
-                    <Phone className="w-5 h-5 text-blue-600" />
-                    <span>+91 740 058 8896</span>
                   </a>
                   <a href="https://linkedin.com/in/ajainx1" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 hover:text-blue-600 hover:bg-white transition-all p-4 bg-white/60 rounded-2xl border border-black/5 shadow-sm">
                     <svg className="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
