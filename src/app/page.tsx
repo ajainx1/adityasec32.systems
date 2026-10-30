@@ -58,7 +58,7 @@ const COMMANDS: Record<string, string[]> = {
     "  whoami      - Executive profile summary & verified impact (JSON)",
     "  skills      - 5 Core Competencies & technical toolchains",
     "  exp         - 4+ Years enterprise employment history & CNI SecOps",
-    "  projects    - Key CNI defense systems, DevSecOps pipelines & production tools",
+    "  projects    - Key CNI defense systems, DevSecOps pipelines & production systems",
     "  labs        - DevSecOps labs, offensive security & academic coursework",
     "  certs       - Active certifications (FCA, EC-Council) & targeted roadmap",
     "  education   - Academic degrees & MBA (Cybersecurity)",
@@ -414,7 +414,7 @@ const PROJECTS_DATA: ProjectCard[] = [
     category: "sandbox",
     categoryLabel: "Live Telemetry",
     orbitTag: "ORBIT: 293-NODES",
-    impactHighlight: "JavaScript/CSS Grid ping-monitoring tool for government routers with voice alerts",
+    impactHighlight: "JavaScript/CSS Grid ping-monitoring system for government routers with voice alerts",
     description: "Sub-second packet loss and ping outage tracking across 293 core routing units with Indian English Web Speech broadcast alarms, severity filtering, and device grid visualization.",
     tags: ["JavaScript", "Chart.js", "Web Speech API", "Glassmorphic"],
     link: "/alert/",
@@ -788,7 +788,7 @@ export default function Home() {
           {/* Navigation Links */}
           <nav className="hidden lg:flex items-center gap-6 text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
             <a href="#home" className="hover:text-emerald-400 transition-colors">Home</a>
-            <a href="#skills" className="hover:text-emerald-400 transition-colors">Skills &bull; Tools</a>
+            <a href="#skills" className="hover:text-emerald-400 transition-colors">Skills &bull; Systems</a>
             <a 
               href="#projects" 
               className="relative group px-3 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:text-white hover:bg-emerald-500/25 hover:border-emerald-400 transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.25)]"
@@ -834,7 +834,7 @@ export default function Home() {
         {mobileMenuOpen && (
           <div className="lg:hidden border-b border-slate-800 bg-slate-950/95 px-6 py-4 space-y-3 text-xs font-mono font-bold uppercase tracking-wider text-slate-300 backdrop-blur-xl">
             <a href="#home" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Home</a>
-            <a href="#skills" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Skills &bull; Tools</a>
+            <a href="#skills" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Skills &bull; Systems</a>
             <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Projects &bull; Orbit</a>
             <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Experience</a>
             <a href="#labs" onClick={() => setMobileMenuOpen(false)} className="block py-2 hover:text-emerald-400">Labs &bull; Coursework</a>
