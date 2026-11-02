@@ -644,6 +644,32 @@ export default function Home() {
   const [caseStudyModal, setCaseStudyModal] = useState<boolean>(false);
   const [selectedProjectModal, setSelectedProjectModal] = useState<ProjectCard | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [heroView, setHeroView] = useState<'avatar' | 'terminal'>('avatar');
+
+  useEffect(() => {
+    const saved = (typeof window !== 'undefined' ? localStorage.getItem('site-theme') : null) as 'dark' | 'light' | null;
+    if (saved) {
+      setTheme(saved);
+      document.documentElement.classList.toggle('light-theme', saved === 'light');
+      document.documentElement.classList.toggle('dark-theme', saved === 'dark');
+      document.documentElement.setAttribute('data-theme', saved);
+    } else {
+      document.documentElement.classList.add('dark-theme');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('site-theme', next);
+    }
+    document.documentElement.classList.toggle('light-theme', next === 'light');
+    document.documentElement.classList.toggle('dark-theme', next === 'dark');
+    document.documentElement.setAttribute('data-theme', next);
+  };
   const [contactMessage, setContactMessage] = useState<string>("");
   const [contactSent, setContactSent] = useState<boolean>(false);
   const [copiedEmail, setCopiedEmail] = useState<boolean>(false);
