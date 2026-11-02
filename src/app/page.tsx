@@ -34,6 +34,9 @@ import {
   Flame,
   ArrowUpRight,
   Phone,
+  Sun,
+  Moon,
+  Play,
   Server,
   Zap,
   Crosshair,
@@ -369,7 +372,7 @@ const PROJECTS_DATA: ProjectCard[] = [
     linkText: "View Pipeline Specs",
     colorBorder: "border-emerald-500/35 hover:border-emerald-400",
     colorGlow: "hover:shadow-emerald-500/25",
-    colorBadge: "bg-emerald-500/15 text-emerald-300 border-emerald-500/35",
+    colorBadge: "bg-[#FF4B32]/15 text-emerald-300 border-emerald-500/35",
     colorText: "group-hover:text-emerald-300",
     modalDetails: {
       challenge: "Eliminate vulnerable third-party libraries and misconfigured infrastructure before deploying to production environments.",
@@ -499,7 +502,7 @@ const PROJECTS_DATA: ProjectCard[] = [
     linkText: "View Case Study Blueprint",
     colorBorder: "border-emerald-500/35 hover:border-emerald-400",
     colorGlow: "hover:shadow-emerald-500/25",
-    colorBadge: "bg-emerald-500/15 text-emerald-300 border-emerald-500/35",
+    colorBadge: "bg-[#FF4B32]/15 text-emerald-300 border-emerald-500/35",
     colorText: "group-hover:text-emerald-300",
     modalDetails: {
       challenge: "Manual quarterly audits across 750+ government endpoints took 14 business days and left blind spots in USB port control and legacy protocols.",
@@ -750,7 +753,7 @@ export default function Home() {
   }, [projectFilter]);
 
   return (
-    <div className="min-h-screen relative flex flex-col font-sans bg-[#020617] text-[#E8EAE6] selection:bg-emerald-500/30 selection:text-emerald-300 bg-cyber-grid">
+    <div className="min-h-screen relative flex flex-col font-sans bg-[#020617] text-[#E8EAE6] selection:bg-[#FF4B32]/30 selection:text-emerald-300 bg-cyber-grid">
       
       {/* Dynamic Background Mesh Gradients */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
@@ -764,65 +767,85 @@ export default function Home() {
       <div className="w-full bg-slate-950/95 border-b border-emerald-500/25 py-2.5 px-4 text-center text-[11px] font-mono font-semibold text-emerald-300 backdrop-blur-2xl relative z-50 shadow-sm">
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-2.5 flex-wrap">
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF4B32] opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF4B32]"></span>
           </span>
           <Shield className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
           <span className="tracking-wide">CLASSIFIED CNI CASE STUDIES SANITIZED FOR RECRUITER &amp; PEER REVIEW &bull; ZERO LIVE STATE INFRASTRUCTURE EXPOSED &bull; ARCHITECTURAL TELEMETRY BLUEPRINT INCLUDED</span>
         </div>
       </div>
 
-      {/* Sticky Navigation Header */}
-      <header className="sticky top-0 z-40 w-full border-b border-emerald-500/15 bg-[#020617]/90 backdrop-blur-2xl shadow-lg shadow-black/40">
+      {/* Sticky Navigation Header with Editorial Tech Styling */}
+      <header className="sticky top-0 z-40 w-full border-b border-[#929DA7]/15 bg-[#0D0F12]/90 backdrop-blur-2xl shadow-lg shadow-black/30 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 font-title font-bold text-lg tracking-tight hover:opacity-95 transition-all">
-            <div className="w-8 h-8 rounded-xl overflow-hidden shadow-md shadow-emerald-500/25 border border-emerald-500/30 flex items-center justify-center bg-slate-950">
+            <div className="w-8 h-8 rounded-xl overflow-hidden shadow-md shadow-[#FF4B32]/20 border border-[#FF4B32]/35 flex items-center justify-center bg-[#17191C]">
               <img src="/favicon.svg" alt="AdityaSec Logo" className="w-full h-full object-cover" />
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="text-white text-base sm:text-lg font-black tracking-tight">Aditya<span className="text-emerald-400">Sec</span></span>
-              <span className="hidden sm:inline-block px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-emerald-500/10 text-emerald-300 border border-emerald-500/30">SYSTEMS</span>
+              <span className="text-white text-base sm:text-lg font-black tracking-tight">Aditya<span className="text-[#FF4B32]">Sec</span></span>
+              <span className="hidden sm:inline-block px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-[#FF4B32]/15 text-[#FF4B32] border border-[#FF4B32]/30">SYSTEMS</span>
             </div>
           </Link>
           
           {/* Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-6 text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
-            <a href="#home" className="hover:text-emerald-400 transition-colors">Home</a>
-            <a href="#skills" className="hover:text-emerald-400 transition-colors">Skills &bull; Systems</a>
+          <nav className="hidden lg:flex items-center gap-6 text-xs font-mono font-bold uppercase tracking-wider text-[#929DA7]">
+            <a href="#home" className="hover:text-white transition-colors">Home</a>
+            <a href="#skills" className="hover:text-white transition-colors">Skills &bull; Systems</a>
             <a 
               href="#projects" 
-              className="relative group px-3 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:text-white hover:bg-emerald-500/25 hover:border-emerald-400 transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.25)]"
+              className="relative group px-3.5 py-1.5 rounded-full bg-[#17191C] border border-[#FF4B32]/35 text-white hover:border-[#FF4B32] transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(255,75,50,0.2)]"
               title="Explore Planetary Defense Grid & Case Studies"
             >
-              <Globe className="w-3.5 h-3.5 text-emerald-400 group-hover:rotate-180 transition-transform duration-700" />
+              <Globe className="w-3.5 h-3.5 text-[#FF4B32] group-hover:rotate-180 transition-transform duration-700" />
               <span className="tracking-widest">Projects</span>
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF4B32] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF4B32]" />
               </span>
             </a>
-            <a href="#experience" className="hover:text-emerald-400 transition-colors">Experience</a>
-            <a href="#labs" className="hover:text-emerald-400 transition-colors">Labs &bull; Edu</a>
-            <a href="#writeups" className="hover:text-emerald-400 transition-colors">Write-Ups</a>
-            <a href="#contact" className="hover:text-emerald-400 transition-colors">Contact</a>
+            <a href="#experience" className="hover:text-white transition-colors">Experience</a>
+            <a href="#labs" className="hover:text-white transition-colors">Labs &bull; Edu</a>
+            <a href="#writeups" className="hover:text-white transition-colors">Write-Ups</a>
+            <a href="#contact" className="hover:text-white transition-colors">Contact</a>
             
             <Link
               href="/charity-quiz"
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 hover:text-white hover:bg-rose-500/25 transition-all text-xs font-mono font-bold"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF4B32]/10 border border-[#FF4B32]/25 text-[#FF4B32] hover:bg-[#FF4B32]/20 transition-all text-xs font-mono font-bold"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B32] animate-pulse" />
               <span>🐾 CyberKarma (Quiz)</span>
             </Link>
           </nav>
 
-          {/* Right Permanent Resume CTA */}
-          <div className="flex items-center gap-3">
+          {/* Right Header: Theme Toggle + Pill CTA */}
+          <div className="flex items-center gap-2.5">
+            {/* Theme Toggle Button (Light Titanium / Dark Midnight Charcoal) */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="p-2 rounded-full bg-[#17191C] border border-[#929DA7]/20 text-[#929DA7] hover:text-[#FF4B32] hover:border-[#FF4B32]/40 transition-all cursor-pointer shadow-sm"
+              title={theme === 'dark' ? "Switch to Light Titanium Theme" : "Switch to Midnight Charcoal Theme"}
+              aria-label="Toggle Theme"
+            >
+              {theme === 'dark' ? <Sun className="w-4 h-4 text-[#FF4B32]" /> : <Moon className="w-4 h-4 text-[#17191C]" />}
+            </button>
+
+            {/* Solid Pill Button (Get Started ->) */}
+            <a
+              href="#projects"
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono font-bold bg-[#FF4B32] hover:bg-[#ff634d] text-white shadow-lg shadow-[#FF4B32]/25 transition-all hover:scale-105"
+            >
+              <span>Explore Systems</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+
             <CyberResumeButton variant="nav" />
 
             {/* Mobile Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
+              className="lg:hidden p-2 rounded-xl bg-[#17191C] border border-[#929DA7]/20 text-white min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -849,61 +872,80 @@ export default function Home() {
       <main id="main-content" className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-24 sm:space-y-32 relative z-10">
         
         {/* TIER 1: HERO SECTION & RECRUITER MOBILITY */}
+        {/* TIER 1: EDITORIAL TECH HERO SECTION (COOL STEEL GREY • MIDNIGHT CHARCOAL • VIBRANT CORAL ORANGE) */}
         <section id="home" className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center min-h-[calc(100vh-14rem)]">
           <div className="lg:col-span-7 space-y-7">
             
-            {/* Top Purple Teamer Status Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-950/50 backdrop-blur-xl text-xs font-mono font-bold text-emerald-300 shadow-sm">
-              <Shield className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-              <span>VULNERABILITY MANAGEMENT &bull; DEVSECOPS &bull; CNI SECOPS LEAD</span>
+            {/* Top Security Status Micro-Badge */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#FF4B32]/35 bg-[#FF4B32]/10 backdrop-blur-xl text-xs font-mono font-bold text-[#FF4B32] shadow-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF4B32] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF4B32]"></span>
+              </span>
+              <span>CRITICAL NATIONAL INFRASTRUCTURE &bull; DEVSECOPS &amp; CNI SECOPS LEAD</span>
             </div>
 
-            {/* H1 & Master H2 Headline */}
-            <div className="space-y-3">
-              <h1 className="text-4xl sm:text-6xl font-black font-title tracking-tight text-white leading-tight">
-                Aditya Jain
+            {/* High-Impact 3-Line Display Headline (Matching Reference Visual) */}
+            <div className="space-y-4">
+              <span className="text-[11px] font-mono font-bold tracking-[0.28em] text-[#929DA7] uppercase block">
+                BRINGING AUTONOMY &amp; RESILIENCE TO SOVEREIGN NETWORKS
+              </span>
+              <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black font-title tracking-tight leading-[0.92] uppercase text-white [data-theme=light]:text-[#17191C]">
+                <span className="block">DEFEND</span>
+                <span className="block">BEYOND</span>
+                <span className="block text-[#FF4B32] drop-shadow-[0_0_35px_rgba(255,75,50,0.35)]">PERIMETERS</span>
               </h1>
               
-              <h2 className="text-xl sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 font-title leading-snug">
-                Cybersecurity Engineer | Vulnerability Management &amp; DevSecOps | VAPT &bull; SIEM/EDR &bull; Security Automation
+              <h2 className="text-lg sm:text-xl font-bold text-[#929DA7] font-title leading-snug">
+                Aditya Jain &mdash; Cybersecurity Engineer | Vulnerability Management &amp; DevSecOps | SIEM/EDR &bull; Security Automation
               </h2>
 
               {/* Verified Value Proposition */}
-              <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl pt-1">
-                Results-driven Cybersecurity Engineer with <strong>4+ years in Vulnerability Management, remediation orchestration, and security automation for government and Critical National Infrastructure (CNI)</strong>. Proven record in vulnerability discovery, validation (PoC), and de-duplication; risk-based prioritization (CVSS + threat intelligence + asset criticality); and automating <strong>120+ compliance baselines as policy-as-code across 750+ endpoints, cutting audit effort by 60%</strong>.
+              <p className="text-sm sm:text-base text-[#929DA7] leading-relaxed max-w-2xl pt-1">
+                Results-driven Cybersecurity Engineer with <strong>4+ years in Vulnerability Management, remediation orchestration, and security automation for Critical National Infrastructure (CNI)</strong>. Proven record in vulnerability discovery, validation (PoC), and de-duplication; risk-based prioritization (CVSS + threat intelligence + asset criticality); and automating <strong>120+ compliance baselines as policy-as-code across 750+ endpoints, cutting audit effort by 60%</strong>.
               </p>
             </div>
 
-            {/* CTA Hierarchy Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              {/* 1. Download Resume */}
-              <CyberResumeButton variant="hero" showChecksum={true} />
-
-              {/* 2. View Case Studies & Orbital Grid */}
+            {/* Dual Pill CTA Buttons (Styled after reference image) */}
+            <div className="flex flex-wrap items-center gap-3.5 pt-2">
+              {/* 1. Primary Solid Coral Pill */}
               <a 
                 href="#projects"
-                className="group relative px-6 py-3.5 rounded-xl text-xs font-mono font-bold bg-slate-900/90 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-950/60 hover:border-emerald-400 hover:text-white transition-all flex items-center gap-2.5 hover:-translate-y-0.5 min-h-[44px] shadow-xl shadow-emerald-950/40"
+                className="px-6 py-3.5 rounded-full text-xs font-mono font-bold bg-[#FF4B32] text-white hover:bg-[#ff634d] transition-all flex items-center gap-2 shadow-xl shadow-[#FF4B32]/30 hover:scale-105 active:scale-95 cursor-pointer min-h-[44px]"
               >
-                <Globe className="w-4 h-4 text-emerald-400 group-hover:rotate-45 transition-transform" />
-                <span>🛰️ View Key Projects</span>
-                <ArrowRight className="w-4 h-4 text-emerald-400 group-hover:translate-x-1 transition-transform" />
+                <span>Explore Systems</span>
+                <ArrowRight className="w-4 h-4" />
               </a>
 
-              {/* 3. Direct Quick Copy Email */}
+              {/* 2. Secondary Pill with Play / Case Studies Icon */}
+              <a 
+                href="#projects"
+                className="px-5 py-3.5 rounded-full text-xs font-mono font-bold bg-[#17191C] text-white border border-[#929DA7]/30 hover:border-[#FF4B32] hover:text-[#FF4B32] transition-all flex items-center gap-2.5 shadow-md hover:scale-105 active:scale-95 cursor-pointer min-h-[44px]"
+              >
+                <span className="w-6 h-6 rounded-full bg-[#FF4B32]/15 flex items-center justify-center text-[#FF4B32]">
+                  <Play className="w-3 h-3 fill-current ml-0.5" />
+                </span>
+                <span>View Case Studies</span>
+              </a>
+
+              {/* 3. Download Resume */}
+              <CyberResumeButton variant="hero" showChecksum={false} />
+
+              {/* 4. Direct Quick Copy Email */}
               <button
                 type="button"
                 onClick={copyEmailAddress}
-                className="px-5 py-3.5 rounded-xl text-xs font-mono font-bold bg-slate-900/60 border border-slate-800 text-slate-300 hover:text-emerald-300 hover:border-emerald-500/40 transition-all flex items-center gap-2 min-h-[44px] cursor-pointer"
+                className="px-5 py-3.5 rounded-full text-xs font-mono font-bold bg-[#17191C]/70 border border-[#929DA7]/20 text-[#929DA7] hover:text-[#FF4B32] hover:border-[#FF4B32]/40 transition-all flex items-center gap-2 min-h-[44px] cursor-pointer"
                 title="Click to copy contact email"
               >
                 {copiedEmail ? (
                   <>
-                    <Check className="w-4 h-4 text-emerald-400" />
-                    <span className="text-emerald-400">Copied Email!</span>
+                    <Check className="w-4 h-4 text-[#FF4B32]" />
+                    <span className="text-[#FF4B32]">Copied Email!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-4 h-4 text-slate-400" />
+                    <Copy className="w-4 h-4 text-[#929DA7]" />
                     <span>Copy Email</span>
                   </>
                 )}
@@ -911,38 +953,38 @@ export default function Home() {
             </div>
 
             {/* Recruiter Mobility & Fast Facts Strip */}
-            <div className="p-4 rounded-2xl bg-slate-900/80 border border-emerald-500/20 backdrop-blur-xl space-y-2.5 text-xs font-mono">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                <span className="text-[10px] uppercase font-bold tracking-widest text-emerald-400 flex items-center gap-1.5">
-                  <UserCheck className="w-3.5 h-3.5" />
+            <div className="p-4 rounded-2xl bg-[#17191C]/90 border border-[#929DA7]/20 backdrop-blur-xl space-y-2.5 text-xs font-mono">
+              <div className="flex items-center justify-between border-b border-[#929DA7]/15 pb-2">
+                <span className="text-[10px] uppercase font-bold tracking-widest text-[#FF4B32] flex items-center gap-1.5">
+                  <UserCheck className="w-3.5 h-3.5 text-[#FF4B32]" />
                   <span>Recruiter Fast-Facts &amp; Mobility</span>
                 </span>
-                <span className="text-[10px] text-slate-400 font-bold">Availability: 60 Days (Negotiable)</span>
+                <span className="text-[10px] text-[#929DA7] font-bold">Availability: 60 Days (Negotiable)</span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-300 text-[11px]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[#929DA7] text-[11px]">
                 <div className="flex items-start gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                  <span><strong>Posting:</strong> On-site NIC (MeitY), Patna | Employer HQ: Noida</span>
+                  <MapPin className="w-3.5 h-3.5 text-[#FF4B32] flex-shrink-0 mt-0.5" />
+                  <span className="text-white/90"><strong>Posting:</strong> On-site NIC (MeitY), Patna | Employer HQ: Noida</span>
                 </div>
                 <div className="flex items-start gap-1.5">
-                  <Globe className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                  <span><strong>Relocation:</strong> Delhi NCR, Blr, Hyd, Pune, Mum, Jaipur (Family Base)</span>
+                  <Globe className="w-3.5 h-3.5 text-[#FF4B32] flex-shrink-0 mt-0.5" />
+                  <span className="text-white/90"><strong>Relocation:</strong> Delhi NCR, Blr, Hyd, Pune, Mum, Jaipur</span>
                 </div>
                 <div className="flex items-start gap-1.5">
-                  <Plane className="w-3.5 h-3.5 text-indigo-400 flex-shrink-0 mt-0.5" />
-                  <span><strong>Global Markets:</strong> UAE, Singapore, UK, Germany (EU Blue Card), EU, US</span>
+                  <Plane className="w-3.5 h-3.5 text-[#FF4B32] flex-shrink-0 mt-0.5" />
+                  <span className="text-white/90"><strong>Global Markets:</strong> UAE, Singapore, UK, Germany (EU Blue Card), EU, US</span>
                 </div>
                 <div className="flex items-start gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                  <span><strong>Languages:</strong> English (Professional), Hindi (Native)</span>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#FF4B32] flex-shrink-0 mt-0.5" />
+                  <span className="text-white/90"><strong>Languages:</strong> English (Professional), Hindi (Native)</span>
                 </div>
               </div>
             </div>
 
-            {/* Proof-Metrics Strip */}
-            <div className="pt-2 border-t border-slate-800/80">
-              <div className="text-[11px] font-mono uppercase tracking-widest text-slate-400 font-bold mb-3 flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+            {/* Verified Operational Metrics Strip */}
+            <div className="pt-2 border-t border-[#929DA7]/15">
+              <div className="text-[11px] font-mono uppercase tracking-widest text-[#929DA7] font-bold mb-3 flex items-center gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#FF4B32]" />
                 <span>Verified Impact &amp; Operational Metrics</span>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
@@ -953,9 +995,9 @@ export default function Home() {
                   { label: "District Core Nodes", value: "38" },
                   { label: "FMS Teams Trained", value: "60+" }
                 ].map((stat, i) => (
-                  <div key={i} className="p-3.5 bg-slate-900/70 border border-emerald-500/15 rounded-2xl backdrop-blur-xl flex flex-col items-center justify-center text-center hover:border-emerald-500/40 transition-all shadow-md">
-                    <div className="text-xl sm:text-2xl font-black font-mono text-emerald-400">{stat.value}</div>
-                    <div className="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-1 leading-tight">{stat.label}</div>
+                  <div key={i} className="p-3.5 bg-[#17191C]/80 border border-[#929DA7]/15 rounded-2xl backdrop-blur-xl flex flex-col items-center justify-center text-center hover:border-[#FF4B32]/40 transition-all shadow-md">
+                    <div className="text-xl sm:text-2xl font-black font-mono text-[#FF4B32]">{stat.value}</div>
+                    <div className="text-[9px] font-bold text-[#929DA7] uppercase tracking-wider mt-1 leading-tight">{stat.label}</div>
                   </div>
                 ))}
               </div>
@@ -963,74 +1005,142 @@ export default function Home() {
 
           </div>
 
-          {/* Interactive Terminal Simulator on Right */}
-          <div className="lg:col-span-5">
-            <TiltWrapper tiltDeg={3}>
-              <div className="rounded-2xl border border-emerald-500/30 bg-slate-950/95 backdrop-blur-2xl shadow-2xl overflow-hidden font-mono text-xs shadow-emerald-950/40 scanline-effect">
-                
-                {/* Header bar */}
-                <div className="px-4 py-3 bg-slate-900/90 border-b border-emerald-500/20 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-rose-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                    <span className="text-[11px] text-slate-300 font-bold ml-2">aditya@secops: ~/resume</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={copyTerminalOutput}
-                      className="p-1 rounded bg-slate-800 text-slate-400 hover:text-emerald-300 hover:bg-slate-700 transition-colors"
-                      title="Copy Terminal Text"
-                    >
-                      {copiedTerminal ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    </button>
-                    <span className="text-[10px] text-emerald-400 font-bold px-1.5 py-0.5 rounded bg-emerald-950 border border-emerald-500/30">BASH 5.2</span>
-                  </div>
-                </div>
+          {/* Right Column: Cybernetic Artwork & Interactive Terminal Toggle */}
+          <div className="lg:col-span-5 space-y-4">
+            
+            {/* View Switcher Tabs (Avatar vs Terminal) */}
+            <div className="flex items-center justify-between p-1.5 rounded-full bg-[#17191C] border border-[#929DA7]/20 shadow-md">
+              <button
+                type="button"
+                onClick={() => setHeroView('avatar')}
+                className={`flex-1 py-1.5 px-3 rounded-full text-xs font-mono font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                  heroView === 'avatar' 
+                    ? 'bg-[#FF4B32] text-white shadow-md' 
+                    : 'text-[#929DA7] hover:text-white'
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Cybernetic Visual</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setHeroView('terminal')}
+                className={`flex-1 py-1.5 px-3 rounded-full text-xs font-mono font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                  heroView === 'terminal' 
+                    ? 'bg-[#FF4B32] text-white shadow-md' 
+                    : 'text-[#929DA7] hover:text-white'
+                }`}
+              >
+                <TermIcon className="w-3.5 h-3.5" />
+                <span>Bash 5.2 Terminal</span>
+              </button>
+            </div>
 
-                {/* Console Output Area */}
-                <div className="p-4 h-[310px] overflow-y-auto space-y-2 text-slate-300 scrollbar-thin">
-                  {terminalHistory.map((line, i) => (
-                    <div key={i} className={line.startsWith("aditya@") ? "text-emerald-400 font-bold" : "text-slate-300 whitespace-pre-wrap leading-relaxed"}>
-                      {line}
-                    </div>
-                  ))}
-                  <div ref={terminalEndRef} />
-                </div>
-
-                {/* Quick Command Shortcuts */}
-                <div className="p-2 border-t border-slate-900 bg-slate-900/60 flex flex-wrap gap-1.5">
-                  {["whoami", "skills", "exp", "projects", "labs", "certs", "recruiter", "clear"].map((cmd) => (
-                    <button
-                      key={cmd}
-                      type="button"
-                      onClick={() => runTerminalShortcut(cmd)}
-                      className="px-2.5 py-1 rounded bg-slate-800/90 text-[10px] text-emerald-400 hover:bg-emerald-500/20 hover:text-emerald-300 font-mono transition-colors border border-emerald-500/10 cursor-pointer active:scale-95"
-                    >
-                      ${cmd}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Terminal Input Form */}
-                <form onSubmit={handleCommandSubmit} className="p-3 bg-slate-900/90 border-t border-emerald-500/15 flex items-center gap-2">
-                  <span className="text-emerald-400 font-bold">aditya@secops:~$</span>
-                  <input
-                    type="text"
-                    value={terminalInput}
-                    onChange={(e) => setTerminalInput(e.target.value)}
-                    onKeyDown={handleKeyDownTerminal}
-                    placeholder="type 'skills', 'labs', 'whoami' or [Tab]..."
-                    className="flex-1 bg-transparent border-none outline-none text-emerald-300 placeholder:text-slate-600 text-xs font-mono"
+            {heroView === 'avatar' ? (
+              /* Cybernetic Visual Card (Inspired by Reference Video) */
+              <div className="relative group rounded-3xl overflow-hidden border border-[#FF4B32]/30 bg-[#17191C] shadow-2xl shadow-black/60">
+                <div className="relative aspect-[4/5] sm:aspect-square lg:aspect-[4/5] w-full overflow-hidden">
+                  <img
+                    src="/cyber_coral_hero.png"
+                    alt="Cybernetic CNI Defense Avatar"
+                    className="w-full h-full object-cover object-center filter contrast-105 group-hover:scale-105 transition-transform duration-700"
                   />
-                </form>
+                  {/* Atmospheric Coral Lighting Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D0F12] via-[#0D0F12]/20 to-transparent" />
+                  
+                  {/* Floating Telemetry Pill: Top Left */}
+                  <div className="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#17191C]/80 border border-[#FF4B32]/40 backdrop-blur-md text-[10px] font-mono font-bold text-white shadow-lg">
+                    <span className="w-2 h-2 rounded-full bg-[#FF4B32] animate-pulse" />
+                    <span>STATE NOC TELEMETRY // ACTIVE</span>
+                  </div>
+
+                  {/* Floating Telemetry Pill: Bottom Right */}
+                  <div className="absolute bottom-4 right-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#17191C]/90 border border-[#929DA7]/30 backdrop-blur-md text-[10px] font-mono font-bold text-[#929DA7] shadow-lg">
+                    <span>ZERO CLOUD EGRESS &bull; CERT-IN HARDENED</span>
+                  </div>
+                </div>
+
+                {/* Bottom Quick-Action Bar */}
+                <div className="p-4 bg-[#17191C] border-t border-[#929DA7]/20 flex items-center justify-between text-xs font-mono">
+                  <span className="text-[#929DA7]">System: Autonomous CNI Shield</span>
+                  <button
+                    onClick={() => setHeroView('terminal')}
+                    className="text-[#FF4B32] hover:underline font-bold flex items-center gap-1 cursor-pointer"
+                  >
+                    <span>Launch Terminal</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </button>
+                </div>
               </div>
-            </TiltWrapper>
+            ) : (
+              /* Interactive Bash Terminal Simulator */
+              <TiltWrapper tiltDeg={3}>
+                <div className="rounded-2xl border border-[#FF4B32]/35 bg-[#17191C] backdrop-blur-2xl shadow-2xl overflow-hidden font-mono text-xs shadow-black/60 scanline-effect">
+                  
+                  {/* Header bar */}
+                  <div className="px-4 py-3 bg-[#0D0F12] border-b border-[#929DA7]/20 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-rose-500/80" />
+                      <div className="w-3 h-3 rounded-full bg-amber-500/80" />
+                      <div className="w-3 h-3 rounded-full bg-[#FF4B32]/80" />
+                      <span className="text-[11px] text-[#929DA7] font-bold ml-2">aditya@secops: ~/resume</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={copyTerminalOutput}
+                        className="p-1 rounded bg-[#17191C] text-[#929DA7] hover:text-[#FF4B32] transition-colors"
+                        title="Copy Terminal Text"
+                      >
+                        {copiedTerminal ? <Check className="w-3.5 h-3.5 text-[#FF4B32]" /> : <Copy className="w-3.5 h-3.5" />}
+                      </button>
+                      <span className="text-[10px] text-[#FF4B32] font-bold px-1.5 py-0.5 rounded bg-[#FF4B32]/10 border border-[#FF4B32]/30">BASH 5.2</span>
+                    </div>
+                  </div>
+
+                  {/* Console Output Area */}
+                  <div className="p-4 h-[310px] overflow-y-auto space-y-2 text-[#929DA7] scrollbar-thin">
+                    {terminalHistory.map((line, i) => (
+                      <div key={i} className={line.startsWith("aditya@") ? "text-[#FF4B32] font-bold" : "text-slate-300 whitespace-pre-wrap leading-relaxed"}>
+                        {line}
+                      </div>
+                    ))}
+                    <div ref={terminalEndRef} />
+                  </div>
+
+                  {/* Quick Command Shortcuts */}
+                  <div className="p-2 border-t border-[#929DA7]/15 bg-[#0D0F12]/80 flex flex-wrap gap-1.5">
+                    {["whoami", "skills", "exp", "projects", "labs", "certs", "recruiter", "clear"].map((cmd) => (
+                      <button
+                        key={cmd}
+                        type="button"
+                        onClick={() => runTerminalShortcut(cmd)}
+                        className="px-2.5 py-1 rounded bg-[#17191C] text-[10px] text-[#FF4B32] hover:bg-[#FF4B32]/20 hover:text-white font-mono transition-colors border border-[#FF4B32]/20 cursor-pointer active:scale-95"
+                      >
+                        ${cmd}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Terminal Input Form */}
+                  <form onSubmit={handleCommandSubmit} className="p-3 bg-[#0D0F12] border-t border-[#929DA7]/20 flex items-center gap-2">
+                    <span className="text-[#FF4B32] font-bold">aditya@secops:~$</span>
+                    <input
+                      type="text"
+                      value={terminalInput}
+                      onChange={(e) => setTerminalInput(e.target.value)}
+                      onKeyDown={handleKeyDownTerminal}
+                      placeholder="type 'skills', 'labs', 'whoami' or [Tab]..."
+                      className="flex-1 bg-transparent border-none outline-none text-[#FF4B32] placeholder:text-[#929DA7]/50 text-xs font-mono"
+                    />
+                  </form>
+                </div>
+              </TiltWrapper>
+            )}
+
           </div>
         </section>
 
-        {/* SECTION: CORE COMPETENCIES & TECHNICAL SKILLS (5 PILLARS INTERACTIVE MATRIX) */}
-        <section id="skills" className="space-y-8 pt-6">
+                <section id="skills" className="space-y-8 pt-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1">
               <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
@@ -1058,7 +1168,7 @@ export default function Home() {
                   onClick={() => setActiveSkillPillar(pillar.id)}
                   className={`px-4 py-2.5 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-2 cursor-pointer ${
                     isActive 
-                      ? "bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/30 scale-102"
+                      ? "bg-[#FF4B32] text-slate-950 shadow-lg shadow-emerald-500/30 scale-102"
                       : "bg-slate-900/80 border border-slate-800 text-slate-400 hover:text-white hover:border-emerald-500/40"
                   }`}
                 >
@@ -1080,7 +1190,7 @@ export default function Home() {
             >
               <div className="flex items-center justify-between border-b border-slate-800 pb-4">
                 <div className="flex items-center gap-3">
-                  <div className="p-3 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                  <div className="p-3 rounded-2xl bg-[#FF4B32]/10 text-emerald-400 border border-emerald-500/20">
                     <active.icon className="w-6 h-6" />
                   </div>
                   <div>
@@ -1112,22 +1222,22 @@ export default function Home() {
         <section id="projects" className="space-y-12 pt-8">
           
           {/* Top Command Center Header */}
-          <div className="p-7 sm:p-10 rounded-[32px] bg-gradient-to-br from-slate-950 via-slate-900/95 to-slate-950 border border-emerald-500/30 backdrop-blur-2xl shadow-2xl relative overflow-hidden space-y-8">
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="p-7 sm:p-10 rounded-[32px] bg-[#17191C] border border-[#FF4B32]/30 backdrop-blur-2xl shadow-2xl relative overflow-hidden space-y-8">
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#FF4B32]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#FF4B32]/5 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute inset-0 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-10">
               <div className="space-y-3 max-w-3xl">
                 <div className="flex flex-wrap items-center gap-2.5">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-xs font-mono font-bold text-emerald-300">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FF4B32]/15 border border-[#FF4B32]/35 text-xs font-mono font-bold text-[#FF4B32]">
                     <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF4B32] opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF4B32]"></span>
                     </span>
                     <span>ACTIVE SURVEILLANCE MATRIX // STATE NOC TELEMETRY</span>
                   </div>
-                  <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-cyan-500/10 text-cyan-300 border border-cyan-500/25">
+                  <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-[#17191C] text-[#929DA7] border border-[#929DA7]/30">
                     ● 38 DISTRICT HUBS ONLINE
                   </span>
                 </div>
@@ -1142,23 +1252,23 @@ export default function Home() {
 
               {/* 4 Macroscopic Telemetry Pillars */}
               <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-3 min-w-[280px]">
-                <div className="p-4 rounded-2xl bg-slate-900/90 border border-emerald-500/30 text-center shadow-lg shadow-emerald-950/40 relative overflow-hidden">
-                  <div className="text-2xl font-mono font-black text-emerald-400">38 / 38</div>
+                <div className="p-4 rounded-2xl bg-[#0D0F12] border border-[#FF4B32]/25 text-center shadow-lg shadow-emerald-950/40 relative overflow-hidden">
+                  <div className="text-2xl font-mono font-black text-[#FF4B32]">38 / 38</div>
                   <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mt-1">District Hubs (100% SLA)</div>
-                  <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-emerald-500/10 rounded-full blur-md" />
+                  <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-[#FF4B32]/10 rounded-full blur-md" />
                 </div>
-                <div className="p-4 rounded-2xl bg-slate-900/90 border border-sky-500/30 text-center shadow-lg shadow-sky-950/40 relative overflow-hidden">
-                  <div className="text-2xl font-mono font-black text-sky-400">AIR-GAPPED SDC</div>
+                <div className="p-4 rounded-2xl bg-[#0D0F12] border border-[#929DA7]/25 text-center shadow-lg shadow-sky-950/40 relative overflow-hidden">
+                  <div className="text-2xl font-mono font-black text-[#929DA7]">AIR-GAPPED SDC</div>
                   <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mt-1">Surveillance Host</div>
                   <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-sky-500/10 rounded-full blur-md" />
                 </div>
-                <div className="p-4 rounded-2xl bg-slate-900/90 border border-cyan-500/30 text-center shadow-lg shadow-cyan-950/40 relative overflow-hidden">
-                  <div className="text-2xl font-mono font-black text-cyan-400">&lt; 1.2ms</div>
+                <div className="p-4 rounded-2xl bg-[#0D0F12] border border-[#FF4B32]/25 text-center shadow-lg shadow-cyan-950/40 relative overflow-hidden">
+                  <div className="text-2xl font-mono font-black text-[#FF4B32]">&lt; 1.2ms</div>
                   <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mt-1">Kernel Ping Loop</div>
                   <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-cyan-500/10 rounded-full blur-md" />
                 </div>
-                <div className="p-4 rounded-2xl bg-slate-900/90 border border-indigo-500/30 text-center shadow-lg shadow-indigo-950/40 relative overflow-hidden">
-                  <div className="text-2xl font-mono font-black text-indigo-400">0% Egress</div>
+                <div className="p-4 rounded-2xl bg-[#0D0F12] border border-[#929DA7]/25 text-center shadow-lg shadow-indigo-950/40 relative overflow-hidden">
+                  <div className="text-2xl font-mono font-black text-white">0% Egress</div>
                   <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mt-1">Air-Gapped Telemetry</div>
                   <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-indigo-500/10 rounded-full blur-md" />
                 </div>
@@ -1166,14 +1276,14 @@ export default function Home() {
             </div>
 
             {/* FLAGSHIP COMMAND SHOWCASE: STATE NOC TELEMETRY */}
-            <div className="p-6 sm:p-8 rounded-[24px] bg-gradient-to-r from-slate-950/90 via-slate-900/90 to-sky-950/40 border border-sky-500/40 shadow-2xl relative overflow-hidden">
+            <div className="p-6 sm:p-8 rounded-[24px] bg-[#0D0F12] border border-[#FF4B32]/40 shadow-2xl relative overflow-hidden">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
                 <div className="lg:col-span-7 space-y-4">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="px-3 py-1 rounded-md text-[11px] font-mono font-bold bg-sky-500/15 text-sky-300 border border-sky-500/30">
+                    <span className="px-3 py-1 rounded-md text-[11px] font-mono font-bold bg-[#FF4B32]/15 text-[#FF4B32] border border-[#FF4B32]/35">
                       ★ FLAGSHIP ARCHITECTURAL DEPLOYMENT
                     </span>
-                    <span className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-300 border border-emerald-500/25">
+                    <span className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold bg-[#FF4B32]/10 text-emerald-300 border border-emerald-500/25">
                       CNI-NOC-KERNEL // SECURE
                     </span>
                   </div>
@@ -1436,7 +1546,7 @@ export default function Home() {
             ].map((exp, idx) => (
               <div key={idx} className="p-6 sm:p-8 rounded-[24px] bg-slate-900/50 border border-slate-800 hover:border-emerald-500/30 transition-all backdrop-blur-xl space-y-4">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-full text-xs font-bold font-mono border border-emerald-500/20">{exp.period}</span>
+                  <span className="px-3 py-1 bg-[#FF4B32]/10 text-emerald-400 rounded-full text-xs font-bold font-mono border border-emerald-500/20">{exp.period}</span>
                   <span className="text-xs font-mono text-slate-400 flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5 text-emerald-400" /> {exp.location}</span>
                 </div>
 
@@ -1479,7 +1589,7 @@ export default function Home() {
             {/* Box 1: Offensive Labs */}
             <div className="p-6 sm:p-8 rounded-[24px] bg-slate-900/60 border border-emerald-500/20 backdrop-blur-xl space-y-4">
               <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
-                <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <div className="p-2.5 rounded-xl bg-[#FF4B32]/10 text-emerald-400 border border-emerald-500/20">
                   <Crosshair className="w-5 h-5" />
                 </div>
                 <div>
@@ -1583,7 +1693,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="p-6 rounded-[24px] bg-slate-900/60 border border-emerald-500/20 backdrop-blur-xl flex flex-col justify-between space-y-4 hover:border-emerald-500/40 transition-all">
               <div className="space-y-2">
-                <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-full text-xs font-bold font-mono border border-emerald-500/20">Expected Jul 2027</span>
+                <span className="px-3 py-1 bg-[#FF4B32]/10 text-emerald-400 rounded-full text-xs font-bold font-mono border border-emerald-500/20">Expected Jul 2027</span>
                 <h3 className="text-lg font-bold font-title text-white">MBA in Cybersecurity</h3>
                 <div className="text-xs text-slate-400 font-semibold">Chitkara University &bull; Punjab, India</div>
                 <p className="text-xs text-slate-300 leading-relaxed pt-1">
@@ -1654,7 +1764,7 @@ export default function Home() {
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
-                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-bold border border-emerald-500/20">{art.category}</span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#FF4B32]/10 text-emerald-400 font-bold border border-emerald-500/20">{art.category}</span>
                     <span>{art.readTime}</span>
                   </div>
 
@@ -1727,7 +1837,7 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
-                    <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-emerald-400 group-hover:text-emerald-300 bg-emerald-500/10 group-hover:bg-emerald-500/20 px-3 py-1.5 rounded-xl border border-emerald-500/30 transition-all">
+                    <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-emerald-400 group-hover:text-emerald-300 bg-[#FF4B32]/10 group-hover:bg-[#FF4B32]/20 px-3 py-1.5 rounded-xl border border-emerald-500/30 transition-all">
                       <span>Play &amp; Feed Animals</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </div>
@@ -1824,7 +1934,7 @@ export default function Home() {
         <section id="contact" className="space-y-8 pt-6">
           <div className="p-8 sm:p-12 rounded-3xl border border-emerald-500/25 bg-gradient-to-r from-emerald-950/40 via-slate-900/80 to-cyan-950/40 backdrop-blur-2xl space-y-8 shadow-2xl">
             <div className="space-y-2 text-center max-w-2xl mx-auto">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold bg-[#FF4B32]/10 border border-emerald-500/20 text-emerald-400">
                 <Mail className="w-3.5 h-3.5" />
                 <span>DIRECT_CONTACT // OPEN_TO_OPPORTUNITIES</span>
               </div>
@@ -1884,7 +1994,7 @@ export default function Home() {
                 />
                 <button
                   type="submit"
-                  className="px-5 py-3 rounded-xl bg-emerald-500 text-slate-950 font-mono font-bold text-xs hover:bg-emerald-400 transition-all flex items-center gap-1.5 min-h-[44px] cursor-pointer"
+                  className="px-5 py-3 rounded-xl bg-[#FF4B32] text-slate-950 font-mono font-bold text-xs hover:bg-emerald-400 transition-all flex items-center gap-1.5 min-h-[44px] cursor-pointer"
                 >
                   <span>Send</span>
                   <Send className="w-3.5 h-3.5" />
@@ -2024,7 +2134,7 @@ export default function Home() {
               {/* Header */}
               <div className="flex items-start justify-between gap-4 border-b border-slate-800 pb-4">
                 <div className="space-y-1">
-                  <span className="px-3 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                  <span className="px-3 py-0.5 rounded-full text-xs font-mono font-bold bg-[#FF4B32]/10 text-emerald-400 border border-emerald-500/20">
                     {selectedWriteUp.category}
                   </span>
                   <h3 className="text-2xl font-bold font-title text-white mt-2">
@@ -2060,7 +2170,7 @@ export default function Home() {
                     onClick={() => setActiveWriteUpTab(tab.id as any)}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
                       activeWriteUpTab === tab.id
-                        ? "bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/30"
+                        ? "bg-[#FF4B32] text-slate-950 shadow-md shadow-emerald-500/30"
                         : "bg-slate-950 border border-slate-800 text-slate-400 hover:text-white"
                     }`}
                   >
@@ -2090,7 +2200,7 @@ export default function Home() {
                     <ul className="space-y-3 pl-2">
                       {selectedWriteUp.content.methodology.map((m, i) => (
                         <li key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-950/80 border border-slate-800/80">
-                          <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5">
+                          <span className="w-5 h-5 rounded-full bg-[#FF4B32]/20 text-emerald-400 flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5">
                             {i + 1}
                           </span>
                           <span className="text-xs sm:text-sm text-slate-200">{m}</span>
@@ -2168,7 +2278,7 @@ export default function Home() {
             >
               <div className="flex items-start justify-between gap-4 border-b border-slate-800 pb-4">
                 <div>
-                  <span className="px-3 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                  <span className="px-3 py-0.5 rounded-full text-xs font-mono font-bold bg-[#FF4B32]/10 text-emerald-400 border border-emerald-500/20">
                     Architecture Blueprint (Sanitized)
                   </span>
                   <h3 className="text-xl font-bold font-title text-white mt-2">
@@ -2234,7 +2344,7 @@ export default function Home() {
               <div className="flex items-start justify-between gap-4 border-b border-slate-800 pb-4">
                 <div>
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="px-3 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <span className="px-3 py-0.5 rounded-full text-xs font-mono font-bold bg-[#FF4B32]/10 text-emerald-400 border border-emerald-500/20">
                       Sanitized Technical Dossier
                     </span>
                     <span className="text-xs font-mono text-slate-400">
