@@ -451,32 +451,101 @@ function RotatingHero({ lang, isDark }: { lang: Language; isDark: boolean }) {
   const current = locations[locIndex] || locations[0];
 
   return (
-    <section className="text-center max-w-2xl mx-auto space-y-3 py-2">
-      <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight font-title leading-snug">
-        <span>{getTranslation('heroTagline', lang)}</span>{" "}
-        <span className="inline-flex items-center gap-2">
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={locIndex + lang}
-              initial={{ y: 16, opacity: 0, filter: 'blur(4px)' }}
-              animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-              exit={{ y: -16, opacity: 0, filter: 'blur(4px)' }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className={`inline-flex items-center gap-1.5 bg-clip-text text-transparent ${
-                isDark 
-                  ? 'bg-gradient-to-r from-emerald-400 via-cyan-400 to-teal-400' 
-                  : 'bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600'
-              }`}
+    <section className="relative rounded-[32px] overflow-hidden border border-[#E5E4E2]/25 bg-[#362217]/90 backdrop-blur-2xl p-6 sm:p-10 shadow-2xl space-y-6">
+      {/* Ambient Volumetric Glow */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#E6E0F0]/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#6F4E37]/30 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+        
+        {/* Left Editorial Typography */}
+        <div className="lg:col-span-7 space-y-5 text-left">
+          
+          {/* Micro-Caps Tracked Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#E5E4E2]/30 bg-[#251710]/80 text-[11px] font-mono font-bold text-[#E5E4E2] shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-[#E6E0F0] animate-pulse" />
+            <span className="tracking-[0.2em] uppercase">PLAY TRIVIA &bull; HEAL &bull; FEED STRAY ANIMALS</span>
+          </div>
+
+          {/* High-Fashion Editorial Stacked Headline */}
+          <div className="space-y-1">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-black tracking-tight leading-[0.95] uppercase text-white">
+              <span className="block">PLAY</span>
+              <span className="block">RESTORE</span>
+              <span className="block italic text-[#E6E0F0] drop-shadow-[0_0_35px_rgba(230,224,240,0.35)]">KARMA</span>
+            </h1>
+          </div>
+
+          {/* Active Field Delivery Node Pill */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-[#2E1C13] border border-[#E5E4E2]/20 text-xs font-mono text-[#E5E4E2]">
+            <span className="text-[#E6E0F0] font-bold">Patna Rescue Patrol:</span>
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={locIndex + lang}
+                initial={{ y: 10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -10, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="inline-flex items-center gap-1.5 text-[#E6E0F0] font-bold"
+              >
+                <span>{current.emoji}</span>
+                <span>{current.text}</span>
+              </motion.span>
+            </AnimatePresence>
+          </div>
+
+          {/* Value Proposition Description */}
+          <p className="text-sm sm:text-base leading-relaxed text-[#E5E4E2]/90 max-w-xl font-normal">
+            {getTranslation('heroSubtext', lang)}
+          </p>
+
+          {/* High-Fashion Dual Pill Action Buttons */}
+          <div className="flex flex-wrap items-center gap-3.5 pt-2">
+            <a
+              href="#quiz-card"
+              className="px-6 py-3.5 rounded-full text-xs font-mono font-bold bg-[#E6E0F0] text-[#362217] hover:bg-white transition-all flex items-center gap-2 shadow-xl shadow-[#E6E0F0]/20 hover:scale-105 active:scale-95 cursor-pointer"
             >
-              <span className="text-lg sm:text-2xl not-italic" style={{ WebkitTextFillColor: 'initial' }}>{current.emoji}</span>
-              {current.text}
-            </motion.span>
-          </AnimatePresence>
-        </span>
-      </h1>
-      <p className={`text-sm leading-relaxed max-w-lg mx-auto ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-        {getTranslation('heroSubtext', lang)}
-      </p>
+              <span>Start Trivia Round</span>
+              <ArrowRight size={14} />
+            </a>
+
+            <Link
+              href="/impact"
+              className="px-5 py-3.5 rounded-full text-xs font-mono font-bold bg-[#251710] text-[#E5E4E2] border border-[#E5E4E2]/35 hover:border-[#E6E0F0] hover:text-[#E6E0F0] transition-all flex items-center gap-2 shadow-md hover:scale-105 active:scale-95 cursor-pointer"
+            >
+              <span>Field Proof Ledger (110+)</span>
+              <ExternalLink size={13} />
+            </Link>
+          </div>
+
+        </div>
+
+        {/* Right Liquid Chrome 3D Artwork */}
+        <div className="lg:col-span-5">
+          <div className="relative group rounded-3xl overflow-hidden border border-[#E5E4E2]/30 bg-[#251710] shadow-2xl">
+            <div className="aspect-[4/3] sm:aspect-[16/11] w-full overflow-hidden relative">
+              <img
+                src="/cyberkarma_mocha_hero.png"
+                alt="CyberKarma Liquid Chrome Sculpture & Rescue Dog"
+                className="w-full h-full object-cover object-center filter contrast-105 group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#251710] via-transparent to-transparent opacity-80" />
+
+              {/* Floating Telemetry Badge */}
+              <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#251710]/85 border border-[#E5E4E2]/30 backdrop-blur-md text-[10px] font-mono font-bold text-[#E6E0F0] shadow-lg">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E6E0F0] animate-pulse" />
+                <span>10 GRAINS PER ANSWER</span>
+              </div>
+
+              {/* Floating Bottom Badge */}
+              <div className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#251710]/85 border border-[#E5E4E2]/30 backdrop-blur-md text-[10px] font-mono font-bold text-[#E5E4E2] shadow-lg">
+                <span>100% PHILANTHROPIC &bull; FREE TO PLAY</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </section>
   );
 }
@@ -1223,7 +1292,7 @@ Do NOT include markdown formatting or backticks.`;
   if (!mounted) return null;
 
   return (
-    <div className={`min-h-screen transition-colors duration-200 relative overflow-hidden ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
+    <div className={`min-h-screen transition-colors duration-200 relative overflow-hidden ${isDark ? 'bg-[#2E1C13] text-[#E5E4E2]' : 'bg-[#F5F3EF] text-[#362217]'}`}>
       
       {/* ── High-Definition Interactive 3D Art Background ── */}
       <ThreeDArtBackground isDark={isDark} />
@@ -1233,7 +1302,7 @@ Do NOT include markdown formatting or backticks.`;
       
       {/* Sleek Minimalist Top Navigation */}
       <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3.5 border-b backdrop-blur-xl transition-colors ${
-        isDark ? 'bg-slate-950/80 border-slate-800/80 text-white' : 'bg-white/80 border-slate-200 text-slate-900'
+        isDark ? 'bg-[#251710]/95 border-[#E5E4E2]/20 text-[#E5E4E2]' : 'bg-[#EAE8E4]/95 border-[#6F4E37]/20 text-[#362217]'
       }`}>
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
           
@@ -1255,14 +1324,14 @@ Do NOT include markdown formatting or backticks.`;
           {/* Center Stats Ribbon */}
           <div className="hidden sm:flex items-center gap-3 text-xs font-mono">
             <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border ${
-              isDark ? 'bg-slate-900 border-slate-800 text-emerald-400' : 'bg-slate-100 border-slate-200 text-emerald-700 font-semibold'
+              isDark ? 'bg-[#3B2519] border-[#E5E4E2]/25 text-[#E6E0F0]' : 'bg-white border-[#6F4E37]/30 text-[#6F4E37] font-bold'
             }`}>
               <span>🌾</span>
               <span><strong>{score.toLocaleString()}</strong> {getTranslation('grains', lang)}</span>
             </div>
 
             <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border ${
-              isDark ? 'bg-slate-900 border-slate-800 text-slate-300' : 'bg-slate-100 border-slate-200 text-slate-700 font-semibold'
+              isDark ? 'bg-[#3B2519] border-[#E5E4E2]/25 text-[#E5E4E2]' : 'bg-white border-[#6F4E37]/30 text-[#362217] font-bold'
             }`}>
               <span>🥣</span>
               <span><strong>{mealsFunded}</strong> {getTranslation('meals', lang)}</span>
@@ -1399,12 +1468,12 @@ Do NOT include markdown formatting or backticks.`;
           animate={{ opacity: 1, y: 0 }}
           className={`p-4 sm:p-5 rounded-3xl border transition-all relative overflow-hidden shadow-lg ${
             isDark
-              ? 'bg-gradient-to-br from-purple-950/60 via-slate-900/90 to-indigo-950/50 border-purple-500/40 shadow-[0_0_35px_rgba(168,85,247,0.18)]'
+              ? 'bg-gradient-to-br from-[#4A2E1F]/90 via-[#362217]/95 to-[#2E1C13]/90 border-[#E6E0F0]/30 shadow-[0_0_35px_rgba(230,224,240,0.12)]'
               : 'bg-gradient-to-br from-purple-50 via-white to-indigo-50/60 border-purple-200 shadow-md'
           }`}
         >
           {/* Subtle Ambient Glow */}
-          <div className="absolute -top-10 -right-10 w-64 h-64 bg-purple-500/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -top-10 -right-10 w-64 h-64 bg-[#E6E0F0]/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 relative z-10">
             {/* Title & Tag Info */}
@@ -1414,11 +1483,11 @@ Do NOT include markdown formatting or backticks.`;
               </div>
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-[10px] font-mono font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/40 shadow-sm flex items-center gap-1">
+                  <span className="text-[10px] font-mono font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-[#E6E0F0]/20 text-[#E6E0F0] border border-[#E6E0F0]/40 shadow-sm flex items-center gap-1">
                     <span>✨</span>
                     <span>AI STUDIO</span>
                   </span>
-                  <span className="text-[11px] font-mono text-purple-400 font-bold">
+                  <span className="text-[11px] font-mono text-[#E6E0F0] font-bold">
                     {lang === 'hi' ? 'अपना विषय खुद चुनें (Choose Your Own Topic)' : 'Choose Your Own Topic'}
                   </span>
                 </div>
@@ -1456,7 +1525,7 @@ Do NOT include markdown formatting or backticks.`;
                 type="button"
                 onClick={() => handleLaunchAIQuiz(aiTopic)}
                 disabled={isGeneratingAI}
-                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-black font-title tracking-wide transition-all shadow-md shadow-purple-600/30 flex items-center gap-1.5 shrink-0 cursor-pointer active:scale-95 disabled:opacity-50"
+                className="px-4 py-2.5 rounded-xl bg-[#E6E0F0] text-[#362217] hover:bg-white text-xs font-black font-title tracking-wide transition-all shadow-md shadow-[#E6E0F0]/25 flex items-center gap-1.5 shrink-0 cursor-pointer active:scale-95 disabled:opacity-50"
               >
                 {isGeneratingAI ? (
                   <>
@@ -1984,12 +2053,12 @@ Do NOT include markdown formatting or backticks.`;
                       const isWrong = isAnswered && isSelected && idx !== currentQuestion.answer;
 
                       let buttonStyle = isDark 
-                        ? 'bg-slate-950/70 border-slate-800/80 text-slate-200 hover:border-slate-700 hover:bg-slate-950'
-                        : 'bg-slate-50 border-slate-200 text-slate-800 hover:border-slate-300 hover:bg-slate-100';
+                        ? 'bg-[#3D2518]/90 border-[#E5E4E2]/25 text-[#E5E4E2] hover:border-[#E6E0F0]/50 hover:bg-[#4E3120] hover:text-white'
+                        : 'bg-white border-[#6F4E37]/25 text-[#362217] hover:border-[#6F4E37] hover:bg-[#F5F3EF]';
 
                       if (isAnswered) {
                         if (isCorrect) {
-                          buttonStyle = 'bg-emerald-500/20 border-emerald-400 text-emerald-300 font-semibold shadow-[0_0_20px_rgba(16,185,129,0.35)]';
+                          buttonStyle = 'bg-[#E6E0F0] border-[#E6E0F0] text-[#2E1C13] font-bold shadow-[0_0_25px_rgba(230,224,240,0.5)]';
                         } else if (isWrong) {
                           buttonStyle = 'bg-rose-500/15 border-rose-500/80 text-rose-300 line-through opacity-80';
                         } else {
@@ -2010,7 +2079,7 @@ Do NOT include markdown formatting or backticks.`;
                         >
                           <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-mono font-bold shrink-0 border ${
                             isCorrect 
-                              ? 'bg-emerald-500 text-slate-950 border-emerald-400 shadow-sm' 
+                              ? 'bg-[#2E1C13] text-[#E6E0F0] border-[#2E1C13] shadow-sm' 
                               : isWrong 
                                 ? 'bg-rose-500 text-white border-rose-400'
                                 : isDark ? 'bg-slate-900 border-slate-800 text-slate-400' : 'bg-white border-slate-300 text-slate-600'
