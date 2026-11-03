@@ -98,21 +98,22 @@ const COMMANDS: Record<string, string[]> = {
   ],
   skills: [
     "aditya@secops:~$ list-competencies --all",
-    "1. VULNERABILITY MANAGEMENT:",
-    "   • Infra & App Scanning (Nmap, Burp Suite Pro, Wazuh), CVE/CVSS/CWE, OWASP Top 10",
-    "   • De-dup & Contextual Tuning, Risk-Based Prioritization, Remediation Orchestration & SLA Tracking",
-    "2. DEVSECOPS & CI/CD SECURITY:",
-    "   • Shift-Left/Right Controls, SAST/DAST/SCA (Semgrep, OWASP ZAP, Trivy, Snyk)",
-    "   • GitHub Actions & Jenkins Workflows, Policy-as-Code Guardrails, IaC Checks (Checkov), Docker & Kubernetes Fundamentals",
-    "3. INTEGRATIONS & AUTOMATION:",
-    "   • CMDB/Asset Alignment (KACE UEM, 750+ nodes), Ticketing/Workflow Integration (NIC-CERT/SDC)",
-    "   • REST API Integrations, SOAR-Style Script Remediation, Python, Bash, PowerShell, Git",
-    "4. INFRASTRUCTURE & CLOUD SECURITY:",
-    "   • Palo Alto, Check Point, Fortinet (FCA Certified), Default-Deny, ZTNA, Network Segmentation",
-    "   • AWS/Azure Fundamentals, Linux (RHEL/Ubuntu), Secure-by-Design Patterns for Dev & Infra Teams",
-    "5. SIEM, EDR & DETECTION TUNING:",
-    "   • Wazuh, Splunk, SentinelOne, Trend Micro, Microsoft Sentinel, MITRE ATT&CK, DFIR",
-    "   • False-Positive Reduction via Contextual Analysis (+35% True-Positive Detection)"
+    "1. VULNERABILITY REMEDIATION & MANAGEMENT:",
+    "   • Vulnerability Remediation, PoC validation, CVE/CVSS/CWE, OWASP Top 10, SLA tracking with NIC-CERT/SDC (750+ nodes)",
+    "   • Infra & App Scanning (Nmap, Burp Suite Pro, Wazuh, Nessus), 120+ Policy-as-Code Checks via KACE UEM (-60% audit cycle)",
+    "2. NEXTGEN FIREWALLS & TCP/IP ARCHITECTURE:",
+    "   • NextGen Firewalls: Palo Alto (App-ID, Panorama), Check Point, Fortinet FortiGate (FCA Certified), Default-Deny, ZTNA",
+    "   • TCP/IP Protocol Analysis, Deep Packet Inspection (DPI), Wireshark stream triage, state WAN 38-district route flap mitigation",
+    "3. SIEM, IDS/IPS & THREAT HUNTING (MH / GTH):",
+    "   • SIEM: Wazuh, Splunk, Microsoft Sentinel, Blu Sapphire (+35% true-positive boost, -30% alert fatigue)",
+    "   • IDS/IPS: Custom Snort, Suricata, Zeek signature crafting, automated AbuseIPDB threat feed blocking",
+    "   • Threat Hunting: MH (Malware Handling & Sandbox Triage) & GTH (Guided Threat Hunting / MITRE ATT&CK)",
+    "4. OS ADMINISTRATION & ACTIVE DIRECTORY:",
+    "   • OS - Windows Server 2019/2022 & Linux (RHEL/Debian/Ubuntu) kernel hardening, systemd daemons, secure SSH",
+    "   • Active Directory (AD DS, Group Policy Objects, Kerberos, DCSync & Kerberoasting defense, BloodHound auditing)",
+    "5. PENETRATION TESTING & DEVSECOPS:",
+    "   • Penetration Testing (VAPT): Web & network exploitation, Red/Purple team ops, HTB & VulnLab multi-forest AD labs",
+    "   • DevSecOps: SAST (Semgrep), DAST (OWASP ZAP), SCA (Trivy), IaC (Checkov), GitHub Actions CI/CD automation"
   ],
   exp: [
     "aditya@secops:~$ get-history",
@@ -543,66 +544,78 @@ const PROJECTS_DATA: ProjectCard[] = [
   }
 ];
 
-// 5 Pillars of Core Competencies from Official Resume
+// Core Competencies & Defense Toolchains Matrix
 const SKILLS_PILLARS = [
   {
     id: "vuln_mgmt",
-    title: "Vulnerability Management",
+    title: "Vulnerability Remediation",
     icon: Shield,
     badge: "CVE/CVSS & SLA Tracking",
     skills: [
-      { name: "Infra & App Scanning", details: "Nmap, Burp Suite Pro, Wazuh, vulnerability validation (PoC)" },
-      { name: "Frameworks & Standards", details: "CVE, CVSS v3/v4, CWE, OWASP Top 10" },
-      { name: "De-dup & Contextual Tuning", details: "Asset criticality mapping, threat intel correlation" },
-      { name: "Remediation Orchestration", details: "Ticketing workflows (NIC-CERT / SDC), SLA tracking across 750+ nodes" }
+      { name: "Vulnerability Remediation", details: "PoC exploit validation, risk-based prioritization (CVE/CVSS), SLA tracking across 750+ nodes with NIC-CERT/SDC" },
+      { name: "Infra & App Scanning", details: "Nmap, Burp Suite Pro, Wazuh, Nessus, OWASP Top 10 web & API vulnerability assessments" },
+      { name: "Policy-as-Code Hardening", details: "120+ CDAC/CERT-In baseline security checks automated via KACE UEM (-60% audit cycle effort)" },
+      { name: "De-dup & Contextual Tuning", details: "Asset criticality mapping, threat intel correlation, eliminating false-positive noise" }
     ]
   },
   {
-    id: "devsecops",
-    title: "DevSecOps & CI/CD Security",
-    icon: Cpu,
-    badge: "Shift-Left & Policy-as-Code",
-    skills: [
-      { name: "Shift-Left/Right Controls", details: "Pre-production staging validation, runtime policy guardrails" },
-      { name: "SAST / DAST / SCA", details: "Semgrep, OWASP ZAP, Trivy, Snyk automated scanners" },
-      { name: "CI/CD Pipeline Security", details: "GitHub Actions & Jenkins security workflows" },
-      { name: "IaC & Container Security", details: "Checkov IaC scanning, Docker & Kubernetes security fundamentals" }
-    ]
-  },
-  {
-    id: "integrations",
-    title: "Integrations & Automation",
-    icon: Zap,
-    badge: "KACE UEM & API Orchestration",
-    skills: [
-      { name: "CMDB & Asset Alignment", details: "KACE UEM orchestration across 750+ government endpoints" },
-      { name: "Ticketing Integration", details: "NIC-CERT / SDC workflow automation, FMS ticketing across 38 districts" },
-      { name: "Script Remediation", details: "Python, Bash, PowerShell SOAR-style automated remediation" },
-      { name: "Version Control", details: "Git-versioned automation and configuration artifacts with peer review" }
-    ]
-  },
-  {
-    id: "infra_cloud",
-    title: "Infrastructure & Cloud Security",
+    id: "network_firewalls",
+    title: "NextGen Firewalls & TCP/IP",
     icon: Lock,
-    badge: "NGFW, ZTNA & Segmentation",
+    badge: "NGFW, ZTNA & Deep Packet Inspection",
     skills: [
-      { name: "Next-Gen Firewalls", details: "Palo Alto (App-ID, Panorama), Check Point, Fortinet (FCA Certified)" },
-      { name: "Zero Trust Architecture", details: "Default-Deny policies, ZTNA, microsegmentation, SDC Linux rack hardening" },
-      { name: "Cloud Fundamentals", details: "AWS & Azure Security Fundamentals" },
-      { name: "Linux Administration", details: "RHEL & Ubuntu server administration, secure-by-design patterns" }
+      { name: "NextGen Firewalls (NGFW)", details: "Palo Alto (App-ID, Panorama), Check Point, Fortinet FortiGate (FCA Certified), default-deny rule architectures" },
+      { name: "TCP/IP Protocol Architecture", details: "TCP/IP stack, Deep Packet Inspection (DPI), Wireshark packet capture & stream reassembly, route flap mitigation" },
+      { name: "Perimeter Defense & ZTNA", details: "Zero Trust Network Access, microsegmentation, state WAN defense across 38 district nodes, air-gapped SDC perimeter" },
+      { name: "Secure Gateway Routing", details: "IPsec/SSL VPN tunnels, AAA (TACACS+/RADIUS), ACLs, secure gateway diagnostics" }
     ]
   },
   {
-    id: "siem_edr",
-    title: "SIEM, EDR & Detection Tuning",
-    icon: Crosshair,
-    badge: "SOC & Detection Engineering",
+    id: "siem_ids",
+    title: "SIEM & IDS/IPS",
+    icon: Radio,
+    badge: "Detection Engineering & Traffic Defense",
     skills: [
-      { name: "Enterprise EDR Stacks", details: "SentinelOne, Trend Micro Deep Security, Microsoft Sentinel" },
-      { name: "SIEM & Telemetry", details: "Wazuh, Splunk, Blu Sapphire SIEM, Snort IDS" },
-      { name: "Detection Engineering", details: "Tuned correlation rules cutting false-positive fatigue by 30%" },
-      { name: "24x7 CNI SOC Operations", details: "Threat hunting SME for DAE Nuclear Fuel Complex (+35% true-positive rate)" }
+      { name: "SIEM Architecture", details: "Wazuh SIEM, Splunk, Microsoft Sentinel, Blu Sapphire, correlation rule tuning (-30% alert fatigue)" },
+      { name: "IDS / IPS Systems", details: "Custom Snort, Suricata, and Zeek signature development, protocol anomaly detection, automated AbuseIPDB feed ingestion" },
+      { name: "Enterprise EDR Stacks", details: "SentinelOne, Trend Micro Deep Security, behavioral detection policies, automated endpoint isolation" },
+      { name: "SOC Telemetry & Heartbeats", details: "Low-latency heartbeat monitors, synthetic WAN probes, sovereign telemetry with zero external egress" }
+    ]
+  },
+  {
+    id: "threat_hunting",
+    title: "Threat Hunting (MH & GTH)",
+    icon: Crosshair,
+    badge: "Malware Triage & CNI Defense",
+    skills: [
+      { name: "MH (Malware Handling)", details: "Dynamic malware triage, isolated sandbox execution, reverse-engineering TTPs, indicator of compromise (IOC) extraction" },
+      { name: "GTH (Guided Threat Hunting)", details: "Hypothesis-driven threat hunting mapped to MITRE ATT&CK framework, proactive dwell-time reduction" },
+      { name: "24x7 CNI SOC Defense", details: "Threat hunting SME for DAE Nuclear Fuel Complex (+35% true-positive detection rate)" },
+      { name: "DFIR & Forensics", details: "RAM dump analysis, forensic artifact triage, timeline reconstruction, incident containment" }
+    ]
+  },
+  {
+    id: "systems_ad",
+    title: "OS - Windows/Linux & AD",
+    icon: Server,
+    badge: "OS Hardening & Domain Defense",
+    skills: [
+      { name: "OS - Windows Server", details: "Windows Server 2019/2022 administration, registry hardening, PowerShell automation, USB lockout controls" },
+      { name: "OS - Linux (RHEL / Ubuntu)", details: "Enterprise Linux administration, kernel hardening, systemd daemons, secure SSH, air-gapped repository mirrors" },
+      { name: "Active Directory (AD DS)", details: "Domain Controllers, Group Policy Objects (GPO), Kerberos authentication, ACL delegation & tiering" },
+      { name: "AD Hardening & Defense", details: "Mitigation against Kerberoasting, DCSync, Pass-the-Hash, credential dumping; BloodHound auditing" }
+    ]
+  },
+  {
+    id: "pentest_devsecops",
+    title: "Penetration Testing & DevSecOps",
+    icon: Cpu,
+    badge: "VAPT & Shift-Left CI/CD",
+    skills: [
+      { name: "Penetration Testing (VAPT)", details: "Web application & network penetration testing, exploit validation, Hack The Box & VulnLab multi-forest AD labs" },
+      { name: "Offensive Toolchains", details: "Burp Suite Pro, Metasploit, BloodHound, Impacket, Mimikatz, Nmap, OWASP ZAP" },
+      { name: "Shift-Left CI/CD Gates", details: "GitHub Actions security workflows, SAST (Semgrep), SCA (Trivy, Snyk), IaC (Checkov)" },
+      { name: "Security Automation", details: "Python, Bash, PowerShell daemons, REST API integrations, automated audit reporting" }
     ]
   }
 ];
@@ -676,7 +689,7 @@ export default function Home() {
   const [copiedTerminal, setCopiedTerminal] = useState<boolean>(false);
   const [copiedPgp, setCopiedPgp] = useState<boolean>(false);
   const [projectFilter, setProjectFilter] = useState<"all" | "cni" | "offensive" | "sandbox" | "social">("all");
-  const [activeSkillPillar, setActiveSkillPillar] = useState<string>("network");
+  const [activeSkillPillar, setActiveSkillPillar] = useState<string>("vuln_mgmt");
 
   const terminalEndRef = useRef<HTMLDivElement>(null);
 
@@ -923,8 +936,30 @@ export default function Home() {
               </h1>
               
               <h2 className="text-lg sm:text-xl font-bold text-[#929DA7] font-title leading-snug">
-                Aditya Jain &mdash; Cybersecurity Engineer | Vulnerability Management &amp; DevSecOps | SIEM/EDR &bull; Security Automation
+                Aditya Jain &mdash; Cybersecurity Engineer | Vulnerability Remediation &amp; SIEM/IDS | NextGen Firewalls &bull; Threat Hunting &bull; Pen Testing
               </h2>
+
+              {/* Core Competencies Badges */}
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                {[
+                  "MH",
+                  "SIEM",
+                  "IDS/IPS",
+                  "NextGen Firewalls",
+                  "Vulnerability Remediation",
+                  "OS - Windows/Linux/AD",
+                  "GTH",
+                  "Penetration Testing",
+                  "TCP/IP"
+                ].map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold bg-[#17191C] border border-[#FF4B32]/35 text-slate-200 shadow-sm hover:border-[#FF4B32] transition-colors"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
 
               {/* Verified Value Proposition */}
               <p className="text-sm sm:text-base text-[#929DA7] leading-relaxed max-w-2xl pt-1">

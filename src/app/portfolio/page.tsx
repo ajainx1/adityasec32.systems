@@ -51,11 +51,12 @@ const COMMANDS = {
   ],
   skills: [
     "aditya@secops:~$ list-skills --verbose",
-    "• Vulnerability Management: Nmap, Burp Suite Pro, Wazuh, CVE/CVSS, OWASP Top 10, Remediation Orchestration & SLA Tracking",
-    "• DevSecOps & CI/CD: Semgrep (SAST), OWASP ZAP (DAST), Trivy (SCA/Container), Checkov (IaC), GitHub Actions, Docker & K8s",
-    "• Automation & Integrations: KACE UEM (750+ endpoints), NIC-CERT/SDC workflow integration, Python, Bash, PowerShell, Git",
-    "• Infrastructure & Cloud: Palo Alto, Check Point, Fortinet (FCA Certified), Default-Deny, ZTNA, AWS/Azure Fundamentals, Linux RHEL",
-    "• SIEM, EDR & Tuning: Wazuh, Splunk, SentinelOne, Trend Micro, Microsoft Sentinel, MITRE ATT&CK (+35% true-positive boost, -30% alert fatigue)"
+    "• Vulnerability Remediation: CVE/CVSS/CWE, OWASP Top 10, PoC validation, SLA orchestration (NIC-CERT/SDC across 750+ nodes)",
+    "• NextGen Firewalls & TCP/IP: Palo Alto (App-ID, Panorama), Check Point, Fortinet (FCA Certified), TCP/IP packet triage (Wireshark), ZTNA",
+    "• SIEM & IDS/IPS: Wazuh, Splunk, Microsoft Sentinel, Blu Sapphire, custom Snort/Suricata/Zeek signatures (-30% alert fatigue)",
+    "• Threat Hunting (MH & GTH): Malware Handling (MH), Guided Threat Hunting (GTH), MITRE ATT&CK, 24x7 CNI nuclear SOC (+35% true-positives)",
+    "• OS - Windows / Linux / AD: Windows Server, Linux (RHEL/Debian/Ubuntu), Active Directory (AD DS, GPO, Kerberos, DCSync defense)",
+    "• Penetration Testing: Web & network VAPT, Red/Purple teaming, Active Directory compromise (BloodHound, Impacket, Mimikatz)"
   ],
   exp: [
     "aditya@secops:~$ get-history",
@@ -391,28 +392,28 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
-                title: "SIEM / EDR",
-                desc: "Wazuh SIEM, Blu Sapphire, SentinelOne EDR, Trend Micro Deep Security, Kaspersky EDR, Splunk (familiar), Microsoft Sentinel."
+                title: "SIEM & IDS/IPS",
+                desc: "Wazuh SIEM, Splunk, Microsoft Sentinel, Blu Sapphire, SentinelOne EDR, Trend Micro Deep Security. Tuned correlation rules cutting alert fatigue by 30% and authored custom Snort, Suricata & Zeek IDS/IPS signatures."
               },
               {
-                title: "Offensive Security",
-                desc: "Active Directory Exploitation (Kerberoasting, Pass-the-Hash, DCSync, Kerberos Delegation), Burp Suite Pro, BloodHound, Metasploit, Nmap, Impacket, Mimikatz."
+                title: "NextGen Firewalls & TCP/IP",
+                desc: "Palo Alto (App-ID, Panorama), Check Point NGFW, Fortinet FortiGate (FCA Certified), default-deny ZTNA, TCP/IP protocol suite analysis, Deep Packet Inspection (DPI), Wireshark packet capture & stream triage."
               },
               {
-                title: "Network Security & VPNs",
-                desc: "Check Point NGFW, Fortinet FortiGate, Sophos, Cisco AnyConnect, AAA (TACACS+/RADIUS), OSPF Routing, Wireshark packet capture & triage."
+                title: "Vulnerability Remediation",
+                desc: "End-to-end vulnerability triage, CVE/CVSS v3/v4 risk scoring, PoC exploit validation, SLA remediation orchestration with NIC-CERT/SDC, 120+ policy-as-code compliance checks via KACE UEM across 750+ nodes."
               },
               {
-                title: "Scripting & AI Automation",
-                desc: "Python, PowerShell, Bash, Git. Developing customized automated compliance scripting, network log parsers, and AI telemetry helpers."
+                title: "MH & GTH (Threat Hunting)",
+                desc: "MH (Malware Handling & dynamic sandbox triage), GTH (Guided Threat Hunting), reverse-engineering adversary TTPs, MITRE ATT&CK framework mapping, 24x7 CNI SOC operations (+35% true-positive rate)."
               },
               {
-                title: "Compliance & Incident Response",
-                desc: "NIST CSF, OWASP Top 10 remediation, CERT-In compliance guidelines, RAM dump forensics, threat intelligence feed integration, Snort signature engineering."
+                title: "OS - Windows / Linux / AD",
+                desc: "Enterprise Windows Server 2019/2022 & Linux (RHEL, Debian, Ubuntu) server administration and hardening. Active Directory Domain Services (AD DS), Group Policy Objects (GPO), Kerberos, DCSync & Kerberoasting defense."
               },
               {
-                title: "Endpoint & Infrastructure",
-                desc: "KACE UEM (750+ nodes), USB policy enforcement, unified security baselines, Linux server hardening, DHCP/PXE deployment, automated patching."
+                title: "Penetration Testing & VAPT",
+                desc: "Red/Purple team operations, network and web application penetration testing, Active Directory exploitation (BloodHound, Impacket, Mimikatz, Metasploit, Burp Suite Pro), VulnLab & HTB multi-forest lab validation."
               }
             ].map((skill, idx) => (
               <TiltWrapper key={idx} className="p-8 rounded-[24px] border border-white/60 bg-white/40 backdrop-blur-xl shadow-sm flex flex-col justify-between hover:shadow-lg hover:bg-white/60 hover:-translate-y-1 transition-all duration-300">
